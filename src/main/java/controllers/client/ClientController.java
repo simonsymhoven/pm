@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class ClientController implements Initializable {
     @FXML
-    public ComboBox comboBox;
+    public ComboBox<String> comboBox;
     @FXML
     public Label label;
     @FXML
@@ -59,7 +59,7 @@ public class ClientController implements Initializable {
 
         getClients();
 
-        comboBox.valueProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+        comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             clientModel.setClient(entityClient.get(newValue));
             name.setText(clientModel.getClient().name);
             symbol.setText(clientModel.getClient().symbol);

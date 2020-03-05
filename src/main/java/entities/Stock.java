@@ -3,10 +3,7 @@ package entities;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -15,8 +12,9 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class Aktie implements Serializable {
+public class Stock implements Serializable {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     public int id;
 
@@ -26,23 +24,8 @@ public class Aktie implements Serializable {
     @Column(name = "symbol")
     public String symbol;
 
-    @Column(name = "isin")
-    public String isin;
-
-    @Column(name = "gr")
-    public String gr;
-
-    @Column(name = "sector")
-    public String sector;
-
-    @Column(name = "market")
-    public String market;
-
-    @Column(name = "buyPrice")
-    public BigDecimal buyPrice;
-
-    @Column(name = "quant")
-    public int quant;
+    @Column(name = "exchange")
+    public String exchange;
 
     @Column(name = "price")
     public BigDecimal price;
@@ -56,5 +39,14 @@ public class Aktie implements Serializable {
     @Override
     public String toString(){
         return this.name;
+    }
+
+    public Stock(String name, String symbol, String exchange, BigDecimal price, BigDecimal change, String currency) {
+        this.name = name;
+        this.symbol = symbol;
+        this.exchange = exchange;
+        this.price = price;
+        this.change = change;
+        this.currency = currency;
     }
 }

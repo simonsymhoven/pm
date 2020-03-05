@@ -1,6 +1,7 @@
 package controllers.portfolio;
 
-import entities.Aktie;
+import entities.Client;
+import entities.Stock;
 import javafx.scene.input.DataFormat;
 import lombok.Data;
 
@@ -8,7 +9,16 @@ import java.util.List;
 
 @Data
 class PortfolioModel {
-    private List<Aktie> aktienList;
-    private Aktie aktie;
-    final DataFormat AKTIE_LIST = new DataFormat("AktieList");
+    private List<Stock> aktienList;
+    private List<Client> clients;
+    private Client client;
+    private Stock stock;
+    private DataFormat dataFormat;
+
+    public DataFormat getFormat(){
+        if (DataFormat.lookupMimeType("AktieList") == null)
+            this.dataFormat = new DataFormat("AktieList");
+
+        return this.dataFormat;
+    }
 }

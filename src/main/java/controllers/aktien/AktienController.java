@@ -1,17 +1,15 @@
 package controllers.aktien;
 
 import YahooAPI.YahooStockAPI;
-import entities.Aktie;
+import entities.Stock;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -40,15 +38,7 @@ public class AktienController implements Initializable {
     @FXML
     public TextField symbol;
     @FXML
-    public TextField gr;
-    @FXML
-    public TextField sector;
-    @FXML
-    public TextField market;
-    @FXML
-    public TextField buyPrice;
-    @FXML
-    public TextField quant;
+    public TextField exchange;
     @FXML
     public TextField price;
     @FXML
@@ -80,27 +70,22 @@ public class AktienController implements Initializable {
         getAktien();
 
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            aktienModel.setStock(yahooStockAPI.getStock(newValue));
-            aktienModel.setAktie(aktienModel.getAktien().get(newValue));
+            aktienModel.setHistory(yahooStockAPI.getHistory(newValue));
+            aktienModel.setStock(aktienModel.getAktien().get(newValue));
 
             Plot task = new Plot(aktienModel);
 
             task.setOnRunning(successesEvent -> {
                 progressIndicator.setVisible(true);
-                currency.setText(aktienModel.getAktie().getCurrency());
-                label.setText(aktienModel.getAktie().getName());
-                name.setText(aktienModel.getAktie().getName());
-                symbol.setText(aktienModel.getAktie().getSymbol());
-                gr.setText(aktienModel.getAktie().getGr());
-                sector.setText(aktienModel.getAktie().getSector());
-                market.setText(aktienModel.getAktie().getMarket());
-                buyPrice.setText(NumberFormat.getCurrencyInstance()
-                        .format(aktienModel.getAktie().getBuyPrice()));
-                quant.setText(String.valueOf(aktienModel.getAktie().getQuant()));
+                currency.setText(aktienModel.getStock().getCurrency());
+                label.setText(aktienModel.getStock().getName());
+                name.setText(aktienModel.getStock().getName());
+                symbol.setText(aktienModel.getStock().getSymbol());
+                exchange.setText(aktienModel.getStock().getExchange());
                 price.setText(NumberFormat.getCurrencyInstance()
-                        .format(aktienModel.getAktie().getPrice()));
+                        .format(aktienModel.getStock().getPrice()));
                 change.setText(NumberFormat.getCurrencyInstance()
-                        .format(aktienModel.getAktie().getChange()));
+                        .format(aktienModel.getStock().getChange()));
             });
 
             task.setOnSucceeded(succeededEvent -> {
@@ -128,13 +113,14 @@ public class AktienController implements Initializable {
 
     }
 
-    private void getAktien() {
-        List<Aktie> aktien = entityAktien.getAll();
-        Map<String, Aktie> map  = new HashMap<>();
+    public void getAktien() {
+        List<Stock> aktien = entityAktien.getAll();
+        Map<String, Stock> map  = new HashMap<>();
         aktien.forEach(e -> map.put(e.getSymbol(), e));
         aktienModel.setAktien(map);
-        for (Aktie aktie : aktienModel.getAktien().values()) {
-            comboBox.getItems().add(aktie.getSymbol());
+        comboBox.getItems().clear();
+        for (Stock stock : aktienModel.getAktien().values()) {
+            comboBox.getItems().add(stock.getSymbol());
         }
     }
 
@@ -151,6 +137,7 @@ public class AktienController implements Initializable {
             dialog.setY(event.getScreenY() - y);
         });
         dialog.setScene(new Scene(root));
+        dialog.setUserData(this);
         dialog.initOwner(addAktie.getScene().getWindow());
         dialog.initStyle(StageStyle.UNDECORATED);
         dialog.initModality(Modality.APPLICATION_MODAL);

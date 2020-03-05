@@ -50,31 +50,23 @@
             </Label>
             <ComboBox fx:id="comboBox" layoutX="401.0" layoutY="118.0" prefHeight="27.0" prefWidth="149.0" promptText="Aktie auswählen" stylesheets="@../fullpackstyling.css" />
             <TextField fx:id="name" editable="false" layoutX="89.0" layoutY="222.0" promptText="Name" stylesheets="@../fullpackstyling.css" />
-            <TextField fx:id="buyPrice" editable="false" layoutX="89.0" layoutY="296.0" prefHeight="27.0" prefWidth="110.0" promptText="Kaufpreis" stylesheets="@../fullpackstyling.css" />
-            <TextField fx:id="change" editable="false" layoutX="466.0" layoutY="296.0" prefHeight="27.0" prefWidth="110.0" promptText="Veränderung" stylesheets="@../fullpackstyling.css" />
+            <TextField fx:id="change" editable="false" layoutX="692.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Veränderung" stylesheets="@../fullpackstyling.css" />
             <Label layoutX="89.0" layoutY="195.0" text="Name" />
-            <Label layoutX="93.0" layoutY="266.0" text="Kaufpreis" />
-            <Label layoutX="466.0" layoutY="269.0" text="Veränderung" />
-            <Label layoutX="593.0" layoutY="269.0" text="Währung" />
+            <Label layoutX="692.0" layoutY="195.0" text="Veränderung" />
+            <Label layoutX="819.0" layoutY="195.0" text="Währung" />
             <Separator layoutX="36.0" layoutY="82.0" prefHeight="1.0" prefWidth="914.0" />
             <Label fx:id="label" layoutX="114.0" layoutY="123.0" text="Übersicht">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="currency" editable="false" layoutX="593.0" layoutY="296.0" prefHeight="27.0" prefWidth="110.0" promptText="Währung" stylesheets="@../fullpackstyling.css" />
-            <Label layoutX="738.0" layoutY="195.0" text="Markt" />
-            <TextField fx:id="market" editable="false" layoutX="738.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Markt" stylesheets="@../fullpackstyling.css" />
+            <TextField fx:id="currency" editable="false" layoutX="819.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Währung" stylesheets="@../fullpackstyling.css" />
             <TextField fx:id="symbol" editable="false" layoutX="268.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Symbol" stylesheets="@../fullpackstyling.css" />
             <Label layoutX="268.0" layoutY="195.0" text="Symbol" />
-            <TextField fx:id="gr" editable="false" layoutX="395.0" layoutY="222.0" promptText="Gruppe" stylesheets="@../fullpackstyling.css" />
-            <Label layoutX="395.0" layoutY="195.0" text="Gruppe" />
-            <TextField fx:id="sector" editable="false" layoutX="567.0" layoutY="222.0" promptText="Sektor" stylesheets="@../fullpackstyling.css" />
-            <Label layoutX="567.0" layoutY="195.0" text="Sektor" />
-            <TextField fx:id="quant" editable="false" layoutX="213.0" layoutY="296.0" prefHeight="27.0" prefWidth="110.0" promptText="Anzahl" stylesheets="@../fullpackstyling.css" />
-            <Label layoutX="213.0" layoutY="266.0" text="Anzahl" />
-            <TextField fx:id="price" editable="false" layoutX="340.0" layoutY="296.0" prefHeight="27.0" prefWidth="110.0" promptText="Preis" stylesheets="@../fullpackstyling.css" />
-            <Label layoutX="340.0" layoutY="266.0" text="Preis" />
+            <TextField fx:id="exchange" editable="false" layoutX="395.0" layoutY="222.0" promptText="Exchange" stylesheets="@../fullpackstyling.css" />
+            <Label layoutX="395.0" layoutY="195.0" text="Exchange" />
+            <TextField fx:id="price" editable="false" layoutX="566.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Preis" stylesheets="@../fullpackstyling.css" />
+            <Label layoutX="566.0" layoutY="192.0" text="Preis" />
             <ImageView fx:id="imgView" fitHeight="315.0" fitWidth="830.0" layoutX="87.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true" />
             <ProgressIndicator fx:id="progressIndicator" layoutX="467.0" layoutY="473.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-progress-color: #343f4a#343f4a;" visible="false" />
          </children>

@@ -28,14 +28,14 @@ public class Plot extends Task<Image> {
 
         @Override
         protected Image call() {
-            aktienModel.setStock(yahooStockAPI.getStock(aktienModel.getAktie().getSymbol()));
+            aktienModel.setStock(yahooStockAPI.getStock(aktienModel.getStock().getSymbol()));
             return buildXYChart();
         }
 
         private Image buildXYChart() {
             List<Date> xList = new ArrayList();
             List<Double> yList = new ArrayList();
-            aktienModel.getStock().getHistory().forEach(h -> {
+            aktienModel.getHistory().forEach(h -> {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 try {
                     Date date = simpleDateFormat.parse(h.getDate());
@@ -52,7 +52,7 @@ public class Plot extends Task<Image> {
                     new XYChartBuilder()
                             .width(830)
                             .height(315)
-                            .title(aktienModel.getAktie().getName())
+                            .title(aktienModel.getStock().getName())
                             .xAxisTitle("Zeit")
                             .yAxisTitle("Wert in €")
                             .build();
@@ -70,7 +70,7 @@ public class Plot extends Task<Image> {
             chart.getStyler().setAxisTickLabelsColor(new Color(20,25,29));
             chart.getStyler().setDatePattern("MM/yyyy");
             // Series
-            chart.addSeries(aktienModel.getAktie().getName(), xList, yList);
+            chart.addSeries(aktienModel.getStock().getName(), xList, yList);
 
             return SwingFXUtils.toFXImage(BitmapEncoder.getBufferedImage(chart), null);
         }

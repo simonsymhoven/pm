@@ -103,11 +103,11 @@ public class DashController implements Initializable {
     private void loadMarkets(PieChart pieChart) {
         Map<String, Integer> map = new HashMap<>();
         entityAktien.getAll().forEach(aktie -> {
-            if (map.containsKey(aktie.getMarket())) {
-                Integer value = map.get(aktie.getMarket());
-                map.put(aktie.getMarket(), ++value);
+            if (map.containsKey(aktie.getExchange())) {
+                Integer value = map.get(aktie.getExchange());
+                map.put(aktie.getExchange(), ++value);
             } else {
-                map.put(aktie.getMarket(), 1);
+                map.put(aktie.getExchange(), 1);
             }
         });
 

@@ -1,7 +1,7 @@
 package YahooAPI;
 
+import entities.Stock;
 import lombok.extern.log4j.Log4j2;
-import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.Interval;
 
@@ -11,14 +11,36 @@ import java.util.*;
 
 @Log4j2
 public class YahooStockAPI {
-    public StockDTO getStock(String stockName) {
-        StockDTO dto = null;
+    public Stock getStock(String stockName) {
+        Stock s = null;
         try {
-            Stock stock = YahooFinance.get(stockName);
+            yahoofinance.Stock stock = YahooFinance.get(stockName);
+
+            s = new Stock(
+                    stock.getName(),
+                    stock.getSymbol(),
+                    stock.getStockExchange(),
+                    stock.getQuote().getPrice(),
+                    stock.getQuote().getChange(),
+                    stock.getCurrency()
+            );
+
+        } catch (IOException e) {
+           log.error(e);
+        }
+
+        return s;
+    }
+
+
+    public List<History> getHistory(String stockName) {
+        List<History> history = new ArrayList<>();
+
+        try {
+            yahoofinance.Stock stock = YahooFinance.get(stockName);
             Calendar from = Calendar.getInstance();
             Calendar to = Calendar.getInstance();
             from.add(Calendar.YEAR, Integer.parseInt("-1"));
-            List<History> history = new ArrayList<>();
             stock.getHistory(from, to, Interval.DAILY).forEach(item ->
                     history.add(
                             new History(
@@ -31,20 +53,14 @@ public class YahooStockAPI {
                     )
             );
 
-            dto = new StockDTO(
-                    stock.getName(),
-                    stock.getQuote().getPrice(),
-                    stock.getQuote().getChange(),
-                    stock.getCurrency(),
-                    history
-            );
-
         } catch (IOException e) {
-           log.error(e);
+            log.error(e);
         }
 
-        return dto;
+        return history;
     }
+
+
 
 
     private String convertDate(Calendar cal) {
