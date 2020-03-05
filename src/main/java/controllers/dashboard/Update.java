@@ -2,15 +2,15 @@ package controllers.dashboard;
 
 import javafx.concurrent.Task;
 import lombok.extern.log4j.Log4j2;
-import sql.EntityAktienImpl;
+import sql.EntityStockImpl;
 
 @Log4j2
 public class Update extends Task<Boolean> {
 
-        private EntityAktienImpl entityAktien;
+        private EntityStockImpl entityAktien;
 
         Update() {
-            this.entityAktien = new EntityAktienImpl();
+            this.entityAktien = new EntityStockImpl();
         }
 
         @Override

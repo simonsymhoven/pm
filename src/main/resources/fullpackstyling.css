@@ -105,17 +105,27 @@
 
 #list1 .list-cell {
     -fx-padding: 5px;
-    -fx-control-inner-background: #ADFF2F, -fx-background;
+    -fx-control-inner-background: #DCEDC2, -fx-background;
     -fx-background-radius: 5px;
     -fx-background-insets: 2px, 5px ;
 }
 
+#list1 .list-cell:hover {
+     -fx-control-inner-background: #A8E6CE, -fx-background;
+}
+
+
 #list2 .list-cell {
     -fx-padding: 5px;
-    -fx-control-inner-background: #ff1a1a, -fx-background;
+    -fx-control-inner-background: #F8B195, -fx-background;
     -fx-background-radius: 5px;
     -fx-background-insets: 2px, 5px ;
 }
+
+#list2 .list-cell:hover {
+    -fx-control-inner-background: #F67280, -fx-background;
+}
+
 
 #list1 .list-cell:empty, #list2 .list-cell:empty {
      -fx-padding: 5px ;

@@ -1,17 +1,22 @@
 package entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.Set;
 
-@Entity(name = "Aktien")
-@Table(name = "aktien")
+@Entity(name = "Stock")
+@Table(name = "stock")
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+
 public class Stock implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -48,5 +53,21 @@ public class Stock implements Serializable {
         this.price = price;
         this.change = change;
         this.currency = currency;
+    }
+
+    @ManyToMany(mappedBy = "stocks", fetch = FetchType.EAGER)
+    Set<Client> clients;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Stock)) return false;
+        Stock stock = (Stock) o;
+        return getSymbol().equals(stock.getSymbol());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId();
     }
 }

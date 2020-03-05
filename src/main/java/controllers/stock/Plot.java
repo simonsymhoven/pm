@@ -1,4 +1,4 @@
-package controllers.aktien;
+package controllers.stock;
 
 import YahooAPI.YahooStockAPI;
 import javafx.concurrent.Task;
@@ -18,24 +18,24 @@ import java.util.List;
 @Log4j2
 public class Plot extends Task<Image> {
 
-        private AktienModel aktienModel;
+        private StockModel stockModel;
         private YahooStockAPI yahooStockAPI;
 
-        Plot(AktienModel aktienModel) {
+        Plot(StockModel stockModel) {
             this.yahooStockAPI = new YahooStockAPI();
-            this.aktienModel = aktienModel;
+            this.stockModel = stockModel;
         }
 
         @Override
         protected Image call() {
-            aktienModel.setStock(yahooStockAPI.getStock(aktienModel.getStock().getSymbol()));
+            stockModel.setStock(yahooStockAPI.getStock(stockModel.getStock().getSymbol()));
             return buildXYChart();
         }
 
         private Image buildXYChart() {
             List<Date> xList = new ArrayList();
             List<Double> yList = new ArrayList();
-            aktienModel.getHistory().forEach(h -> {
+            stockModel.getHistory().forEach(h -> {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 try {
                     Date date = simpleDateFormat.parse(h.getDate());
@@ -52,7 +52,7 @@ public class Plot extends Task<Image> {
                     new XYChartBuilder()
                             .width(830)
                             .height(315)
-                            .title(aktienModel.getStock().getName())
+                            .title(stockModel.getStock().getName())
                             .xAxisTitle("Zeit")
                             .yAxisTitle("Wert in €")
                             .build();
@@ -70,7 +70,7 @@ public class Plot extends Task<Image> {
             chart.getStyler().setAxisTickLabelsColor(new Color(20,25,29));
             chart.getStyler().setDatePattern("MM/yyyy");
             // Series
-            chart.addSeries(aktienModel.getStock().getName(), xList, yList);
+            chart.addSeries(stockModel.getStock().getName(), xList, yList);
 
             return SwingFXUtils.toFXImage(BitmapEncoder.getBufferedImage(chart), null);
         }

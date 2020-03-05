@@ -1,4 +1,4 @@
-package controllers.aktien.modal;
+package controllers.stock.modal;
 
 import entities.Stock;
 import lombok.Data;

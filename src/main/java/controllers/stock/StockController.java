@@ -1,4 +1,4 @@
-package controllers.aktien;
+package controllers.stock;
 
 import YahooAPI.YahooStockAPI;
 import entities.Stock;
@@ -14,7 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.extern.log4j.Log4j2;
-import sql.EntityAktienImpl;
+import sql.EntityStockImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,10 +27,10 @@ import java.util.concurrent.Executors;
 
 
 @Log4j2
-public class AktienController implements Initializable {
+public class StockController implements Initializable {
     private double x, y = 0;
     @FXML
-    public ComboBox<String> comboBox;
+    public ComboBox<Stock> comboBox;
     @FXML
     public Label label;
     @FXML
@@ -54,15 +54,15 @@ public class AktienController implements Initializable {
     @FXML
     private Button addAktie;
 
-    private AktienModel aktienModel;
-    private EntityAktienImpl entityAktien;
+    private StockModel stockModel;
+    private EntityStockImpl entityAktien;
     private YahooStockAPI yahooStockAPI;
 
-    public AktienController() {
+    public StockController() {
         Locale.setDefault(Locale.GERMANY);
         this.yahooStockAPI = new YahooStockAPI();
-        this.aktienModel = new AktienModel();
-        this.entityAktien = new EntityAktienImpl();
+        this.stockModel = new StockModel();
+        this.entityAktien = new EntityStockImpl();
     }
 
     @Override
@@ -70,22 +70,22 @@ public class AktienController implements Initializable {
         getAktien();
 
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            aktienModel.setHistory(yahooStockAPI.getHistory(newValue));
-            aktienModel.setStock(aktienModel.getAktien().get(newValue));
+            stockModel.setHistory(yahooStockAPI.getHistory(newValue.getSymbol()));
+            stockModel.setStock(newValue);
 
-            Plot task = new Plot(aktienModel);
+            Plot task = new Plot(stockModel);
 
             task.setOnRunning(successesEvent -> {
                 progressIndicator.setVisible(true);
-                currency.setText(aktienModel.getStock().getCurrency());
-                label.setText(aktienModel.getStock().getName());
-                name.setText(aktienModel.getStock().getName());
-                symbol.setText(aktienModel.getStock().getSymbol());
-                exchange.setText(aktienModel.getStock().getExchange());
+                currency.setText(stockModel.getStock().getCurrency());
+                label.setText(stockModel.getStock().getName());
+                name.setText(stockModel.getStock().getName());
+                symbol.setText(stockModel.getStock().getSymbol());
+                exchange.setText(stockModel.getStock().getExchange());
                 price.setText(NumberFormat.getCurrencyInstance()
-                        .format(aktienModel.getStock().getPrice()));
+                        .format(stockModel.getStock().getPrice()));
                 change.setText(NumberFormat.getCurrencyInstance()
-                        .format(aktienModel.getStock().getChange()));
+                        .format(stockModel.getStock().getChange()));
             });
 
             task.setOnSucceeded(succeededEvent -> {
@@ -117,10 +117,10 @@ public class AktienController implements Initializable {
         List<Stock> aktien = entityAktien.getAll();
         Map<String, Stock> map  = new HashMap<>();
         aktien.forEach(e -> map.put(e.getSymbol(), e));
-        aktienModel.setAktien(map);
+        stockModel.setAktien(map);
         comboBox.getItems().clear();
-        for (Stock stock : aktienModel.getAktien().values()) {
-            comboBox.getItems().add(stock.getSymbol());
+        for (Stock stock : stockModel.getAktien().values()) {
+            comboBox.getItems().add(stock);
         }
     }
 

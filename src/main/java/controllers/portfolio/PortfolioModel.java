@@ -13,8 +13,8 @@ class PortfolioModel {
     private List<Client> clients;
     private Client client;
     private Stock stock;
-    private DataFormat dataFormat;
 
+    private DataFormat dataFormat;
     public DataFormat getFormat(){
         if (DataFormat.lookupMimeType("AktieList") == null)
             this.dataFormat = new DataFormat("AktieList");

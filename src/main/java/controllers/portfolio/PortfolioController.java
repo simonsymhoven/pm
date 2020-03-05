@@ -2,27 +2,25 @@ package controllers.portfolio;
 
 import entities.Client;
 import entities.Stock;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import lombok.extern.log4j.Log4j2;
-import sql.EntityAktienImpl;
+import sql.EntityStockImpl;
 import sql.EntityClientImpl;
 
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @Log4j2
 public class PortfolioController implements Initializable {
     @FXML
-    public ComboBox<String> comboBox;
+    public ComboBox<Client> comboBox;
     @FXML
     public Button save;
     @FXML
@@ -48,30 +46,34 @@ public class PortfolioController implements Initializable {
 
 
     private PortfolioModel portfolioModel;
-    private EntityAktienImpl entityAktien;
+    private EntityStockImpl entityAktien;
     private EntityClientImpl entityClient;
 
     public PortfolioController() {
         this.portfolioModel = new PortfolioModel();
-        this.entityAktien = new EntityAktienImpl();
+        this.entityAktien = new EntityStockImpl();
         this.entityClient = new EntityClientImpl();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        portfolioModel.setAktienList(entityAktien.getAll());
-
-        getClients();
-
-        comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            portfolioModel.setClient(entityClient.get(newValue));
-            updateStockLists(portfolioModel.getClient());
-        });
+        save.disableProperty().bind(comboBox.valueProperty().isNull());
+        cancel.disableProperty().bind(comboBox.valueProperty().isNull());
 
         aktienList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         aktienListKunde.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        aktienList.setItems(FXCollections.observableList(portfolioModel.getAktienList()));
+        portfolioModel.setAktienList(entityAktien.getAll());
+        portfolioModel.setClients(entityClient.getAll());
+
+        portfolioModel.getClients().forEach(c -> comboBox.getItems().add(c));
+
+        comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                portfolioModel.setClient(newValue);
+                updateStockLists(portfolioModel.getClient());
+            }
+        });
 
         aktienListKunde.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -87,14 +89,9 @@ public class PortfolioController implements Initializable {
                         .format(portfolioModel.getStock().getChange()));
 
             } else {
-                name.clear();
-                symbol.clear();
-                exchange.clear();
-                price.clear();
-                change.clear();
-                currency.clear();
-            }
+                clearFields();
 
+            }
         });
 
 
@@ -143,13 +140,24 @@ public class PortfolioController implements Initializable {
 
     }
 
-    private void updateStockLists(Client client) {
-
+    private void clearFields() {
+        name.clear();
+        symbol.clear();
+        exchange.clear();
+        price.clear();
+        change.clear();
+        currency.clear();
     }
 
-    private void getClients() {
-        portfolioModel.setClients(entityClient.getAll());
-        portfolioModel.getClients().forEach(c -> comboBox.getItems().add(c.symbol));
+    private void updateStockLists(Client client) {
+        Set<Stock> set = client.getStocks();
+        aktienListKunde.getItems().clear();
+        aktienList.getItems().clear();
+        aktienList.getItems().addAll(portfolioModel.getAktienList());
+        set.forEach(stock -> {
+            aktienListKunde.getItems().add(stock);
+            aktienList.getItems().remove(stock);
+        });
     }
 
     private void dragDetected(MouseEvent event, ListView<Stock> listView) {
@@ -219,9 +227,41 @@ public class PortfolioController implements Initializable {
 
     @FXML
     public void save() {
+        Set<Stock> stocks = new HashSet<>();
+        aktienListKunde.getItems().forEach(stock -> {
+            stocks.add(stock);
+        });
+
+        portfolioModel.getClient().setStocks(stocks);
+        if (entityClient.update(portfolioModel.getClient())) {
+            Image img = new Image(getClass().getResourceAsStream("/img/icons8-ausgefüllte-checkbox-100.png"));
+            Alert alertAdd = new Alert(
+                    Alert.AlertType.INFORMATION,
+                    "Portfolio für " + portfolioModel.getClient().getName() + " wurde aktualisiert.");
+            alertAdd.setHeaderText("Erledigt!");
+            alertAdd.setGraphic(new ImageView(img));
+            alertAdd.show();
+        } else {
+            Image img = new Image(getClass().getResourceAsStream("/img/icons8-löschen-50.png"));
+            Alert alertError = new Alert(
+                    Alert.AlertType.ERROR,
+                    "Portfolio für " + portfolioModel.getClient().getName() + " konnte nicht aktualisiert werden.");
+            alertError.setHeaderText("Uuuups!");
+            alertError.setGraphic(new ImageView(img));
+            alertError.show();
+        }
+
+        reset();
     }
 
     @FXML
     public void cancel() {
+       reset();
+    }
+
+    private void reset(){
+        aktienList.getItems().clear();
+        aktienListKunde.getItems().clear();
+        comboBox.getSelectionModel().clearSelection();
     }
 }

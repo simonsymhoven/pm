@@ -1,24 +1,22 @@
-package controllers.aktien.modal;
+package controllers.stock.modal;
 
 
 import YahooAPI.YahooStockAPI;
-import controllers.aktien.AktienController;
-import controllers.aktien.AktienModel;
+import controllers.stock.StockController;
 import entities.Stock;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import sql.EntityAktienImpl;
+import sql.EntityStockImpl;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ModalController implements Initializable {
     @FXML
-    public TextArea info;
+    public Label info;
     @FXML
     public Button addAktie;
     @FXML
@@ -38,20 +36,20 @@ public class ModalController implements Initializable {
 
     private ModalModel modalModel;
     private YahooStockAPI yahooStockAPI;
-    private EntityAktienImpl entityAktien;
+    private EntityStockImpl entityAktien;
 
     public ModalController() {
         this.modalModel = new ModalModel();
         this.yahooStockAPI = new YahooStockAPI();
-        this.entityAktien = new EntityAktienImpl();
+        this.entityAktien = new EntityStockImpl();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lblClose.setOnMouseClicked(e -> {
             Stage stage = (Stage) addAktie.getScene().getWindow();
-            AktienController aktienController = (AktienController) stage.getUserData();
-            aktienController.getAktien();
+            StockController stockController = (StockController) stage.getUserData();
+            stockController.getAktien();
             stage.close();
         });
 
@@ -71,15 +69,28 @@ public class ModalController implements Initializable {
 
     @FXML
     public void addAktie() {
+        info.setText("");
         if (entityAktien.add(modalModel.getStock())) {
-            info.setText("Aktie \"" + modalModel.getStock().getSymbol() + "\" wurde erfolgreich hinzugefügt und steht nun für die Portfolios zur Verfügung.");
+            Image img = new Image(getClass().getResourceAsStream("/img/icons8-ausgefüllte-checkbox-100.png"));
+            Alert alertAdd = new Alert(
+                    Alert.AlertType.INFORMATION,
+                    "Aktie wurde hinzugefügt.");
+            alertAdd.setHeaderText("Erledigt!");
+            alertAdd.setGraphic(new ImageView(img));
+            alertAdd.show();
+
             name.clear();
             symbol2.clear();
             exchange.clear();
             currency.clear();
         } else {
-            info.setText("Aktie \"" + modalModel.getStock().getSymbol() + "\" konnte nicht hinzugefügt werden. \n" +
-                    "Entweder exisitert diese bereits oder ein Fehler ist aufgetreten!");
+            Image img = new Image(getClass().getResourceAsStream("/img/icons8-löschen-50.png"));
+            Alert alertError = new Alert(
+                    Alert.AlertType.ERROR,
+                    "Aktie konnte nicht hinzugefügt werden.");
+            alertError.setHeaderText("Uuuups!");
+            alertError.setGraphic(new ImageView(img));
+            alertError.show();
         }
     }
 
@@ -89,7 +100,6 @@ public class ModalController implements Initializable {
         modalModel.setStock(stock);
 
         if (stock != null) {
-            info.setText("Aktie \"" + modalModel.getStock().getSymbol() + "\" wurde gefunden und kann nun hinzugefügt werden.");
             symbol.clear();
             name.setText(modalModel.getStock().getName());
             symbol2.setText(modalModel.getStock().getSymbol());

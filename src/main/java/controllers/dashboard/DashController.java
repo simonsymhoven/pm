@@ -4,7 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
@@ -18,7 +17,7 @@ import javafx.util.Duration;
 import json.JSONReaderImpl;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.parser.JSONParser;
-import sql.EntityAktienImpl;
+import sql.EntityStockImpl;
 import sql.EntityClientImpl;
 
 import java.io.IOException;
@@ -47,7 +46,7 @@ public class DashController implements Initializable {
 
     private DashModel dashModel;
     private JSONReaderImpl jsonReader;
-    private EntityAktienImpl entityAktien;
+    private EntityStockImpl entityAktien;
     private EntityClientImpl entityClient;
 
     Random r = new Random();
@@ -55,7 +54,7 @@ public class DashController implements Initializable {
     public DashController() {
         this.dashModel = new DashModel();
         this.jsonReader = new JSONReaderImpl(new JSONParser());
-        this.entityAktien = new EntityAktienImpl();
+        this.entityAktien = new EntityStockImpl();
         this.entityClient = new EntityClientImpl();
     }
 

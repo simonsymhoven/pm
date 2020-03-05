@@ -9,13 +9,13 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 @Log4j2
-public class EntityAktienImpl implements DatabaseInterface<Stock> {
+public class EntityStockImpl implements DatabaseInterface<Stock> {
     @Override
     public List<Stock> getAll() {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            List<Stock> aktien = session.createQuery("FROM Aktien", Stock.class).getResultList();
+            List<Stock> stock = session.createQuery("FROM Stock", Stock.class).getResultList();
             session.close();
-            return aktien;
+            return stock;
         } catch (HibernateException e) {
             log.error(e);
         }
@@ -35,7 +35,7 @@ public class EntityAktienImpl implements DatabaseInterface<Stock> {
     @Override
     public boolean add(Stock stock) {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            Stock s = session.createQuery("FROM Aktien WHERE symbol=:symbol", Stock.class)
+            Stock s = session.createQuery("FROM Stock WHERE symbol=:symbol", Stock.class)
                     .setParameter("symbol", stock.getSymbol()).uniqueResult();
             if (s == null) {
                 Transaction transaction = session.beginTransaction();
