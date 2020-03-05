@@ -1,0 +1,126 @@
+.button {
+    -fx-background-color: #343f4a;
+    -fx-text-fill: #FFF;
+    -fx-text-alignment: left;
+}
+
+.button:hover {
+    -fx-background-color: #2e3842;
+    -fx-text-fill: #eb9367;
+}
+
+.button:pressed {
+    -fx-background-color: #242c33;
+    -fx-text-fill: #eb9367;
+}
+
+.button2 {
+    -fx-background-color: #0C39FF;
+    -fx-border-color: #FFF;
+    -fx-text-fill: #FFF;
+}
+
+.button2:hover {
+    -fx-background-color: #0C3988;
+    -fx-text-fill: #FFF;
+}
+
+.button2:pressed {
+    -fx-background-color: #0C3400;
+    -fx-text-fill: #FFF;
+}
+
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-legend-visible: false;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-pie {
+    -fx-border-color: derive(-fx-pie-color, 1%);
+    -fx-border-width: 0px;
+}
+
+.data0.chart-pie {
+    -fx-pie-color: #364FCD;
+}
+
+.data1.chart-pie {
+    -fx-pie-color: #54AAF3;
+}
+
+.data2.chart-pie {
+    -fx-pie-color: #ADFF2F;
+}
+
+.data3.chart-pie {
+    -fx-pie-color: #228B22;
+}
+
+.data4.chart-pie {
+    -fx-pie-color: #364FCD;
+}
+
+.data5.chart-pie {
+    -fx-pie-color: #54AAF3;
+}
+.text-field, .password-field, .combo-box-base {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+}
+.text-field:focused, .password-field:focused{
+    -fx-background-color: -fx-focus-color, -fx-background ;
+}
+
+.text-field.error, .password-field.error {
+  -fx-text-box-border: #ff4646 ;
+  -fx-focus-color: #ff4646 ;
+}
+
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color:  #343f4a;
+    -fx-border-radius:3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #343f4a;
+}
+
+
+#list1, #list2 {
+    -fx-padding: 3px;
+    -fx-background-color: transparent;
+}
+
+#list1 .list-cell {
+    -fx-padding: 5px;
+    -fx-control-inner-background: #ADFF2F, -fx-background;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 2px, 5px ;
+}
+
+#list2 .list-cell {
+    -fx-padding: 5px;
+    -fx-control-inner-background: #ff1a1a, -fx-background;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 2px, 5px ;
+}
+
+#list1 .list-cell:empty, #list2 .list-cell:empty {
+     -fx-padding: 5px ;
+     -fx-control-inner-background: transparent ;
+     -fx-background-insets: 0 ;
+}
+
+
