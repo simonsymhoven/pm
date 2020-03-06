@@ -72,27 +72,24 @@ public class StockController implements Initializable {
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             stockModel.setHistory(yahooStockAPI.getHistory(newValue.getSymbol()));
             stockModel.setStock(newValue);
-
+            currency.setText(stockModel.getStock().getCurrency());
+            label.setText(stockModel.getStock().getName());
+            name.setText(stockModel.getStock().getName());
+            symbol.setText(stockModel.getStock().getSymbol());
+            exchange.setText(stockModel.getStock().getExchange());
+            price.setText(NumberFormat.getCurrencyInstance()
+                    .format(stockModel.getStock().getPrice()));
+            change.setText(NumberFormat.getCurrencyInstance()
+                    .format(stockModel.getStock().getChange()));
             Plot task = new Plot(stockModel);
 
             task.setOnRunning(successesEvent -> {
                 progressIndicator.setVisible(true);
-                currency.setText(stockModel.getStock().getCurrency());
-                label.setText(stockModel.getStock().getName());
-                name.setText(stockModel.getStock().getName());
-                symbol.setText(stockModel.getStock().getSymbol());
-                exchange.setText(stockModel.getStock().getExchange());
-                price.setText(NumberFormat.getCurrencyInstance()
-                        .format(stockModel.getStock().getPrice()));
-                change.setText(NumberFormat.getCurrencyInstance()
-                        .format(stockModel.getStock().getChange()));
             });
 
             task.setOnSucceeded(succeededEvent -> {
                 try {
                     if (task.get() != null) {
-
-
                         imgView.setImage(task.get());
                     }
                 } catch (InterruptedException | ExecutionException e) {
