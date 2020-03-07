@@ -14,31 +14,31 @@
 
 <AnchorPane fx:id="pane" prefHeight="521.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.stock.StockController">
    <children>
-      <Pane layoutX="6.0" layoutY="-21.0" prefHeight="708.0" prefWidth="991.0">
+      <Pane layoutX="6.0" layoutY="-20.0" prefHeight="708.0" prefWidth="991.0">
          <children>
-            <Button disable="true" layoutX="848.0" layoutY="123.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: transparent;">
+            <Button fx:id="updateStock" onAction="#updateStock" disable="true" layoutX="853.0" layoutY="105.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/icons8-viele-bearbeiten-50.png" />
+                        <Image url="@../../img/icons8-verfügbare-updates-50.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="addAktie" layoutX="781.0" layoutY="123.0" mnemonicParsing="false" onAction="#addAktie" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+            <Button fx:id="addStock" layoutX="786.0" layoutY="105.0" mnemonicParsing="false" onAction="#addStock" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="59.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/icons8-plus-2-50.png" />
+                        <Image url="@../../img/icons8-plus-2-50.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button disable="true" layoutX="714.0" layoutY="123.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+            <Button fx:id="deleteStock" onAction="#deleteStock" disable="true" layoutX="719.0" layoutY="105.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="59.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/icons8-löschen-50.png" />
+                        <Image url="@../../img/icons8-löschen-50.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -48,9 +48,9 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <ComboBox fx:id="comboBox" layoutX="401.0" layoutY="118.0" prefHeight="27.0" prefWidth="149.0" promptText="Aktie auswählen" stylesheets="@../fullpackstyling.css" />
-            <TextField fx:id="name" editable="false" layoutX="89.0" layoutY="222.0" promptText="Name" stylesheets="@../fullpackstyling.css" />
-            <TextField fx:id="change" editable="false" layoutX="692.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Veränderung" stylesheets="@../fullpackstyling.css" />
+            <ComboBox fx:id="comboBox" layoutX="377.0" layoutY="121.0" prefHeight="27.0" prefWidth="251.0" promptText="Aktie auswählen" stylesheets="@../../fullpackstyling.css" />
+            <TextField fx:id="name" editable="false" layoutX="89.0" layoutY="222.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
+            <TextField fx:id="change" editable="false" layoutX="692.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Veränderung" stylesheets="@../../fullpackstyling.css" />
             <Label layoutX="89.0" layoutY="195.0" text="Name" />
             <Label layoutX="692.0" layoutY="195.0" text="Veränderung" />
             <Label layoutX="819.0" layoutY="195.0" text="Währung" />
@@ -60,12 +60,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="currency" editable="false" layoutX="819.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Währung" stylesheets="@../fullpackstyling.css" />
-            <TextField fx:id="symbol" editable="false" layoutX="268.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Symbol" stylesheets="@../fullpackstyling.css" />
+            <TextField fx:id="currency" editable="false" layoutX="819.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Währung" stylesheets="@../../fullpackstyling.css" />
+            <TextField fx:id="symbol" editable="false" layoutX="268.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Symbol" stylesheets="@../../fullpackstyling.css" />
             <Label layoutX="268.0" layoutY="195.0" text="Symbol" />
-            <TextField fx:id="exchange" editable="false" layoutX="395.0" layoutY="222.0" promptText="Exchange" stylesheets="@../fullpackstyling.css" />
+            <TextField fx:id="exchange" editable="false" layoutX="395.0" layoutY="222.0" promptText="Exchange" stylesheets="@../../fullpackstyling.css" />
             <Label layoutX="395.0" layoutY="195.0" text="Exchange" />
-            <TextField fx:id="price" editable="false" layoutX="566.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Preis" stylesheets="@../fullpackstyling.css" />
+            <TextField fx:id="price" editable="false" layoutX="566.0" layoutY="222.0" prefHeight="27.0" prefWidth="110.0" promptText="Preis" stylesheets="@../../fullpackstyling.css" />
             <Label layoutX="566.0" layoutY="192.0" text="Preis" />
             <ImageView fx:id="imgView" fitHeight="315.0" fitWidth="830.0" layoutX="87.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true" />
             <ProgressIndicator fx:id="progressIndicator" layoutX="467.0" layoutY="473.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-progress-color: #343f4a#343f4a;" visible="false" />

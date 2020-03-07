@@ -56,8 +56,8 @@ public class ModalController implements Initializable {
         search.disableProperty().bind(symbol.textProperty().isEmpty());
 
         addAktie.disableProperty().bind(symbol2.textProperty().isEmpty()
-                .and(name.textProperty().isEmpty().and(
-                        exchange.textProperty().isEmpty().and(
+                .or(name.textProperty().isEmpty().or(
+                        exchange.textProperty().isEmpty().or(
                                 currency.textProperty().isEmpty())
                 )
         ));

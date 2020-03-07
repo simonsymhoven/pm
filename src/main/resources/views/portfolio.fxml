@@ -22,13 +22,13 @@
              <Separator layoutX="36.0" layoutY="82.0" prefHeight="1.0" prefWidth="914.0" />
             <Pane layoutX="36.0" layoutY="82.0" prefHeight="598.0" prefWidth="940.0">
                <children>
-                  <Label layoutX="33.0" layoutY="48.0" text="Aktien" textFill="#383839">
+                  <Label layoutX="143.0" layoutY="39.0" text="Aktien" textFill="#383839">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                   <ListView id="list1" fx:id="aktienList" layoutX="33.0" layoutY="74.0" prefHeight="397.0" prefWidth="262.0" stylesheets="@../fullpackstyling.css" />
-                  <Label layoutX="649.0" layoutY="48.0" text="Kunde" textFill="#383839">
+                  <Label layoutX="759.0" layoutY="39.0" text="Client" textFill="#383839">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -46,7 +46,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="symbol" editable="false" layoutX="333.0" layoutY="181.0" prefHeight="27.0" prefWidth="284.0" promptText="Symbol" stylesheets="@../fullpackstyling.css" />
-                  <ComboBox fx:id="comboBox" layoutX="401.0" layoutY="35.0" prefHeight="27.0" prefWidth="149.0" promptText="Kunde auswählen" stylesheets="@../fullpackstyling.css" />
+                  <ComboBox fx:id="comboBox" layoutX="353.0" layoutY="35.0" prefHeight="27.0" prefWidth="251.0" promptText="Client auswählen" stylesheets="@../fullpackstyling.css" />
                   <Label layoutX="331.0" layoutY="221.0" text="Exchange" textFill="#383839">
                      <font>
                         <Font name="System Bold" size="13.0" />

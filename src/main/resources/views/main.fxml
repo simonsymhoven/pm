@@ -39,7 +39,7 @@
                   <Insets />
                </VBox.margin>
              </Button>
-             <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleShowView" prefHeight="37.0" prefWidth="276.0" stylesheets="@../fullpackstyling.css" text="Kunden" textFill="WHITE" userData="../views/clients.fxml">
+             <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleShowView" prefHeight="37.0" prefWidth="276.0" stylesheets="@../fullpackstyling.css" text="Kunden" textFill="WHITE" userData="../views/client/clients.fxml">
                  <VBox.margin>
                      <Insets />
                  </VBox.margin>
@@ -54,7 +54,7 @@
                      </ImageView>
                </graphic>
              </Button>
-             <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleShowView" prefHeight="37.0" prefWidth="267.0" stylesheets="@../fullpackstyling.css" text="Aktien" textFill="WHITE" userData="../views/aktien.fxml">
+             <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleShowView" prefHeight="37.0" prefWidth="267.0" stylesheets="@../fullpackstyling.css" text="Aktien" textFill="WHITE" userData="../views/stock/stock.fxml">
                  <VBox.margin>
                      <Insets />
                  </VBox.margin>

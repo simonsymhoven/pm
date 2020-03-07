@@ -33,7 +33,6 @@
 .chart {
     -fx-padding: 10px;
     -fx-background-color: transparent;
-    -fx-legend-visible: false;
 }
 
 .chart-plot-background {
@@ -45,29 +44,6 @@
     -fx-border-width: 0px;
 }
 
-.data0.chart-pie {
-    -fx-pie-color: #364FCD;
-}
-
-.data1.chart-pie {
-    -fx-pie-color: #54AAF3;
-}
-
-.data2.chart-pie {
-    -fx-pie-color: #ADFF2F;
-}
-
-.data3.chart-pie {
-    -fx-pie-color: #228B22;
-}
-
-.data4.chart-pie {
-    -fx-pie-color: #364FCD;
-}
-
-.data5.chart-pie {
-    -fx-pie-color: #54AAF3;
-}
 .text-field, .password-field, .combo-box-base {
     -fx-background-color: -fx-text-box-border, -fx-background ;
     -fx-background-insets: 0, 0 0 1 0 ;
@@ -84,7 +60,7 @@
 
 
 .check-box .box {
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-border-color:  #343f4a;
     -fx-border-radius:3px;
 }

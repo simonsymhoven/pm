@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,12 +15,23 @@ import java.util.Set;
 
 @Entity(name = "Stock")
 @Table(name = "stock")
-
+@Audited
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class Stock implements Serializable {
+
+    public Stock(String name, String symbol, String exchange, BigDecimal price, BigDecimal change, String currency) {
+        this.name = name;
+        this.symbol = symbol;
+        this.exchange = exchange;
+        this.price = price;
+        this.change = change;
+        this.currency = currency;
+    }
+
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -41,23 +55,16 @@ public class Stock implements Serializable {
     @Column(name = "currency")
     public String currency;
 
+    @ManyToMany(mappedBy = "stocks", fetch = FetchType.EAGER)
+    Set<Client> clients;
+
+    @NotAudited
     @Override
     public String toString(){
         return this.name;
     }
 
-    public Stock(String name, String symbol, String exchange, BigDecimal price, BigDecimal change, String currency) {
-        this.name = name;
-        this.symbol = symbol;
-        this.exchange = exchange;
-        this.price = price;
-        this.change = change;
-        this.currency = currency;
-    }
-
-    @ManyToMany(mappedBy = "stocks", fetch = FetchType.EAGER)
-    Set<Client> clients;
-
+    @NotAudited
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,6 +73,7 @@ public class Stock implements Serializable {
         return getSymbol().equals(stock.getSymbol());
     }
 
+    @NotAudited
     @Override
     public int hashCode() {
         return getId();

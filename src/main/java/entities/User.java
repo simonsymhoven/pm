@@ -1,21 +1,22 @@
 package entities;
 
 import lombok.Data;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.*;
 
 @Entity(name = "User")
 @Table(name = "User")
 
 @Data
+@Audited
 public class User {
     public User(){
 
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     public int id;
 

@@ -52,6 +52,24 @@ public class EntityStockImpl implements DatabaseInterface<Stock> {
 
     @Override
     public boolean update(Stock stock) {
+        log.info("STOCK TO UPDATE ; "  + stock.getId());
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+
+            YahooStockAPI yahooStockAPI = new YahooStockAPI();
+            Transaction transaction = session.beginTransaction();
+
+            Stock s = yahooStockAPI.getStock(stock.getSymbol());
+            Stock stockToUpdate = session.load(Stock.class, stock.getId());
+            stockToUpdate.setChange(s.getChange());
+            stockToUpdate.setPrice(s.getPrice());
+            session.save(stockToUpdate);
+
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
         return false;
     }
 
@@ -63,7 +81,6 @@ public class EntityStockImpl implements DatabaseInterface<Stock> {
             Transaction transaction = session.beginTransaction();
             getAll().forEach(aktie -> {
                 Stock stock = yahooStockAPI.getStock(aktie.getSymbol());
-                log.info(stock.getExchange());
                 Stock stockToUpdate = session.load(Stock.class, aktie.getId());
                 stockToUpdate.setChange(stock.getChange());
                 stockToUpdate.setPrice(stock.getPrice());
@@ -81,6 +98,17 @@ public class EntityStockImpl implements DatabaseInterface<Stock> {
 
     @Override
     public boolean delete(Stock stock) {
+        log.info("STOCK TO DELETE ; "  + stock.getId());
+        Transaction transaction = null;
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.delete(stock);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
         return false;
     }
 }

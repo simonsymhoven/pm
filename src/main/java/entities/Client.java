@@ -1,7 +1,11 @@
 package entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,15 +15,13 @@ import java.util.Set;
 
 @Entity(name = "Clients")
 @Table(name = "clients")
-
+@Audited
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Client implements Serializable {
-    public Client(){
 
-    }
-
-    public Client(int id, String name, String symbol, int strategy, BigDecimal depoValue) {
-        this.id = id;
+    public Client(String name, String symbol, int strategy, BigDecimal depoValue) {
         this.name = name;
         this.symbol = symbol;
         this.strategy = strategy;
@@ -50,7 +52,7 @@ public class Client implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "stock_id"))
     Set<Stock> stocks;
 
-
+    @NotAudited
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,11 +61,13 @@ public class Client implements Serializable {
         return getId() == client.getId();
     }
 
+    @NotAudited
     @Override
     public int hashCode() {
         return getId();
     }
 
+    @NotAudited
     @Override
     public String toString(){
         return getName();

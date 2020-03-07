@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.stock.modal.ModalController">
    <children>
-      <Button fx:id="addAktie" layoutX="511.0" layoutY="408.0" mnemonicParsing="false" onAction="#addAktie" prefHeight="37.0" prefWidth="98.0" stylesheets="@../fullpackstyling.css" text="Hinzufügen" />
+      <Button fx:id="addAktie" layoutX="511.0" layoutY="408.0" mnemonicParsing="false" onAction="#addAktie" prefHeight="37.0" prefWidth="98.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen" />
       <Label layoutX="40.0" layoutY="42.0" text="Aktie hinzufügen" textFill="#343f4a">
          <font>
             <Font size="19.0" />
@@ -22,16 +22,16 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="symbol" layoutX="40.0" layoutY="132.0" promptText="Symbol" stylesheets="@../fullpackstyling.css" />
-      <Button fx:id="search" layoutX="221.0" layoutY="122.0" mnemonicParsing="false" onAction="#searchAktie" prefHeight="37.0" prefWidth="98.0" stylesheets="@../fullpackstyling.css" text="Suchen" />
-      <TextField fx:id="name" editable="false" layoutX="37.0" layoutY="225.0" promptText="Name" stylesheets="@../fullpackstyling.css" />
+      <TextField fx:id="symbol" layoutX="40.0" layoutY="132.0" promptText="Symbol" stylesheets="@../../fullpackstyling.css" />
+      <Button fx:id="search" layoutX="221.0" layoutY="122.0" mnemonicParsing="false" onAction="#searchAktie" prefHeight="37.0" prefWidth="98.0" stylesheets="@../../fullpackstyling.css" text="Suchen" />
+      <TextField fx:id="name" editable="false" layoutX="37.0" layoutY="225.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
       <Label layoutX="37.0" layoutY="198.0" text="Name" />
-      <TextField fx:id="symbol2" editable="false" layoutX="216.0" layoutY="225.0" prefHeight="27.0" prefWidth="110.0" promptText="Symbol" stylesheets="@../fullpackstyling.css" />
+      <TextField fx:id="symbol2" editable="false" layoutX="216.0" layoutY="225.0" prefHeight="27.0" prefWidth="110.0" promptText="Symbol" stylesheets="@../../fullpackstyling.css" />
       <Label layoutX="216.0" layoutY="198.0" text="Symbol" />
-      <TextField fx:id="exchange" editable="false" layoutX="343.0" layoutY="225.0" promptText="Exchange" stylesheets="@../fullpackstyling.css" />
+      <TextField fx:id="exchange" editable="false" layoutX="343.0" layoutY="225.0" promptText="Exchange" stylesheets="@../../fullpackstyling.css" />
       <Label layoutX="343.0" layoutY="198.0" text="Exchange" />
       <Label layoutX="511.0" layoutY="198.0" text="Währung" />
-      <TextField fx:id="currency" editable="false" layoutX="511.0" layoutY="225.0" prefHeight="27.0" prefWidth="110.0" promptText="Währung" stylesheets="@../fullpackstyling.css" />
+      <TextField fx:id="currency" editable="false" layoutX="511.0" layoutY="225.0" prefHeight="27.0" prefWidth="110.0" promptText="Währung" stylesheets="@../../fullpackstyling.css" />
       <Label fx:id="info" layoutX="37.0" layoutY="348.0" prefHeight="44.0" prefWidth="572.0" textFill="#f94344" wrapText="true">
          <font>
             <Font size="14.0" />

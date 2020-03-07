@@ -116,20 +116,23 @@ public class DashController implements Initializable {
         });
 
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList(list);
-        pieChart.setLabelLineLength(10);
+        pieChart.setLabelsVisible(false);
+        pieChart.setLegendVisible(true);
         pieChart.setLegendSide(Side.LEFT);
         pieChart.setData(data);
-
     }
 
     private void loadClients(PieChart pieChart) {
 
         List<PieChart.Data> list = new ArrayList<>();
         entityClient.getAll().forEach( client ->
-                list.add(new PieChart.Data(client.getSymbol(), client.getDepoValue().doubleValue()))
+                list.add(new PieChart.Data(client.getName(), client.getDepoValue().doubleValue()))
         );
 
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList(list);
+        pieChart.setLabelsVisible(false);
+        pieChart.setLegendVisible(true);
+        pieChart.setLegendSide(Side.RIGHT);
         pieChart.setData(data);
     }
 
