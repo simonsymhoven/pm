@@ -63,7 +63,7 @@ public class NavBarController implements Initializable {
         Stage oldStage = (Stage) navBarPane.getScene().getWindow();
         oldStage.hide();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/views/login_child.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
         Stage stage = new Stage();
 
         //grab your root here

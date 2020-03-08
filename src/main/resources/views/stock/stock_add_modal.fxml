@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.stock.modal.ModalController">
+<AnchorPane prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.stock.stock_addModal.StockAddModalController">
    <children>
       <Button fx:id="addAktie" layoutX="511.0" layoutY="408.0" mnemonicParsing="false" onAction="#addAktie" prefHeight="37.0" prefWidth="98.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen" />
       <Label layoutX="40.0" layoutY="42.0" text="Aktie hinzufügen" textFill="#343f4a">

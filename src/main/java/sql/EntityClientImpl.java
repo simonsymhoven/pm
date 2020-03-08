@@ -1,11 +1,21 @@
 package sql;
 
 import entities.Client;
+import entities.ClientRevision;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.DefaultRevisionEntity;
+import org.hibernate.envers.RevisionType;
+import org.hibernate.envers.query.AuditEntity;
+import org.hibernate.envers.query.AuditQuery;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Log4j2
 public class EntityClientImpl implements DatabaseInterface<Client> {
@@ -95,6 +105,34 @@ public class EntityClientImpl implements DatabaseInterface<Client> {
             log.error(e);
         }
         return false;
+    }
+
+    public List<ClientRevision> getAudit(Client client){
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            AuditQuery query = AuditReaderFactory.get(session)
+                    .createQuery()
+                    .forRevisionsOfEntity(Client.class, false , true)
+                    .add(AuditEntity.id().eq(client.getId()));
+
+            ArrayList<Object[]> list = (ArrayList) query.getResultList();
+
+            List<ClientRevision> revisions = new ArrayList<>();
+
+            list.forEach(object -> {
+                Object[] triplet = object;
+                Client entity = (Client) triplet[0];
+                DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) triplet[1];
+                RevisionType revisionType = (RevisionType) triplet[2];
+
+                revisions.add(new ClientRevision(entity, revisionEntity.getRevisionDate(), revisionType));
+            });
+
+            return revisions;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+
+        return null;
     }
 
 

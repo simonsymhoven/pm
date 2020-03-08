@@ -3,6 +3,7 @@ package controllers.stock;
 import YahooAPI.YahooStockAPI;
 import alert.AlertDialog;
 import entities.Stock;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import sql.EntityStockImpl;
 import java.io.IOException;
@@ -24,8 +26,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 @Log4j2
 public class StockController implements Initializable {
+
     private double x, y = 0;
     @FXML
     public ComboBox<Stock> comboBox;
@@ -55,7 +59,9 @@ public class StockController implements Initializable {
     private Button updateStock;
     @FXML
     private Button deleteStock;
-
+    @FXML
+    public Button showAudit;
+    @Getter
     private StockModel stockModel;
     private EntityStockImpl entityAktien;
     private YahooStockAPI yahooStockAPI;
@@ -71,6 +77,7 @@ public class StockController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         deleteStock.disableProperty().bind(comboBox.valueProperty().isNull());
         updateStock.disableProperty().bind(comboBox.valueProperty().isNull());
+        showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
 
         getAktien();
 
@@ -179,5 +186,25 @@ public class StockController implements Initializable {
             comboBox.getSelectionModel().clearSelection();
             getAktien();
         }
+    }
+
+    @FXML
+    public void getAudit() throws IOException {
+        Stage dialog = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/views/stock/stock_audit_modal.fxml"));
+        root.setOnMousePressed(event -> {
+            x = event.getSceneX();
+            y = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            dialog.setX(event.getScreenX() - x);
+            dialog.setY(event.getScreenY() - y);
+        });
+        dialog.setScene(new Scene(root));
+        dialog.initOwner(showAudit.getScene().getWindow());
+        dialog.setUserData(this);
+        dialog.initStyle(StageStyle.UNDECORATED);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.show();
     }
 }

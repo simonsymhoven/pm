@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.client_auditModal.ClientAuditModalController">
+   <children>
+      <Label layoutX="40.0" layoutY="42.0" text="Client Audit" textFill="#343f4a">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+
+      <Circle fill="#f94344" layoutX="609.0" layoutY="28.0" radius="14.0" stroke="WHITE" strokeType="INSIDE" />
+      <Label fx:id="lblClose" alignment="CENTER" layoutX="595.0" layoutY="20.0" prefHeight="17.0" prefWidth="28.0" text="X" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

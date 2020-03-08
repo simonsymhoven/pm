@@ -1,4 +1,4 @@
-package controllers.client.addModal;
+package controllers.client.client_addModal;
 
 
 import alert.AlertDialog;
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddModalController implements Initializable {
+public class ClientAddModalController implements Initializable {
     @FXML
     public Button addClient;
     @FXML
@@ -27,11 +27,11 @@ public class AddModalController implements Initializable {
     @FXML
     public TextField strategy;
 
-    private AddModalModel addModalModel;
+    private ClientAddModalModel clientAddModalModel;
     private EntityClientImpl entityClient;
 
-    public AddModalController() {
-        this.addModalModel = new AddModalModel();
+    public ClientAddModalController() {
+        this.clientAddModalModel = new ClientAddModalModel();
         this.entityClient = new EntityClientImpl();
     }
 
@@ -54,7 +54,7 @@ public class AddModalController implements Initializable {
 
     @FXML
     public void addClient() {
-        addModalModel.setClient(
+        clientAddModalModel.setClient(
                 new Client(
                         name.getText(),
                         symbol.getText(),
@@ -63,7 +63,7 @@ public class AddModalController implements Initializable {
                 )
         );
 
-        if (entityClient.add(addModalModel.getClient())) {
+        if (entityClient.add(clientAddModalModel.getClient())) {
             new AlertDialog().showSuccessDialog("Erledigt!", "Client wurde hinzugefügt.");
 
             name.clear();

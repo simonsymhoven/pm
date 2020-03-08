@@ -1,9 +1,9 @@
-package controllers.client.addModal;
+package controllers.client.client_addModal;
 
 import entities.Client;
 import lombok.Data;
 
 @Data
-public class AddModalModel {
+public class ClientAddModalModel {
     private Client client;
 }

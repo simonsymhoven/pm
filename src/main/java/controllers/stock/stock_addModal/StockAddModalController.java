@@ -1,4 +1,4 @@
-package controllers.stock.modal;
+package controllers.stock.stock_addModal;
 
 
 import YahooAPI.YahooStockAPI;
@@ -14,7 +14,7 @@ import sql.EntityStockImpl;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModalController implements Initializable {
+public class StockAddModalController implements Initializable {
     @FXML
     public Label info;
     @FXML
@@ -34,12 +34,12 @@ public class ModalController implements Initializable {
     @FXML
     public TextField currency;
 
-    private ModalModel modalModel;
+    private StockAddModalModel stockAddModalModel;
     private YahooStockAPI yahooStockAPI;
     private EntityStockImpl entityAktien;
 
-    public ModalController() {
-        this.modalModel = new ModalModel();
+    public StockAddModalController() {
+        this.stockAddModalModel = new StockAddModalModel();
         this.yahooStockAPI = new YahooStockAPI();
         this.entityAktien = new EntityStockImpl();
     }
@@ -62,15 +62,13 @@ public class ModalController implements Initializable {
                 )
         ));
 
-        symbol.textProperty().addListener((observableValue, s, newValue) -> {
-            modalModel.setSymbol(newValue);
-        });
+        symbol.textProperty().addListener((observableValue, s, newValue) -> stockAddModalModel.setSymbol(newValue));
     }
 
     @FXML
     public void addAktie() {
         info.setText("");
-        if (entityAktien.add(modalModel.getStock())) {
+        if (entityAktien.add(stockAddModalModel.getStock())) {
             Image img = new Image(getClass().getResourceAsStream("/img/icons8-ausgefüllte-checkbox-100.png"));
             Alert alertAdd = new Alert(
                     Alert.AlertType.INFORMATION,
@@ -96,17 +94,17 @@ public class ModalController implements Initializable {
 
     @FXML
     public void searchAktie() {
-        Stock stock = yahooStockAPI.getStock(modalModel.getSymbol());
-        modalModel.setStock(stock);
+        Stock stock = yahooStockAPI.getStock(stockAddModalModel.getSymbol());
+        stockAddModalModel.setStock(stock);
 
         if (stock != null) {
             symbol.clear();
-            name.setText(modalModel.getStock().getName());
-            symbol2.setText(modalModel.getStock().getSymbol());
-            exchange.setText(modalModel.getStock().getExchange());
-            currency.setText(modalModel.getStock().getCurrency());
+            name.setText(stockAddModalModel.getStock().getName());
+            symbol2.setText(stockAddModalModel.getStock().getSymbol());
+            exchange.setText(stockAddModalModel.getStock().getExchange());
+            currency.setText(stockAddModalModel.getStock().getCurrency());
         } else {
-            info.setText("Aktie \"" + modalModel.getSymbol() + "\" wurde nicht gefunden! \n" +
+            info.setText("Aktie \"" + stockAddModalModel.getSymbol() + "\" wurde nicht gefunden! \n" +
                     "Bitte wähle eine andere Aktie aus und probiere es erneut.");
         }
 

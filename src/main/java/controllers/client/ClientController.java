@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 import sql.EntityClientImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +20,10 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+@Log4j2
+
 public class ClientController implements Initializable {
+
     double x,y = 0;
     @FXML
     public ComboBox<Client> comboBox;
@@ -38,10 +43,13 @@ public class ClientController implements Initializable {
     public TextField strategy;
     @FXML
     public TextField depoValue;
+    @FXML
+    public Button showAudit;
 
 
     private EntityClientImpl entityClient;
-    private ClientModel clientModel;
+    @Getter
+    public ClientModel clientModel;
 
     public ClientController() {
         Locale.setDefault(Locale.GERMANY);
@@ -52,6 +60,7 @@ public class ClientController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         deleteClient.disableProperty().bind(comboBox.valueProperty().isNull());
+        showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
 
         getClients();
 
@@ -119,5 +128,25 @@ public class ClientController implements Initializable {
         comboBox.getItems().clear();
         clientModel.setClients(entityClient.getAll());
         clientModel.getClients().forEach(c -> comboBox.getItems().add(c));
+    }
+
+    @FXML
+    public void getAudit() throws IOException {
+        Stage dialog = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/views/client/client_audit_modal.fxml"));
+        root.setOnMousePressed(event -> {
+            x = event.getSceneX();
+            y = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            dialog.setX(event.getScreenX() - x);
+            dialog.setY(event.getScreenY() - y);
+        });
+        dialog.setScene(new Scene(root));
+        dialog.initOwner(showAudit.getScene().getWindow());
+        dialog.setUserData(this);
+        dialog.initStyle(StageStyle.UNDECORATED);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.show();
     }
 }
