@@ -38,7 +38,7 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <Label fx:id="messageLabel" layoutX="325.0" layoutY="283.0" prefHeight="18.0" prefWidth="253.0" textFill="#ff4646">
+      <Label fx:id="messageLabel" layoutX="320.0" layoutY="264.0" prefHeight="18.0" prefWidth="237.0" textFill="#ff4646">
          <font>
             <Font size="11.0" />
          </font></Label>
@@ -61,7 +61,7 @@
       </ImageView>
       <TextField fx:id="userName" layoutX="320.0" layoutY="174.0" prefHeight="26.0" prefWidth="237.0" promptText="   Benutzername" stylesheets="@../fullpackstyling.css" />
       <PasswordField fx:id="password" layoutX="320.0" layoutY="232.0" prefHeight="26.0" prefWidth="237.0" promptText="   Passwort" stylesheets="@../fullpackstyling.css" />
-      <CheckBox fx:id="checkBox" layoutX="286.0" layoutY="287.0" mnemonicParsing="false" stylesheets="@../fullpackstyling.css" text="Benutzername speichern" textFill="#343f4a" />
+      <CheckBox fx:id="checkBox" layoutX="282.0" layoutY="289.0" mnemonicParsing="false" stylesheets="@../fullpackstyling.css" text="Benutzername speichern" textFill="#343f4a" />
 
    </children>
 </AnchorPane>

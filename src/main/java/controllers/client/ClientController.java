@@ -30,8 +30,6 @@ public class ClientController implements Initializable {
     @FXML
     public Label label;
     @FXML
-    public Button editClient;
-    @FXML
     public Button addClient;
     @FXML
     public Button deleteClient;
@@ -85,11 +83,6 @@ public class ClientController implements Initializable {
     }
 
     @FXML
-    public void editClient() {
-
-    }
-
-    @FXML
     public void addClient() throws IOException {
         Stage dialog = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/views/client/client_add_modal.fxml"));
@@ -118,16 +111,20 @@ public class ClientController implements Initializable {
 
         if (alert.getResult() == ButtonType.YES) {
             entityClient.delete(clientModel.getClient());
-            comboBox.getSelectionModel().clearSelection();
+            comboBox.getItems().remove(clientModel.getClient());
             label.setText("Übersicht");
             getClients();
+            comboBox.getSelectionModel().clearSelection();
         }
     }
 
     public void getClients(){
-        comboBox.getItems().clear();
         clientModel.setClients(entityClient.getAll());
-        clientModel.getClients().forEach(c -> comboBox.getItems().add(c));
+        clientModel.getClients().forEach(c -> {
+            if (!comboBox.getItems().contains(c)) {
+                comboBox.getItems().add(c);
+            }
+        });
     }
 
     @FXML

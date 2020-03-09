@@ -50,6 +50,7 @@ public class StockAddModalController implements Initializable {
             Stage stage = (Stage) addAktie.getScene().getWindow();
             StockController stockController = (StockController) stage.getUserData();
             stockController.getAktien();
+            stockController.comboBox.getSelectionModel().select(stockAddModalModel.getStock());
             stage.close();
         });
 

@@ -27,6 +27,7 @@ public class ClientAddModalController implements Initializable {
     @FXML
     public TextField strategy;
 
+
     private ClientAddModalModel clientAddModalModel;
     private EntityClientImpl entityClient;
 
@@ -42,6 +43,7 @@ public class ClientAddModalController implements Initializable {
             ClientController clientController = (ClientController) stage.getUserData();
             clientController.label.setText("Übersicht");
             clientController.getClients();
+            clientController.comboBox.getSelectionModel().select(clientAddModalModel.getClient());
             stage.close();
         });
 

@@ -135,9 +135,12 @@ public class StockController implements Initializable {
     }
 
     public void getAktien() {
-        comboBox.getItems().clear();
         stockModel.setAktien(entityAktien.getAll());
-        stockModel.getAktien().forEach(c -> comboBox.getItems().add(c));
+        stockModel.getAktien().forEach(c -> {
+            if (!comboBox.getItems().contains(c)) {
+                comboBox.getItems().add(c);
+            }
+        });
     }
 
     @FXML
@@ -166,7 +169,7 @@ public class StockController implements Initializable {
         Stock selectedStock = comboBox.getSelectionModel().getSelectedItem();
         if (entityAktien.update(selectedStock)) {
             new AlertDialog().showSuccessDialog("Erledigt!", "Aktie " + stockModel.getStock().getName() + " wurde erfolgreich aktualisiert.");
-
+            comboBox.getItems().remove(selectedStock);
             getAktien();
             comboBox.getSelectionModel().select(selectedStock);
         }
@@ -183,6 +186,7 @@ public class StockController implements Initializable {
         if (alert.getResult() == ButtonType.YES) {
             // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
             entityAktien.delete(comboBox.getSelectionModel().getSelectedItem());
+            comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
             comboBox.getSelectionModel().clearSelection();
             getAktien();
         }

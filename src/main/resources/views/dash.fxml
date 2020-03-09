@@ -89,6 +89,8 @@
                         <Font size="11.0" />
                      </font>
                   </Label>
+                  <Label fx:id="labelMarket" layoutX="46.0" layoutY="423.0" prefHeight="17.0" prefWidth="419.0" />
+                  <Label fx:id="labelClients" layoutX="494.0" layoutY="423.0" prefHeight="17.0" prefWidth="419.0" />
                  </children>
              </Pane>
          </children>

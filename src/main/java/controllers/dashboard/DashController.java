@@ -1,5 +1,7 @@
 package controllers.dashboard;
 
+import entities.Client;
+import entities.Stock;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -39,6 +41,10 @@ public class DashController implements Initializable {
     public Label lastUpdateStatus;
     @FXML
     public Label lastUpdateDate;
+    @FXML
+    public Label labelMarket;
+    @FXML
+    public Label labelClients;
     @FXML
     public Button updateStock;
     @FXML
@@ -83,57 +89,57 @@ public class DashController implements Initializable {
 
         timeline.setCycleCount(1);
         timeline.play();
-
-        final Label caption = new Label("");
-        caption.setTextFill(Color.DARKORANGE);
-        caption.setStyle("-fx-font: 24 arial;");
-
-        timeline.setOnFinished(x -> {
-            for (final PieChart.Data data : pieChart1.getData()) {
-                data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, e -> {
-                    caption.setTranslateX(e.getSceneX());
-                    caption.setTranslateY(e.getSceneY());
-                    caption.setText(data.getPieValue() + " %");
-                });
-            }
-        });
     }
 
     private void loadMarkets(PieChart pieChart) {
-        Map<String, Integer> map = new HashMap<>();
-        entityAktien.getAll().forEach(aktie -> {
-            if (map.containsKey(aktie.getExchange())) {
-                Integer value = map.get(aktie.getExchange());
-                map.put(aktie.getExchange(), ++value);
-            } else {
-                map.put(aktie.getExchange(), 1);
-            }
-        });
+        List<Stock> stocks =  entityAktien.getAll();
+        if (stocks.size() > 0 ) {
+            labelMarket.setText("");
+            Map<String, Integer> map = new HashMap<>();
+            stocks.forEach(aktie -> {
+                if (map.containsKey(aktie.getExchange())) {
+                    Integer value = map.get(aktie.getExchange());
+                    map.put(aktie.getExchange(), ++value);
+                } else {
+                    map.put(aktie.getExchange(), 1);
+                }
+            });
 
-        List<PieChart.Data> list = new ArrayList<>();
-        map.forEach((key, value) -> {
-            list.add(new PieChart.Data(key, value));
-        });
+            List<PieChart.Data> list = new ArrayList<>();
+            map.forEach((key, value) -> {
+                list.add(new PieChart.Data(key, value));
+            });
 
-        ObservableList<PieChart.Data> data = FXCollections.observableArrayList(list);
-        pieChart.setLabelsVisible(false);
-        pieChart.setLegendVisible(true);
-        pieChart.setLegendSide(Side.LEFT);
-        pieChart.setData(data);
+            ObservableList<PieChart.Data> data = FXCollections.observableArrayList(list);
+            pieChart.setLabelsVisible(false);
+            pieChart.setLegendVisible(true);
+            pieChart.setLegendSide(Side.LEFT);
+            pieChart.setData(data);
+        } else {
+            labelMarket.setText("Es stehen noch keine Daten zur Analyse zur Verfügung.");
+        }
+
     }
 
     private void loadClients(PieChart pieChart) {
-
+        List<Client> clients = entityClient.getAll();
         List<PieChart.Data> list = new ArrayList<>();
-        entityClient.getAll().forEach( client ->
-                list.add(new PieChart.Data(client.getName(), client.getDepoValue().doubleValue()))
-        );
 
-        ObservableList<PieChart.Data> data = FXCollections.observableArrayList(list);
-        pieChart.setLabelsVisible(false);
-        pieChart.setLegendVisible(true);
-        pieChart.setLegendSide(Side.RIGHT);
-        pieChart.setData(data);
+        if (clients.size() > 0 ){
+            labelClients.setText("");
+            clients.forEach( client ->
+                    list.add(new PieChart.Data(client.getName(), client.getDepoValue().doubleValue()))
+            );
+
+            ObservableList<PieChart.Data> data = FXCollections.observableArrayList(list);
+            pieChart.setLabelsVisible(false);
+            pieChart.setLegendVisible(true);
+            pieChart.setLegendSide(Side.RIGHT);
+            pieChart.setData(data);
+        } else {
+            labelClients.setText("Es stehen noch keine Daten zur Analyse zur Verfügung.");
+        }
+
     }
 
 

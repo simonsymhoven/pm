@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.client_auditModal.ClientAuditModalController">
    <children>
-      <Label layoutX="40.0" layoutY="42.0" text="Client Audit" textFill="#343f4a">
+      <Label layoutX="40.0" layoutY="42.0" text="Clienten Audit" textFill="#343f4a">
          <font>
             <Font size="19.0" />
          </font>
@@ -19,5 +21,11 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="40.0" layoutY="81.0" prefHeight="363.0" prefWidth="570.0" style="-fx-background-color: transparent;">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="570.0" />
+        </content>
+      </ScrollPane>
+      <Separator layoutX="40.0" layoutY="67.0" prefHeight="0.0" prefWidth="570.0" />
    </children>
 </AnchorPane>

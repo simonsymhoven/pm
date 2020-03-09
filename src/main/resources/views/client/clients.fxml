@@ -15,16 +15,7 @@
    <children>
       <Pane layoutX="6.0" layoutY="-21.0" prefHeight="708.0" prefWidth="991.0">
          <children>
-            <Button fx:id="editClient" disable="true" layoutX="803.0" layoutY="105.0" mnemonicParsing="false" onAction="#editClient" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../img/icons8-viele-bearbeiten-50.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="addClient" layoutX="736.0" layoutY="105.0" mnemonicParsing="false" onAction="#addClient" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+            <Button fx:id="addClient" layoutX="803.0" layoutY="105.0" mnemonicParsing="false" onAction="#addClient" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="59.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -53,7 +44,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="deleteClient" layoutX="669.0" layoutY="105.0" mnemonicParsing="false" onAction="#deleteClient" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+            <Button fx:id="deleteClient" layoutX="736.0" layoutY="105.0" mnemonicParsing="false" onAction="#deleteClient" prefHeight="49.0" prefWidth="49.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="59.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                      <image>
