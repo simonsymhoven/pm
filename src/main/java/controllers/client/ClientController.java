@@ -1,6 +1,8 @@
 package controllers.client;
 
 import alert.AlertDialog;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import entities.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,7 +28,7 @@ public class ClientController implements Initializable {
 
     double x,y = 0;
     @FXML
-    public ComboBox<Client> comboBox;
+    public JFXComboBox<Client> comboBox;
     @FXML
     public Label label;
     @FXML
@@ -34,13 +36,13 @@ public class ClientController implements Initializable {
     @FXML
     public Button deleteClient;
     @FXML
-    public TextField name;
+    public JFXTextField name;
     @FXML
-    public TextField symbol;
+    public JFXTextField symbol;
     @FXML
-    public TextField strategy;
+    public JFXTextField strategy;
     @FXML
-    public TextField depoValue;
+    public JFXTextField depoValue;
     @FXML
     public Button showAudit;
 

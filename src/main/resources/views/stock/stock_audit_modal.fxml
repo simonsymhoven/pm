@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
-
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.stock.stock_auditModal.StockAuditModalController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" style="-fx-border-color: #343f4a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.stock.stock_auditModal.StockAuditModalController">
    <children>
       <Label layoutX="40.0" layoutY="42.0" text="Aktien Audit" textFill="#343f4a">
          <font>
             <Font size="19.0" />
-         </font>
-      </Label>
-
-      <Circle fill="#f94344" layoutX="609.0" layoutY="28.0" radius="14.0" stroke="WHITE" strokeType="INSIDE" />
-      <Label fx:id="lblClose" alignment="CENTER" layoutX="595.0" layoutY="20.0" prefHeight="17.0" prefWidth="28.0" text="X" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="40.0" layoutY="81.0" prefHeight="363.0" prefWidth="570.0" style="-fx-background-color: transparent;">
@@ -27,5 +20,10 @@
          </content>
       </ScrollPane>
       <Separator layoutX="40.0" layoutY="67.0" prefHeight="0.0" prefWidth="570.0" />
+      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="595.0" layoutY="14.0" prefHeight="28.0" prefWidth="30.0" style="-fx-background-color: #ff4646; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="x" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

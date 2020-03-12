@@ -1,5 +1,6 @@
 package controllers.dashboard;
 
+import com.jfoenix.controls.JFXButton;
 import entities.Client;
 import entities.Stock;
 import javafx.animation.KeyFrame;
@@ -46,7 +47,7 @@ public class DashController implements Initializable {
     @FXML
     public Label labelClients;
     @FXML
-    public Button updateStock;
+    public JFXButton updateStock;
     @FXML
     public VBox vBox;
 

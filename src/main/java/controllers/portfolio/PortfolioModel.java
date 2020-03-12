@@ -8,14 +8,14 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-class PortfolioModel {
+public class PortfolioModel {
     private List<Stock> aktienList;
     private List<Client> clients;
     private Client client;
     private Stock stock;
 
     private DataFormat dataFormat;
-    public DataFormat getFormat(){
+    DataFormat getFormat(){
         if (DataFormat.lookupMimeType("AktieList") == null)
             this.dataFormat = new DataFormat("AktieList");
 

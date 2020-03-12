@@ -11,7 +11,7 @@ public class AbstractJSONReader implements JSONInterface {
 
     protected JSONParser jsonParser;
     protected JSONObject jsonObject;
-    private String pathToJSON = System.getProperty("user.dir") + "/src/db/settings.json";
+    private String pathToJSON = System.getProperty("user.dir") + "/db/settings.json";
 
     public AbstractJSONReader(JSONParser jsonParser){
         this.jsonParser = jsonParser;

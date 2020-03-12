@@ -6,12 +6,10 @@
 
 .button:hover {
     -fx-background-color: #2e3842;
-    -fx-text-fill: #eb9367;
 }
 
-.button:pressed {
-    -fx-background-color: #242c33;
-    -fx-text-fill: #eb9367;
+.button:active {
+ -fx-background-color: #2e3842;
 }
 
 .button2 {
@@ -44,35 +42,27 @@
     -fx-border-width: 0px;
 }
 
-.text-field, .password-field, .combo-box-base {
-    -fx-background-color: -fx-text-box-border, -fx-background ;
-    -fx-background-insets: 0, 0 0 1 0 ;
-    -fx-background-radius: 0 ;
+.jfx-text-field {
+    -jfx-focus-color: #343f4a;
+    -jfx-unfocus-color: #4d4d4d;
+    -jfx-background-color: -fx-text-box-border, -fx-background ;
+    -jfx-background-insets: 0, 0 0 1 0 ;
+    -jfx-background-radius: 0 ;
 }
-.text-field:focused, .password-field:focused{
-    -fx-background-color: -fx-focus-color, -fx-background ;
-}
-
-.text-field.error, .password-field.error {
-  -fx-text-box-border: #ff4646 ;
-  -fx-focus-color: #ff4646 ;
-}
-
-
-.check-box .box {
-    -fx-background-color: transparent;
-    -fx-border-color:  #343f4a;
-    -fx-border-radius:3px;
+.jfx-password-field {
+    -jfx-focus-color: #343f4a;
+    -jfx-unfocus-color: #4d4d4d;
+    -jfx-background-color: -fx-text-box-border, -fx-background ;
+    -jfx-background-insets: 0, 0 0 1 0 ;
+    -jfx-background-radius: 0 ;
 }
 
-.check-box:selected .mark {
-    -fx-background-color: white;
-}
 
-.check-box:selected .box {
-    -fx-background-color: #343f4a;
+.jfx-password-field.error, .jfx-text-field.error {
+  -jfx-text-box-border: #ff4646 ;
+  -jfx-unfocus-color: #ff4646;
+  -jfx-focus-color: #ff4646;
 }
-
 
 #list1, #list2 {
     -fx-padding: 3px;

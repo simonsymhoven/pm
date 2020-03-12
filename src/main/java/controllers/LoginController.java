@@ -1,5 +1,9 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import entities.User;
 import javafx.scene.layout.AnchorPane;
 import lombok.extern.log4j.Log4j2;
@@ -26,17 +30,17 @@ public class LoginController implements Initializable {
     double x, y = 0;
 
     @FXML
-    public TextField userName;
+    public JFXTextField userName;
     @FXML
-    public PasswordField password;
+    public JFXPasswordField password;
     @FXML
-    public Button login;
+    public JFXButton login;
     @FXML
-    public Label lblClose;
+    public JFXButton close;
     @FXML
     public Label messageLabel;
     @FXML
-    public CheckBox checkBox;
+    public JFXCheckBox checkBox;
 
     static User loggedinUser;
     private EntityUserImpl entityUser = new EntityUserImpl();
@@ -91,7 +95,7 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         userName.setText(jsonReader.read("user").toString());
         checkBox.setSelected(true);
-        lblClose.setOnMouseClicked(e -> {
+        close.setOnMouseClicked(e -> {
             System.exit(0);
             DatabaseFactory.shutdown();
         });

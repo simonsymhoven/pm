@@ -2,6 +2,8 @@ package controllers.stock.stock_addModal;
 
 
 import YahooAPI.YahooStockAPI;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import controllers.stock.StockController;
 import entities.Stock;
 import javafx.fxml.FXML;
@@ -18,21 +20,21 @@ public class StockAddModalController implements Initializable {
     @FXML
     public Label info;
     @FXML
-    public Button addAktie;
+    public JFXButton addAktie;
     @FXML
-    public Label lblClose;
+    public JFXButton close;
     @FXML
-    public Button search;
+    public JFXButton search;
     @FXML
-    public TextField symbol;
+    public JFXTextField symbol;
     @FXML
-    public TextField name;
+    public JFXTextField name;
     @FXML
-    public TextField symbol2;
+    public JFXTextField symbol2;
     @FXML
-    public TextField exchange;
+    public JFXTextField exchange;
     @FXML
-    public TextField currency;
+    public JFXTextField currency;
 
     private StockAddModalModel stockAddModalModel;
     private YahooStockAPI yahooStockAPI;
@@ -46,7 +48,7 @@ public class StockAddModalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lblClose.setOnMouseClicked(e -> {
+        close.setOnMouseClicked(e -> {
             Stage stage = (Stage) addAktie.getScene().getWindow();
             StockController stockController = (StockController) stage.getUserData();
             stockController.getAktien();
@@ -90,6 +92,11 @@ public class StockAddModalController implements Initializable {
             alertError.setHeaderText("Uuuups!");
             alertError.setGraphic(new ImageView(img));
             alertError.show();
+
+            name.clear();
+            symbol2.clear();
+            exchange.clear();
+            currency.clear();
         }
     }
 

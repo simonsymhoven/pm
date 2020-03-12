@@ -5,7 +5,7 @@
     <session-factory>
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">org.sqlite.JDBC</property>
-        <property name="connection.url">jdbc:sqlite:/Users/simonsymhoven/Documents/Selbstaendigkeit/projekte/schmitz/pm/src/db/database.db</property>
+        <property name="connection.url">jdbc:sqlite:./db/database.db</property>
         <property name="connection.username"></property>
         <property name="connection.password"></property>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>

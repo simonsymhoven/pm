@@ -1,12 +1,14 @@
 package controllers.stock.stock_auditModal;
 
 
+import com.jfoenix.controls.JFXButton;
 import controllers.stock.StockController;
 import entities.Stock;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -24,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class StockAuditModalController implements Initializable {
     @FXML
-    public Label lblClose;
+    public JFXButton close;
     @FXML
     public AnchorPane pane;
     @FXML
@@ -59,7 +61,7 @@ public class StockAuditModalController implements Initializable {
                 HBox hbox = new HBox();
                 hbox.setPrefSize(550, 70);
                 hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                        + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
+                        + "-fx-border-width: 0.5;" + "-fx-border-insets: 5;"
                         + "-fx-border-radius: 5;" + "-fx-border-color: #343f4a;");
                 Image img;
 
@@ -110,7 +112,7 @@ public class StockAuditModalController implements Initializable {
             scrollPane.setContent(vBox);
         });
 
-        lblClose.setOnMouseClicked(e -> {
+        close.setOnMouseClicked(e -> {
             stockController.label.setText("Übersicht");
             stage.close();
         });

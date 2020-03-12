@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.client_addModal.ClientAddModalController">
+<AnchorPane prefHeight="476.0" prefWidth="637.0" style="-fx-border-color: #343f4a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.client_addModal.ClientAddModalController">
    <children>
-      <Button fx:id="addClient" layoutX="511.0" layoutY="408.0" mnemonicParsing="false" onAction="#addClient" prefHeight="37.0" prefWidth="98.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen" />
       <Label layoutX="40.0" layoutY="42.0" text="Client hinzufügen" textFill="#343f4a">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-
-      <Circle fill="#f94344" layoutX="609.0" layoutY="28.0" radius="14.0" stroke="WHITE" strokeType="INSIDE" />
-      <Label fx:id="lblClose" alignment="CENTER" layoutX="595.0" layoutY="20.0" prefHeight="17.0" prefWidth="28.0" text="X" textFill="WHITE">
+      <JFXTextField fx:id="name" labelFloat="true" layoutX="61.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
+      <JFXTextField fx:id="symbol" labelFloat="true" layoutX="244.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Kürzel" stylesheets="@../../fullpackstyling.css" />
+      <JFXTextField fx:id="strategy" labelFloat="true" layoutX="427.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Strategie" stylesheets="@../../fullpackstyling.css" />
+      <JFXButton fx:id="addClient" buttonType="RAISED" layoutX="477.0" layoutY="394.0" onAction="#addClient" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font size="17.0" />
          </font>
-      </Label>
-
-      <TextField fx:id="name" layoutX="37.0" layoutY="149.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
-      <TextField fx:id="symbol" layoutX="220.0" layoutY="149.0" promptText="Kürzel" stylesheets="@../../fullpackstyling.css" />
-      <TextField fx:id="strategy" layoutX="403.0" layoutY="149.0" prefHeight="27.0" prefWidth="161.0" promptText="Strategie" stylesheets="@../../fullpackstyling.css" />
-      <Label layoutX="37.0" layoutY="122.0" text="Name" />
-      <Label layoutX="224.0" layoutY="119.0" text="Kürzel" />
-      <Label layoutX="403.0" layoutY="122.0" text="Strategie" />
+      </JFXButton>
+      <Separator layoutX="40.0" layoutY="69.0" prefHeight="0.0" prefWidth="570.0" />
+      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="595.0" layoutY="14.0" prefHeight="28.0" prefWidth="30.0" ripplerFill="BLACK" style="-fx-background-color: #ff4646; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="x" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
 
    </children>
 </AnchorPane>

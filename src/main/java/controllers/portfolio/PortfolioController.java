@@ -1,51 +1,67 @@
 package controllers.portfolio;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
 import entities.Client;
+import entities.ClientStock;
+import entities.ClientStockKey;
 import entities.Stock;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import sql.EntityPortfolioImpl;
 import sql.EntityStockImpl;
 import sql.EntityClientImpl;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
 
 @Log4j2
 public class PortfolioController implements Initializable {
+    double x,y = 0;
     @FXML
-    public ComboBox<Client> comboBox;
+    public JFXComboBox<Client> comboBox;
     @FXML
-    public Button save;
+    public JFXButton save;
     @FXML
-    public Button cancel;
-    @FXML
-    private ListView<Stock> aktienList;
+    private JFXListView<Stock> aktienList;
     @FXML
     private ListView<Stock> aktienListKunde;
     @FXML
-    private TextField name;
+    private JFXTextField name;
     @FXML
-    private TextField symbol;
+    private JFXTextField symbol;
     @FXML
-    private TextField exchange;
+    private JFXTextField exchange;
     @FXML
-    private TextField price;
+    private JFXTextField price;
     @FXML
-    private TextField change;
+    private JFXTextField change;
     @FXML
-    private TextField currency;
+    private JFXTextField currency;
+    @FXML
+    private JFXTextField quantatiy;
+    @FXML
+    public Button showAudit;
 
-
-
-
-    private PortfolioModel portfolioModel;
+    @Getter
+    public PortfolioModel portfolioModel;
     private EntityStockImpl entityAktien;
     private EntityClientImpl entityClient;
 
@@ -58,7 +74,7 @@ public class PortfolioController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         save.disableProperty().bind(comboBox.valueProperty().isNull());
-        cancel.disableProperty().bind(comboBox.valueProperty().isNull());
+        showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
 
         aktienList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         aktienListKunde.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -88,12 +104,19 @@ public class PortfolioController implements Initializable {
                 change.setText(NumberFormat.getCurrencyInstance()
                         .format(portfolioModel.getStock().getChange()));
 
+                quantatiy.setEditable(true);
             } else {
                 clearFields();
 
             }
         });
 
+
+        quantatiy.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                quantatiy.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
 
         // Add mouse event handlers for the source
         aktienList.setOnDragDetected(event -> {
@@ -136,6 +159,7 @@ public class PortfolioController implements Initializable {
             log.info("Event on Target: drag done");
             dragDone(event, aktienListKunde);
         });
+
 
 
     }
@@ -205,7 +229,7 @@ public class PortfolioController implements Initializable {
     private void dragDone(DragEvent event, ListView<Stock> listView) {
         TransferMode tm = event.getTransferMode();
         log.info("TRANSFER MODE: " + tm.toString());
-        if (tm == TransferMode.COPY) {
+        if (tm.equals(TransferMode.COPY) || tm.equals(TransferMode.MOVE)) {
             removeSelectedAktie(listView);
         }
 
@@ -225,14 +249,17 @@ public class PortfolioController implements Initializable {
         listView.getItems().removeAll(selectedList);
     }
 
+
     @FXML
     public void save() {
+
         Set<Stock> stocks = new HashSet<>();
         aktienListKunde.getItems().forEach(stock -> {
             stocks.add(stock);
         });
 
         portfolioModel.getClient().setStocks(stocks);
+
         if (entityClient.update(portfolioModel.getClient())) {
             Image img = new Image(getClass().getResourceAsStream("/img/icons8-ausgefüllte-checkbox-100.png"));
             Alert alertAdd = new Alert(
@@ -251,17 +278,27 @@ public class PortfolioController implements Initializable {
             alertError.show();
         }
 
-        reset();
     }
+
+
 
     @FXML
-    public void cancel() {
-       reset();
-    }
-
-    private void reset(){
-        aktienList.getItems().clear();
-        aktienListKunde.getItems().clear();
-        comboBox.getSelectionModel().clearSelection();
+    public void getAudit() throws IOException {
+        Stage dialog = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/views/portfolio/portfolio_audit_modal.fxml"));
+        root.setOnMousePressed(event -> {
+            x = event.getSceneX();
+            y = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            dialog.setX(event.getScreenX() - x);
+            dialog.setY(event.getScreenY() - y);
+        });
+        dialog.setScene(new Scene(root));
+        dialog.initOwner(showAudit.getScene().getWindow());
+        dialog.setUserData(this);
+        dialog.initStyle(StageStyle.UNDECORATED);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.show();
     }
 }

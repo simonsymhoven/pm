@@ -2,6 +2,8 @@ package controllers.client.client_addModal;
 
 
 import alert.AlertDialog;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
 import entities.Client;
 import javafx.fxml.FXML;
@@ -17,15 +19,15 @@ import java.util.ResourceBundle;
 
 public class ClientAddModalController implements Initializable {
     @FXML
-    public Button addClient;
+    public JFXButton addClient;
     @FXML
-    public Label lblClose;
+    public JFXButton close;
     @FXML
-    public TextField name;
+    public JFXTextField name;
     @FXML
-    public TextField symbol;
+    public JFXTextField symbol;
     @FXML
-    public TextField strategy;
+    public JFXTextField strategy;
 
 
     private ClientAddModalModel clientAddModalModel;
@@ -38,7 +40,7 @@ public class ClientAddModalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        lblClose.setOnMouseClicked(e -> {
+        close.setOnMouseClicked(e -> {
             Stage stage = (Stage) addClient.getScene().getWindow();
             ClientController clientController = (ClientController) stage.getUserData();
             clientController.label.setText("Übersicht");
@@ -52,6 +54,12 @@ public class ClientAddModalController implements Initializable {
                                 strategy.textProperty().isEmpty())
         ));
 
+
+        strategy.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                strategy.setText(newValue.replaceAll("\\D", ""));
+            }
+        });
     }
 
     @FXML

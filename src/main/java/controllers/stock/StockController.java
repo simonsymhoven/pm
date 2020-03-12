@@ -2,6 +2,8 @@ package controllers.stock;
 
 import YahooAPI.YahooStockAPI;
 import alert.AlertDialog;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import entities.Stock;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -32,21 +34,21 @@ public class StockController implements Initializable {
 
     private double x, y = 0;
     @FXML
-    public ComboBox<Stock> comboBox;
+    public JFXComboBox<Stock> comboBox;
     @FXML
     public Label label;
     @FXML
-    public TextField name;
+    public JFXTextField name;
     @FXML
-    public TextField symbol;
+    public JFXTextField symbol;
     @FXML
-    public TextField exchange;
+    public JFXTextField exchange;
     @FXML
-    public TextField price;
+    public JFXTextField price;
     @FXML
-    public TextField change;
+    public JFXTextField change;
     @FXML
-    public TextField currency;
+    public JFXTextField currency;
     @FXML
     public ImageView imgView;
     @FXML
@@ -188,6 +190,7 @@ public class StockController implements Initializable {
             entityAktien.delete(comboBox.getSelectionModel().getSelectedItem());
             comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
             comboBox.getSelectionModel().clearSelection();
+            imgView.setImage(null);
             getAktien();
         }
     }

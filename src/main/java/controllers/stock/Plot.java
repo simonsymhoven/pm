@@ -50,8 +50,8 @@ public class Plot extends Task<Image> {
 
             XYChart chart =
                     new XYChartBuilder()
-                            .width(830)
-                            .height(315)
+                            .width(900)
+                            .height(400)
                             .title(stockModel.getStock().getName())
                             .xAxisTitle("Zeit")
                             .yAxisTitle("Wert in €")
