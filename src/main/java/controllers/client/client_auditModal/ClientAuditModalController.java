@@ -70,16 +70,16 @@ public class ClientAuditModalController implements Initializable {
 
                 switch(revision.getRevisionType()) {
                     case ADD:
-                        img = new Image(getClass().getResourceAsStream("/img/icons8-plus-2-50.png"));
+                        img = new Image(getClass().getResourceAsStream("/icons/plus(1).png"));
                         break;
                     case DEL:
-                        img = new Image(getClass().getResourceAsStream("/img/icons8-löschen-50.png"));
+                        img = new Image(getClass().getResourceAsStream("/icons/error.png"));
                         break;
                     case MOD:
-                        img = new Image(getClass().getResourceAsStream("/img/icons8-viele-bearbeiten-50.png"));
+                        img = new Image(getClass().getResourceAsStream("/icons/shuffle.png"));
                         break;
                     default:
-                        img = new Image(getClass().getResourceAsStream("/img/icons8-fragezeichen-100.png"));
+                        img = new Image(getClass().getResourceAsStream("/icons/question.png"));
                         break;
                 }
 
