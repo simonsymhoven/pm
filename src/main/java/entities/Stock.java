@@ -39,7 +39,7 @@ public class Stock implements Serializable {
     @Column(name = "name")
     public String name;
 
-    @Column(name = "symbol")
+    @Column(name = "symbol", unique = true)
     public String symbol;
 
     @Column(name = "exchange")

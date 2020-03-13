@@ -23,7 +23,7 @@
          </font>
       </JFXButton>
       <Separator layoutX="40.0" layoutY="69.0" prefHeight="0.0" prefWidth="570.0" />
-      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="595.0" layoutY="14.0" prefHeight="28.0" prefWidth="30.0" ripplerFill="BLACK" style="-fx-background-color: #ff4646; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="x" textFill="WHITE">
+      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="595.0" layoutY="14.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" style="-fx-background-color: #ff4646; -fx-background-radius: 30px; -fx-border-radius: 30px;" text="x" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>

@@ -35,6 +35,7 @@ public class Plot extends Task<Image> {
         private Image buildXYChart() {
             List<Date> xList = new ArrayList();
             List<Double> yList = new ArrayList();
+            stockModel.setHistory(new ArrayList<>(yahooStockAPI.getHistory(stockModel.getStock().getSymbol())));
             stockModel.getHistory().forEach(h -> {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 try {

@@ -1,6 +1,7 @@
 package controllers.client;
 
 import alert.AlertDialog;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import entities.Client;
@@ -32,9 +33,9 @@ public class ClientController implements Initializable {
     @FXML
     public Label label;
     @FXML
-    public Button addClient;
+    public JFXButton addClient;
     @FXML
-    public Button deleteClient;
+    public JFXButton deleteClient;
     @FXML
     public JFXTextField name;
     @FXML
@@ -44,7 +45,7 @@ public class ClientController implements Initializable {
     @FXML
     public JFXTextField depoValue;
     @FXML
-    public Button showAudit;
+    public JFXButton showAudit;
 
 
     private EntityClientImpl entityClient;
@@ -82,42 +83,70 @@ public class ClientController implements Initializable {
                 depoValue.clear();
             }
         });
-    }
 
-    @FXML
-    public void addClient() throws IOException {
-        Stage dialog = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/views/client/client_add_modal.fxml"));
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
+        addClient.setOnMouseClicked(e -> {
+            Stage dialog = new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/client/client_add_modal.fxml"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(addClient.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
         });
-        root.setOnMouseDragged(event -> {
-            dialog.setX(event.getScreenX() - x);
-            dialog.setY(event.getScreenY() - y);
+
+        deleteClient.setOnMouseClicked(e -> {
+            Alert alert = new AlertDialog()
+                    .showConfirmationDialog("Ganz sicher?", "Bist du dir wirklich sicher, dass du diesen Clienten löschen möchtest? \n" +
+                            "Diese Aktion kann nicht widerrufen werden!");
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.YES) {
+                entityClient.delete(clientModel.getClient());
+                comboBox.getItems().remove(clientModel.getClient());
+                label.setText("Übersicht");
+                getClients();
+                comboBox.getSelectionModel().clearSelection();
+            }
         });
-        dialog.setScene(new Scene(root));
-        dialog.initOwner(addClient.getScene().getWindow());
-        dialog.setUserData(this);
-        dialog.initStyle(StageStyle.UNDECORATED);
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.show();
-    }
 
-    @FXML
-    public void deleteClient(){
-        Alert alert = new AlertDialog()
-                .showConfirmationDialog("Ganz sicher?", "Bist du dir wirklich sicher, dass du diesen Clienten löschen möchtest? \n" +
-                        "Diese Aktion kann nicht widerrufen werden!");
-        alert.showAndWait();
+        showAudit.setOnMouseClicked(e ->  {
+            Stage dialog = new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/client/client_audit_modal.fxml"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        });
 
-        if (alert.getResult() == ButtonType.YES) {
-            entityClient.delete(clientModel.getClient());
-            comboBox.getItems().remove(clientModel.getClient());
-            label.setText("Übersicht");
-            getClients();
-            comboBox.getSelectionModel().clearSelection();
-        }
     }
 
     public void getClients(){
@@ -129,23 +158,4 @@ public class ClientController implements Initializable {
         });
     }
 
-    @FXML
-    public void getAudit() throws IOException {
-        Stage dialog = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/views/client/client_audit_modal.fxml"));
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            dialog.setX(event.getScreenX() - x);
-            dialog.setY(event.getScreenY() - y);
-        });
-        dialog.setScene(new Scene(root));
-        dialog.initOwner(showAudit.getScene().getWindow());
-        dialog.setUserData(this);
-        dialog.initStyle(StageStyle.UNDECORATED);
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.show();
-    }
 }

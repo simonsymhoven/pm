@@ -8,8 +8,10 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -36,7 +38,8 @@ public class Client implements Serializable {
     @Column(name = "name")
     public String name;
 
-    @Column(name = "symbol")
+
+    @Column(name = "symbol", unique = true)
     public String symbol;
 
     @Column(name = "strategy")
@@ -81,5 +84,10 @@ public class Client implements Serializable {
     @Override
     public String toString(){
         return getName();
+    }
+
+    @Transactional
+    public void removeStocks(List<Stock> list){
+        stocks.removeAll(list);
     }
 }

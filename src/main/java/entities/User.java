@@ -25,7 +25,7 @@ public class User {
     @Column(name = "vorname")
     public String vorname;
 
-    @Column(name = "userName")
+    @Column(name = "userName", unique = true)
     public String userName;
 
     @Column(name = "hash")

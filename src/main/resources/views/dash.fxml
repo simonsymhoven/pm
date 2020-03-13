@@ -31,14 +31,14 @@
                                      <Font name="System Bold" size="14.0" />
                                  </font>
                              </Label>
-                             <VBox fx:id="vBox" layoutX="176.0" layoutY="70.0" prefHeight="88.0" prefWidth="182.0" style="-fx-background-radius: 2em;">
+                             <VBox fx:id="vBox" layoutX="176.0" layoutY="70.0" prefHeight="65.0" prefWidth="182.0" style="-fx-background-radius: 2em;">
                            <children>
                               <Label text="* Audit History für Clients und Portflolio überarbeiten" textFill="WHITE" wrapText="true" />
                               <Label text="* UTF-8  encoding" textFill="WHITE" wrapText="true" />
                            </children></VBox>
-                             <ImageView fitHeight="68.0" fitWidth="60.0" layoutX="62.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                             <ImageView fitHeight="125.0" fitWidth="107.0" layoutX="35.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                     <Image url="@../img/icons8_warning_shield_52px_1.png" />
+                                     <Image url="@../icons/diamant.png" />
                                  </image>
                              </ImageView>
                          </children>
@@ -81,11 +81,11 @@
                   </Label>
                   <Label fx:id="labelMarket" layoutX="46.0" layoutY="423.0" prefHeight="17.0" prefWidth="419.0" />
                   <Label fx:id="labelClients" layoutX="494.0" layoutY="423.0" prefHeight="17.0" prefWidth="419.0" />
-                  <JFXButton fx:id="updateStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="48.0" layoutY="89.0" style="-fx-border-radius: 20px; -fx-background-radius: 20px;">
+                  <JFXButton fx:id="updateStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="34.0" layoutY="78.0" style="-fx-border-radius: 20px; -fx-background-radius: 20px;">
                      <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="62.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/aktualisierung.png" />
+                              <Image url="@../icons/cloud-sync.png" />
                            </image>
                         </ImageView>
                      </graphic>

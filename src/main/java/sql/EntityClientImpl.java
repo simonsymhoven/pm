@@ -2,6 +2,7 @@ package sql;
 
 import entities.Client;
 import entities.ClientRevision;
+import entities.Stock;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -12,6 +13,7 @@ import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
+import yahooAPI.YahooStockAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,4 +138,33 @@ public class EntityClientImpl implements DatabaseInterface<Client> {
     }
 
 
+    public boolean addStocks(Client client, List<Stock> selectedList) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Client clientToUpdate = session.load(Client.class, client.getId());
+            clientToUpdate.getStocks().addAll(selectedList);
+            session.save(clientToUpdate);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return false;
+    }
+
+    public boolean removeStocks(Client client, List<Stock> selectedList) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Client clientToUpdate = session.load(Client.class, client.getId());
+            clientToUpdate.getStocks().removeAll(selectedList);
+            session.save(clientToUpdate);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return false;
+    }
 }

@@ -1,6 +1,8 @@
 package controllers.stock.stock_addModal;
 
 
+import alert.AlertDialog;
+import javafx.application.Platform;
 import yahooAPI.YahooStockAPI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -39,6 +41,8 @@ public class StockAddModalController implements Initializable {
     private StockAddModalModel stockAddModalModel;
     private YahooStockAPI yahooStockAPI;
     private EntityStockImpl entityAktien;
+    private StockController stockController;
+    private Stage stage;
 
     public StockAddModalController() {
         this.stockAddModalModel = new StockAddModalModel();
@@ -48,11 +52,13 @@ public class StockAddModalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> {
+            stage = (Stage) addAktie.getScene().getWindow();
+            stockController = (StockController) stage.getUserData();
+        });
+
         close.setOnMouseClicked(e -> {
-            Stage stage = (Stage) addAktie.getScene().getWindow();
-            StockController stockController = (StockController) stage.getUserData();
-            stockController.getAktien();
-            stockController.comboBox.getSelectionModel().select(stockAddModalModel.getStock());
+            stockController.label.setText("Übersicht");
             stage.close();
         });
 
@@ -72,31 +78,17 @@ public class StockAddModalController implements Initializable {
     public void addAktie() {
         info.setText("");
         if (entityAktien.add(stockAddModalModel.getStock())) {
-            Image img = new Image(getClass().getResourceAsStream("/icons/plus(1).png"));
-            Alert alertAdd = new Alert(
-                    Alert.AlertType.INFORMATION,
-                    "Aktie wurde hinzugefügt.");
-            alertAdd.setHeaderText("Erledigt!");
-            alertAdd.setGraphic(new ImageView(img));
-            alertAdd.show();
+            Alert alert = new AlertDialog().showSuccessDialog("Erledigt!", "Aktie wurde hinzugefügt.");
+            alert.showAndWait();
 
-            name.clear();
-            symbol2.clear();
-            exchange.clear();
-            currency.clear();
+            if (alert.getResult() == ButtonType.OK) {
+                stockController.getAktien();
+                stockController.comboBox.getSelectionModel().select(stockAddModalModel.getStock());
+                stage.close();
+            }
+
         } else {
-            Image img = new Image(getClass().getResourceAsStream("/icons/error.png"));
-            Alert alertError = new Alert(
-                    Alert.AlertType.ERROR,
-                    "Aktie konnte nicht hinzugefügt werden.");
-            alertError.setHeaderText("Uuuups!");
-            alertError.setGraphic(new ImageView(img));
-            alertError.show();
-
-            name.clear();
-            symbol2.clear();
-            exchange.clear();
-            currency.clear();
+            new AlertDialog().showFailureDialog("Uuuups!", "Aktie konnte nicht hinzugefügt werden.");
         }
     }
 

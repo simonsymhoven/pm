@@ -57,7 +57,7 @@
       <JFXCheckBox fx:id="checkBox" checkedColor="#343f4a" layoutX="279.0" layoutY="282.0" text="Benutzername speichern" unCheckedColor="#343f4a" />
       <JFXPasswordField fx:id="password" labelFloat="true" layoutX="339.0" layoutY="232.0" prefHeight="18.0" prefWidth="237.0" promptText="Passwort" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
       <JFXTextField fx:id="userName" labelFloat="true" layoutX="339.0" layoutY="176.0" prefHeight="25.0" prefWidth="237.0" promptText="Benutzername" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
-      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="593.0" layoutY="14.0" prefHeight="28.0" prefWidth="30.0" style="-fx-background-color: #ff4646; -fx-background-radius: 20px; -fx-border-radius: 20px;" text="x" textFill="WHITE">
+      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="595.0" layoutY="14.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" style="-fx-background-color: #ff4646; -fx-background-radius: 30px; -fx-border-radius: 30px;" text="x" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>

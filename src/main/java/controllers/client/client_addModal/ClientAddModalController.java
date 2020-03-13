@@ -6,11 +6,10 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
 import entities.Client;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import sql.EntityClientImpl;
 import java.math.BigDecimal;
@@ -29,7 +28,8 @@ public class ClientAddModalController implements Initializable {
     @FXML
     public JFXTextField strategy;
 
-
+    private Stage stage;
+    private ClientController clientController;
     private ClientAddModalModel clientAddModalModel;
     private EntityClientImpl entityClient;
 
@@ -40,12 +40,13 @@ public class ClientAddModalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> {
+            stage = (Stage) addClient.getScene().getWindow();
+            clientController = (ClientController) stage.getUserData();
+        });
+
         close.setOnMouseClicked(e -> {
-            Stage stage = (Stage) addClient.getScene().getWindow();
-            ClientController clientController = (ClientController) stage.getUserData();
             clientController.label.setText("Übersicht");
-            clientController.getClients();
-            clientController.comboBox.getSelectionModel().select(clientAddModalModel.getClient());
             stage.close();
         });
 
@@ -74,11 +75,13 @@ public class ClientAddModalController implements Initializable {
         );
 
         if (entityClient.add(clientAddModalModel.getClient())) {
-            new AlertDialog().showSuccessDialog("Erledigt!", "Client wurde hinzugefügt.");
-
-            name.clear();
-            symbol.clear();
-            strategy.clear();
+            Alert alert = new AlertDialog().showSuccessDialog("Erledigt!", "Client wurde hinzugefügt.");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK) {
+                clientController.getClients();
+                clientController.comboBox.getSelectionModel().select(clientAddModalModel.getClient());
+                stage.close();
+            }
         } else {
             new AlertDialog().showFailureDialog("Uuuups!", "Client konnte nicht hinzugefügt werden.");
         }

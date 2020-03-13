@@ -4,11 +4,13 @@ import entities.*;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
+import yahooAPI.YahooStockAPI;
 
 import java.util.ArrayList;
 import java.util.List;

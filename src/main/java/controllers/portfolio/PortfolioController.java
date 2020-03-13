@@ -38,8 +38,6 @@ public class PortfolioController implements Initializable {
     @FXML
     public JFXComboBox<Client> comboBox;
     @FXML
-    public JFXButton save;
-    @FXML
     private JFXListView<Stock> aktienList;
     @FXML
     private ListView<Stock> aktienListKunde;
@@ -58,23 +56,49 @@ public class PortfolioController implements Initializable {
     @FXML
     private JFXTextField quantatiy;
     @FXML
-    public Button showAudit;
+    public JFXButton showAudit;
 
     @Getter
     public PortfolioModel portfolioModel;
     private EntityStockImpl entityAktien;
     private EntityClientImpl entityClient;
+    private EntityPortfolioImpl entityPortfolio;
 
     public PortfolioController() {
         this.portfolioModel = new PortfolioModel();
         this.entityAktien = new EntityStockImpl();
         this.entityClient = new EntityClientImpl();
+        this.entityPortfolio = new EntityPortfolioImpl();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        save.disableProperty().bind(comboBox.valueProperty().isNull());
         showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
+
+        showAudit.setOnMouseClicked(e -> {
+            Stage dialog = new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/portfolio/portfolio_audit_modal.fxml"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        });
 
         aktienList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         aktienListKunde.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -105,11 +129,14 @@ public class PortfolioController implements Initializable {
                         .format(portfolioModel.getStock().getChange()));
 
                 quantatiy.setEditable(true);
+                quantatiy.clear();
             } else {
                 clearFields();
-
+                quantatiy.setEditable(false);
             }
         });
+
+
 
 
         quantatiy.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -248,55 +275,14 @@ public class PortfolioController implements Initializable {
         listView.getSelectionModel().clearSelection();
         listView.getItems().removeAll(selectedList);
 
-    }
-
-
-    @FXML
-    public void save() {
-
-        Set<Stock> stocks = new HashSet<>(aktienListKunde.getItems());
-
-        portfolioModel.getClient().setStocks(stocks);
-
-        if (entityClient.update(portfolioModel.getClient())) {
-            Image img = new Image(getClass().getResourceAsStream("/icons/plus(1).png"));
-            Alert alertAdd = new Alert(
-                    Alert.AlertType.INFORMATION,
-                    "Portfolio für " + portfolioModel.getClient().getName() + " wurde aktualisiert.");
-            alertAdd.setHeaderText("Erledigt!");
-            alertAdd.setGraphic(new ImageView(img));
-            alertAdd.show();
-        } else {
-            Image img = new Image(getClass().getResourceAsStream("/icons/error.png"));
-            Alert alertError = new Alert(
-                    Alert.AlertType.ERROR,
-                    "Portfolio für " + portfolioModel.getClient().getName() + " konnte nicht aktualisiert werden.");
-            alertError.setHeaderText("Uuuups!");
-            alertError.setGraphic(new ImageView(img));
-            alertError.show();
+        if (listView.getId().equals("aktienList")) {
+            log.info("Stocks werden dem Nutzer hinzugefügt.");
+            entityClient.addStocks(portfolioModel.getClient(),selectedList);
+        } else if (listView.getId().equals("aktienListKunde")) {
+            log.info("Stocks werden dem Nutzer entzogen.");
+            entityClient.removeStocks(portfolioModel.getClient(), selectedList);
         }
 
     }
 
-
-
-    @FXML
-    public void getAudit() throws IOException {
-        Stage dialog = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/views/portfolio/portfolio_audit_modal.fxml"));
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            dialog.setX(event.getScreenX() - x);
-            dialog.setY(event.getScreenY() - y);
-        });
-        dialog.setScene(new Scene(root));
-        dialog.initOwner(showAudit.getScene().getWindow());
-        dialog.setUserData(this);
-        dialog.initStyle(StageStyle.UNDECORATED);
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.show();
-    }
 }

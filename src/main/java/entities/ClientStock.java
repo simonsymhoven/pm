@@ -1,6 +1,8 @@
 package entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -23,4 +25,5 @@ public class ClientStock {
         @MapsId("stock_id")
         @JoinColumn(name = "stock_id")
         Stock stock;
+
 }

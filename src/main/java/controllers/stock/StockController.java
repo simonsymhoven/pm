@@ -1,5 +1,6 @@
 package controllers.stock;
 
+import com.jfoenix.controls.JFXButton;
 import yahooAPI.YahooStockAPI;
 import alert.AlertDialog;
 import com.jfoenix.controls.JFXComboBox;
@@ -55,21 +56,19 @@ public class StockController implements Initializable {
     @FXML
     public AnchorPane pane;
     @FXML
-    private Button addStock;
+    private JFXButton addStock;
     @FXML
-    private Button updateStock;
+    private JFXButton updateStock;
     @FXML
-    private Button deleteStock;
+    private JFXButton deleteStock;
     @FXML
-    public Button showAudit;
+    public JFXButton showAudit;
     @Getter
     private StockModel stockModel;
     private EntityStockImpl entityAktien;
-    private YahooStockAPI yahooStockAPI;
 
     public StockController() {
         Locale.setDefault(Locale.GERMANY);
-        this.yahooStockAPI = new YahooStockAPI();
         this.stockModel = new StockModel();
         this.entityAktien = new EntityStockImpl();
     }
@@ -83,8 +82,8 @@ public class StockController implements Initializable {
         getAktien();
 
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null ) {
-                stockModel.setHistory(new ArrayList<>(yahooStockAPI.getHistory(newValue.getSymbol())));
+            if (newValue != null) {
+
                 stockModel.setStock(newValue);
                 currency.setText(stockModel.getStock().getCurrency());
                 label.setText(stockModel.getStock().getName());
@@ -133,6 +132,82 @@ public class StockController implements Initializable {
 
         });
 
+        showAudit.setOnMouseClicked(e -> {
+            Stage dialog = new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/stock/stock_audit_modal.fxml"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        });
+
+        addStock.setOnMouseClicked(e -> {
+            Stage dialog = new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("/views/stock/stock_add_modal.fxml"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.setUserData(this);
+            dialog.initOwner(addStock.getScene().getWindow());
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.showAndWait();
+        });
+
+        deleteStock.setOnMouseClicked(e -> {
+            Alert alert = new AlertDialog()
+                    .showConfirmationDialog("Ganz sicher?", "Bist du dir wirklich sicher, dass du diese Aktie löschen möchtest? \n" +
+                            "Diese Aktion kann nicht widerrufen werden!");
+            alert.showAndWait();
+
+
+            if (alert.getResult() == ButtonType.YES) {
+                // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
+                entityAktien.delete(comboBox.getSelectionModel().getSelectedItem());
+                comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
+                comboBox.getSelectionModel().clearSelection();
+                imgView.setImage(null);
+                getAktien();
+            }
+        });
+
+        updateStock.setOnMouseClicked(e -> {
+            // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
+            Stock selectedStock = comboBox.getSelectionModel().getSelectedItem();
+            if (entityAktien.update(selectedStock)) {
+                new AlertDialog().showSuccessDialog("Erledigt!", "Aktie " + stockModel.getStock().getName() + " wurde erfolgreich aktualisiert.");
+                comboBox.getItems().remove(selectedStock);
+                getAktien();
+                comboBox.getSelectionModel().select(selectedStock);
+            }
+        });
+
     }
 
     public void getAktien() {
@@ -144,73 +219,4 @@ public class StockController implements Initializable {
         });
     }
 
-    @FXML
-    public void addStock() throws IOException {
-        Stage dialog = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/views/stock/stock_add_modal.fxml"));
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            dialog.setX(event.getScreenX() - x);
-            dialog.setY(event.getScreenY() - y);
-        });
-        dialog.setScene(new Scene(root));
-        dialog.setUserData(this);
-        dialog.initOwner(addStock.getScene().getWindow());
-        dialog.initStyle(StageStyle.UNDECORATED);
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.showAndWait();
-    }
-
-    @FXML
-    public void updateStock(){
-        // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
-        Stock selectedStock = comboBox.getSelectionModel().getSelectedItem();
-        if (entityAktien.update(selectedStock)) {
-            new AlertDialog().showSuccessDialog("Erledigt!", "Aktie " + stockModel.getStock().getName() + " wurde erfolgreich aktualisiert.");
-            comboBox.getItems().remove(selectedStock);
-            getAktien();
-            comboBox.getSelectionModel().select(selectedStock);
-        }
-    }
-
-    @FXML
-    public void deleteStock(){
-        Alert alert = new AlertDialog()
-                .showConfirmationDialog("Ganz sicher?", "Bist du dir wirklich sicher, dass du diese Aktie löschen möchtest? \n" +
-                        "Diese Aktion kann nicht widerrufen werden!");
-        alert.showAndWait();
-
-
-        if (alert.getResult() == ButtonType.YES) {
-            // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
-            entityAktien.delete(comboBox.getSelectionModel().getSelectedItem());
-            comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
-            comboBox.getSelectionModel().clearSelection();
-            imgView.setImage(null);
-            getAktien();
-        }
-    }
-
-    @FXML
-    public void getAudit() throws IOException {
-        Stage dialog = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/views/stock/stock_audit_modal.fxml"));
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            dialog.setX(event.getScreenX() - x);
-            dialog.setY(event.getScreenY() - y);
-        });
-        dialog.setScene(new Scene(root));
-        dialog.initOwner(showAudit.getScene().getWindow());
-        dialog.setUserData(this);
-        dialog.initStyle(StageStyle.UNDECORATED);
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.show();
-    }
 }
