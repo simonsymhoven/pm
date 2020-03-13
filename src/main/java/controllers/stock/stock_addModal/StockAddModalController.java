@@ -72,7 +72,7 @@ public class StockAddModalController implements Initializable {
     public void addAktie() {
         info.setText("");
         if (entityAktien.add(stockAddModalModel.getStock())) {
-            Image img = new Image(getClass().getResourceAsStream("/img/icons8-ausgefüllte-checkbox-100.png"));
+            Image img = new Image(getClass().getResourceAsStream("/icons/plus(1).png"));
             Alert alertAdd = new Alert(
                     Alert.AlertType.INFORMATION,
                     "Aktie wurde hinzugefügt.");
@@ -85,7 +85,7 @@ public class StockAddModalController implements Initializable {
             exchange.clear();
             currency.clear();
         } else {
-            Image img = new Image(getClass().getResourceAsStream("/img/icons8-löschen-50.png"));
+            Image img = new Image(getClass().getResourceAsStream("/icons/error.png"));
             Alert alertError = new Alert(
                     Alert.AlertType.ERROR,
                     "Aktie konnte nicht hinzugefügt werden.");

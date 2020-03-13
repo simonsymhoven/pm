@@ -19,7 +19,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Stock implements Serializable {
 
     public Stock(String name, String symbol, String exchange, BigDecimal price, BigDecimal change, String currency) {
@@ -55,7 +54,7 @@ public class Stock implements Serializable {
     @Column(name = "currency")
     public String currency;
 
-    @ManyToMany(mappedBy = "stocks", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "stocks")
     Set<Client> clients;
 
     @NotAudited

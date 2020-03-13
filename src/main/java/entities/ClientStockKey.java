@@ -8,9 +8,9 @@ import java.io.Serializable;
 @Data
 @Embeddable
 public class ClientStockKey implements Serializable {
-    @Column(name = "client_id")
-    int client_id;
-
     @Column(name = "stock_id")
     int stock_id;
+
+    @Column(name = "client_id")
+    int client_id;
 }

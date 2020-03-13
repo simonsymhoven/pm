@@ -82,6 +82,6 @@ public class ClientAuditModalController implements Initializable {
     private String clientToString(Client client) {
         return client.getName() + " [" + client.getSymbol() + "]:"
                 + " Strategie: " + client.getStrategy() + "%, Depowert: " + NumberFormat.getCurrencyInstance()
-                .format(client.getDepoValue()).replace("EUR", "EUR ");
+                .format(client.getDepoValue()).replace("EUR", "EUR ") ;
     }
 }

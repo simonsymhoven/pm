@@ -45,11 +45,21 @@ public class Client implements Serializable {
     @Column(name = "depoValue")
     public BigDecimal depoValue;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "Client_Stock",
-            joinColumns = @JoinColumn(name = "client_id"),
-            inverseJoinColumns = @JoinColumn(name = "stock_id"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "Client_Stock",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "client_id",
+                            referencedColumnName = "id"
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "stock_id",
+                            referencedColumnName = "id"
+                    )
+            }
+    )
     Set<Stock> stocks;
 
     @NotAudited

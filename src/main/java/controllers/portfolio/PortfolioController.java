@@ -244,24 +244,22 @@ public class PortfolioController implements Initializable {
 
     private void removeSelectedAktie(ListView<Stock> listView) {
         List<Stock> selectedList = new ArrayList<>(listView.getSelectionModel().getSelectedItems());
-        log.info("Items to delete: " + selectedList);
+        log.info("Items selectd: " + selectedList);
         listView.getSelectionModel().clearSelection();
         listView.getItems().removeAll(selectedList);
+
     }
 
 
     @FXML
     public void save() {
 
-        Set<Stock> stocks = new HashSet<>();
-        aktienListKunde.getItems().forEach(stock -> {
-            stocks.add(stock);
-        });
+        Set<Stock> stocks = new HashSet<>(aktienListKunde.getItems());
 
         portfolioModel.getClient().setStocks(stocks);
 
         if (entityClient.update(portfolioModel.getClient())) {
-            Image img = new Image(getClass().getResourceAsStream("/img/icons8-ausgefüllte-checkbox-100.png"));
+            Image img = new Image(getClass().getResourceAsStream("/icons/plus(1).png"));
             Alert alertAdd = new Alert(
                     Alert.AlertType.INFORMATION,
                     "Portfolio für " + portfolioModel.getClient().getName() + " wurde aktualisiert.");
@@ -269,7 +267,7 @@ public class PortfolioController implements Initializable {
             alertAdd.setGraphic(new ImageView(img));
             alertAdd.show();
         } else {
-            Image img = new Image(getClass().getResourceAsStream("/img/icons8-löschen-50.png"));
+            Image img = new Image(getClass().getResourceAsStream("/icons/error.png"));
             Alert alertError = new Alert(
                     Alert.AlertType.ERROR,
                     "Portfolio für " + portfolioModel.getClient().getName() + " konnte nicht aktualisiert werden.");

@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name = "User")
 
 @Data
-@Audited
 public class User {
     public User(){
 
