@@ -2,6 +2,7 @@ package controllers.stock.stock_auditModal;
 
 
 import com.jfoenix.controls.JFXButton;
+import controllers.client.Box;
 import controllers.stock.StockController;
 import entities.Stock;
 import javafx.application.Platform;
@@ -57,55 +58,10 @@ public class StockAuditModalController implements Initializable {
 
             VBox vBox = new VBox();
             vBox.setPrefWidth(550);
+
+            Box box = new Box();
             stockAuditModalModel.getRevisions().forEach(revision -> {
-                HBox hbox = new HBox();
-                hbox.setPrefSize(550, 70);
-                hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                        + "-fx-border-width: 0.5;" + "-fx-border-insets: 5;"
-                        + "-fx-border-radius: 5;" + "-fx-border-color: #343f4a;");
-                Image img;
-
-                switch(revision.getRevisionType()) {
-                    case ADD:
-                        img = new Image(getClass().getResourceAsStream("/icons/plus(1).png"));
-                        break;
-                    case DEL:
-                        img = new Image(getClass().getResourceAsStream("/icons/error.png"));
-                        break;
-                    case MOD:
-                        img = new Image(getClass().getResourceAsStream("/icons/shuffle.png"));
-                        break;
-                    default:
-                        img = new Image(getClass().getResourceAsStream("/icons/question.png"));
-                        break;
-                }
-
-                ImageView imageView = new ImageView(img);
-                imageView.setFitWidth(70);
-                imageView.setFitHeight(70);
-
-                VBox dateChangeBox = new VBox();
-                dateChangeBox.setPadding(new Insets(20,5,5,20));
-                dateChangeBox.setPrefSize(480,70);
-
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyy HH:mm");
-                HBox date = new HBox();
-                date.setPrefSize(480, 35);
-                Label lDate = new Label();
-                String sdate =  simpleDateFormat.format(revision.getRevisionDate());
-                sdate = sdate.replace(" ", ", um ");
-                lDate.setText("Am " + sdate + " Uhr wurde folgende Änderung durchgeführt:");
-                date.getChildren().add(lDate);
-
-                HBox change = new HBox();
-                change.setPrefSize(480, 35);
-                Label lChange = new Label();
-                lChange.setText(stockToString(revision.getStock()));
-                change.getChildren().add(lChange);
-
-                dateChangeBox.getChildren().addAll(date, change);
-
-                hbox.getChildren().addAll(imageView, dateChangeBox);
+                HBox hbox = box.generateAuditHBox(revision.getRevisionType(), revision.getRevisionDate(), stockToString(revision.getStock()));
                 vBox.getChildren().add(hbox);
             });
 
@@ -120,11 +76,9 @@ public class StockAuditModalController implements Initializable {
 
     private String stockToString(Stock stock) {
         String signum = "";
-        switch(stock.getChange().signum()) {
-            case -1:
-                break;
-            default:
-                signum = "+ ";
+        if (stock.getChange().signum() == -1) {
+        } else {
+            signum = "+ ";
         }
         return stock.getName() + " [" + stock.getSymbol() + ", " + stock.getCurrency() + "]: Preis: "
                 + NumberFormat.getCurrencyInstance().format(stock.getPrice()).replace("EUR", "EUR ")

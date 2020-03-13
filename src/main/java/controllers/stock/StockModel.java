@@ -1,6 +1,6 @@
 package controllers.stock;
 
-import YahooAPI.History;
+import yahooAPI.History;
 import entities.Stock;
 import lombok.Data;
 import java.util.List;

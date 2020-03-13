@@ -1,7 +1,7 @@
 package controllers.stock.stock_addModal;
 
 
-import YahooAPI.YahooStockAPI;
+import yahooAPI.YahooStockAPI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import controllers.stock.StockController;

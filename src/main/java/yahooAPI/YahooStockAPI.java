@@ -1,4 +1,4 @@
-package YahooAPI;
+package yahooAPI;
 
 import entities.Stock;
 import lombok.extern.log4j.Log4j2;

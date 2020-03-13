@@ -1,11 +1,10 @@
 package controllers.stock;
 
-import YahooAPI.YahooStockAPI;
+import yahooAPI.YahooStockAPI;
 import alert.AlertDialog;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import entities.Stock;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

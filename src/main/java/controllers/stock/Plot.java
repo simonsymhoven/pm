@@ -1,6 +1,6 @@
 package controllers.stock;
 
-import YahooAPI.YahooStockAPI;
+import yahooAPI.YahooStockAPI;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;

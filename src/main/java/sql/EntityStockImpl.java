@@ -1,8 +1,6 @@
 package sql;
 
-import YahooAPI.YahooStockAPI;
-import entities.Client;
-import entities.ClientRevision;
+import yahooAPI.YahooStockAPI;
 import entities.Stock;
 import entities.StockRevision;
 import lombok.extern.log4j.Log4j2;
