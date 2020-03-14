@@ -40,7 +40,7 @@
                   <JFXTextField fx:id="price" editable="false" labelFloat="true" layoutX="328.0" layoutY="273.0" prefHeight="25.0" prefWidth="284.0" promptText="Preis" stylesheets="@../../fullpackstyling.css" />
                   <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="328.0" layoutY="327.0" prefHeight="25.0" prefWidth="284.0" promptText="Änderung zum Vortag" stylesheets="@../../fullpackstyling.css" />
                   <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="328.0" layoutY="384.0" prefHeight="25.0" prefWidth="284.0" promptText="Währung" stylesheets="@../../fullpackstyling.css" />
-                  <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="345.0" layoutY="39.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" />
+                  <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="370.0" layoutY="44.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" />
                   <JFXListView fx:id="aktienList" layoutX="33.0" layoutY="97.0" prefHeight="487.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../fullpackstyling.css" />
                   <JFXListView fx:id="aktienListKunde" layoutX="649.0" layoutY="97.0" prefHeight="487.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../fullpackstyling.css" />
                   <JFXTextField fx:id="quantatiy" editable="false" labelFloat="true" layoutX="329.0" layoutY="441.0" prefHeight="25.0" prefWidth="284.0" promptText="Anzahl" stylesheets="@../../fullpackstyling.css" />
@@ -48,11 +48,16 @@
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../icons/connection.png" />
+                              <Image url="@../../icons/checklist.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
+                  <ImageView fitHeight="38.0" fitWidth="39.0" layoutX="320.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/mann.png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
 

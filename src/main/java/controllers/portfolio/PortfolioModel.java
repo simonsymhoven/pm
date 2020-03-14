@@ -1,6 +1,7 @@
 package controllers.portfolio;
 
 import entities.Client;
+import entities.ClientStock;
 import entities.Stock;
 import javafx.scene.input.DataFormat;
 import lombok.Data;
@@ -13,6 +14,7 @@ public class PortfolioModel {
     private List<Client> clients;
     private Client client;
     private Stock stock;
+    private ClientStock clientStock;
 
     private DataFormat dataFormat;
     DataFormat getFormat(){

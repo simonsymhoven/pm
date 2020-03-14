@@ -29,7 +29,7 @@
             </Label>
             <ImageView fx:id="imgView" fitHeight="400.0" fitWidth="900.0" layoutX="43.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
             <ProgressIndicator fx:id="progressIndicator" layoutX="467.0" layoutY="473.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-progress-color: #343f4a#343f4a;" visible="false" />
-            <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="377.0" layoutY="121.0" prefHeight="25.0" prefWidth="251.0" promptText="Aktie auswählen" />
+            <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="413.0" layoutY="121.0" prefHeight="25.0" prefWidth="251.0" promptText="Aktie auswählen" />
             <JFXTextField fx:id="name" editable="false" labelFloat="true" layoutX="82.0" layoutY="224.0" prefHeight="25.0" prefWidth="149.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
             <JFXTextField fx:id="symbol" editable="false" labelFloat="true" layoutX="263.0" layoutY="224.0" prefHeight="25.0" prefWidth="110.0" promptText="Symbol" stylesheets="@../../fullpackstyling.css" />
             <JFXTextField fx:id="exchange" editable="false" labelFloat="true" layoutX="390.0" layoutY="224.0" prefHeight="25.0" prefWidth="110.0" promptText="Exchange" stylesheets="@../../fullpackstyling.css" />
@@ -49,7 +49,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../icons/connection.png" />
+                        <Image url="@../../icons/checklist.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -72,6 +72,11 @@
                   </ImageView>
                </graphic>
             </JFXButton>
+            <ImageView fitHeight="38.0" fitWidth="39.0" layoutX="371.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/investment.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

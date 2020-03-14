@@ -30,7 +30,7 @@
             <JFXTextField fx:id="symbol" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="310.0" layoutY="224.0" prefHeight="25.0" prefWidth="149.0" promptText="Kürzel" stylesheets="@../../fullpackstyling.css" />
             <JFXTextField fx:id="strategy" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="508.0" layoutY="224.0" prefHeight="25.0" prefWidth="149.0" promptText="Strategie" stylesheets="@../../fullpackstyling.css" />
             <JFXTextField fx:id="depoValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="713.0" layoutY="224.0" prefHeight="25.0" prefWidth="204.0" promptText="Depowert" stylesheets="@../../fullpackstyling.css" />
-            <JFXComboBox fx:id="comboBox" focusColor="#343f4a" labelFloat="true" layoutX="388.0" layoutY="121.0" prefHeight="25.0" prefWidth="251.0" promptText="Kunde auswählen" />
+            <JFXComboBox fx:id="comboBox" focusColor="#343f4a" labelFloat="true" layoutX="403.0" layoutY="121.0" prefHeight="25.0" prefWidth="251.0" promptText="Kunde auswählen" />
             <JFXButton fx:id="addClient" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="739.0" layoutY="110.0" prefHeight="50.0" prefWidth="58.0" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
@@ -53,11 +53,16 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../icons/connection.png" />
+                        <Image url="@../../icons/checklist.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
+            <ImageView fitHeight="38.0" fitWidth="39.0" layoutX="362.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../icons/mann.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

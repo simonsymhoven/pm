@@ -27,6 +27,21 @@ public class EntityPortfolioImpl implements DatabaseInterface<ClientStock> {
         return null;
     }
 
+
+    public ClientStock get(ClientStockKey clientStockKey) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            ClientStock clientStock = session.createQuery("FROM Client_Stock WHERE client_id=:client_id AND stock_id=:stock_id", ClientStock.class)
+                    .setParameter("client_id", clientStockKey.getClient_id())
+                    .setParameter("stock_id", clientStockKey.getStock_id())
+                    .uniqueResult();
+            session.close();
+            return clientStock;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return null;
+    }
+
     @Override
     public ClientStock get(String symbol) {
         return null;
@@ -37,6 +52,21 @@ public class EntityPortfolioImpl implements DatabaseInterface<ClientStock> {
 
     @Override
     public boolean update(ClientStock clientStock) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            log.info("ClientStock ID to update: " + clientStock.getId());
+            ClientStock clientStockToUpdate = session.load(ClientStock.class, clientStock.getId());
+            log.info("ClientStock to update: " + clientStockToUpdate) ;
+            clientStockToUpdate.setQuantatiy(clientStock.getQuantatiy());
+            session.save(clientStockToUpdate);
+
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
         return false;
     }
 

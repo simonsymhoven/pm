@@ -1,5 +1,6 @@
 package controllers.portfolio;
 
+import com.fasterxml.jackson.databind.type.PlaceholderForType;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
@@ -118,7 +119,8 @@ public class PortfolioController implements Initializable {
         aktienListKunde.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 portfolioModel.setStock(newValue);
-
+                getClientStock();
+                quantatiy.setText(String.valueOf(portfolioModel.getClientStock().getQuantatiy()));
                 currency.setText(portfolioModel.getStock().getCurrency());
                 name.setText(portfolioModel.getStock().getName());
                 symbol.setText(portfolioModel.getStock().getSymbol());
@@ -129,7 +131,6 @@ public class PortfolioController implements Initializable {
                         .format(portfolioModel.getStock().getChange()));
 
                 quantatiy.setEditable(true);
-                quantatiy.clear();
             } else {
                 clearFields();
                 quantatiy.setEditable(false);
@@ -142,6 +143,13 @@ public class PortfolioController implements Initializable {
         quantatiy.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 quantatiy.setText(newValue.replaceAll("\\D", ""));
+            } else {
+                entityPortfolio.update(new ClientStock(
+                        new ClientStockKey(portfolioModel.getClient().getId(), portfolioModel.getStock().getId()),
+                        portfolioModel.getClient(),
+                        portfolioModel.getStock(),
+                        Integer.valueOf(newValue)
+                ));
             }
         });
 
@@ -191,6 +199,14 @@ public class PortfolioController implements Initializable {
 
     }
 
+    private void getClientStock() {
+        portfolioModel.setClientStock(
+                entityPortfolio.get(
+                    new ClientStockKey(portfolioModel.getClient().getId(), portfolioModel.getStock().getId())
+                )
+        );
+    }
+
     private void clearFields() {
         name.clear();
         symbol.clear();
@@ -198,6 +214,7 @@ public class PortfolioController implements Initializable {
         price.clear();
         change.clear();
         currency.clear();
+        quantatiy.clear();
     }
 
     private void updateStockLists(Client client) {
@@ -255,7 +272,6 @@ public class PortfolioController implements Initializable {
 
     private void dragDone(DragEvent event, ListView<Stock> listView) {
         TransferMode tm = event.getTransferMode();
-        log.info("TRANSFER MODE: " + tm.toString());
         if (tm.equals(TransferMode.COPY) || tm.equals(TransferMode.MOVE)) {
             removeSelectedAktie(listView);
         }

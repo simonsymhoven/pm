@@ -12,6 +12,8 @@ import javax.persistence.*;
 
 @Audited
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientStock {
         @EmbeddedId
         ClientStockKey id;
@@ -25,5 +27,8 @@ public class ClientStock {
         @MapsId("stock_id")
         @JoinColumn(name = "stock_id")
         Stock stock;
+
+        @Column(name = "quantatiy", nullable = false, columnDefinition = "int default 0")
+        int quantatiy;
 
 }

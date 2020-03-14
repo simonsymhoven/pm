@@ -10,6 +10,8 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientStockKey implements Serializable {
     @Column(name = "client_id")
     int client_id;
