@@ -6,11 +6,13 @@ import entities.ClientStock;
 import entities.Stock;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
@@ -50,13 +52,20 @@ public class DashController implements Initializable {
     @FXML
     public Label lastUpdateDate;
     @FXML
-    public Label labelMarket;
-    @FXML
-    public Label labelStocks;
-    @FXML
     public JFXButton updateStock;
     @FXML
     public VBox vBox;
+    @FXML
+    private PieChart chartMarket;
+    @FXML
+    private PieChart chartStocks;
+    @FXML
+    private Label labelMarkets;
+    @FXML
+    private Label labelStocks;
+
+    private ObservableList<PieChart.Data> marketData;
+    private ObservableList<PieChart.Data> stockData;
 
 
     private DashModel dashModel;
@@ -91,62 +100,36 @@ public class DashController implements Initializable {
 
         updateStock.setOnMouseClicked(mouseEvent -> update());
 
+
     }
 
+    private void setupAnimation(ObservableList<PieChart.Data> data, Label label) {
+        data.stream().forEach(pieData -> {
+            pieData.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+                label.setText(pieData.getName() + ": " +  String.format("%.2f", pieData.getPieValue()) + "%");
+                label.setLabelFor(pieData.getNode());
 
-    private void loadMarkets(PieChart pieChart) {
-        List<Stock> stocks =  entityStock.getAll();
-        if (stocks.size() > 0 ) {
-            labelMarket.setText("");
-            Map<String, Integer> map = new HashMap<>();
+                Bounds b1 = pieData.getNode().getBoundsInLocal();
+                double newX = (b1.getWidth()) / 2 + b1.getMinX();
+                double newY = (b1.getHeight()) / 2 + b1.getMinY();
+                // Make sure pie wedge location is reset
+                pieData.getNode().setTranslateX(0);
+                pieData.getNode().setTranslateY(0);
+                // Create the animation
+                TranslateTransition tt = new TranslateTransition(
+                        Duration.millis(1500), pieData.getNode());
+                tt.setByX(newX);
+                tt.setByY(newY);
+                tt.setAutoReverse(true);
+                tt.setCycleCount(2);
+                tt.play();
 
-            stocks.forEach(aktie -> {
-                if (map.containsKey(aktie.getExchange())) {
-                    Integer value = map.get(aktie.getExchange());
-                    map.put(aktie.getExchange(), ++value);
-                } else {
-                    map.put(aktie.getExchange(), 1);
-                }
-
+                tt.setOnFinished(e -> {
+                    label.setText("");
+                });
             });
-
-            List<PieChart.Data> list = new ArrayList<>();
-            map.forEach((key, value) -> {
-                list.add(new PieChart.Data(key, value));
-            });
-
-            ObservableList<PieChart.Data> data = FXCollections.observableArrayList(list);
-            pieChart.setLabelsVisible(false);
-            pieChart.setLegendVisible(true);
-            pieChart.setLegendSide(Side.RIGHT);
-            pieChart.setData(data);
-        } else {
-            labelMarket.setText("Es stehen noch keine Daten zur Analyse zur Verfügung.");
-        }
-
+        });
     }
-
-    private void loadStocks(PieChart pieChart) {
-        List<Stock> stocks = entityStock.getAll();
-        List<PieChart.Data> list = new ArrayList<>();
-
-        if (stocks.size() > 0 ){
-            labelStocks.setText("");
-            stocks.forEach( stock ->
-                    list.add(new PieChart.Data(stock.getSymbol(), stock.getShare()))
-            );
-
-            ObservableList<PieChart.Data> data = FXCollections.observableArrayList(list);
-            pieChart.setLabelsVisible(false);
-            pieChart.setLegendVisible(true);
-            pieChart.setLegendSide(Side.RIGHT);
-            pieChart.setData(data);
-        } else {
-            labelStocks.setText("Es stehen noch keine Daten zur Analyse zur Verfügung.");
-        }
-
-    }
-
 
     private void update(){
         Update task = new Update();
@@ -170,8 +153,17 @@ public class DashController implements Initializable {
                    jsonReader.write("lastUpdateStatus", "Abgeschlossen");
 
                     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-                        loadMarkets(pieChart1);
-                        loadStocks(pieChart3);
+                        marketData = loadMarkets();
+                        chartMarket.setData(marketData);
+                        chartMarket.setLabelsVisible(false);
+                        chartMarket.setLegendSide(Side.RIGHT);
+                        setupAnimation(marketData, labelMarkets);
+
+                        stockData = loadClients();
+                        chartStocks.setData(stockData);
+                        chartStocks.setLabelsVisible(false);
+                        chartStocks.setLegendSide(Side.RIGHT);
+                        setupAnimation(stockData, labelStocks);
                     }));
 
                     timeline.setCycleCount(1);
@@ -192,5 +184,33 @@ public class DashController implements Initializable {
         executorService.shutdown();
     }
 
+    private ObservableList<PieChart.Data> loadMarkets() {
+        List<Stock> stocks = entityStock.getAll();
+        List<PieChart.Data> list = new ArrayList<>();
+        if (!stocks.isEmpty()) {
+            Map<String, Integer> map = new HashMap<>();
+            stocks.forEach(aktie -> {
+                if (map.containsKey(aktie.getExchange())) {
+                    Integer value = map.get(aktie.getExchange());
+                    map.put(aktie.getExchange(), ++value);
+                } else {
+                    map.put(aktie.getExchange(), 1);
+                }
+            });
 
+            map.forEach((key, value) -> list.add(new PieChart.Data(key, value)));
+        }
+        return FXCollections.observableArrayList(list);
+    }
+
+    private ObservableList<PieChart.Data> loadClients() {
+        List<Stock> stocks = entityStock.getAll();
+        List<PieChart.Data> list = new ArrayList<>();
+
+        if (!stocks.isEmpty()) {
+            stocks.forEach(stock -> list.add(new PieChart.Data(stock.getSymbol(), stock.getShare())));
+        }
+
+        return FXCollections.observableArrayList(list);
+    }
 }
