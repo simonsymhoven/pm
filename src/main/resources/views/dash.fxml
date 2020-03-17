@@ -32,10 +32,11 @@
                                      <Font name="System Bold" size="14.0" />
                                  </font>
                              </Label>
-                             <VBox fx:id="vBox" layoutX="176.0" layoutY="70.0" prefHeight="65.0" prefWidth="182.0" style="-fx-background-radius: 2em;">
+                             <VBox fx:id="vBox" layoutX="176.0" layoutY="70.0" prefHeight="65.0" prefWidth="272.0" style="-fx-background-radius: 2em;">
                            <children>
-                              <Label text="* Audit History für Clients und Portflolio überarbeiten" textFill="WHITE" wrapText="true" />
+                              <Label text="* toString() Methode überarbeiten für Audit" textFill="WHITE" wrapText="true" />
                               <Label text="* UTF-8  encoding" textFill="WHITE" wrapText="true" />
+                              <Label text="* DragBoard buggy" textFill="WHITE" wrapText="true" />
                            </children></VBox>
                              <ImageView fitHeight="125.0" fitWidth="107.0" layoutX="39.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
