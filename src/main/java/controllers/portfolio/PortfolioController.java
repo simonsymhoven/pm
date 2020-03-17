@@ -111,8 +111,8 @@ public class PortfolioController implements Initializable {
             dialog.show();
         });
 
-        aktienList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        aktienListKunde.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        aktienList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        aktienListKunde.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         portfolioModel.setAktienList(entityAktien.getAll());
         portfolioModel.setClients(entityClient.getAll());
@@ -309,7 +309,7 @@ public class PortfolioController implements Initializable {
         }
 
         Dragboard dragboard = listView.startDragAndDrop(TransferMode.COPY_OR_MOVE);
-        ArrayList<Stock> selectedItem = getSelectedAktien(listView);
+        Stock selectedItem = getSelectedStock(listView);
 
         ClipboardContent content = new ClipboardContent();
         content.put(portfolioModel.getFormat(), selectedItem);
@@ -333,8 +333,8 @@ public class PortfolioController implements Initializable {
         Dragboard dragboard = event.getDragboard();
 
         if(dragboard.hasContent(portfolioModel.getFormat())) {
-            ArrayList<Stock> list = (ArrayList<Stock>)dragboard.getContent(portfolioModel.getFormat());
-            listView.getItems().addAll(list);
+            Stock stock = (Stock) dragboard.getContent(portfolioModel.getFormat());
+            listView.getItems().add(stock);
             dragCompleted = true;
         }
 
@@ -352,44 +352,43 @@ public class PortfolioController implements Initializable {
     }
 
 
-    private ArrayList<Stock> getSelectedAktien(ListView<Stock> listView) {
-        ArrayList<Stock> list = new ArrayList(listView.getSelectionModel().getSelectedItems());
-        return list;
+    private Stock getSelectedStock(ListView<Stock> listView) {
+        Stock stock = listView.getSelectionModel().getSelectedItem();
+        return stock;
     }
 
     private void removeSelectedAktie(ListView<Stock> listView) {
-        List<Stock> selectedList = new ArrayList<>(listView.getSelectionModel().getSelectedItems());
-        log.info("Items selectd: " + selectedList);
+        Stock selectedStock = listView.getSelectionModel().getSelectedItem();
         listView.getSelectionModel().clearSelection();
-        listView.getItems().removeAll(selectedList);
+        listView.getItems().remove(selectedStock);
 
-        List<ClientStock> list = new ArrayList<>();
-        selectedList.forEach(stock -> {
-            double shareValue = (stock.getShare() / 100.0) * (portfolioModel.getClient().getStrategy() /100.0) * 100.0 ;
-            list.add(new ClientStock(
-                    new ClientStockKey(portfolioModel.getClient().getId(), stock.getId()),
-                    portfolioModel.getClient(),
-                    stock,
-                   0,
-                    shareValue,
-                    0,
-                    0,
-                   0
-            ));
-        });
 
-        portfolioModel.getClientStocks().addAll(list);
+        double shareValue = (selectedStock.getShare() / 100.0) * (portfolioModel.getClient().getStrategy() /100.0) * 100.0 ;
+        portfolioModel.getClientStocks().add(new ClientStock(
+                new ClientStockKey(portfolioModel.getClient().getId(), selectedStock.getId()),
+                portfolioModel.getClient(),
+                selectedStock,
+               0,
+                shareValue,
+                0,
+                0,
+               0
+        ));
 
         if (listView.getId().equals("aktienListKunde")) {
-            log.info("Stocks werden dem Nutzer entzogen.");
-            entityClient.removeStocks(portfolioModel.getClient(), selectedList);
+            log.info("[1/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. AUs listView entfernen.");
+            entityClient.removeStock(portfolioModel.getClient(), selectedStock);
+            portfolioModel.getClientStocks().forEach(c -> {
+                if (c.getClient().getId() == portfolioModel.getClient().getId() && c.getStock().getId() == selectedStock.getId()) {
+                    log.info("[2/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. Aus Model entfernen.");
+                    portfolioModel.getClientStocks().remove(c);
+                }
+            });
         }
     }
 
     @FXML
     public void update() {
-        portfolioModel.getClientStocks().forEach(clientStock -> {
-            entityPortfolio.update(clientStock);
-        });
+        portfolioModel.getClientStocks().forEach(clientStock -> entityPortfolio.update(clientStock));
     }
 }

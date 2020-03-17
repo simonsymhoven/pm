@@ -155,11 +155,11 @@ public class EntityClientImpl implements DatabaseInterface<Client> {
         return false;
     }
 
-    public boolean removeStocks(Client client, List<Stock> selectedList) {
+    public boolean removeStock(Client client, Stock stock) {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             Client clientToUpdate = session.load(Client.class, client.getId());
-            clientToUpdate.getStocks().removeAll(selectedList);
+            clientToUpdate.getStocks().remove(stock);
             session.save(clientToUpdate);
             transaction.commit();
             session.close();

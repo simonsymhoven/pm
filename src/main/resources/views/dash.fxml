@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -25,18 +26,20 @@
             <Separator layoutX="36.0" layoutY="82.0" prefHeight="1.0" prefWidth="914.0" />
              <Pane layoutX="36.0" layoutY="82.0" prefHeight="598.0" prefWidth="940.0" style="-fx-background-color: #fff;">
                  <children>
-                     <Pane layoutX="455.0" layoutY="21.0" prefHeight="252.0" prefWidth="471.0" style="-fx-background-color: #364FCD; -fx-background-radius: 10;">
+                     <Pane layoutX="501.0" layoutY="21.0" prefHeight="223.0" prefWidth="425.0" style="-fx-background-color: #364FCD; -fx-background-radius: 10;">
                          <children>
-                             <Label layoutX="176.0" layoutY="43.0" text="TODO:" textFill="WHITE">
+                             <Label layoutX="176.0" layoutY="43.0" text="Willkommen" textFill="WHITE">
                                  <font>
                                      <Font name="System Bold" size="14.0" />
                                  </font>
                              </Label>
-                             <VBox fx:id="vBox" layoutX="176.0" layoutY="70.0" prefHeight="65.0" prefWidth="272.0" style="-fx-background-radius: 2em;">
+                             <VBox fx:id="vBox" layoutX="176.0" layoutY="70.0" prefHeight="122.0" prefWidth="272.0" style="-fx-background-radius: 2em;">
                            <children>
-                              <Label text="* toString() Methode überarbeiten für Audit" textFill="WHITE" wrapText="true" />
-                              <Label text="* UTF-8  encoding" textFill="WHITE" wrapText="true" />
-                              <Label text="* DragBoard buggy" textFill="WHITE" wrapText="true" />
+                              <Label text="Aktuell stehen keine Aufgabe an!" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                                 </VBox.margin>
+                              </Label>
                            </children></VBox>
                              <ImageView fitHeight="125.0" fitWidth="107.0" layoutX="39.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

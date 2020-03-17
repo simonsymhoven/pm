@@ -75,7 +75,7 @@ public class PortfolioAuditModalController implements Initializable {
     }
 
     private String clientStockToString(ClientStock clientStock) {
-        return clientStock.getStock().getName();
+        return clientStock.getStock().getName() + " [" + clientStock.getQuantity() + " Stk.]";
     }
 
 }

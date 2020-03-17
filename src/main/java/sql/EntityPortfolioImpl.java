@@ -22,6 +22,18 @@ public class EntityPortfolioImpl implements DatabaseInterface<ClientStock> {
         return null;
     }
 
+    public List<ClientStock> getAllForStock(Stock stock) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            List<ClientStock> clientStocks = session.createQuery("FROM Client_Stock WHERE stock_id=:stock_id", ClientStock.class)
+                    .setParameter("stock_id", stock.getId()).getResultList();
+            session.close();
+            return clientStocks;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return null;
+    }
+
     public List<ClientStock> getAll(Client client) {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             List<ClientStock> clientStocks = session.createQuery("FROM Client_Stock WHERE client_id=:client_id", ClientStock.class)

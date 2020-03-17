@@ -1,6 +1,8 @@
 package controllers.stock;
 
 import com.jfoenix.controls.JFXButton;
+import entities.ClientStock;
+import sql.EntityPortfolioImpl;
 import yahooAPI.YahooStockAPI;
 import alert.AlertDialog;
 import com.jfoenix.controls.JFXComboBox;
@@ -68,24 +70,29 @@ public class StockController implements Initializable {
     @Getter
     private StockModel stockModel;
     private EntityStockImpl entityAktien;
+    private EntityPortfolioImpl entityPortfolio;
 
     public StockController() {
         Locale.setDefault(Locale.GERMANY);
         this.stockModel = new StockModel();
         this.entityAktien = new EntityStockImpl();
+        this.entityPortfolio = new EntityPortfolioImpl();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        deleteStock.disableProperty().bind(comboBox.valueProperty().isNull());
         updateStock.disableProperty().bind(comboBox.valueProperty().isNull());
         showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
-
+        deleteStock.setDisable(true);
         getAktien();
 
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            deleteStock.setDisable(false);
             if (newValue != null) {
-
+                List<ClientStock> list =  entityPortfolio.getAllForStock(newValue);
+                if (list != null && list.size() > 0) {
+                    deleteStock.setDisable(true);
+                }
                 stockModel.setStock(newValue);
                 currency.setText(stockModel.getStock().getCurrency());
                 label.setText(stockModel.getStock().getName());

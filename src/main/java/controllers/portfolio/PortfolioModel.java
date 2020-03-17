@@ -23,7 +23,7 @@ public class PortfolioModel {
         if (DataFormat.lookupMimeType("AktieList") == null)
             this.dataFormat = new DataFormat("AktieList");
 
-        return this.dataFormat;
+        return DataFormat.lookupMimeType("AktieList");
     }
 
     private int quantity;
