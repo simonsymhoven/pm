@@ -50,6 +50,8 @@ public class StockController implements Initializable {
     @FXML
     public JFXTextField currency;
     @FXML
+    public JFXTextField share;
+    @FXML
     public ImageView imgView;
     @FXML
     public ProgressIndicator progressIndicator;
@@ -94,6 +96,8 @@ public class StockController implements Initializable {
                         .format(stockModel.getStock().getPrice()));
                 change.setText(NumberFormat.getCurrencyInstance()
                         .format(stockModel.getStock().getChange()));
+
+                share.setText((stockModel.getStock().getShare() + " %").replace(".", ","));
                 Plot task = new Plot(stockModel);
 
                 task.setOnRunning(successesEvent -> {
@@ -128,6 +132,7 @@ public class StockController implements Initializable {
                 price.clear();
                 change.clear();
                 imgView.setImage(null);
+                share.clear();
             }
 
         });

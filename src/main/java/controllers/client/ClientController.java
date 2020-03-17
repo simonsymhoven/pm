@@ -48,6 +48,7 @@ public class ClientController implements Initializable {
     public JFXButton showAudit;
 
 
+
     private EntityClientImpl entityClient;
     @Getter
     public ClientModel clientModel;

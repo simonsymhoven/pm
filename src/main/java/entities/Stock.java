@@ -30,7 +30,6 @@ public class Stock implements Serializable {
         this.currency = currency;
     }
 
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -53,6 +52,9 @@ public class Stock implements Serializable {
 
     @Column(name = "currency")
     public String currency;
+
+    @Column(name = "share")
+    public double share;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "stocks")
     Set<Client> clients;

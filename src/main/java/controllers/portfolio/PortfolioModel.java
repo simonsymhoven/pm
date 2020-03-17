@@ -12,9 +12,11 @@ import java.util.List;
 public class PortfolioModel {
     private List<Stock> aktienList;
     private List<Client> clients;
+    private List<ClientStock> clientStocks;
     private Client client;
     private Stock stock;
     private ClientStock clientStock;
+
 
     private DataFormat dataFormat;
     DataFormat getFormat(){
@@ -23,4 +25,10 @@ public class PortfolioModel {
 
         return this.dataFormat;
     }
+
+    private int quantity;
+    private double shareSoll;
+    private double shareIst;
+    private double diffRelativ;
+    private int diffAbsolut;
 }

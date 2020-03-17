@@ -23,7 +23,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Client implements Serializable {
 
-    public Client(String name, String symbol, int strategy, BigDecimal depoValue) {
+    public Client(String name, String symbol, double strategy, BigDecimal depoValue) {
         this.name = name;
         this.symbol = symbol;
         this.strategy = strategy;
@@ -43,7 +43,7 @@ public class Client implements Serializable {
     public String symbol;
 
     @Column(name = "strategy")
-    public int strategy;
+    public double strategy;
 
     @Column(name = "depoValue")
     public BigDecimal depoValue;

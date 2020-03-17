@@ -79,7 +79,9 @@ public class EntityClientImpl implements DatabaseInterface<Client> {
         Transaction transaction = null;
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(client);
+            Client clientToUpdate = session.get(Client.class, client.getId());
+            clientToUpdate.setDepoValue(client.getDepoValue());
+            session.update(clientToUpdate);
             transaction.commit();
             session.close();
             return true;

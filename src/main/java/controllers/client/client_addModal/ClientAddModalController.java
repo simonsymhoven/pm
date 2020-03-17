@@ -3,6 +3,7 @@ package controllers.client.client_addModal;
 
 import alert.AlertDialog;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
 import entities.Client;
@@ -57,7 +58,7 @@ public class ClientAddModalController implements Initializable {
 
 
         strategy.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
+            if (!newValue.matches("^\\d*\\.?\\d*$")) {
                 strategy.setText(newValue.replaceAll("\\D", ""));
             }
         });
@@ -69,7 +70,7 @@ public class ClientAddModalController implements Initializable {
                 new Client(
                         name.getText(),
                         symbol.getText(),
-                        Integer.parseInt(strategy.getText()),
+                        Double.parseDouble(strategy.getText()),
                         new BigDecimal(0)
                 )
         );

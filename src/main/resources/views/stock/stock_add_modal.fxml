@@ -14,7 +14,7 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <Label fx:id="info" layoutX="33.0" layoutY="337.0" prefHeight="44.0" prefWidth="572.0" textFill="#f94344" wrapText="true">
+      <Label fx:id="info" layoutX="31.0" layoutY="348.0" prefHeight="30.0" prefWidth="572.0" textFill="#f94344" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
@@ -40,6 +40,8 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
+      <JFXTextField fx:id="share" labelFloat="true" layoutX="40.0" layoutY="310.0" prefHeight="25.0" prefWidth="110.0" promptText="Anteil" stylesheets="@../../fullpackstyling.css" />
+      <Label layoutX="40.0" fx:id="shareInfo" layoutY="267.0" prefHeight="17.0" prefWidth="459.0"/>
 
    </children>
 </AnchorPane>

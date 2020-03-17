@@ -27,15 +27,15 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <ImageView fx:id="imgView" fitHeight="400.0" fitWidth="900.0" layoutX="43.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgView" fitHeight="330.0" fitWidth="900.0" layoutX="43.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true" />
             <ProgressIndicator fx:id="progressIndicator" layoutX="467.0" layoutY="473.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-progress-color: #343f4a#343f4a;" visible="false" />
             <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="413.0" layoutY="121.0" prefHeight="25.0" prefWidth="251.0" promptText="Aktie auswählen" />
-            <JFXTextField fx:id="name" editable="false" labelFloat="true" layoutX="82.0" layoutY="224.0" prefHeight="25.0" prefWidth="149.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
-            <JFXTextField fx:id="symbol" editable="false" labelFloat="true" layoutX="263.0" layoutY="224.0" prefHeight="25.0" prefWidth="110.0" promptText="Symbol" stylesheets="@../../fullpackstyling.css" />
-            <JFXTextField fx:id="exchange" editable="false" labelFloat="true" layoutX="390.0" layoutY="224.0" prefHeight="25.0" prefWidth="110.0" promptText="Exchange" stylesheets="@../../fullpackstyling.css" />
-            <JFXTextField fx:id="price" editable="false" labelFloat="true" layoutX="519.0" layoutY="224.0" prefHeight="25.0" prefWidth="89.0" promptText="Preis" stylesheets="@../../fullpackstyling.css" />
-            <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="623.0" layoutY="224.0" prefHeight="25.0" prefWidth="149.0" promptText="Veränderung zum Vortag" stylesheets="@../../fullpackstyling.css" />
-            <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="792.0" layoutY="224.0" prefHeight="25.0" prefWidth="132.0" promptText="Währung" stylesheets="@../../fullpackstyling.css" />
+            <JFXTextField fx:id="name" editable="false" labelFloat="true" layoutX="112.0" layoutY="225.0" prefHeight="25.0" prefWidth="170.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
+            <JFXTextField fx:id="symbol" editable="false" labelFloat="true" layoutX="313.0" layoutY="225.0" prefHeight="25.0" prefWidth="170.0" promptText="Symbol" stylesheets="@../../fullpackstyling.css" />
+            <JFXTextField fx:id="exchange" editable="false" labelFloat="true" layoutX="510.0" layoutY="225.0" prefHeight="25.0" prefWidth="170.0" promptText="Exchange" stylesheets="@../../fullpackstyling.css" />
+            <JFXTextField fx:id="price" editable="false" labelFloat="true" layoutX="114.0" layoutY="284.0" prefHeight="25.0" prefWidth="170.0" promptText="Preis" stylesheets="@../../fullpackstyling.css" />
+            <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="316.0" layoutY="284.0" prefHeight="27.0" prefWidth="170.0" promptText="Veränderung zum Vortag" stylesheets="@../../fullpackstyling.css" />
+            <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="710.0" layoutY="225.0" prefHeight="25.0" prefWidth="170.0" promptText="Währung" stylesheets="@../../fullpackstyling.css" />
             <JFXButton fx:id="updateStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="866.0" layoutY="105.0" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
                <graphic>
                   <ImageView fitHeight="49.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
@@ -77,6 +77,7 @@
                   <Image url="@../../icons/investment.png" />
                </image>
             </ImageView>
+            <JFXTextField fx:id="share" editable="false" labelFloat="true" layoutX="510.0" layoutY="284.0" prefHeight="27.0" prefWidth="170.0" promptText="Anteil" stylesheets="@../../fullpackstyling.css" />
          </children>
       </Pane>
    </children>

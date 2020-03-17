@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -8,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -24,7 +26,7 @@
             <Separator layoutX="36.0" layoutY="82.0" prefHeight="1.0" prefWidth="914.0" />
              <Pane layoutX="36.0" layoutY="82.0" prefHeight="598.0" prefWidth="940.0" style="-fx-background-color: #fff;">
                  <children>
-                     <Pane layoutX="554.0" layoutY="21.0" prefHeight="200.0" prefWidth="372.0" style="-fx-background-color: #364FCD; -fx-background-radius: 10;">
+                     <Pane layoutX="455.0" layoutY="21.0" prefHeight="252.0" prefWidth="471.0" style="-fx-background-color: #364FCD; -fx-background-radius: 10;">
                          <children>
                              <Label layoutX="176.0" layoutY="43.0" text="TODO:" textFill="WHITE">
                                  <font>
@@ -36,25 +38,19 @@
                               <Label text="* Audit History für Clients und Portflolio überarbeiten" textFill="WHITE" wrapText="true" />
                               <Label text="* UTF-8  encoding" textFill="WHITE" wrapText="true" />
                            </children></VBox>
-                             <ImageView fitHeight="125.0" fitWidth="107.0" layoutX="35.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                             <ImageView fitHeight="125.0" fitWidth="107.0" layoutX="39.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                      <Image url="@../icons/diamant.png" />
                                  </image>
                              </ImageView>
                          </children>
                      </Pane>
-                     <Line endX="787.0" endY="0.5" layoutX="133.0" layoutY="302.0" startX="-98.5" startY="0.5" stroke="#ddd1d1" />
-                     <Label layoutX="48.0" layoutY="308.0" text="Marktanalyse" textFill="#383839">
+                     <Line endX="787.0" endY="0.5" layoutX="133.0" layoutY="302.0" startX="-119.0" startY="0.5" stroke="#ddd1d1" />
+                     <Label layoutX="20.0" layoutY="318.0" text="Marktanalyse" textFill="#383839">
                          <font>
                              <Font name="System Bold" size="16.0" />
                          </font>
                      </Label>
-                     <Label layoutX="494.0" layoutY="311.0" text="Clientenanalyse" textFill="#383839">
-                         <font>
-                             <Font name="System Bold" size="16.0" />
-                         </font>
-                     </Label>
-                     <Line endX="129.0" endY="-9.0" layoutX="354.0" layoutY="312.0" startX="129.0" startY="152.0" stroke="#ddd1d1" />
                      <Label layoutX="122.0" layoutY="83.0" prefHeight="14.0" prefWidth="117.0" text="Letzte Aktualisierung:" textFill="#4a4747">
                          <font>
                              <Font size="11.0" />
@@ -65,9 +61,7 @@
                              <Font size="11.0" />
                          </font>
                      </Label>
-                     <PieChart fx:id="pieChart1" labelLineLength="5.0" layoutX="48.0" layoutY="343.0" legendSide="RIGHT" prefHeight="239.0" prefWidth="419.0" snapToPixel="false">
-                     </PieChart>
-                     <PieChart fx:id="pieChart2" labelLineLength="5.0" layoutX="503.0" layoutY="345.0" legendSide="RIGHT" prefHeight="239.0" prefWidth="419.0">
+                     <PieChart fx:id="pieChart1" labelLineLength="5.0" layoutX="22.0" layoutY="343.0" legendSide="RIGHT" prefHeight="239.0" prefWidth="435.0" snapToPixel="false">
                      </PieChart>
                      <Label layoutX="33.0" layoutY="48.0" text="Überblick" textFill="#383839">
                          <font>
@@ -79,8 +73,7 @@
                         <Font size="11.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelMarket" layoutX="46.0" layoutY="423.0" prefHeight="17.0" prefWidth="419.0" />
-                  <Label fx:id="labelClients" layoutX="494.0" layoutY="423.0" prefHeight="17.0" prefWidth="419.0" />
+                  <Label fx:id="labelMarket" layoutX="99.0" layoutY="415.0" prefHeight="34.0" prefWidth="281.0" wrapText="true" />
                   <JFXButton fx:id="updateStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="34.0" layoutY="78.0" style="-fx-border-radius: 20px; -fx-background-radius: 20px;">
                      <graphic>
                         <ImageView fitHeight="62.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
@@ -90,8 +83,26 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
+                  <Line endX="-221.0" endY="-9.0" layoutX="692.0" layoutY="312.0" startX="-221.0" startY="239.0" stroke="#ddd1d1" />
+                  <PieChart fx:id="pieChart3" labelLineLength="5.0" layoutX="486.0" layoutY="343.0" legendSide="RIGHT" prefHeight="239.0" prefWidth="435.0" />
+                  <Label fx:id="labelStocks" layoutX="560.0" layoutY="415.0" prefHeight="34.0" prefWidth="281.0" wrapText="true" />
+                  <Label layoutX="486.0" layoutY="318.0" text="Aktienanalyse" textFill="#383839">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
                  </children>
              </Pane>
+            <Group fx:id="group" layoutX="334.0" layoutY="82.0">
+               <children>
+                  <StackPane fx:id="pane" layoutX="-55.0" layoutY="-67.0" prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <PieChart fx:id="chart" />
+                        <Label fx:id="caption" />
+                     </children>
+                  </StackPane>
+               </children>
+            </Group>
          </children>
       </Pane>
    </children>

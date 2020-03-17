@@ -28,7 +28,18 @@ public class ClientStock {
         @JoinColumn(name = "stock_id")
         Stock stock;
 
-        @Column(name = "quantatiy", nullable = false, columnDefinition = "int default 0")
-        int quantatiy;
+        @Column(name = "quantity", nullable = false, columnDefinition = "int default 0")
+        int quantity;
 
+        @Column(name = "shareSoll", nullable = false, columnDefinition = "number default 0")
+        double shareSoll;
+
+        @Column(name = "shareIst", nullable = false, columnDefinition = "number default 0")
+        double shareIst;
+
+        @Column(name = "diffRelativ", nullable = false, columnDefinition = "number default 0")
+        double diffRelativ;
+
+        @Column(name = "diffAbsolut", nullable = false, columnDefinition = "int default 0")
+        int diffAbsolut;
 }

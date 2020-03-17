@@ -10,7 +10,6 @@ import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
-import yahooAPI.YahooStockAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,35 @@ import java.util.List;
 public class EntityPortfolioImpl implements DatabaseInterface<ClientStock> {
     @Override
     public List<ClientStock> getAll() {
+
         return null;
     }
+
+    public List<ClientStock> getAll(Client client) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            List<ClientStock> clientStocks = session.createQuery("FROM Client_Stock WHERE client_id=:client_id", ClientStock.class)
+                    .setParameter("client_id", client.getId()).getResultList();
+            session.close();
+            return clientStocks;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return null;
+    }
+
+    public List<ClientStock> getAllExceptStock(Client client, Stock stock) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            List<ClientStock> clientStocks = session.createQuery("FROM Client_Stock WHERE client_id=:client_id AND stock_id!=:stock_id", ClientStock.class)
+                    .setParameter("client_id", client.getId())
+                    .setParameter("stock_id", stock.getId()).list();
+            session.close();
+            return clientStocks;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return null;
+    }
+
 
     @Override
     public ClientStock get(int id) {
@@ -56,11 +82,7 @@ public class EntityPortfolioImpl implements DatabaseInterface<ClientStock> {
             Transaction transaction = session.beginTransaction();
 
             log.info("ClientStock ID to update: " + clientStock.getId());
-            ClientStock clientStockToUpdate = session.load(ClientStock.class, clientStock.getId());
-            log.info("ClientStock to update: " + clientStockToUpdate) ;
-            clientStockToUpdate.setQuantatiy(clientStock.getQuantatiy());
-            session.save(clientStockToUpdate);
-
+            session.saveOrUpdate(clientStock);
             transaction.commit();
             session.close();
             return true;

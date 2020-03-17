@@ -37,6 +37,10 @@ public class StockAddModalController implements Initializable {
     public JFXTextField exchange;
     @FXML
     public JFXTextField currency;
+    @FXML
+    public JFXTextField share;
+    @FXML
+    public Label shareInfo;
 
     private StockAddModalModel stockAddModalModel;
     private YahooStockAPI yahooStockAPI;
@@ -62,16 +66,32 @@ public class StockAddModalController implements Initializable {
             stage.close();
         });
 
+        entityAktien.getAll().forEach(stock -> stockAddModalModel.setAmount(stockAddModalModel.getAmount() - stock.getShare()));
+
+        shareInfo.setText("Bitte wähle noch den Anteil der Aktie (Es sind noch " + stockAddModalModel.getAmount() + "% übrig):");
+
         search.disableProperty().bind(symbol.textProperty().isEmpty());
 
-        addAktie.disableProperty().bind(symbol2.textProperty().isEmpty()
+        share.disableProperty().bind(symbol2.textProperty().isEmpty()
                 .or(name.textProperty().isEmpty().or(
                         exchange.textProperty().isEmpty().or(
                                 currency.textProperty().isEmpty())
                 )
         ));
 
+        addAktie.disableProperty().bind(share.textProperty().isEmpty());
+
         symbol.textProperty().addListener((observableValue, s, newValue) -> stockAddModalModel.setSymbol(newValue));
+
+
+        share.textProperty().addListener((observableValue, s, newValue) -> {
+            if (!newValue.matches("^\\d*\\.?\\d*$") || Double.parseDouble(newValue) > stockAddModalModel.getAmount()) {
+                share.setText(newValue.replaceAll("\\d*", ""));
+            }
+            stockAddModalModel.getStock().setShare(Double.parseDouble(newValue));
+
+        });
+
     }
 
     @FXML
