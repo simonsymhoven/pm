@@ -15,8 +15,7 @@ public class Update extends Task<Boolean> {
 
         @Override
         protected Boolean call() {
-            entityAktien.updateAll();
-            return true;
+            return entityAktien.updateAll();
         }
 
 

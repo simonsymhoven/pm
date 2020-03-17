@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Objects;
 
 @Log4j2
-public class EntityClientImpl implements DatabaseInterface<Client> {
+public class EntityClientImpl {
 
-    @Override
+
     public List<Client> getAll() {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             List<Client> clients = session.createQuery("FROM Clients", Client.class).getResultList();
@@ -34,32 +34,6 @@ public class EntityClientImpl implements DatabaseInterface<Client> {
         return null;
     }
 
-    @Override
-    public Client get(int id) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            Client client = session.get(Client.class, id);
-            session.close();
-            return client;
-        } catch (HibernateException e) {
-            log.error(e);
-        }
-        return null;
-    }
-
-    @Override
-    public Client get(String symbol) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            Client client = session.createQuery("FROM Clients WHERE symbol=:symbol", Client.class)
-                    .setParameter("symbol", symbol).uniqueResult();
-            session.close();
-            return client;
-        } catch (HibernateException e) {
-            log.error(e);
-        }
-        return null;
-    }
-
-    @Override
     public boolean add(Client client) {
         Transaction transaction = null;
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
@@ -74,29 +48,6 @@ public class EntityClientImpl implements DatabaseInterface<Client> {
         return false;
     }
 
-    @Override
-    public boolean update(Client client) {
-        Transaction transaction = null;
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            Client clientToUpdate = session.get(Client.class, client.getId());
-            clientToUpdate.setDepoValue(client.getDepoValue());
-            session.update(clientToUpdate);
-            transaction.commit();
-            session.close();
-            return true;
-        } catch (HibernateException e) {
-            log.error(e);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean updateAll() {
-        return false;
-    }
-
-    @Override
     public boolean delete(Client client) {
         Transaction transaction = null;
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
@@ -137,22 +88,6 @@ public class EntityClientImpl implements DatabaseInterface<Client> {
         }
 
         return null;
-    }
-
-
-    public boolean addStocks(Client client, List<Stock> selectedList) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            Client clientToUpdate = session.load(Client.class, client.getId());
-            clientToUpdate.getStocks().addAll(selectedList);
-            session.save(clientToUpdate);
-            transaction.commit();
-            session.close();
-            return true;
-        } catch (HibernateException e) {
-            log.error(e);
-        }
-        return false;
     }
 
     public boolean removeStock(Client client, Stock stock) {

@@ -201,11 +201,13 @@ public class StockController implements Initializable {
 
             if (alert.getResult() == ButtonType.YES) {
                 // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
-                entityAktien.delete(comboBox.getSelectionModel().getSelectedItem());
-                comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
-                comboBox.getSelectionModel().clearSelection();
-                imgView.setImage(null);
-                getAktien();
+                if (entityAktien.delete(comboBox.getSelectionModel().getSelectedItem())) {
+                    comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
+                    comboBox.getSelectionModel().clearSelection();
+                    imgView.setImage(null);
+                    getAktien();
+                }
+
             }
         });
 

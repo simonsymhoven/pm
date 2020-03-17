@@ -15,12 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
-public class EntityPortfolioImpl implements DatabaseInterface<ClientStock> {
-    @Override
-    public List<ClientStock> getAll() {
-
-        return null;
-    }
+public class EntityPortfolioImpl {
 
     public List<ClientStock> getAllForStock(Stock stock) {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
@@ -46,49 +41,6 @@ public class EntityPortfolioImpl implements DatabaseInterface<ClientStock> {
         return null;
     }
 
-    public List<ClientStock> getAllExceptStock(Client client, Stock stock) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            List<ClientStock> clientStocks = session.createQuery("FROM Client_Stock WHERE client_id=:client_id AND stock_id!=:stock_id", ClientStock.class)
-                    .setParameter("client_id", client.getId())
-                    .setParameter("stock_id", stock.getId()).list();
-            session.close();
-            return clientStocks;
-        } catch (HibernateException e) {
-            log.error(e);
-        }
-        return null;
-    }
-
-
-    @Override
-    public ClientStock get(int id) {
-        return null;
-    }
-
-
-    public ClientStock get(ClientStockKey clientStockKey) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            ClientStock clientStock = session.createQuery("FROM Client_Stock WHERE client_id=:client_id AND stock_id=:stock_id", ClientStock.class)
-                    .setParameter("client_id", clientStockKey.getClient_id())
-                    .setParameter("stock_id", clientStockKey.getStock_id())
-                    .uniqueResult();
-            session.close();
-            return clientStock;
-        } catch (HibernateException e) {
-            log.error(e);
-        }
-        return null;
-    }
-
-    @Override
-    public ClientStock get(String symbol) {
-        return null;
-    }
-
-    @Override
-    public boolean add(ClientStock clientStock) { return false; }
-
-    @Override
     public boolean update(ClientStock clientStock) {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
@@ -103,14 +55,6 @@ public class EntityPortfolioImpl implements DatabaseInterface<ClientStock> {
         }
         return false;
     }
-
-    @Override
-    public boolean updateAll() {
-        return false;
-    }
-
-    @Override
-    public boolean delete(ClientStock clientStock) { return false; }
 
     public List<PortfolioRevision> getAudit(Client client){
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {

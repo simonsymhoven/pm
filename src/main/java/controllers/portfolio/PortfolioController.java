@@ -345,7 +345,7 @@ public class PortfolioController implements Initializable {
     private void dragDone(DragEvent event, ListView<Stock> listView) {
         TransferMode tm = event.getTransferMode();
         if (tm.equals(TransferMode.COPY) || tm.equals(TransferMode.MOVE)) {
-            removeSelectedAktie(listView);
+            removeSelectedStock(listView);
         }
 
         event.consume();
@@ -353,11 +353,10 @@ public class PortfolioController implements Initializable {
 
 
     private Stock getSelectedStock(ListView<Stock> listView) {
-        Stock stock = listView.getSelectionModel().getSelectedItem();
-        return stock;
+        return listView.getSelectionModel().getSelectedItem();
     }
 
-    private void removeSelectedAktie(ListView<Stock> listView) {
+    private void removeSelectedStock(ListView<Stock> listView) {
         Stock selectedStock = listView.getSelectionModel().getSelectedItem();
         listView.getSelectionModel().clearSelection();
         listView.getItems().remove(selectedStock);
@@ -377,13 +376,14 @@ public class PortfolioController implements Initializable {
 
         if (listView.getId().equals("aktienListKunde")) {
             log.info("[1/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. AUs listView entfernen.");
-            entityClient.removeStock(portfolioModel.getClient(), selectedStock);
-            portfolioModel.getClientStocks().forEach(c -> {
-                if (c.getClient().getId() == portfolioModel.getClient().getId() && c.getStock().getId() == selectedStock.getId()) {
-                    log.info("[2/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. Aus Model entfernen.");
-                    portfolioModel.getClientStocks().remove(c);
-                }
-            });
+            if (entityClient.removeStock(portfolioModel.getClient(), selectedStock)) {
+                portfolioModel.getClientStocks().forEach(c -> {
+                    if (c.getClient().getId() == portfolioModel.getClient().getId() && c.getStock().getId() == selectedStock.getId()) {
+                        log.info("[2/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. Aus Model entfernen.");
+                        portfolioModel.getClientStocks().remove(c);
+                    }
+                });
+            }
         }
     }
 

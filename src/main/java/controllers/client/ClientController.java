@@ -116,11 +116,12 @@ public class ClientController implements Initializable {
             alert.showAndWait();
 
             if (alert.getResult() == ButtonType.YES) {
-                entityClient.delete(clientModel.getClient());
-                comboBox.getItems().remove(clientModel.getClient());
-                label.setText("Übersicht");
-                getClients();
-                comboBox.getSelectionModel().clearSelection();
+                if (entityClient.delete(clientModel.getClient())) {
+                    comboBox.getItems().remove(clientModel.getClient());
+                    label.setText("Übersicht");
+                    getClients();
+                    comboBox.getSelectionModel().clearSelection();
+                }
             }
         });
 
