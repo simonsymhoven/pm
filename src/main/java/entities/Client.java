@@ -85,9 +85,4 @@ public class Client implements Serializable {
     public String toString(){
         return getName();
     }
-
-    @Transactional
-    public void removeStocks(List<Stock> list){
-        stocks.removeAll(list);
-    }
 }

@@ -362,28 +362,28 @@ public class PortfolioController implements Initializable {
         listView.getItems().remove(selectedStock);
 
 
-        double shareValue = (selectedStock.getShare() / 100.0) * (portfolioModel.getClient().getStrategy() /100.0) * 100.0 ;
-        portfolioModel.getClientStocks().add(new ClientStock(
-                new ClientStockKey(portfolioModel.getClient().getId(), selectedStock.getId()),
-                portfolioModel.getClient(),
-                selectedStock,
-               0,
-                shareValue,
-                0,
-                0,
-               0
-        ));
-
         if (listView.getId().equals("aktienListKunde")) {
             log.info("[1/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. AUs listView entfernen.");
             if (entityClient.removeStock(portfolioModel.getClient(), selectedStock)) {
-                portfolioModel.getClientStocks().forEach(c -> {
-                    if (c.getClient().getId() == portfolioModel.getClient().getId() && c.getStock().getId() == selectedStock.getId()) {
+                for (ClientStock clientStock : portfolioModel.getClientStocks()) {
+                    if (clientStock.getClient().getId() == portfolioModel.getClient().getId() && clientStock.getStock().getId() == selectedStock.getId()) {
                         log.info("[2/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. Aus Model entfernen.");
-                        portfolioModel.getClientStocks().remove(c);
+                        portfolioModel.getClientStocks().remove(clientStock);
                     }
-                });
+                }
             }
+        } else if (listView.getId().equals("aktienList")) {
+            double shareValue = (selectedStock.getShare() / 100.0) * (portfolioModel.getClient().getStrategy() /100.0) * 100.0 ;
+            portfolioModel.getClientStocks().add(new ClientStock(
+                    new ClientStockKey(portfolioModel.getClient().getId(), selectedStock.getId()),
+                    portfolioModel.getClient(),
+                    selectedStock,
+                    0,
+                    shareValue,
+                    0,
+                    0,
+                    0
+            ));
         }
     }
 

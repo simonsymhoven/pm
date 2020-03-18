@@ -42,7 +42,8 @@ public class LoginController implements Initializable {
     @FXML
     public JFXCheckBox checkBox;
 
-    static User loggedinUser;
+    public static User loggedinUser;
+
     private EntityUserImpl entityUser = new EntityUserImpl();
     private JSONReaderImpl jsonReader = new JSONReaderImpl(new JSONParser());
 
