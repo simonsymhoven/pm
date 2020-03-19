@@ -3,7 +3,6 @@ package controllers.stock;
 import com.jfoenix.controls.JFXButton;
 import entities.ClientStock;
 import sql.EntityPortfolioImpl;
-import yahooAPI.YahooStockAPI;
 import alert.AlertDialog;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,7 +32,8 @@ import java.util.concurrent.Executors;
 @Log4j2
 public class StockController implements Initializable {
 
-    private double x, y = 0;
+    private double x = 0;
+    private double y = 0;
     @FXML
     public JFXComboBox<Stock> comboBox;
     @FXML
@@ -84,13 +83,13 @@ public class StockController implements Initializable {
         updateStock.disableProperty().bind(comboBox.valueProperty().isNull());
         showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
         deleteStock.setDisable(true);
-        getAktien();
+        getStocks();
 
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             deleteStock.setDisable(false);
             if (newValue != null) {
                 List<ClientStock> list =  entityPortfolio.getAllForStock(newValue);
-                if (list != null && list.size() > 0) {
+                if (list.size() > 0) {
                     deleteStock.setDisable(true);
                 }
                 stockModel.setStock(newValue);
@@ -105,31 +104,9 @@ public class StockController implements Initializable {
                         .format(stockModel.getStock().getChange()));
 
                 share.setText((stockModel.getStock().getShare() + " %").replace(".", ","));
-                Plot task = new Plot(stockModel);
 
-                task.setOnRunning(successesEvent -> {
-                    progressIndicator.setVisible(true);
-                });
+                plotStock();
 
-                task.setOnSucceeded(succeededEvent -> {
-                    try {
-                        if (task.get() != null) {
-                            imgView.setImage(task.get());
-                        }
-                    } catch (InterruptedException | ExecutionException e) {
-                        log.error(e);
-                    }
-                    progressIndicator.setVisible(false);
-                });
-
-                task.setOnFailed(failedEvent -> {
-                    progressIndicator.setVisible(false);
-                    log.error(" TASK FAILED! ");
-                });
-
-                ExecutorService executorService = Executors.newFixedThreadPool(1);
-                executorService.execute(task);
-                executorService.shutdown();
             } else {
                 currency.clear();
                 label.setText("");
@@ -146,50 +123,52 @@ public class StockController implements Initializable {
 
         showAudit.setOnMouseClicked(e -> {
             Stage dialog = new Stage();
-            Parent root = null;
+            Parent root;
             try {
                 root = FXMLLoader.load(getClass().getResource("/views/stock/stock_audit_modal.fxml"));
+                root.setOnMousePressed(event -> {
+                    x = event.getSceneX();
+                    y = event.getSceneY();
+                });
+                root.setOnMouseDragged(event -> {
+                    dialog.setX(event.getScreenX() - x);
+                    dialog.setY(event.getScreenY() - y);
+                });
+                dialog.setScene(new Scene(root));
+                dialog.initOwner(showAudit.getScene().getWindow());
+                dialog.setUserData(this);
+                dialog.initStyle(StageStyle.UNDECORATED);
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.show();
             } catch (IOException ex) {
-                ex.printStackTrace();
+               log.error(ex);
             }
-            root.setOnMousePressed(event -> {
-                x = event.getSceneX();
-                y = event.getSceneY();
-            });
-            root.setOnMouseDragged(event -> {
-                dialog.setX(event.getScreenX() - x);
-                dialog.setY(event.getScreenY() - y);
-            });
-            dialog.setScene(new Scene(root));
-            dialog.initOwner(showAudit.getScene().getWindow());
-            dialog.setUserData(this);
-            dialog.initStyle(StageStyle.UNDECORATED);
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.show();
+
         });
 
         addStock.setOnMouseClicked(e -> {
             Stage dialog = new Stage();
-            Parent root = null;
+            Parent root;
             try {
                 root = FXMLLoader.load(getClass().getResource("/views/stock/stock_add_modal.fxml"));
+                root.setOnMousePressed(event -> {
+                    x = event.getSceneX();
+                    y = event.getSceneY();
+                });
+                root.setOnMouseDragged(event -> {
+                    dialog.setX(event.getScreenX() - x);
+                    dialog.setY(event.getScreenY() - y);
+                });
+                dialog.setScene(new Scene(root));
+                dialog.setUserData(this);
+                dialog.initOwner(addStock.getScene().getWindow());
+                dialog.initStyle(StageStyle.UNDECORATED);
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.showAndWait();
             } catch (IOException ex) {
-                ex.printStackTrace();
+               log.error(ex);
             }
-            root.setOnMousePressed(event -> {
-                x = event.getSceneX();
-                y = event.getSceneY();
-            });
-            root.setOnMouseDragged(event -> {
-                dialog.setX(event.getScreenX() - x);
-                dialog.setY(event.getScreenY() - y);
-            });
-            dialog.setScene(new Scene(root));
-            dialog.setUserData(this);
-            dialog.initOwner(addStock.getScene().getWindow());
-            dialog.initStyle(StageStyle.UNDECORATED);
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.showAndWait();
+
         });
 
         deleteStock.setOnMouseClicked(e -> {
@@ -205,7 +184,7 @@ public class StockController implements Initializable {
                     comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
                     comboBox.getSelectionModel().clearSelection();
                     imgView.setImage(null);
-                    getAktien();
+                    getStocks();
                 }
 
             }
@@ -217,14 +196,40 @@ public class StockController implements Initializable {
             if (entityAktien.update(selectedStock)) {
                 new AlertDialog().showSuccessDialog("Erledigt!", "Aktie " + stockModel.getStock().getName() + " wurde erfolgreich aktualisiert.");
                 comboBox.getItems().remove(selectedStock);
-                getAktien();
+                getStocks();
                 comboBox.getSelectionModel().select(selectedStock);
             }
         });
 
     }
 
-    public void getAktien() {
+    private void plotStock() {
+        Plot task = new Plot(stockModel);
+
+        task.setOnRunning(successesEvent -> progressIndicator.setVisible(true));
+
+        task.setOnSucceeded(succeededEvent -> {
+            try {
+                if (task.get() != null) {
+                    imgView.setImage(task.get());
+                }
+            } catch (Exception e) {
+                log.error(e);
+            }
+            progressIndicator.setVisible(false);
+        });
+
+        task.setOnFailed(failedEvent -> {
+            progressIndicator.setVisible(false);
+            log.error(" TASK FAILED! ");
+        });
+
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(task);
+        executorService.shutdown();
+    }
+
+    public void getStocks() {
         stockModel.setAktien(entityAktien.getAll());
         stockModel.getAktien().forEach(c -> {
             if (!comboBox.getItems().contains(c)) {

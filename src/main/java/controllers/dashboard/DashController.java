@@ -10,29 +10,24 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import json.JSONReaderImpl;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.parser.JSONParser;
 import sql.EntityClientImpl;
 import sql.EntityStockImpl;
-
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,36 +35,21 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Log4j2
 public class DashController implements Initializable {
-    @FXML
     public Label lastUpdateStatus;
-    @FXML
     public Label lastUpdateDate;
-    @FXML
     public JFXButton updateStock;
-    @FXML
-    public VBox vBox;
-    @FXML
-    private PieChart chartMarket;
-    @FXML
-    private PieChart chartStocks;
-    @FXML
-    private Label labelMarkets;
-    @FXML
-    private Label labelStocks;
-    @FXML
-    private Label counterMarkets;
-    @FXML
-    private Label counterStocks;
-    @FXML
-    private Label counterClients;
-    @FXML
-    private Label counterValue;
-    @FXML
-    private Label name;
+    public PieChart chartMarket;
+    public PieChart chartStocks;
+    public Label labelMarkets;
+    public Label labelStocks;
+    public Label counterMarkets;
+    public Label counterStocks;
+    public Label counterClients;
+    public Label counterValue;
+    public Label name;
 
     private ObservableList<PieChart.Data> marketData;
     private ObservableList<PieChart.Data> stockData;
-
 
     private DashModel dashModel;
     private JSONReaderImpl jsonReader;
@@ -88,7 +68,7 @@ public class DashController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        name.setText(LoginController.loggedinUser.vorname);
+        name.setText(LoginController.loggedUser.vorname);
 
 
         drawCounters();
@@ -122,37 +102,33 @@ public class DashController implements Initializable {
     }
 
     private void setupAnimation(ObservableList<PieChart.Data> data, Label label) {
-        data.stream().forEach(pieData -> {
-            pieData.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                if (label.getId().equals("labelMarkets")) {
-                    label.setText(pieData.getName() + ": " +  pieData.getPieValue() + " Stk.");
-                } else {
-                    label.setText(pieData.getName() + ": " +  String.format("%.2f", pieData.getPieValue()) + "%");
-                }
-                label.setLabelFor(pieData.getNode());
+        data.forEach(pieData -> pieData.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (label.getId().equals("labelMarkets")) {
+                label.setText(pieData.getName() + ": " +  pieData.getPieValue() + " Stk.");
+            } else {
+                label.setText(pieData.getName() + ": " +  String.format("%.2f", pieData.getPieValue()) + "%");
+            }
+            label.setLabelFor(pieData.getNode());
 
 
 
-                Bounds b1 = pieData.getNode().getBoundsInLocal();
-                double newX = (b1.getWidth()) / 2 + b1.getMinX();
-                double newY = (b1.getHeight()) / 2 + b1.getMinY();
-                // Make sure pie wedge location is reset
-                pieData.getNode().setTranslateX(0);
-                pieData.getNode().setTranslateY(0);
-                // Create the animation
-                TranslateTransition tt = new TranslateTransition(
-                        Duration.millis(1500), pieData.getNode());
-                tt.setByX(newX);
-                tt.setByY(newY);
-                tt.setAutoReverse(true);
-                tt.setCycleCount(2);
-                tt.play();
+            Bounds b1 = pieData.getNode().getBoundsInLocal();
+            double newX = (b1.getWidth()) / 2 + b1.getMinX();
+            double newY = (b1.getHeight()) / 2 + b1.getMinY();
+            // Make sure pie wedge location is reset
+            pieData.getNode().setTranslateX(0);
+            pieData.getNode().setTranslateY(0);
+            // Create the animation
+            TranslateTransition tt = new TranslateTransition(
+                    Duration.millis(1500), pieData.getNode());
+            tt.setByX(newX);
+            tt.setByY(newY);
+            tt.setAutoReverse(true);
+            tt.setCycleCount(2);
+            tt.play();
 
-                tt.setOnFinished(e -> {
-                    label.setText("");
-                });
-            });
-        });
+            tt.setOnFinished(e -> label.setText(""));
+        }));
     }
 
     private void update(){
@@ -179,7 +155,7 @@ public class DashController implements Initializable {
                     drawCounters();
                     drawCharts();
                 }
-            } catch (InterruptedException | ExecutionException | IOException | ParseException e) {
+            } catch (Exception e) {
                 log.error(e);
             }
         });
@@ -221,12 +197,12 @@ public class DashController implements Initializable {
         if (!stocks.isEmpty()) {
             createCounter(stocks.size(), counterMarkets);
             Map<String, Integer> map = new HashMap<>();
-            stocks.forEach(aktie -> {
-                if (map.containsKey(aktie.getExchange())) {
-                    Integer value = map.get(aktie.getExchange());
-                    map.put(aktie.getExchange(), ++value);
+            stocks.forEach(stock -> {
+                if (map.containsKey(stock.getExchange())) {
+                    Integer value = map.get(stock.getExchange());
+                    map.put(stock.getExchange(), ++value);
                 } else {
-                    map.put(aktie.getExchange(), 1);
+                    map.put(stock.getExchange(), 1);
                 }
             });
 
@@ -248,11 +224,9 @@ public class DashController implements Initializable {
     }
 
     private void createCounter(int size, Label label) {
-        // create a new animation
-        int markets = size;
         AtomicInteger count = new AtomicInteger(0);
         Timeline animation = new Timeline(new KeyFrame(Duration.millis(50), e -> {
-            if (count.get() <= markets) {
+            if (count.get() <= size) {
                 label.setText(String.valueOf(count.getAndIncrement()));
             }
         }));
@@ -261,12 +235,10 @@ public class DashController implements Initializable {
     }
 
     private void createCounter(double value, Label label) {
-        // create a new animation
-
         AtomicReference<Double> count = new AtomicReference<>((double) 0);
-        Timeline animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
+        Timeline animation = new Timeline(new KeyFrame(Duration.millis(5), e -> {
             if (count.get() <= value) {
-                count.getAndSet((count.get() + 100));
+                count.getAndSet((count.get() + 1000));
                 String text = NumberFormat.getCurrencyInstance()
                         .format(new BigDecimal(count.get()))
                         .replace("EUR", "EUR ");

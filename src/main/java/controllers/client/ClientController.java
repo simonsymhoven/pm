@@ -15,7 +15,6 @@ import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import sql.EntityClientImpl;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import java.io.IOException;
 import java.net.URL;
@@ -27,31 +26,22 @@ import java.util.ResourceBundle;
 
 public class ClientController implements Initializable {
 
-    double x,y = 0;
-    @FXML
+
     public JFXComboBox<Client> comboBox;
-    @FXML
     public Label label;
-    @FXML
     public JFXButton addClient;
-    @FXML
     public JFXButton deleteClient;
-    @FXML
     public JFXTextField name;
-    @FXML
     public JFXTextField symbol;
-    @FXML
     public JFXTextField strategy;
-    @FXML
     public JFXTextField depoValue;
-    @FXML
     public JFXButton showAudit;
-
-
 
     private EntityClientImpl entityClient;
     @Getter
     public ClientModel clientModel;
+    private double x = 0;
+    private double y = 0;
 
     public ClientController() {
         Locale.setDefault(Locale.GERMANY);
@@ -90,23 +80,24 @@ public class ClientController implements Initializable {
             Parent root = null;
             try {
                 root = FXMLLoader.load(getClass().getResource("/views/client/client_add_modal.fxml"));
+                root.setOnMousePressed(event -> {
+                    x = event.getSceneX();
+                    y = event.getSceneY();
+                });
+                root.setOnMouseDragged(event -> {
+                    dialog.setX(event.getScreenX() - x);
+                    dialog.setY(event.getScreenY() - y);
+                });
+                dialog.setScene(new Scene(root));
+                dialog.initOwner(addClient.getScene().getWindow());
+                dialog.setUserData(this);
+                dialog.initStyle(StageStyle.UNDECORATED);
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.show();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                log.error(ex);
             }
-            root.setOnMousePressed(event -> {
-                x = event.getSceneX();
-                y = event.getSceneY();
-            });
-            root.setOnMouseDragged(event -> {
-                dialog.setX(event.getScreenX() - x);
-                dialog.setY(event.getScreenY() - y);
-            });
-            dialog.setScene(new Scene(root));
-            dialog.initOwner(addClient.getScene().getWindow());
-            dialog.setUserData(this);
-            dialog.initStyle(StageStyle.UNDECORATED);
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.show();
+
         });
 
         deleteClient.setOnMouseClicked(e -> {
@@ -130,23 +121,23 @@ public class ClientController implements Initializable {
             Parent root = null;
             try {
                 root = FXMLLoader.load(getClass().getResource("/views/client/client_audit_modal.fxml"));
+                root.setOnMousePressed(event -> {
+                    x = event.getSceneX();
+                    y = event.getSceneY();
+                });
+                root.setOnMouseDragged(event -> {
+                    dialog.setX(event.getScreenX() - x);
+                    dialog.setY(event.getScreenY() - y);
+                });
+                dialog.setScene(new Scene(root));
+                dialog.initOwner(showAudit.getScene().getWindow());
+                dialog.setUserData(this);
+                dialog.initStyle(StageStyle.UNDECORATED);
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.show();
             } catch (IOException ex) {
-                ex.printStackTrace();
+               log.error(ex);
             }
-            root.setOnMousePressed(event -> {
-                x = event.getSceneX();
-                y = event.getSceneY();
-            });
-            root.setOnMouseDragged(event -> {
-                dialog.setX(event.getScreenX() - x);
-                dialog.setY(event.getScreenY() - y);
-            });
-            dialog.setScene(new Scene(root));
-            dialog.initOwner(showAudit.getScene().getWindow());
-            dialog.setUserData(this);
-            dialog.initStyle(StageStyle.UNDECORATED);
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.show();
         });
 
     }

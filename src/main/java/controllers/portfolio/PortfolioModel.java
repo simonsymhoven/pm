@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class PortfolioModel {
-    private List<Stock> aktienList;
+    private List<Stock> stockList;
     private List<Client> clients;
     private List<ClientStock> clientStocks;
     private Client client;
@@ -20,15 +20,16 @@ public class PortfolioModel {
 
     private DataFormat dataFormat;
     DataFormat getFormat(){
-        if (DataFormat.lookupMimeType("AktieList") == null)
-            this.dataFormat = new DataFormat("AktieList");
+        String dateFormat = "StockList";
+        if (DataFormat.lookupMimeType(dateFormat) == null)
+            this.dataFormat = new DataFormat(dateFormat);
 
-        return DataFormat.lookupMimeType("AktieList");
+        return DataFormat.lookupMimeType(dateFormat);
     }
 
     private int quantity;
-    private double shareSoll;
-    private double shareIst;
-    private double diffRelativ;
-    private int diffAbsolut;
+    private double shareTarget;
+    private double shareActual;
+    private double diffRelative;
+    private int diffAbsolute;
 }

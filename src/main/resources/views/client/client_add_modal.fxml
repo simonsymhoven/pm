@@ -17,7 +17,7 @@
       <JFXTextField fx:id="name" labelFloat="true" layoutX="61.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
       <JFXTextField fx:id="symbol" labelFloat="true" layoutX="244.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Kürzel" stylesheets="@../../fullpackstyling.css" />
       <JFXTextField fx:id="strategy" labelFloat="true" layoutX="427.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Strategie" stylesheets="@../../fullpackstyling.css" />
-      <JFXButton fx:id="addClient" buttonType="RAISED" layoutX="477.0" layoutY="394.0" onAction="#addClient" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen">
+      <JFXButton fx:id="addClient" buttonType="RAISED" layoutX="477.0" layoutY="394.0" onAction="#add" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen">
          <font>
             <Font size="17.0" />
          </font>

@@ -18,30 +18,30 @@ import java.util.List;
 public class EntityPortfolioImpl {
 
     public List<ClientStock> getAllForStock(Stock stock) {
+        List<ClientStock> clientStocks = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            List<ClientStock> clientStocks = session.createQuery("FROM Client_Stock WHERE stock_id=:stock_id", ClientStock.class)
+            clientStocks = session.createQuery("FROM Client_Stock WHERE stock_id=:stock_id", ClientStock.class)
                     .setParameter("stock_id", stock.getId()).getResultList();
             session.close();
-            return clientStocks;
         } catch (HibernateException e) {
             log.error(e);
         }
-        return null;
+        return clientStocks;
     }
 
     public List<ClientStock> getAll(Client client) {
+        List<ClientStock> clientStocks = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            List<ClientStock> clientStocks = session.createQuery("FROM Client_Stock WHERE client_id=:client_id", ClientStock.class)
+            clientStocks = session.createQuery("FROM Client_Stock WHERE client_id=:client_id", ClientStock.class)
                     .setParameter("client_id", client.getId()).getResultList();
             session.close();
-            return clientStocks;
         } catch (HibernateException e) {
             log.error(e);
         }
-        return null;
+        return clientStocks;
     }
 
-    public boolean update(ClientStock clientStock) {
+    public void update(ClientStock clientStock) {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 
@@ -49,14 +49,13 @@ public class EntityPortfolioImpl {
             session.saveOrUpdate(clientStock);
             transaction.commit();
             session.close();
-            return true;
         } catch (HibernateException e) {
             log.error(e);
         }
-        return false;
     }
 
     public List<PortfolioRevision> getAudit(Client client){
+        List<PortfolioRevision> revisions = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
@@ -64,8 +63,6 @@ public class EntityPortfolioImpl {
                     .add(AuditEntity.property("client_id").eq(client.getId()));
 
             ArrayList<Object[]> list = (ArrayList) query.getResultList();
-
-            List<PortfolioRevision> revisions = new ArrayList<>();
 
             list.forEach(object -> {
                 Object[] triplet = object;
@@ -76,11 +73,10 @@ public class EntityPortfolioImpl {
                 revisions.add(new PortfolioRevision(clientStock, revisionEntity.getRevisionDate(), revisionType));
             });
 
-            return revisions;
         } catch (HibernateException e) {
             log.error(e);
         }
 
-        return null;
+        return revisions;
     }
 }

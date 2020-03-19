@@ -20,14 +20,14 @@ import java.util.List;
 public class EntityStockImpl{
 
     public List<Stock> getAll() {
+        List<Stock> stock = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            List<Stock> stock = session.createQuery("FROM Stock", Stock.class).getResultList();
+            stock = session.createQuery("FROM Stock", Stock.class).getResultList();
             session.close();
-            return stock;
         } catch (HibernateException e) {
             log.error(e);
         }
-        return null;
+        return stock;
     }
 
     public boolean add(Stock stock) {
@@ -74,11 +74,11 @@ public class EntityStockImpl{
 
             YahooStockAPI yahooStockAPI = new YahooStockAPI();
             Transaction transaction = session.beginTransaction();
-            getAll().forEach(aktie -> {
-                Stock stock = yahooStockAPI.getStock(aktie.getSymbol());
-                Stock stockToUpdate = session.load(Stock.class, aktie.getId());
-                stockToUpdate.setChange(stock.getChange());
-                stockToUpdate.setPrice(stock.getPrice());
+            getAll().forEach(stock -> {
+                Stock s = yahooStockAPI.getStock(stock.getSymbol());
+                Stock stockToUpdate = session.load(Stock.class, stock.getId());
+                stockToUpdate.setChange(s.getChange());
+                stockToUpdate.setPrice(s.getPrice());
                 session.save(stockToUpdate);
             });
 
@@ -92,10 +92,8 @@ public class EntityStockImpl{
     }
 
     public boolean delete(Stock stock) {
-        log.info("STOCK TO DELETE ; "  + stock.getId());
-        Transaction transaction = null;
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.delete(stock);
             transaction.commit();
             session.close();
@@ -107,6 +105,8 @@ public class EntityStockImpl{
     }
 
     public List<StockRevision> getAudit(Stock stock){
+        List<StockRevision> revisions = new ArrayList<>();
+        
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
@@ -114,9 +114,7 @@ public class EntityStockImpl{
                     .add(AuditEntity.id().eq(stock.getId()));
 
             ArrayList<Object[]> list = (ArrayList) query.getResultList();
-
-            List<StockRevision> revisions = new ArrayList<>();
-
+            
             list.forEach(object -> {
                 Object[] triplet = object;
                 Stock entity = (Stock) triplet[0];
@@ -125,12 +123,11 @@ public class EntityStockImpl{
 
                 revisions.add(new StockRevision(entity, revisionEntity.getRevisionDate(), revisionType));
             });
-
-            return revisions;
+            
         } catch (HibernateException e) {
             log.error(e);
         }
 
-        return null;
+        return revisions;
     }
 }

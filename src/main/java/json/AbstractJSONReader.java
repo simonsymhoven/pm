@@ -1,5 +1,6 @@
 package json;
 
+import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -7,21 +8,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+@Log4j2
 public class AbstractJSONReader implements JSONInterface {
 
-    protected JSONParser jsonParser;
-    protected JSONObject jsonObject;
+    private JSONObject jsonObject;
     private String pathToJSON = System.getProperty("user.dir") + "/db/settings.json";
 
-    public AbstractJSONReader(JSONParser jsonParser){
-        this.jsonParser = jsonParser;
-
+    AbstractJSONReader(JSONParser jsonParser){
         try (FileReader reader = new FileReader(pathToJSON)) {
             Object obj = jsonParser.parse(reader);
-            JSONObject jsonObject = (JSONObject) obj;
-            this.jsonObject = jsonObject;
+            this.jsonObject = (JSONObject) obj;
         } catch (IOException | ParseException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 

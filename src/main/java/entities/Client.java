@@ -8,11 +8,8 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "Clients")
@@ -63,7 +60,7 @@ public class Client implements Serializable {
                     )
             }
     )
-    Set<Stock> stocks;
+    private Set<Stock> stocks;
 
     @NotAudited
     @Override

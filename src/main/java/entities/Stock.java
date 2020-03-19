@@ -10,7 +10,6 @@ import org.hibernate.envers.NotAudited;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "Stock")
@@ -57,7 +56,7 @@ public class Stock implements Serializable {
     public double share;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "stocks")
-    Set<Client> clients;
+    private Set<Client> clients;
 
     @NotAudited
     @Override

@@ -14,10 +14,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ClientStockKey implements Serializable {
     @Column(name = "client_id")
-    int client_id;
+    int clientID;
 
     @Column(name = "stock_id")
-    int stock_id;
+    int stockID;
 
 
 }

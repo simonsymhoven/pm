@@ -6,38 +6,26 @@ import controllers.client.Box;
 import controllers.portfolio.PortfolioController;
 import entities.ClientStock;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sql.EntityPortfolioImpl;
-
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PortfolioAuditModalController implements Initializable {
-    @FXML
     public JFXButton close;
-    @FXML
     public AnchorPane pane;
-    @FXML
     public ScrollPane scrollPane;
 
     private PortfolioAuditModalModel portfolioAuditModalModel;
     private PortfolioController portfolioController;
     private EntityPortfolioImpl entityPortfolio;
     private Stage stage;
-
 
     public PortfolioAuditModalController() {
         this.entityPortfolio = new EntityPortfolioImpl();
@@ -67,10 +55,7 @@ public class PortfolioAuditModalController implements Initializable {
             scrollPane.setContent(vBox);
         });
 
-        close.setOnMouseClicked(e -> {
-            stage.close();
-        });
-
+        close.setOnMouseClicked(e -> stage.close());
 
     }
 

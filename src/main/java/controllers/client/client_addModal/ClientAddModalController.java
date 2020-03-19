@@ -3,12 +3,10 @@ package controllers.client.client_addModal;
 
 import alert.AlertDialog;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
 import entities.Client;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -18,15 +16,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClientAddModalController implements Initializable {
-    @FXML
     public JFXButton addClient;
-    @FXML
     public JFXButton close;
-    @FXML
     public JFXTextField name;
-    @FXML
     public JFXTextField symbol;
-    @FXML
     public JFXTextField strategy;
 
     private Stage stage;
@@ -64,8 +57,7 @@ public class ClientAddModalController implements Initializable {
         });
     }
 
-    @FXML
-    public void addClient() {
+    public void add() {
         clientAddModalModel.setClient(
                 new Client(
                         name.getText(),

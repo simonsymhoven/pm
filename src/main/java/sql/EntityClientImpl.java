@@ -7,37 +7,32 @@ import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
-import yahooAPI.YahooStockAPI;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Log4j2
 public class EntityClientImpl {
 
 
     public List<Client> getAll() {
+        List<Client> clients = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            List<Client> clients = session.createQuery("FROM Clients", Client.class).getResultList();
+             clients = session.createQuery("FROM Clients", Client.class).getResultList();
             session.close();
-            return clients;
         } catch (HibernateException e) {
             log.error(e);
         }
-        return null;
+        return clients;
     }
 
     public boolean add(Client client) {
-        Transaction transaction = null;
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.save(client);
             transaction.commit();
             session.close();
@@ -49,9 +44,8 @@ public class EntityClientImpl {
     }
 
     public boolean delete(Client client) {
-        Transaction transaction = null;
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             session.delete(client);
             transaction.commit();
             session.close();
@@ -63,6 +57,7 @@ public class EntityClientImpl {
     }
 
     public List<ClientRevision> getAudit(Client client){
+        List<ClientRevision> revisions = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
@@ -71,23 +66,17 @@ public class EntityClientImpl {
 
             ArrayList<Object[]> list = (ArrayList) query.getResultList();
 
-            List<ClientRevision> revisions = new ArrayList<>();
-
             list.forEach(object -> {
-                Object[] triplet = object;
-                Client entity = (Client) triplet[0];
-                DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) triplet[1];
-                RevisionType revisionType = (RevisionType) triplet[2];
-
+                Client entity = (Client) object[0];
+                DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) object[1];
+                RevisionType revisionType = (RevisionType) object[2];
                 revisions.add(new ClientRevision(entity, revisionEntity.getRevisionDate(), revisionType));
             });
-
-            return revisions;
         } catch (HibernateException e) {
             log.error(e);
         }
 
-        return null;
+        return revisions;
     }
 
     public boolean removeStock(Client client, Stock stock) {

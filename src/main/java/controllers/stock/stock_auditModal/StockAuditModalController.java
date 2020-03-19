@@ -1,6 +1,5 @@
 package controllers.stock.stock_auditModal;
 
-
 import com.jfoenix.controls.JFXButton;
 import controllers.client.Box;
 import controllers.stock.StockController;
@@ -8,12 +7,7 @@ import entities.Stock;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -21,7 +15,6 @@ import javafx.stage.Stage;
 import sql.EntityStockImpl;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -76,8 +69,7 @@ public class StockAuditModalController implements Initializable {
 
     private String stockToString(Stock stock) {
         String signum = "";
-        if (stock.getChange().signum() == -1) {
-        } else {
+        if (stock.getChange().signum() != -1) {
             signum = "+ ";
         }
         return stock.getName() + " [" + stock.getSymbol() + ", " + stock.getCurrency() + "]: Preis: "

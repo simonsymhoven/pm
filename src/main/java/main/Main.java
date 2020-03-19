@@ -9,10 +9,13 @@ import javafx.stage.StageStyle;
 import sql.DatabaseFactory;
 
 public class Main extends Application {
-    double x,y = 0;
+    private double x = 0;
+    private double y = 0;
 
     @Override
     public void start(Stage stage) throws Exception {
+        DatabaseFactory.getSessionFactory().openSession();
+
         Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
         root.getStylesheets().add(getClass().getResource("/fullpackstyling.css").toExternalForm());
         stage.setTitle("Portfolio Management");
@@ -33,7 +36,7 @@ public class Main extends Application {
         stage.setScene(new Scene(root));
         stage.show();
 
-        DatabaseFactory.getSessionFactory().openSession();
+
 
     }
 

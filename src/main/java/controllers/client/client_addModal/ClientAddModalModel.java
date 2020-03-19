@@ -4,6 +4,6 @@ import entities.Client;
 import lombok.Data;
 
 @Data
-public class ClientAddModalModel {
+class ClientAddModalModel {
     private Client client;
 }

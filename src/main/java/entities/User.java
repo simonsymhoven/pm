@@ -1,19 +1,17 @@
 package entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.envers.Audited;
-
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity(name = "User")
 @Table(name = "User")
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    public User(){
-
-    }
-
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")

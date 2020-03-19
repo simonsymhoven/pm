@@ -11,8 +11,6 @@ import entities.Stock;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import sql.EntityStockImpl;
 import java.net.URL;
@@ -95,14 +93,14 @@ public class StockAddModalController implements Initializable {
     }
 
     @FXML
-    public void addAktie() {
+    public void add() {
         info.setText("");
         if (entityAktien.add(stockAddModalModel.getStock())) {
             Alert alert = new AlertDialog().showSuccessDialog("Erledigt!", "Aktie wurde hinzugefügt.");
             alert.showAndWait();
 
             if (alert.getResult() == ButtonType.OK) {
-                stockController.getAktien();
+                stockController.getStocks();
                 stockController.comboBox.getSelectionModel().select(stockAddModalModel.getStock());
                 stage.close();
             }

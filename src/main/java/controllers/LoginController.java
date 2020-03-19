@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import entities.User;
-import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.parser.JSONParser;
 import org.mindrot.jbcrypt.BCrypt;
@@ -27,22 +27,17 @@ import java.util.ResourceBundle;
 
 @Log4j2
 public class LoginController implements Initializable {
-    double x, y = 0;
+    private double x = 0;
+    private double y = 0;
 
-    @FXML
     public JFXTextField userName;
-    @FXML
     public JFXPasswordField password;
-    @FXML
     public JFXButton login;
-    @FXML
     public JFXButton close;
-    @FXML
     public Label messageLabel;
-    @FXML
     public JFXCheckBox checkBox;
 
-    public static User loggedinUser;
+    public static User loggedUser;
 
     private EntityUserImpl entityUser = new EntityUserImpl();
     private JSONReaderImpl jsonReader = new JSONReaderImpl(new JSONParser());
@@ -57,7 +52,7 @@ public class LoginController implements Initializable {
 
         if (user != null) {
             if (BCrypt.checkpw(pass, user.hash)) {
-                loggedinUser = user;
+                loggedUser = user;
                 if (checkBox.isSelected()) {
                     jsonReader.write("user", username);
                 } else {
@@ -102,7 +97,7 @@ public class LoginController implements Initializable {
         });
     }
 
-    public void loadNewStage() throws IOException {
+    private void loadNewStage() throws IOException {
         Stage oldStage = (Stage) login.getScene().getWindow();
         oldStage.hide();
 

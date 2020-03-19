@@ -41,9 +41,9 @@
                   <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="328.0" layoutY="327.0" prefHeight="25.0" prefWidth="284.0" promptText="Änderung zum Vortag" stylesheets="@../../fullpackstyling.css" />
                   <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="328.0" layoutY="384.0" prefHeight="25.0" prefWidth="284.0" promptText="Währung" stylesheets="@../../fullpackstyling.css" />
                   <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="370.0" layoutY="44.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" />
-                  <JFXListView fx:id="aktienList" layoutX="33.0" layoutY="97.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../fullpackstyling.css" />
-                  <JFXListView fx:id="aktienListKunde" layoutX="649.0" layoutY="97.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../fullpackstyling.css" />
-                  <JFXTextField fx:id="quantatiy" editable="false" labelFloat="true" layoutX="325.0" layoutY="450.0" prefHeight="27.0" prefWidth="284.0" promptText="Anzahl" stylesheets="@../../fullpackstyling.css" />
+                  <JFXListView fx:id="stockList" layoutX="33.0" layoutY="97.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../fullpackstyling.css" />
+                  <JFXListView fx:id="stockListClient" layoutX="649.0" layoutY="97.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../fullpackstyling.css" />
+                  <JFXTextField fx:id="quantity" editable="false" labelFloat="true" layoutX="325.0" layoutY="450.0" prefHeight="27.0" prefWidth="284.0" promptText="Anzahl" stylesheets="@../../fullpackstyling.css" />
                   <JFXButton fx:id="showAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="853.0" layoutY="14.0" style="-fx-background-radius: 40px;; -fx-border-radius: 40px;;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
@@ -58,11 +58,11 @@
                         <Image url="@../../icons/mann.png" />
                      </image>
                   </ImageView>
-                  <JFXTextField fx:id="shareSoll" editable="false" labelFloat="true" layoutX="33.0" layoutY="557.0" prefHeight="27.0" prefWidth="138.0" promptText="Anteil Soll (%)" stylesheets="@../../fullpackstyling.css" />
-                  <JFXTextField fx:id="shareIst" editable="false" labelFloat="true" layoutX="184.0" layoutY="557.0" prefHeight="27.0" prefWidth="138.0" promptText="Anteil Ist (%)" stylesheets="@../../fullpackstyling.css" />
-                  <JFXTextField fx:id="diffRelativ" editable="false" labelFloat="true" layoutX="333.0" layoutY="557.0" prefHeight="27.0" prefWidth="138.0" promptText="Relativ (%)" stylesheets="@../../fullpackstyling.css" />
-                  <JFXTextField fx:id="diffAbsolut" editable="false" labelFloat="true" layoutX="490.0" layoutY="557.0" prefHeight="27.0" prefWidth="138.0" promptText="Absolut (Stk.)" stylesheets="@../../fullpackstyling.css" />
-                  <JFXButton fx:id="update" buttonType="RAISED" layoutX="784.0" layoutY="538.0" onAction="#update" prefHeight="50.0" prefWidth="125.0" ripplerFill="BLACK" stylesheets="@../../fullpackstyling.css" text="Speichern">
+                  <JFXTextField fx:id="shareTarget" editable="false" labelFloat="true" layoutX="33.0" layoutY="557.0" prefHeight="27.0" prefWidth="138.0" promptText="Anteil Soll (%)" stylesheets="@../../fullpackstyling.css" />
+                  <JFXTextField fx:id="shareActual" editable="false" labelFloat="true" layoutX="184.0" layoutY="557.0" prefHeight="27.0" prefWidth="138.0" promptText="Anteil Ist (%)" stylesheets="@../../fullpackstyling.css" />
+                  <JFXTextField fx:id="diffRelative" editable="false" labelFloat="true" layoutX="333.0" layoutY="557.0" prefHeight="27.0" prefWidth="138.0" promptText="Relativ (%)" stylesheets="@../../fullpackstyling.css" />
+                  <JFXTextField fx:id="diffAbsolute" editable="false" labelFloat="true" layoutX="490.0" layoutY="557.0" prefHeight="27.0" prefWidth="138.0" promptText="Absolut (Stk.)" stylesheets="@../../fullpackstyling.css" />
+                  <JFXButton fx:id="update" buttonType="RAISED" layoutX="784.0" layoutY="538.0" onAction="#refresh" prefHeight="50.0" prefWidth="125.0" ripplerFill="BLACK" stylesheets="@../../fullpackstyling.css" text="Speichern">
                      <font>
                         <Font size="17.0" />
                      </font></JFXButton>

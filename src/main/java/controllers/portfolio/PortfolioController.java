@@ -8,8 +8,6 @@ import entities.Client;
 import entities.ClientStock;
 import entities.ClientStockKey;
 import entities.Stock;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -25,59 +23,42 @@ import sql.EntityPortfolioImpl;
 import sql.EntityStockImpl;
 import sql.EntityClientImpl;
 
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
 
 @Log4j2
 public class PortfolioController implements Initializable {
-
-    double x,y = 0;
-    @FXML
+    
     public JFXComboBox<Client> comboBox;
-    @FXML
-    private JFXListView<Stock> aktienList;
-    @FXML
-    private ListView<Stock> aktienListKunde;
-    @FXML
-    private JFXTextField name;
-    @FXML
-    private JFXTextField symbol;
-    @FXML
-    private JFXTextField exchange;
-    @FXML
-    private JFXTextField price;
-    @FXML
-    private JFXTextField change;
-    @FXML
-    private JFXTextField currency;
-    @FXML
-    private JFXTextField quantatiy;
-    @FXML
-    private JFXTextField shareSoll;
-    @FXML
-    private JFXTextField shareIst;
-    @FXML
-    private JFXTextField diffRelativ;
-    @FXML
-    private JFXTextField diffAbsolut;
-    @FXML
+    public JFXListView<Stock> stockList;
+    public JFXListView<Stock> stockListClient;
+    public JFXTextField name;
+    public JFXTextField symbol;
+    public JFXTextField exchange;
+    public JFXTextField change;
+    public JFXTextField price;
+    public JFXTextField currency;
+    public JFXTextField quantity;
+    public JFXTextField shareTarget;
+    public JFXTextField shareActual;
+    public JFXTextField diffRelative;
+    public JFXTextField diffAbsolute;
     public JFXButton showAudit;
-    @FXML
     public JFXButton update;
 
+    private double x = 0;
+    private double y = 0;
     @Getter
     public PortfolioModel portfolioModel;
-    private EntityStockImpl entityAktien;
+    private EntityStockImpl entityStock;
     private EntityClientImpl entityClient;
     private EntityPortfolioImpl entityPortfolio;
 
     public PortfolioController() {
         this.portfolioModel = new PortfolioModel();
-        this.entityAktien = new EntityStockImpl();
+        this.entityStock = new EntityStockImpl();
         this.entityClient = new EntityClientImpl();
         this.entityPortfolio = new EntityPortfolioImpl();
     }
@@ -88,33 +69,34 @@ public class PortfolioController implements Initializable {
 
         showAudit.setOnMouseClicked(e -> {
             Stage dialog = new Stage();
-            Parent root = null;
+            Parent root;
             try {
                 root = FXMLLoader.load(getClass().getResource("/views/portfolio/portfolio_audit_modal.fxml"));
+                root.setOnMousePressed(event -> {
+                    x = event.getSceneX();
+                    y = event.getSceneY();
+                });
+                root.setOnMouseDragged(event -> {
+                    dialog.setX(event.getScreenX() - x);
+                    dialog.setY(event.getScreenY() - y);
+                });
+                dialog.setScene(new Scene(root));
+                dialog.initOwner(showAudit.getScene().getWindow());
+                dialog.setUserData(this);
+                dialog.initStyle(StageStyle.UNDECORATED);
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.show();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                log.error(ex);
             }
 
-            root.setOnMousePressed(event -> {
-                x = event.getSceneX();
-                y = event.getSceneY();
-            });
-            root.setOnMouseDragged(event -> {
-                dialog.setX(event.getScreenX() - x);
-                dialog.setY(event.getScreenY() - y);
-            });
-            dialog.setScene(new Scene(root));
-            dialog.initOwner(showAudit.getScene().getWindow());
-            dialog.setUserData(this);
-            dialog.initStyle(StageStyle.UNDECORATED);
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.show();
+
         });
 
-        aktienList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        aktienListKunde.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        stockList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        stockListClient.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        portfolioModel.setAktienList(entityAktien.getAll());
+        portfolioModel.setStockList(entityStock.getAll());
         portfolioModel.setClients(entityClient.getAll());
 
         portfolioModel.getClients().forEach(c -> comboBox.getItems().add(c));
@@ -129,14 +111,14 @@ public class PortfolioController implements Initializable {
 
         portfolioModel.setClientStocks(new ArrayList<>());
 
-        update.disableProperty().bind(aktienListKunde.getSelectionModel().selectedItemProperty().isNull()
-                .or(quantatiy.textProperty().isEqualTo("0")));
+        update.disableProperty().bind(stockListClient.getSelectionModel().selectedItemProperty().isNull()
+                .or(quantity.textProperty().isEqualTo("0")));
 
-        shareIst.disableProperty().bind(quantatiy.textProperty().isEmpty());
-        diffRelativ.disableProperty().bind(shareIst.textProperty().isEmpty());
-        diffAbsolut.disableProperty().bind(shareIst.textProperty().isEmpty());
+        shareActual.disableProperty().bind(quantity.textProperty().isEmpty());
+        diffRelative.disableProperty().bind(shareActual.textProperty().isEmpty());
+        diffAbsolute.disableProperty().bind(shareActual.textProperty().isEmpty());
 
-        aktienListKunde.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        stockListClient.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 portfolioModel.setStock(newValue);
 
@@ -146,7 +128,7 @@ public class PortfolioController implements Initializable {
                     }
                 });
 
-                quantatiy.setText(String.valueOf(portfolioModel.getClientStock().getQuantity()));
+                quantity.setText(String.valueOf(portfolioModel.getClientStock().getQuantity()));
                 currency.setText(portfolioModel.getStock().getCurrency());
                 name.setText(portfolioModel.getStock().getName());
                 symbol.setText(portfolioModel.getStock().getSymbol());
@@ -155,28 +137,28 @@ public class PortfolioController implements Initializable {
                         .format(portfolioModel.getStock().getPrice()));
                 change.setText(NumberFormat.getCurrencyInstance()
                         .format(portfolioModel.getStock().getChange()));
-                shareIst.setText(String.format("%.2f", portfolioModel.getClientStock().getShareIst()).replace(",", ".") + " %");
-                diffRelativ.setText(String.format("%.2f", portfolioModel.getClientStock().getDiffRelativ()).replace(",", ".") + " %");
-                diffAbsolut.setText(String.valueOf(portfolioModel.getClientStock().getDiffAbsolut()));
-                shareSoll.setText(String.format("%.2f", portfolioModel.getClientStock().getShareSoll()).replace(",", ".") + " %");
+                shareActual.setText(String.format("%.2f", portfolioModel.getClientStock().getShareActual()).replace(",", ".") + " %");
+                diffRelative.setText(String.format("%.2f", portfolioModel.getClientStock().getDiffRelative()).replace(",", ".") + " %");
+                diffAbsolute.setText(String.valueOf(portfolioModel.getClientStock().getDiffAbsolute()));
+                shareTarget.setText(String.format("%.2f", portfolioModel.getClientStock().getShareTarget()).replace(",", ".") + " %");
 
-                quantatiy.setEditable(true);
+                quantity.setEditable(true);
             } else {
                 clearFields();
-                quantatiy.setEditable(false);
+                quantity.setEditable(false);
             }
         });
 
-        quantatiy.textProperty().addListener((observable, oldValue, newValue) -> {
+        quantity.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals("")){
                 if (!newValue.matches("\\d*")) {
-                    quantatiy.setText(newValue.replaceAll("\\D", ""));
+                    quantity.setText(newValue.replaceAll("\\D", ""));
                 } else {
                     try {
                         int i = Integer.parseInt(newValue);
                         if ( i > 0) {
                             portfolioModel.setQuantity(i);
-                            calculateDepo();
+                            calculateDepot();
                             replaceClientStock();
                         }
                     } catch (Exception e){
@@ -188,56 +170,56 @@ public class PortfolioController implements Initializable {
         });
 
         // Add mouse event handlers for the source
-        aktienList.setOnDragDetected(event -> {
+        stockList.setOnDragDetected(event -> {
             log.info("Event on Source: drag detected");
-            dragDetected(event, aktienList);
+            dragDetected(event, stockList);
         });
 
-        aktienList.setOnDragOver(event -> {
+        stockList.setOnDragOver(event -> {
             log.info("Event on Source: drag over");
-            dragOver(event, aktienList);
+            dragOver(event, stockList);
         });
 
-        aktienList.setOnDragDropped(event -> {
+        stockList.setOnDragDropped(event -> {
             log.info("Event on Source: drag dropped");
-            dragDropped(event, aktienList);
+            dragDropped(event, stockList);
         });
 
-        aktienList.setOnDragDone(event -> {
+        stockList.setOnDragDone(event -> {
             log.info("Event on Source: drag done");
-            dragDone(event, aktienList);
+            dragDone(event, stockList);
         });
 
         // Add mouse event handlers for the target
-        aktienListKunde.setOnDragDetected(event -> {
+        stockListClient.setOnDragDetected(event -> {
             log.info("Event on Target: drag detected");
-            dragDetected(event, aktienListKunde);
+            dragDetected(event, stockListClient);
         });
 
-        aktienListKunde.setOnDragOver(event -> {
+        stockListClient.setOnDragOver(event -> {
             log.info("Event on Target: drag over");
-            dragOver(event, aktienListKunde);
+            dragOver(event, stockListClient);
         });
 
-        aktienListKunde.setOnDragDropped(event -> {
+        stockListClient.setOnDragDropped(event -> {
             log.info("Event on Target: drag dropped");
-            dragDropped(event, aktienListKunde);
+            dragDropped(event, stockListClient);
         });
 
-        aktienListKunde.setOnDragDone(event -> {
+        stockListClient.setOnDragDone(event -> {
             log.info("Event on Target: drag done");
-            dragDone(event, aktienListKunde);
+            dragDone(event, stockListClient);
         });
 
 
 
     }
 
-    private void calculateDepo() {
+    private void calculateDepot() {
         // SHARE SOLL
         double shareValue = (portfolioModel.getStock().getShare() / 100.0) *
                 (portfolioModel.getClient().getStrategy() /100.0) * 100.0 ;
-        portfolioModel.setShareSoll(shareValue);
+        portfolioModel.setShareTarget(shareValue);
 
         // SHARE IST
         double valueNewStock = portfolioModel.getStock().getPrice().doubleValue() * portfolioModel.getQuantity();
@@ -248,29 +230,29 @@ public class PortfolioController implements Initializable {
             shareValueIst = (valueNewStock / clientDepoValue) * 100.0;
         }
 
-        portfolioModel.setShareIst(shareValueIst);
-        shareIst.setText(String.format("%.2f", portfolioModel.getShareIst()).replace(",", ".") + " %");
+        portfolioModel.setShareActual(shareValueIst);
+        shareActual.setText(String.format("%.2f", portfolioModel.getShareActual()).replace(",", ".") + " %");
 
-        portfolioModel.setDiffRelativ(portfolioModel.getShareSoll() - portfolioModel.getShareIst());
-        diffRelativ.setText(String.format("%.2f", portfolioModel.getDiffRelativ()).replace(",", ".") + " %");
+        portfolioModel.setDiffRelative(portfolioModel.getShareTarget() - portfolioModel.getShareActual());
+        diffRelative.setText(String.format("%.2f", portfolioModel.getDiffRelative()).replace(",", ".") + " %");
 
-        portfolioModel.setDiffAbsolut(
-                (int) ((portfolioModel.getDiffRelativ() * portfolioModel.getClient().getDepoValue().doubleValue()) /
+        portfolioModel.setDiffAbsolute(
+                (int) ((portfolioModel.getDiffRelative() * portfolioModel.getClient().getDepoValue().doubleValue()) /
                         portfolioModel.getStock().getPrice().doubleValue() / 100.0));
 
-        shareIst.setText(String.format("%.2f", portfolioModel.getShareIst()).replace(",", ".") + " %");
-        diffRelativ.setText(String.format("%.2f", portfolioModel.getDiffRelativ()).replace(",", ".") + " %");
-        diffAbsolut.setText(String.valueOf(portfolioModel.getDiffAbsolut()));
-        shareSoll.setText(String.format("%.2f", portfolioModel.getShareSoll()).replace(",", ".") + " %");
+        shareActual.setText(String.format("%.2f", portfolioModel.getShareActual()).replace(",", ".") + " %");
+        diffRelative.setText(String.format("%.2f", portfolioModel.getDiffRelative()).replace(",", ".") + " %");
+        diffAbsolute.setText(String.valueOf(portfolioModel.getDiffAbsolute()));
+        shareTarget.setText(String.format("%.2f", portfolioModel.getShareTarget()).replace(",", ".") + " %");
     }
 
     private void replaceClientStock(){
         portfolioModel.getClientStocks().remove(portfolioModel.getClientStock());
         portfolioModel.getClientStock().setQuantity(portfolioModel.getQuantity());
-        portfolioModel.getClientStock().setShareSoll(portfolioModel.getShareSoll());
-        portfolioModel.getClientStock().setShareIst(portfolioModel.getShareIst());
-        portfolioModel.getClientStock().setDiffRelativ(portfolioModel.getDiffRelativ());
-        portfolioModel.getClientStock().setDiffAbsolut(portfolioModel.getDiffAbsolut());
+        portfolioModel.getClientStock().setShareTarget(portfolioModel.getShareTarget());
+        portfolioModel.getClientStock().setShareActual(portfolioModel.getShareActual());
+        portfolioModel.getClientStock().setDiffRelative(portfolioModel.getDiffRelative());
+        portfolioModel.getClientStock().setDiffAbsolute(portfolioModel.getDiffAbsolute());
         portfolioModel.getClientStocks().add(portfolioModel.getClientStock());
     }
 
@@ -282,21 +264,21 @@ public class PortfolioController implements Initializable {
         price.clear();
         change.clear();
         currency.clear();
-        quantatiy.clear();
-        shareIst.clear();
-        shareSoll.clear();
-        diffAbsolut.clear();
-        diffRelativ.clear();
+        quantity.clear();
+        shareActual.clear();
+        shareTarget.clear();
+        diffAbsolute.clear();
+        diffRelative.clear();
     }
 
     private void updateStockLists(Client client) {
         Set<Stock> set = client.getStocks();
-        aktienListKunde.getItems().clear();
-        aktienList.getItems().clear();
-        aktienList.getItems().addAll(portfolioModel.getAktienList());
+        stockListClient.getItems().clear();
+        stockList.getItems().clear();
+        stockList.getItems().addAll(portfolioModel.getStockList());
         set.forEach(stock -> {
-            aktienListKunde.getItems().add(stock);
-            aktienList.getItems().remove(stock);
+            stockListClient.getItems().add(stock);
+            stockList.getItems().remove(stock);
         });
     }
 
@@ -387,8 +369,7 @@ public class PortfolioController implements Initializable {
         }
     }
 
-    @FXML
-    public void update() {
+    public void refresh() {
         portfolioModel.getClientStocks().forEach(clientStock -> entityPortfolio.update(clientStock));
     }
 }

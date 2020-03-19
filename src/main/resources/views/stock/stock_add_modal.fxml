@@ -24,7 +24,7 @@
             <Font size="17.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="addAktie" buttonType="RAISED" layoutX="477.0" layoutY="392.0" onAction="#addAktie" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen">
+      <JFXButton fx:id="addAktie" buttonType="RAISED" layoutX="477.0" layoutY="392.0" onAction="#add" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen">
          <font>
             <Font size="17.0" />
          </font>

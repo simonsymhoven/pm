@@ -31,15 +31,16 @@ public class ClientStock {
         @Column(name = "quantity", nullable = false, columnDefinition = "int default 0")
         int quantity;
 
-        @Column(name = "shareSoll", nullable = false, columnDefinition = "number default 0")
-        double shareSoll;
+        @Column(name = "shareTarget", nullable = false, columnDefinition = "number default 0")
+        double shareTarget;
 
-        @Column(name = "shareIst", nullable = false, columnDefinition = "number default 0")
-        double shareIst;
+        @Column(name = "shareActual", nullable = false, columnDefinition = "number default 0")
+        double shareActual;
 
-        @Column(name = "diffRelativ", nullable = false, columnDefinition = "number default 0")
-        double diffRelativ;
+        @Column(name = "diffRelative", nullable = false, columnDefinition = "number default 0")
+        double diffRelative;
 
-        @Column(name = "diffAbsolut", nullable = false, columnDefinition = "int default 0")
-        int diffAbsolut;
+        @Column(name = "diffAbsolute", nullable = false, columnDefinition = "int default 0")
+        int diffAbsolute;
 }
+

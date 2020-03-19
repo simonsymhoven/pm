@@ -7,16 +7,15 @@ import sql.EntityStockImpl;
 @Log4j2
 public class Update extends Task<Boolean> {
 
-        private EntityStockImpl entityAktien;
+        private EntityStockImpl entityStock;
 
         Update() {
-            this.entityAktien = new EntityStockImpl();
+            this.entityStock = new EntityStockImpl();
         }
 
         @Override
         protected Boolean call() {
-            return entityAktien.updateAll();
+            return entityStock.updateAll();
         }
-
 
 }
