@@ -58,7 +58,7 @@ public class Plot extends Task<Image> {
                             .yAxisTitle("Wert in €")
                             .build();
 
-            chart.getStyler().setMarkerSize(0);
+            chart.getStyler().setMarkerSize(1);
             chart.getStyler().setChartBackgroundColor(new Color(244,244,244));
             chart.getStyler().setLegendBackgroundColor(new Color(244,244,244));
             chart.getStyler().setPlotBackgroundColor(new Color(244,244,244));

@@ -82,9 +82,9 @@ public class StockAddModalController implements Initializable {
         symbol.textProperty().addListener((observableValue, s, newValue) -> stockAddModalModel.setSymbol(newValue));
 
 
-        share.textProperty().addListener((observableValue, s, newValue) -> {
-            if (!newValue.matches("^\\d*\\.?\\d*$") || Double.parseDouble(newValue) > stockAddModalModel.getAmount()) {
-                share.setText(newValue.replaceAll("\\d*", ""));
+        share.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (!newValue.matches("^(?=.*[0-9])\\d{0,2}(?:\\.\\d{0,2})?$") || Double.parseDouble(newValue) > stockAddModalModel.getAmount()) {
+                share.setText(oldValue);
             }
             stockAddModalModel.getStock().setShare(Double.parseDouble(newValue));
 

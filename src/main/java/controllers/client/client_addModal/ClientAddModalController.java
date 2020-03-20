@@ -49,10 +49,9 @@ public class ClientAddModalController implements Initializable {
                                 strategy.textProperty().isEmpty())
         ));
 
-
         strategy.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("^\\d*\\.?\\d*$")) {
-                strategy.setText(newValue.replaceAll("\\D", ""));
+            if (!newValue.matches("^(?=.*[0-9])\\d{0,2}(?:\\.\\d{0,2})?$")) {
+                strategy.setText(oldValue);
             }
         });
     }
@@ -62,7 +61,7 @@ public class ClientAddModalController implements Initializable {
                 new Client(
                         name.getText(),
                         symbol.getText(),
-                        Double.parseDouble(strategy.getText()),
+                        Double.parseDouble(strategy.getText().replace(" %", "")),
                         new BigDecimal(0)
                 )
         );
