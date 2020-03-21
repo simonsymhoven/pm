@@ -2,6 +2,7 @@ pipeline {
   agent any
   tools {
     maven 'Maven 3.6.3'
+    jdk 'adoptopenjdk-11.jdk'
   }
   triggers {
     pollSCM '* * * * *'
@@ -17,6 +18,7 @@ pipeline {
     stage('Test') {
       steps {
         echo 'Testing..'
+        sh 'mvn test'
       }
     }
 
