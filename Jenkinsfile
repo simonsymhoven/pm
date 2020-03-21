@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'mvn clean verify'
+        echo 'Build..'
       }
     }
 
@@ -18,7 +18,7 @@ pipeline {
 
     stage('deploy') {
       steps {
-        echo 'Deploying....'
+        echo 'Deploying..'
       }
     }
 
