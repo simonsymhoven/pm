@@ -1,9 +1,12 @@
 pipeline {
   agent any
+  triggers {
+    scm '* * * * *'
+  }
   stages {
     stage('build') {
       steps {
-        sh 'mvn verify'
+        sh 'mvn clean verify'
       }
     }
 
