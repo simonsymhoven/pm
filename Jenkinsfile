@@ -4,6 +4,9 @@ pipeline {
     maven 'Maven 3.6.3'
     jdk 'adoptopenjdk-11.jdk'
   }
+  options {
+    skipStagesAfterUnstable()
+  }
   triggers {
     pollSCM '* * * * *'
   }
@@ -27,6 +30,10 @@ pipeline {
         echo 'Deploying..'
       }
     }
-
+    post {
+        always {
+            junit 'build/reports/**/*.xml'
+        }
+    }
   }
 }
