@@ -11,7 +11,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Build..'
-        sh 'mvn clean verify'
+        sh 'mvn clean verify -DskipTests'
       }
     }
 
