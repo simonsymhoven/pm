@@ -1,22 +1,26 @@
 pipeline {
   agent any
+  tools {
+    maven 'Maven 3.6.3'
+  }
   triggers {
     pollSCM '* * * * *'
   }
   stages {
-    stage('build') {
+    stage('Build') {
       steps {
         echo 'Build..'
+        sh 'mvn -version'
       }
     }
 
-    stage('test') {
+    stage('Test') {
       steps {
         echo 'Testing..'
       }
     }
 
-    stage('deploy') {
+    stage('Deploy') {
       steps {
         echo 'Deploying..'
       }
