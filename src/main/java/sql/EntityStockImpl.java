@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
-public class EntityStockImpl{
+public class EntityStockImpl {
 
     public List<Stock> getAll() {
         List<Stock> stock = new ArrayList<>();
@@ -104,26 +104,24 @@ public class EntityStockImpl{
         return false;
     }
 
-    public List<StockRevision> getAudit(Stock stock){
+    public List<StockRevision> getAudit(Stock stock) {
         List<StockRevision> revisions = new ArrayList<>();
         
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
-                    .forRevisionsOfEntity(Stock.class, false , true)
+                    .forRevisionsOfEntity(Stock.class, false, true)
                     .add(AuditEntity.id().eq(stock.getId()));
 
             ArrayList<Object[]> list = (ArrayList) query.getResultList();
             
             list.forEach(object -> {
-                Object[] triplet = object;
-                Stock entity = (Stock) triplet[0];
-                DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) triplet[1];
-                RevisionType revisionType = (RevisionType) triplet[2];
-
-                revisions.add(new StockRevision(entity, revisionEntity.getRevisionDate(), revisionType));
+                    Object[] triplet = object;
+                    Stock entity = (Stock) triplet[0];
+                    DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) triplet[1];
+                    RevisionType revisionType = (RevisionType) triplet[2];
+                    revisions.add(new StockRevision(entity, revisionEntity.getRevisionDate(), revisionType));
             });
-            
         } catch (HibernateException e) {
             log.error(e);
         }

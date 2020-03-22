@@ -1,5 +1,6 @@
 package json;
 
+import org.jetbrains.annotations.NotNull;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -14,7 +15,7 @@ public class AbstractJSONReader implements JSONInterface {
     private JSONObject jsonObject;
     private String pathToJSON = System.getProperty("user.dir") + "/db/settings.json";
 
-    AbstractJSONReader(JSONParser jsonParser) {
+    AbstractJSONReader(@NotNull JSONParser jsonParser) {
         try (FileReader reader = new FileReader(pathToJSON)) {
             Object obj = jsonParser.parse(reader);
             this.jsonObject = (JSONObject) obj;

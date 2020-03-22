@@ -56,12 +56,12 @@ public class EntityClientImpl {
         return false;
     }
 
-    public List<ClientRevision> getAudit(Client client){
+    public List<ClientRevision> getAudit(Client client) {
         List<ClientRevision> revisions = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
-                    .forRevisionsOfEntity(Client.class, false , true)
+                    .forRevisionsOfEntity(Client.class, false, true)
                     .add(AuditEntity.id().eq(client.getId()));
 
             ArrayList<Object[]> list = (ArrayList) query.getResultList();

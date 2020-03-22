@@ -1,6 +1,9 @@
 package sql;
 
-import entities.*;
+import entities.ClientStock;
+import entities.Client;
+import entities.Stock;
+import entities.PortfolioRevision;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -54,21 +57,20 @@ public class EntityPortfolioImpl {
         }
     }
 
-    public List<PortfolioRevision> getAudit(Client client){
+    public List<PortfolioRevision> getAudit(Client client) {
         List<PortfolioRevision> revisions = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
-                    .forRevisionsOfEntity(ClientStock.class, false , true)
+                    .forRevisionsOfEntity(ClientStock.class, false, true)
                     .add(AuditEntity.property("client_id").eq(client.getId()));
 
             ArrayList<Object[]> list = (ArrayList) query.getResultList();
 
             list.forEach(object -> {
-                Object[] triplet = object;
-                ClientStock clientStock = (ClientStock) triplet[0];
-                DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) triplet[1];
-                RevisionType revisionType = (RevisionType) triplet[2];
+                ClientStock clientStock = (ClientStock) object[0];
+                DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) object[1];
+                RevisionType revisionType = (RevisionType) object[2];
 
                 revisions.add(new PortfolioRevision(clientStock, revisionEntity.getRevisionDate(), revisionType));
             });
