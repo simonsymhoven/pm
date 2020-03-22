@@ -106,15 +106,12 @@ public class EntityStockImpl {
 
     public List<StockRevision> getAudit(Stock stock) {
         List<StockRevision> revisions = new ArrayList<>();
-        
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
                     .forRevisionsOfEntity(Stock.class, false, true)
                     .add(AuditEntity.id().eq(stock.getId()));
-
             ArrayList<Object[]> list = (ArrayList) query.getResultList();
-            
             list.forEach(object -> {
                     Object[] triplet = object;
                     Stock entity = (Stock) triplet[0];

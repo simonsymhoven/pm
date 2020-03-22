@@ -4,10 +4,12 @@ import entities.Stock;
 import lombok.extern.log4j.Log4j2;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.Interval;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 
 @Log4j2
 public class YahooStockAPI {
