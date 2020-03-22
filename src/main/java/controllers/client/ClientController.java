@@ -59,10 +59,10 @@ public class ClientController implements Initializable {
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 clientModel.setClient(newValue);
-                label.setText(clientModel.getClient().name);
-                name.setText(clientModel.getClient().name);
-                symbol.setText(clientModel.getClient().symbol);
-                strategy.setText(clientModel.getClient().strategy + " %");
+                label.setText(clientModel.getClient().getName());
+                name.setText(clientModel.getClient().getName());
+                symbol.setText(clientModel.getClient().getSymbol());
+                strategy.setText(clientModel.getClient().getStrategy() + " %");
                 depoValue.setText(NumberFormat.getCurrencyInstance()
                         .format(clientModel.getClient().getDepoValue())
                         .replace("EUR", "EUR ")

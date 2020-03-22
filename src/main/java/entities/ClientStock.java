@@ -4,8 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
+import javax.persistence.Entity;
+import javax.persistence.Column;
+import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.EmbeddedId;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
-import javax.persistence.*;
 
 @Entity(name = "Client_Stock")
 @Table(name = "client_stock")
@@ -16,31 +22,31 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ClientStock {
         @EmbeddedId
-        ClientStockKey id;
+        private ClientStockKey id;
 
         @ManyToOne
         @MapsId("client_id")
         @JoinColumn(name = "client_id")
-        Client client;
+        private Client client;
 
         @ManyToOne
         @MapsId("stock_id")
         @JoinColumn(name = "stock_id")
-        Stock stock;
+        private Stock stock;
 
         @Column(name = "quantity", nullable = false, columnDefinition = "int default 0")
-        int quantity;
+        private int quantity;
 
         @Column(name = "shareTarget", nullable = false, columnDefinition = "number default 0")
-        double shareTarget;
+        private double shareTarget;
 
         @Column(name = "shareActual", nullable = false, columnDefinition = "number default 0")
-        double shareActual;
+        private double shareActual;
 
         @Column(name = "diffRelative", nullable = false, columnDefinition = "number default 0")
-        double diffRelative;
+        private double diffRelative;
 
         @Column(name = "diffAbsolute", nullable = false, columnDefinition = "int default 0")
-        int diffAbsolute;
+        private int diffAbsolute;
 }
 

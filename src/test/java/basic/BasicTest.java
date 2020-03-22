@@ -11,6 +11,6 @@ public class BasicTest {
         Client client = new Client();
         client.setName("Hans Dieter");
 
-        Assert.assertEquals(client.name, "Hans Dieter");
+        Assert.assertEquals(client.getName(), "Hans Dieter");
     }
 }
