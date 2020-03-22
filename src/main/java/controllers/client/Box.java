@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Box {
-    public HBox generateAuditHBox(RevisionType revisionType, Date revisionDate, String text){
+    public HBox generateAuditHBox(RevisionType revisionType, Date revisionDate, String text) {
         HBox hbox = new HBox();
         hbox.setPrefSize(550, 70);
         hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
@@ -20,7 +20,7 @@ public class Box {
                 + "-fx-border-radius: 5;" + "-fx-border-color: #343f4a;");
         Image img;
 
-        switch(revisionType) {
+        switch (revisionType) {
             case ADD:
                 img = new Image(getClass().getResourceAsStream("/icons/plus(1).png"));
                 break;
@@ -40,8 +40,8 @@ public class Box {
         imageView.setFitHeight(70);
 
         VBox dateChangeBox = new VBox();
-        dateChangeBox.setPadding(new Insets(20,5,5,20));
-        dateChangeBox.setPrefSize(480,70);
+        dateChangeBox.setPadding(new Insets(20, 5, 5, 20));
+        dateChangeBox.setPrefSize(480, 70);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyy HH:mm");
         HBox date = new HBox();

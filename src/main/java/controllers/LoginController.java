@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import entities.User;
+import javafx.scene.control.Label;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.parser.JSONParser;
@@ -18,7 +19,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.io.IOException;
@@ -27,18 +27,22 @@ import java.util.ResourceBundle;
 
 @Log4j2
 public class LoginController implements Initializable {
+    @FXML
+    private JFXTextField userName;
+    @FXML
+    private JFXPasswordField password;
+    @FXML
+    private JFXButton login;
+    @FXML
+    private JFXButton close;
+    @FXML
+    private Label messageLabel;
+    @FXML
+    private JFXCheckBox checkBox;
+    @Getter
+    private static User loggedUser;
     private double x = 0;
     private double y = 0;
-
-    public JFXTextField userName;
-    public JFXPasswordField password;
-    public JFXButton login;
-    public JFXButton close;
-    public Label messageLabel;
-    public JFXCheckBox checkBox;
-
-    public static User loggedUser;
-
     private EntityUserImpl entityUser = new EntityUserImpl();
     private JSONReaderImpl jsonReader = new JSONReaderImpl(new JSONParser());
 
@@ -51,7 +55,7 @@ public class LoginController implements Initializable {
         User user = entityUser.get(username);
 
         if (user != null) {
-            if (BCrypt.checkpw(pass, user.hash)) {
+            if (BCrypt.checkpw(pass, user.getHash())) {
                 loggedUser = user;
                 if (checkBox.isSelected()) {
                     jsonReader.write("user", username);
@@ -68,7 +72,7 @@ public class LoginController implements Initializable {
                         styleClassPassword.add("error");
                     }
                     messageLabel.setText("Benutzername und Passwort müssen ausgefüllt sein!");
-                } else if (!username.equals(user.userName) || !BCrypt.checkpw(pass, user.hash)) {
+                } else if (!username.equals(user.getUserName()) || !BCrypt.checkpw(pass, user.getHash())) {
                     if (!styleClassUserName.contains("error")) {
                         styleClassUserName.add("error");
                     }

@@ -1,4 +1,4 @@
-package yahooAPI;
+package yahooapi;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

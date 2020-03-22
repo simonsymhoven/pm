@@ -7,6 +7,6 @@ import java.util.List;
 
 
 @Data
-public class StockAuditModalModel {
+class StockAuditModalModel {
     private List<StockRevision> revisions;
 }

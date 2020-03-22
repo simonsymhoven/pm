@@ -47,7 +47,7 @@ public class ClientAddModalController implements Initializable {
         });
 
         close.setOnMouseClicked(e -> {
-            clientController.label.setText("Übersicht");
+            clientController.getLabel().setText("Übersicht");
             stage.close();
         });
 
@@ -78,7 +78,7 @@ public class ClientAddModalController implements Initializable {
             alert.showAndWait();
             if (alert.getResult() == ButtonType.OK) {
                 clientController.getClients();
-                clientController.comboBox.getSelectionModel().select(clientAddModalModel.getClient());
+                clientController.getComboBox().getSelectionModel().select(clientAddModalModel.getClient());
                 stage.close();
             }
         } else {

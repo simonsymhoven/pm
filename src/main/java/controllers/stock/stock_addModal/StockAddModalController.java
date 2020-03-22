@@ -3,14 +3,16 @@ package controllers.stock.stock_addModal;
 
 import alert.AlertDialog;
 import javafx.application.Platform;
-import yahooAPI.YahooStockAPI;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import yahooapi.YahooStockAPI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import controllers.stock.StockController;
 import entities.Stock;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import sql.EntityStockImpl;
 import java.net.URL;
@@ -18,27 +20,27 @@ import java.util.ResourceBundle;
 
 public class StockAddModalController implements Initializable {
     @FXML
-    public Label info;
+    private Label info;
     @FXML
-    public JFXButton addAktie;
+    private JFXButton addAktie;
     @FXML
-    public JFXButton close;
+    private JFXButton close;
     @FXML
-    public JFXButton search;
+    private JFXButton search;
     @FXML
-    public JFXTextField symbol;
+    private JFXTextField symbol;
     @FXML
-    public JFXTextField name;
+    private JFXTextField name;
     @FXML
-    public JFXTextField symbol2;
+    private JFXTextField symbol2;
     @FXML
-    public JFXTextField exchange;
+    private JFXTextField exchange;
     @FXML
-    public JFXTextField currency;
+    private JFXTextField currency;
     @FXML
-    public JFXTextField share;
+    private JFXTextField share;
     @FXML
-    public Label shareInfo;
+    private Label shareInfo;
 
     private StockAddModalModel stockAddModalModel;
     private YahooStockAPI yahooStockAPI;
@@ -60,7 +62,7 @@ public class StockAddModalController implements Initializable {
         });
 
         close.setOnMouseClicked(e -> {
-            stockController.label.setText("Übersicht");
+            stockController.getLabel().setText("Übersicht");
             stage.close();
         });
 
@@ -101,7 +103,7 @@ public class StockAddModalController implements Initializable {
 
             if (alert.getResult() == ButtonType.OK) {
                 stockController.getStocks();
-                stockController.comboBox.getSelectionModel().select(stockAddModalModel.getStock());
+                stockController.getComboBox().getSelectionModel().select(stockAddModalModel.getStock());
                 stage.close();
             }
 
@@ -122,8 +124,8 @@ public class StockAddModalController implements Initializable {
             exchange.setText(stockAddModalModel.getStock().getExchange());
             currency.setText(stockAddModalModel.getStock().getCurrency());
         } else {
-            info.setText("Aktie \"" + stockAddModalModel.getSymbol() + "\" wurde nicht gefunden! \n" +
-                    "Bitte wähle eine andere Aktie aus und probiere es erneut.");
+            info.setText("Aktie \"" + stockAddModalModel.getSymbol() + "\" wurde nicht gefunden! \n"
+                    + "Bitte wähle eine andere Aktie aus und probiere es erneut.");
         }
 
     }

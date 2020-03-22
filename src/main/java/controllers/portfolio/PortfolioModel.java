@@ -19,11 +19,11 @@ public class PortfolioModel {
 
 
     private DataFormat dataFormat;
-    DataFormat getFormat(){
+    DataFormat getFormat() {
         String dateFormat = "StockList";
-        if (DataFormat.lookupMimeType(dateFormat) == null)
+        if (DataFormat.lookupMimeType(dateFormat) == null) {
             this.dataFormat = new DataFormat(dateFormat);
-
+        }
         return DataFormat.lookupMimeType(dateFormat);
     }
 

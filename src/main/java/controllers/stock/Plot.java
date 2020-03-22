@@ -1,6 +1,6 @@
 package controllers.stock;
 
-import yahooAPI.YahooStockAPI;
+import yahooapi.YahooStockAPI;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -8,7 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
-import java.awt.*;
+
+import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,16 +60,16 @@ public class Plot extends Task<Image> {
                             .build();
 
             chart.getStyler().setMarkerSize(1);
-            chart.getStyler().setChartBackgroundColor(new Color(244,244,244));
-            chart.getStyler().setLegendBackgroundColor(new Color(244,244,244));
-            chart.getStyler().setPlotBackgroundColor(new Color(244,244,244));
+            chart.getStyler().setChartBackgroundColor(new Color(244, 244, 244));
+            chart.getStyler().setLegendBackgroundColor(new Color(244, 244, 244));
+            chart.getStyler().setPlotBackgroundColor(new Color(244, 244, 244));
             chart.getStyler().setChartTitleVisible(false);
             chart.getStyler().setLegendVisible(false);
             chart.getStyler().setXAxisLabelRotation(30);
-            chart.getStyler().setChartFontColor(new Color(20,25,29));
-            chart.getStyler().setPlotBorderColor(new Color(20,25,29));
-            chart.getStyler().setAxisTickMarksColor(new Color(20,25,29));
-            chart.getStyler().setAxisTickLabelsColor(new Color(20,25,29));
+            chart.getStyler().setChartFontColor(new Color(20, 25, 29));
+            chart.getStyler().setPlotBorderColor(new Color(20, 25, 29));
+            chart.getStyler().setAxisTickMarksColor(new Color(20, 25, 29));
+            chart.getStyler().setAxisTickLabelsColor(new Color(20, 25, 29));
             chart.getStyler().setDatePattern("MM/yyyy");
             // Series
             chart.addSeries(stockModel.getStock().getName(), xList, yList);

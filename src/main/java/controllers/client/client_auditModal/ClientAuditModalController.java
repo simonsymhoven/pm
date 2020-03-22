@@ -36,10 +36,9 @@ public class ClientAuditModalController implements Initializable {
         this.entityClient = new EntityClientImpl();
         this.clientAuditModalModel = new ClientAuditModalModel();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         Platform.runLater(() -> {
             stage = (Stage) pane.getScene().getWindow();
             clientController = (ClientController) stage.getUserData();
@@ -63,7 +62,7 @@ public class ClientAuditModalController implements Initializable {
         });
 
         close.setOnMouseClicked(e -> {
-            clientController.label.setText("Übersicht");
+            clientController.getLabel().setText("Übersicht");
             stage.close();
         });
 

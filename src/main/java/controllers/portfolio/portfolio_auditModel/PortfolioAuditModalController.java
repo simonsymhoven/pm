@@ -6,6 +6,7 @@ import controllers.client.Box;
 import controllers.portfolio.PortfolioController;
 import entities.ClientStock;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -18,9 +19,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class PortfolioAuditModalController implements Initializable {
-    public JFXButton close;
-    public AnchorPane pane;
-    public ScrollPane scrollPane;
+    @FXML
+    private JFXButton close;
+    @FXML
+    private AnchorPane pane;
+    @FXML
+    private ScrollPane scrollPane;
 
     private PortfolioAuditModalModel portfolioAuditModalModel;
     private PortfolioController portfolioController;

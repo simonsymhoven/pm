@@ -6,8 +6,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToMany;
+import javax.persistence.Id;
+import javax.persistence.FetchType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -30,45 +36,49 @@ public class Stock implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public int id;
+    private int id;
 
     @Column(name = "name")
-    public String name;
+    private String name;
 
     @Column(name = "symbol", unique = true)
-    public String symbol;
+    private String symbol;
 
     @Column(name = "exchange")
-    public String exchange;
+    private String exchange;
 
     @Column(name = "price")
-    public BigDecimal price;
+    private BigDecimal price;
 
     @Column(name = "change")
-    public BigDecimal change;
+    private BigDecimal change;
 
     @Column(name = "currency")
-    public String currency;
+    private String currency;
 
     @Column(name = "share")
-    public double share;
+    private double share;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "stocks")
     private Set<Client> clients;
 
     @NotAudited
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
 
     @NotAudited
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Stock)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Stock)) {
+            return false;
+        }
         Stock stock = (Stock) o;
         return getSymbol().equals(stock.getSymbol());
     }

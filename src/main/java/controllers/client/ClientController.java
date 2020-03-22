@@ -5,10 +5,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import entities.Client;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -25,21 +28,30 @@ import java.util.ResourceBundle;
 @Log4j2
 
 public class ClientController implements Initializable {
-
-
-    public JFXComboBox<Client> comboBox;
-    public Label label;
-    public JFXButton addClient;
-    public JFXButton deleteClient;
-    public JFXTextField name;
-    public JFXTextField symbol;
-    public JFXTextField strategy;
-    public JFXTextField depoValue;
-    public JFXButton showAudit;
+    @FXML
+    @Getter
+    private JFXComboBox<Client> comboBox;
+    @FXML
+    @Getter
+    private Label label;
+    @FXML
+    private JFXButton addClient;
+    @FXML
+    private JFXButton deleteClient;
+    @FXML
+    private JFXTextField name;
+    @FXML
+    private JFXTextField symbol;
+    @FXML
+    private JFXTextField strategy;
+    @FXML
+    private JFXTextField depoValue;
+    @FXML
+    private JFXButton showAudit;
 
     private EntityClientImpl entityClient;
     @Getter
-    public ClientModel clientModel;
+    private ClientModel clientModel;
     private double x = 0;
     private double y = 0;
 
@@ -102,8 +114,10 @@ public class ClientController implements Initializable {
 
         deleteClient.setOnMouseClicked(e -> {
             Alert alert = new AlertDialog()
-                    .showConfirmationDialog("Ganz sicher?", "Bist du dir wirklich sicher, dass du diesen Clienten löschen möchtest? \n" +
-                            "Diese Aktion kann nicht widerrufen werden!");
+                    .showConfirmationDialog(
+                            "Ganz sicher?",
+                            "Bist du dir wirklich sicher, dass du diesen Clienten löschen möchtest? \n"
+                                    + "Diese Aktion kann nicht widerrufen werden!");
             alert.showAndWait();
 
             if (alert.getResult() == ButtonType.YES) {
@@ -142,7 +156,7 @@ public class ClientController implements Initializable {
 
     }
 
-    public void getClients(){
+    public void getClients() {
         clientModel.setClients(entityClient.getAll());
         clientModel.getClients().forEach(c -> {
             if (!comboBox.getItems().contains(c)) {

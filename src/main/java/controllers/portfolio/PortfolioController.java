@@ -8,12 +8,18 @@ import entities.Client;
 import entities.ClientStock;
 import entities.ClientStockKey;
 import entities.Stock;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.*;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,32 +32,49 @@ import sql.EntityClientImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 @Log4j2
 public class PortfolioController implements Initializable {
-    
-    public JFXComboBox<Client> comboBox;
-    public JFXListView<Stock> stockList;
-    public JFXListView<Stock> stockListClient;
-    public JFXTextField name;
-    public JFXTextField symbol;
-    public JFXTextField exchange;
-    public JFXTextField change;
-    public JFXTextField price;
-    public JFXTextField currency;
-    public JFXTextField quantity;
-    public JFXTextField shareTarget;
-    public JFXTextField shareActual;
-    public JFXTextField diffRelative;
-    public JFXTextField diffAbsolute;
-    public JFXButton showAudit;
-    public JFXButton update;
+    @FXML
+    private JFXComboBox<Client> comboBox;
+    @FXML
+    private JFXListView<Stock> stockList;
+    @FXML
+    private JFXListView<Stock> stockListClient;
+    @FXML
+    private JFXTextField name;
+    @FXML
+    private JFXTextField symbol;
+    @FXML
+    private JFXTextField exchange;
+    @FXML
+    private JFXTextField change;
+    @FXML
+    private JFXTextField price;
+    @FXML
+    private JFXTextField currency;
+    @FXML
+    private JFXTextField quantity;
+    @FXML
+    private JFXTextField shareTarget;
+    @FXML
+    private JFXTextField shareActual;
+    @FXML
+    private JFXTextField diffRelative;
+    @FXML
+    private JFXTextField diffAbsolute;
+    @FXML
+    private JFXButton showAudit;
+    @FXML
+    private JFXButton update;
 
     private double x = 0;
     private double y = 0;
     @Getter
-    public PortfolioModel portfolioModel;
+    private PortfolioModel portfolioModel;
     private EntityStockImpl entityStock;
     private EntityClientImpl entityClient;
     private EntityPortfolioImpl entityPortfolio;
@@ -150,18 +173,18 @@ public class PortfolioController implements Initializable {
         });
 
         quantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")){
+            if (!newValue.equals("")) {
                 if (!newValue.matches("\\d*")) {
                     quantity.setText(newValue.replaceAll("\\D", ""));
                 } else {
                     try {
                         int i = Integer.parseInt(newValue);
-                        if ( i > 0) {
+                        if (i > 0) {
                             portfolioModel.setQuantity(i);
                             calculateDepot();
                             replaceClientStock();
                         }
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         log.error(e);
                         log.error("Anzahl entspricht keiner positiven ganzzahligen Zahl!");
                     }
@@ -217,8 +240,8 @@ public class PortfolioController implements Initializable {
 
     private void calculateDepot() {
         // SHARE SOLL
-        double shareValue = (portfolioModel.getStock().getShare() / 100.0) *
-                (portfolioModel.getClient().getStrategy() /100.0) * 100.0 ;
+        double shareValue = (portfolioModel.getStock().getShare() / 100.0)
+                * (portfolioModel.getClient().getStrategy() / 100.0) * 100.0;
         portfolioModel.setShareTarget(shareValue);
 
         // SHARE IST
@@ -226,7 +249,7 @@ public class PortfolioController implements Initializable {
         double clientDepoValue = portfolioModel.getClient().getDepoValue().doubleValue();
 
         double shareValueIst = 100;
-        if (clientDepoValue != 0 ) {
+        if (clientDepoValue != 0) {
             shareValueIst = (valueNewStock / clientDepoValue) * 100.0;
         }
 
@@ -237,8 +260,8 @@ public class PortfolioController implements Initializable {
         diffRelative.setText(String.format("%.2f", portfolioModel.getDiffRelative()).replace(",", ".") + " %");
 
         portfolioModel.setDiffAbsolute(
-                (int) ((portfolioModel.getDiffRelative() * portfolioModel.getClient().getDepoValue().doubleValue()) /
-                        portfolioModel.getStock().getPrice().doubleValue() / 100.0));
+                (int) ((portfolioModel.getDiffRelative() * portfolioModel.getClient().getDepoValue().doubleValue())
+                        / portfolioModel.getStock().getPrice().doubleValue() / 100.0));
 
         shareActual.setText(String.format("%.2f", portfolioModel.getShareActual()).replace(",", ".") + " %");
         diffRelative.setText(String.format("%.2f", portfolioModel.getDiffRelative()).replace(",", ".") + " %");
@@ -246,7 +269,7 @@ public class PortfolioController implements Initializable {
         shareTarget.setText(String.format("%.2f", portfolioModel.getShareTarget()).replace(",", ".") + " %");
     }
 
-    private void replaceClientStock(){
+    private void replaceClientStock() {
         portfolioModel.getClientStocks().remove(portfolioModel.getClientStock());
         portfolioModel.getClientStock().setQuantity(portfolioModel.getQuantity());
         portfolioModel.getClientStock().setShareTarget(portfolioModel.getShareTarget());
@@ -314,7 +337,7 @@ public class PortfolioController implements Initializable {
         boolean dragCompleted = false;
         Dragboard dragboard = event.getDragboard();
 
-        if(dragboard.hasContent(portfolioModel.getFormat())) {
+        if (dragboard.hasContent(portfolioModel.getFormat())) {
             Stock stock = (Stock) dragboard.getContent(portfolioModel.getFormat());
             listView.getItems().add(stock);
             dragCompleted = true;
@@ -344,7 +367,7 @@ public class PortfolioController implements Initializable {
         listView.getItems().remove(selectedStock);
 
 
-        if (listView.getId().equals("aktienListKunde")) {
+        if (listView.getId().equals("stockListClient")) {
             log.info("[1/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. AUs listView entfernen.");
             if (entityClient.removeStock(portfolioModel.getClient(), selectedStock)) {
                 for (ClientStock clientStock : portfolioModel.getClientStocks()) {
@@ -354,8 +377,9 @@ public class PortfolioController implements Initializable {
                     }
                 }
             }
-        } else if (listView.getId().equals("aktienList")) {
-            double shareValue = (selectedStock.getShare() / 100.0) * (portfolioModel.getClient().getStrategy() /100.0) * 100.0 ;
+        } else if (listView.getId().equals("stockList")) {
+            double shareValue =
+                    (selectedStock.getShare() / 100.0) * (portfolioModel.getClient().getStrategy() / 100.0) * 100.0;
             portfolioModel.getClientStocks().add(new ClientStock(
                     new ClientStockKey(portfolioModel.getClient().getId(), selectedStock.getId()),
                     portfolioModel.getClient(),

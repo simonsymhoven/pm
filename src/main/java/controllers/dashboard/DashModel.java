@@ -6,6 +6,6 @@ import java.util.Date;
 
 @Data
 class DashModel {
-    Date lastUpdate;
-    String status;
+    private Date lastUpdate;
+    private String status;
 }

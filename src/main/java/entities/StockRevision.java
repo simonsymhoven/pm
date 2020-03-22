@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 public class StockRevision {
-    Stock stock;
-    Date revisionDate;
-    RevisionType revisionType;
+    private Stock stock;
+    private Date revisionDate;
+    private RevisionType revisionType;
 }

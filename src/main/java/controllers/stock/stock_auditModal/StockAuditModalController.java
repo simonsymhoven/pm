@@ -20,11 +20,11 @@ import java.util.ResourceBundle;
 
 public class StockAuditModalController implements Initializable {
     @FXML
-    public JFXButton close;
+    private JFXButton close;
     @FXML
-    public AnchorPane pane;
+    private AnchorPane pane;
     @FXML
-    public ScrollPane scrollPane;
+    private ScrollPane scrollPane;
 
     private StockAuditModalModel stockAuditModalModel;
     private EntityStockImpl entityStock;
@@ -45,7 +45,7 @@ public class StockAuditModalController implements Initializable {
             stockAuditModalModel.setRevisions(
                     new ArrayList<>(
                             // TODO : stockController.getModel.getStock liefert null
-                            entityStock.getAudit(stockController.comboBox.getSelectionModel().getSelectedItem())
+                            entityStock.getAudit(stockController.getComboBox().getSelectionModel().getSelectedItem())
                     )
             );
 
@@ -62,7 +62,7 @@ public class StockAuditModalController implements Initializable {
         });
 
         close.setOnMouseClicked(e -> {
-            stockController.label.setText("Übersicht");
+            stockController.getLabel().setText("Übersicht");
             stage.close();
         });
     }

@@ -2,6 +2,10 @@ package controllers.stock;
 
 import com.jfoenix.controls.JFXButton;
 import entities.ClientStock;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import sql.EntityPortfolioImpl;
 import alert.AlertDialog;
 import com.jfoenix.controls.JFXComboBox;
@@ -12,9 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -24,7 +26,9 @@ import sql.EntityStockImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -35,29 +39,29 @@ public class StockController implements Initializable {
     private double x = 0;
     private double y = 0;
     @FXML
-    public JFXComboBox<Stock> comboBox;
+    @Getter
+    private JFXComboBox<Stock> comboBox;
     @FXML
-    public Label label;
+    @Getter
+    private Label label;
     @FXML
-    public JFXTextField name;
+    private JFXTextField name;
     @FXML
-    public JFXTextField symbol;
+    private JFXTextField symbol;
     @FXML
-    public JFXTextField exchange;
+    private JFXTextField exchange;
     @FXML
-    public JFXTextField price;
+    private JFXTextField price;
     @FXML
-    public JFXTextField change;
+    private JFXTextField change;
     @FXML
-    public JFXTextField currency;
+    private JFXTextField currency;
     @FXML
-    public JFXTextField share;
+    private JFXTextField share;
     @FXML
-    public ImageView imgView;
+    private ImageView imgView;
     @FXML
-    public ProgressIndicator progressIndicator;
-    @FXML
-    public AnchorPane pane;
+    private ProgressIndicator progressIndicator;
     @FXML
     private JFXButton addStock;
     @FXML
@@ -65,16 +69,16 @@ public class StockController implements Initializable {
     @FXML
     private JFXButton deleteStock;
     @FXML
-    public JFXButton showAudit;
+    private JFXButton showAudit;
     @Getter
     private StockModel stockModel;
-    private EntityStockImpl entityAktien;
+    private EntityStockImpl entityStock;
     private EntityPortfolioImpl entityPortfolio;
 
     public StockController() {
         Locale.setDefault(Locale.GERMANY);
         this.stockModel = new StockModel();
-        this.entityAktien = new EntityStockImpl();
+        this.entityStock = new EntityStockImpl();
         this.entityPortfolio = new EntityPortfolioImpl();
     }
 
@@ -173,14 +177,17 @@ public class StockController implements Initializable {
 
         deleteStock.setOnMouseClicked(e -> {
             Alert alert = new AlertDialog()
-                    .showConfirmationDialog("Ganz sicher?", "Bist du dir wirklich sicher, dass du diese Aktie löschen möchtest? \n" +
-                            "Diese Aktion kann nicht widerrufen werden!");
+                    .showConfirmationDialog(
+                            "Ganz sicher?",
+                            "Bist du dir wirklich sicher, dass du diese Aktie löschen möchtest? \n"
+                                    + "Diese Aktion kann nicht widerrufen werden!"
+                    );
             alert.showAndWait();
 
 
             if (alert.getResult() == ButtonType.YES) {
                 // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
-                if (entityAktien.delete(comboBox.getSelectionModel().getSelectedItem())) {
+                if (entityStock.delete(comboBox.getSelectionModel().getSelectedItem())) {
                     comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
                     comboBox.getSelectionModel().clearSelection();
                     imgView.setImage(null);
@@ -193,7 +200,7 @@ public class StockController implements Initializable {
         updateStock.setOnMouseClicked(e -> {
             // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
             Stock selectedStock = comboBox.getSelectionModel().getSelectedItem();
-            if (entityAktien.update(selectedStock)) {
+            if (entityStock.update(selectedStock)) {
                 new AlertDialog().showSuccessDialog("Erledigt!", "Aktie " + stockModel.getStock().getName() + " wurde erfolgreich aktualisiert.");
                 comboBox.getItems().remove(selectedStock);
                 getStocks();
@@ -230,8 +237,8 @@ public class StockController implements Initializable {
     }
 
     public void getStocks() {
-        stockModel.setAktien(entityAktien.getAll());
-        stockModel.getAktien().forEach(c -> {
+        stockModel.setStocks(entityStock.getAll());
+        stockModel.getStocks().forEach(c -> {
             if (!comboBox.getItems().contains(c)) {
                 comboBox.getItems().add(c);
             }

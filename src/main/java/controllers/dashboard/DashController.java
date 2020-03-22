@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
@@ -27,7 +28,13 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,18 +42,30 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Log4j2
 public class DashController implements Initializable {
-    public Label lastUpdateStatus;
-    public Label lastUpdateDate;
-    public JFXButton updateStock;
-    public PieChart chartMarket;
-    public PieChart chartStocks;
-    public Label labelMarkets;
-    public Label labelStocks;
-    public Label counterMarkets;
-    public Label counterStocks;
-    public Label counterClients;
-    public Label counterValue;
-    public Label name;
+    @FXML
+    private Label lastUpdateStatus;
+    @FXML
+    private Label lastUpdateDate;
+    @FXML
+    private JFXButton updateStock;
+    @FXML
+    private PieChart chartMarket;
+    @FXML
+    private PieChart chartStocks;
+    @FXML
+    private Label labelMarkets;
+    @FXML
+    private Label labelStocks;
+    @FXML
+    private Label counterMarkets;
+    @FXML
+    private Label counterStocks;
+    @FXML
+    private Label counterClients;
+    @FXML
+    private Label counterValue;
+    @FXML
+    private Label name;
 
     private ObservableList<PieChart.Data> marketData;
     private ObservableList<PieChart.Data> stockData;
@@ -55,8 +74,6 @@ public class DashController implements Initializable {
     private JSONReaderImpl jsonReader;
     private EntityStockImpl entityStock;
     private EntityClientImpl entityClient;
-
-    Random r = new Random();
 
     public DashController() {
         this.dashModel = new DashModel();
@@ -68,7 +85,7 @@ public class DashController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        name.setText(LoginController.loggedUser.vorname);
+        name.setText(LoginController.getLoggedUser().getVorname());
 
 
         drawCounters();
@@ -131,7 +148,7 @@ public class DashController implements Initializable {
         }));
     }
 
-    private void update(){
+    private void update() {
         Update task = new Update();
 
         task.setOnRunning(successesEvent -> {
