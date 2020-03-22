@@ -14,8 +14,13 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Build..'
-        sh 'mvn clean verify -DskipTests'
+        sh 'mvn clean package -DskipTests'
       }
+    }
+    stage('Checkstyle') {
+        steps {
+            sh "mvn checkstyle:check"
+        }
     }
 
     stage('Test') {

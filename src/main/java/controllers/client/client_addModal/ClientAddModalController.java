@@ -1,14 +1,15 @@
 package controllers.client.client_addModal;
 
-
 import alert.AlertDialog;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
 import entities.Client;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import sql.EntityClientImpl;
 import java.math.BigDecimal;
@@ -16,11 +17,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ClientAddModalController implements Initializable {
-    public JFXButton addClient;
-    public JFXButton close;
-    public JFXTextField name;
-    public JFXTextField symbol;
-    public JFXTextField strategy;
+
+    @FXML
+    private JFXButton addClient;
+    @FXML
+    private JFXButton close;
+    @FXML
+    private JFXTextField name;
+    @FXML
+    private JFXTextField symbol;
+    @FXML
+    private JFXTextField strategy;
 
     private Stage stage;
     private ClientController clientController;

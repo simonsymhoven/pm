@@ -2,12 +2,20 @@ package entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Table;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -28,22 +36,22 @@ public class Client implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public int id;
+    private int id;
 
     @Column(name = "name")
-    public String name;
+    private String name;
 
 
     @Column(name = "symbol", unique = true)
-    public String symbol;
+    private String symbol;
 
     @Column(name = "strategy")
-    public double strategy;
+    private double strategy;
 
     @Column(name = "depoValue")
-    public BigDecimal depoValue;
+    private BigDecimal depoValue;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "Client_Stock",
@@ -65,8 +73,12 @@ public class Client implements Serializable {
     @NotAudited
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Client)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Client)) {
+            return false;
+        }
         Client client = (Client) o;
         return getId() == client.getId();
     }
@@ -79,7 +91,7 @@ public class Client implements Serializable {
 
     @NotAudited
     @Override
-    public String toString(){
+    public String toString() {
         return getName();
     }
 }

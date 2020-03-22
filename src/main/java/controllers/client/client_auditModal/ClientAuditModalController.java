@@ -6,6 +6,7 @@ import controllers.client.Box;
 import controllers.client.ClientController;
 import entities.Client;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
@@ -19,9 +20,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ClientAuditModalController implements Initializable {
-    public JFXButton close;
-    public AnchorPane pane;
-    public ScrollPane scrollPane;
+    @FXML
+    private JFXButton close;
+    @FXML
+    private AnchorPane pane;
+    @FXML
+    private ScrollPane scrollPane;
 
     private ClientAuditModalModel clientAuditModalModel;
     private EntityClientImpl entityClient;
@@ -32,7 +36,7 @@ public class ClientAuditModalController implements Initializable {
         this.entityClient = new EntityClientImpl();
         this.clientAuditModalModel = new ClientAuditModalModel();
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

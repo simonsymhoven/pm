@@ -5,9 +5,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class AlertDialog {
+public final class AlertDialog {
 
-    public Alert showSuccessDialog(String header, String message){
+    public Alert showSuccessDialog(String header, String message) {
         Image img = new Image(AlertDialog.class.getResourceAsStream("/icons/plus(1).png"));
         Alert alert = new Alert(Alert.AlertType.INFORMATION, message);
         alert.setHeaderText(header);
@@ -16,7 +16,7 @@ public class AlertDialog {
         return alert;
     }
 
-    public void showFailureDialog(String header, String message){
+    public void showFailureDialog(String header, String message) {
         Image img = new Image(AlertDialog.class.getResourceAsStream("/icons/error.png"));
         Alert alert = new Alert(Alert.AlertType.ERROR, message);
         alert.setHeaderText(header);
@@ -24,9 +24,9 @@ public class AlertDialog {
         alert.show();
     }
 
-    public Alert showConfirmationDialog(String header, String message){
+    public Alert showConfirmationDialog(String header, String message) {
         Image img = new Image(AlertDialog.class.getResourceAsStream("/icons/question.png"));
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES,ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
         alert.setHeaderText(header);
         alert.setGraphic(new ImageView(img));
 
