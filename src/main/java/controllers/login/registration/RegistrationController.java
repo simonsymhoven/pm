@@ -1,7 +1,5 @@
 package controllers.login.registration;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
