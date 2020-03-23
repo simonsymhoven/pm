@@ -1,6 +1,5 @@
 package controllers.client.client_addModal;
 
-import alert.AlertDialog;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
@@ -8,9 +7,9 @@ import entities.Client;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import snackbar.SnackBar;
 import sql.EntityClientImpl;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -28,6 +27,8 @@ public class ClientAddModalController implements Initializable {
     private JFXTextField symbol;
     @FXML
     private JFXTextField strategy;
+    @FXML
+    private AnchorPane pane;
 
     private Stage stage;
     private ClientController clientController;
@@ -74,15 +75,14 @@ public class ClientAddModalController implements Initializable {
         );
 
         if (entityClient.add(clientAddModalModel.getClient())) {
-            Alert alert = new AlertDialog().showSuccessDialog("Erledigt!", "Client wurde hinzugefügt.");
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.OK) {
-                clientController.getClients();
-                clientController.getComboBox().getSelectionModel().select(clientAddModalModel.getClient());
-                stage.close();
-            }
+            clientController.getClients();
+            clientController.getComboBox().getSelectionModel().select(clientAddModalModel.getClient());
+            SnackBar snackBar = new SnackBar(clientController.getPane());
+            snackBar.show("Client wurde erfolgreich hinzugefügt!");
+            stage.close();
         } else {
-            new AlertDialog().showFailureDialog("Uuuups!", "Client konnte nicht hinzugefügt werden.");
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Client konnte nicht hinzugefügt werden!");
         }
     }
 }

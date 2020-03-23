@@ -1,9 +1,11 @@
 package sql;
 
+import entities.Client;
 import entities.User;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 @Log4j2
 public class EntityUserImpl {
@@ -18,5 +20,18 @@ public class EntityUserImpl {
             log.error(e);
         }
         return null;
+    }
+
+    public boolean add(User user) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(user);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return false;
     }
 }

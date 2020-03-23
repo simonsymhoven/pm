@@ -20,11 +20,13 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import snackbar.SnackBar;
 import sql.EntityPortfolioImpl;
 import sql.EntityStockImpl;
 import sql.EntityClientImpl;
@@ -70,6 +72,8 @@ public class PortfolioController implements Initializable {
     private JFXButton showAudit;
     @FXML
     private JFXButton update;
+    @FXML
+    private AnchorPane pane;
 
     private double x = 0;
     private double y = 0;
@@ -374,6 +378,8 @@ public class PortfolioController implements Initializable {
                     if (clientStock.getClient().getId() == portfolioModel.getClient().getId() && clientStock.getStock().getId() == selectedStock.getId()) {
                         log.info("[2/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. Aus Model entfernen.");
                         portfolioModel.getClientStocks().remove(clientStock);
+                        SnackBar snackBar = new SnackBar(pane);
+                        snackBar.show("Aktie wurde dem Client entzogen!");
                     }
                 }
             }
@@ -390,10 +396,14 @@ public class PortfolioController implements Initializable {
                     0,
                     0
             ));
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Aktie wurde dem Client hinzugefügt!");
         }
     }
 
     public void refresh() {
         portfolioModel.getClientStocks().forEach(clientStock -> entityPortfolio.update(clientStock));
+        SnackBar snackBar = new SnackBar(pane);
+        snackBar.show("Client wurde aktualisiert!");
     }
 }

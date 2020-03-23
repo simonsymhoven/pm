@@ -99,4 +99,17 @@
      -fx-background-insets: 0 ;
 }
 
+.jfx-snackbar-action {
+    -fx-background-color: #fff;
+     -fx-text-fill: #ff4646;
+}
+
+.jfx-snackbar-content {
+    -fx-background-color: #ff4646;
+}
+
+.jfx-snackbar-toast {
+    -fx-text-fill: #fff;
+}
+
 

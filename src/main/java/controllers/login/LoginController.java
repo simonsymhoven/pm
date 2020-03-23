@@ -1,11 +1,14 @@
-package controllers;
+package controllers.login;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import entities.User;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.parser.JSONParser;
@@ -28,6 +31,12 @@ import java.util.ResourceBundle;
 @Log4j2
 public class LoginController implements Initializable {
     @FXML
+    @Getter
+    private AnchorPane pane;
+    @FXML
+    private JFXButton registration;
+    @FXML
+    @Getter
     private JFXTextField userName;
     @FXML
     private JFXPasswordField password;
@@ -62,6 +71,7 @@ public class LoginController implements Initializable {
                 } else {
                     jsonReader.write("user", "");
                 }
+
                 loadNewStage();
             } else {
                 if (username.trim().length() == 0 || pass.trim().length() == 0) {
@@ -101,24 +111,53 @@ public class LoginController implements Initializable {
         });
     }
 
-    private void loadNewStage() throws IOException {
+    private void loadNewStage() {
         Stage oldStage = (Stage) login.getScene().getWindow();
         oldStage.hide();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
-        Stage stage = new Stage();
-        root.setOnMousePressed(event -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
-        root.setOnMouseDragged(event -> {
-            stage.setX(event.getScreenX() - x);
-            stage.setY(event.getScreenY() - y);
-        });
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
+            Stage stage = new Stage();
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                stage.setX(event.getScreenX() - x);
+                stage.setY(event.getScreenY() - y);
+            });
 
-        stage.setTitle("Portfolio Management");
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(new Scene(root));
-        stage.show();
+            stage.setTitle("Portfolio Management");
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
+
+    public void registrate() {
+        Stage dialog = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/views/registration.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(registration.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
     }
 }

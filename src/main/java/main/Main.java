@@ -17,7 +17,7 @@ public class Main extends Application {
         DatabaseFactory.getSessionFactory().openSession();
 
         Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-        root.getStylesheets().add(getClass().getResource("/fullpackstyling.css").toExternalForm());
+        //root.getStylesheets().add(getClass().getResource("/fullpackstyling.css").toExternalForm());
         stage.setTitle("Portfolio Management");
         stage.initStyle(StageStyle.UNDECORATED);
 

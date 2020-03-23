@@ -1,7 +1,8 @@
 package controllers.dashboard;
 
+import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;
-import controllers.LoginController;
+import controllers.login.LoginController;
 import entities.Client;
 import entities.Stock;
 import javafx.animation.Animation;
@@ -17,6 +18,7 @@ import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import json.JSONReaderImpl;
 import lombok.extern.log4j.Log4j2;
@@ -65,6 +67,8 @@ public class DashController implements Initializable {
     private Label counterValue;
     @FXML
     private Label name;
+    @FXML
+    private AnchorPane pane;
 
     private ObservableList<PieChart.Data> marketData;
     private ObservableList<PieChart.Data> stockData;
@@ -167,6 +171,9 @@ public class DashController implements Initializable {
 
                    jsonReader.write("lastUpdateDate", simpleDateFormat.format(dashModel.getLastUpdate()));
                    jsonReader.write("lastUpdateStatus", "Abgeschlossen");
+
+                    SnackBar snackBar = new SnackBar(pane);
+                    snackBar.show("Aktienkurse wurden erfolgreich aktualisiert!");
 
                     drawCounters();
                     drawCharts();

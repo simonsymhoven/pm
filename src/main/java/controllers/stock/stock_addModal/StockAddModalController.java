@@ -1,10 +1,8 @@
 package controllers.stock.stock_addModal;
 
-
-import alert.AlertDialog;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
+import snackbar.SnackBar;
 import yahooapi.YahooStockAPI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -41,6 +39,8 @@ public class StockAddModalController implements Initializable {
     private JFXTextField share;
     @FXML
     private Label shareInfo;
+    @FXML
+    private AnchorPane pane;
 
     private StockAddModalModel stockAddModalModel;
     private YahooStockAPI yahooStockAPI;
@@ -98,18 +98,16 @@ public class StockAddModalController implements Initializable {
     public void add() {
         info.setText("");
         if (entityAktien.add(stockAddModalModel.getStock())) {
-            Alert alert = new AlertDialog().showSuccessDialog("Erledigt!", "Aktie wurde hinzugefügt.");
-            alert.showAndWait();
-
-            if (alert.getResult() == ButtonType.OK) {
-                stockController.getStocks();
-                stockController.getComboBox().getSelectionModel().select(stockAddModalModel.getStock());
-                stage.close();
-            }
-
+            stockController.getStocks();
+            stockController.getComboBox().getSelectionModel().select(stockAddModalModel.getStock());
+            SnackBar snackBar = new SnackBar(stockController.getPane());
+            stage.close();
+            snackBar.show("Aktie wurde erfolgreich hinzugefügt!");
         } else {
-            new AlertDialog().showFailureDialog("Uuuups!", "Aktie konnte nicht hinzugefügt werden.");
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Aktie konnte nicht hinzugefügt werden!");
         }
+
     }
 
     @FXML

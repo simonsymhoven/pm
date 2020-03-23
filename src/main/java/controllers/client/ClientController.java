@@ -1,6 +1,5 @@
 package controllers.client;
 
-import alert.AlertDialog;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -12,11 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import snackbar.SnackBar;
 import sql.EntityClientImpl;
 import javafx.fxml.Initializable;
 import java.io.IOException;
@@ -28,6 +29,9 @@ import java.util.ResourceBundle;
 @Log4j2
 
 public class ClientController implements Initializable {
+    @FXML
+    @Getter
+    private AnchorPane pane;
     @FXML
     @Getter
     private JFXComboBox<Client> comboBox;
@@ -74,7 +78,7 @@ public class ClientController implements Initializable {
                 label.setText(clientModel.getClient().getName());
                 name.setText(clientModel.getClient().getName());
                 symbol.setText(clientModel.getClient().getSymbol());
-                strategy.setText(clientModel.getClient().getStrategy() + " %");
+                strategy.setText(String.format("%.2f", clientModel.getClient().getStrategy()).replace(",", ".") + " %");
                 depoValue.setText(NumberFormat.getCurrencyInstance()
                         .format(clientModel.getClient().getDepoValue())
                         .replace("EUR", "EUR ")
@@ -113,20 +117,16 @@ public class ClientController implements Initializable {
         });
 
         deleteClient.setOnMouseClicked(e -> {
-            Alert alert = new AlertDialog()
-                    .showConfirmationDialog(
-                            "Ganz sicher?",
-                            "Bist du dir wirklich sicher, dass du diesen Clienten löschen möchtest? \n"
-                                    + "Diese Aktion kann nicht widerrufen werden!");
-            alert.showAndWait();
-
-            if (alert.getResult() == ButtonType.YES) {
-                if (entityClient.delete(clientModel.getClient())) {
-                    comboBox.getItems().remove(clientModel.getClient());
-                    label.setText("Übersicht");
-                    getClients();
-                    comboBox.getSelectionModel().clearSelection();
-                }
+            if (entityClient.delete(clientModel.getClient())) {
+                SnackBar snackBar = new SnackBar(pane);
+                snackBar.show("Client wurde erfolgreich gelöscht!");
+                comboBox.getItems().remove(clientModel.getClient());
+                label.setText("Übersicht");
+                getClients();
+                comboBox.getSelectionModel().clearSelection();
+            } else {
+                SnackBar snackBar = new SnackBar(pane);
+                snackBar.show("Client konnte nicht gelöscht werden!");
             }
         });
 

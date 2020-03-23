@@ -73,6 +73,7 @@
     </reporting>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <includePathExceptionsInClasspath>true</includePathExceptionsInClasspath>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
@@ -188,7 +189,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
+            <version>19.0.0</version>
             <scope>compile</scope>
         </dependency>
 

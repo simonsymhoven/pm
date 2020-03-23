@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="521.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashboard.DashController">
+<AnchorPane fx:id="pane" prefHeight="521.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashboard.DashController">
    <children>
       <Pane prefHeight="708.0" prefWidth="991.0" style="-fx-background-color: #fff;">
          <children>

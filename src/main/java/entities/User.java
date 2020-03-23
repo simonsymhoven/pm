@@ -17,6 +17,14 @@ import javax.persistence.GenerationType;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    public User(String name, String vorname, String userName, String hash, byte[] image) {
+        this.name = name;
+        this.vorname = vorname;
+        this.userName = userName;
+        this.hash = hash;
+        this.image = image;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

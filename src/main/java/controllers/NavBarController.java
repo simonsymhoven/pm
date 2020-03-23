@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.login.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

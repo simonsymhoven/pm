@@ -6,8 +6,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.AnchorPane;
+import snackbar.SnackBar;
 import sql.EntityPortfolioImpl;
-import alert.AlertDialog;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import entities.Stock;
@@ -70,6 +71,9 @@ public class StockController implements Initializable {
     private JFXButton deleteStock;
     @FXML
     private JFXButton showAudit;
+    @FXML
+    @Getter
+    private AnchorPane pane;
     @Getter
     private StockModel stockModel;
     private EntityStockImpl entityStock;
@@ -176,38 +180,36 @@ public class StockController implements Initializable {
         });
 
         deleteStock.setOnMouseClicked(e -> {
-            Alert alert = new AlertDialog()
-                    .showConfirmationDialog(
-                            "Ganz sicher?",
-                            "Bist du dir wirklich sicher, dass du diese Aktie löschen möchtest? \n"
-                                    + "Diese Aktion kann nicht widerrufen werden!"
-                    );
-            alert.showAndWait();
+            // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
+            log.info("BUGGY1?: " + stockModel.getStock().getId());
 
-
-            if (alert.getResult() == ButtonType.YES) {
-                // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
-                if (entityStock.delete(comboBox.getSelectionModel().getSelectedItem())) {
-                    comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
-                    comboBox.getSelectionModel().clearSelection();
-                    imgView.setImage(null);
-                    getStocks();
-                }
-
+            if (entityStock.delete(comboBox.getSelectionModel().getSelectedItem())) {
+                comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
+                comboBox.getSelectionModel().clearSelection();
+                imgView.setImage(null);
+                getStocks();
+                SnackBar snackBar = new SnackBar(pane);
+                snackBar.show("Aktie wurde erfolgreich gelöscht!");
+            } else {
+                SnackBar snackBar = new SnackBar(pane);
+                snackBar.show("Aktie konnte nicht gelöscht werden!");
             }
         });
 
         updateStock.setOnMouseClicked(e -> {
             // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
+
+            log.info("BUGGY2?: " + stockModel.getStock().getId());
+
             Stock selectedStock = comboBox.getSelectionModel().getSelectedItem();
             if (entityStock.update(selectedStock)) {
-                new AlertDialog().showSuccessDialog("Erledigt!", "Aktie " + stockModel.getStock().getName() + " wurde erfolgreich aktualisiert.");
                 comboBox.getItems().remove(selectedStock);
                 getStocks();
                 comboBox.getSelectionModel().select(selectedStock);
+                SnackBar snackBar = new SnackBar(pane);
+                snackBar.show("Aktie " + stockModel.getStock().getName() + " wurde erfolgreich aktualisiert.");
             }
         });
-
     }
 
     private void plotStock() {
