@@ -18,15 +18,16 @@ public class YahooStockAPI {
         try {
             yahoofinance.Stock stock = YahooFinance.get(stockName);
 
-            s = new Stock(
-                    stock.getName(),
-                    stock.getSymbol(),
-                    stock.getStockExchange(),
-                    stock.getQuote().getPrice(),
-                    stock.getQuote().getChange(),
-                    stock.getCurrency()
-            );
-
+            if (stock != null && stock.isValid()) {
+                s = new Stock(
+                        stock.getName(),
+                        stock.getSymbol(),
+                        stock.getStockExchange(),
+                        stock.getQuote().getPrice(),
+                        stock.getQuote().getChange(),
+                        stock.getCurrency()
+                );
+            }
         } catch (IOException e) {
            log.error(e);
         }

@@ -81,7 +81,13 @@ public class StockAddModalController implements Initializable {
 
         addAktie.disableProperty().bind(share.textProperty().isEmpty());
 
-        symbol.textProperty().addListener((observableValue, s, newValue) -> stockAddModalModel.setSymbol(newValue));
+        symbol.textProperty().addListener((observableValue, s, newValue) -> {
+            if (newValue.matches("[0-9]")) {
+               symbol.setText(s);
+            } else {
+                stockAddModalModel.setSymbol(newValue);
+            }
+        });
 
 
         share.textProperty().addListener((observableValue, oldValue, newValue) -> {

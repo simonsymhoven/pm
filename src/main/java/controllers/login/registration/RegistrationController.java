@@ -1,5 +1,7 @@
 package controllers.login.registration;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -50,7 +52,7 @@ public class RegistrationController implements Initializable {
     private RegistrationModel registrationModel;
     private LoginController loginController;
     private EntityUserImpl entityUser;
-    private boolean picturefound = false;
+    private int passwordStrength;
 
     public RegistrationController() {
         this.registrationModel = new RegistrationModel();
@@ -81,6 +83,8 @@ public class RegistrationController implements Initializable {
         });
         password.textProperty().addListener((observable, old, newValue) -> {
             if (!newValue.equals("")) {
+                passwordStrength = calculatePasswordStrength(newValue);
+                log.info("Stärke: " + passwordStrength);
                 registrationModel.setPassword(newValue);
             }
         });
@@ -90,7 +94,6 @@ public class RegistrationController implements Initializable {
             if (!newValue) {
                 if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
                     searchForProfilePicture();
-                    picturefound = true;
                 }
             }
         });
@@ -99,7 +102,6 @@ public class RegistrationController implements Initializable {
             if (!newValue) {
                 if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
                     searchForProfilePicture();
-                    picturefound = true;
                 }
             }
         });
@@ -180,5 +182,35 @@ public class RegistrationController implements Initializable {
                 log.error("Not a valid email addess: " + registrationModel.getUsername());
             }
         });
+    }
+
+    private int calculatePasswordStrength(String password) {
+        //total score of password
+        int iPasswordScore = 0;
+
+        if (password.length() < 8) {
+            return 0;
+        } else if (password.length() >= 10) {
+            iPasswordScore += 2;
+        } else {
+            iPasswordScore += 1;
+        }
+        //if it contains one digit, add 2 to total score
+        if (password.matches("(?=.*[0-9]).*")) {
+            iPasswordScore += 2;
+        }
+        //if it contains one lower case letter, add 2 to total score
+        if (password.matches("(?=.*[a-z]).*")) {
+            iPasswordScore += 2;
+        }
+        //if it contains one upper case letter, add 2 to total score
+        if (password.matches("(?=.*[A-Z]).*")) {
+            iPasswordScore += 2;
+        }
+        //if it contains one special character, add 2 to total score
+        if (password.matches("(?=.*[~!@#$%^&*()_-]).*")) {
+            iPasswordScore += 2;
+        }
+        return iPasswordScore;
     }
 }
