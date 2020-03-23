@@ -2,8 +2,6 @@ package controllers.stock;
 
 import com.jfoenix.controls.JFXButton;
 import entities.ClientStock;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;

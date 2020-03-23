@@ -18,6 +18,6 @@ public class SnackBar {
         JFXSnackbar snackbar = new JFXSnackbar(pane);
         EventHandler handler = event -> snackbar.unregisterSnackbarContainer(pane);
         snackbar.getStylesheets().add(SnackBar.class.getResource("/fullpackstyling.css").toExternalForm());
-        snackbar.show(text, "Okay", 5000, handler);
+        snackbar.show(text,  5000);
     }
 }

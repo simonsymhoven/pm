@@ -115,16 +115,15 @@ public class StockAddModalController implements Initializable {
         Stock stock = yahooStockAPI.getStock(stockAddModalModel.getSymbol());
         stockAddModalModel.setStock(stock);
 
-        if (stock != null) {
+        if (stock != null && !stock.getCurrency().equals("")) {
             symbol.clear();
             name.setText(stockAddModalModel.getStock().getName());
             symbol2.setText(stockAddModalModel.getStock().getSymbol());
             exchange.setText(stockAddModalModel.getStock().getExchange());
             currency.setText(stockAddModalModel.getStock().getCurrency());
         } else {
-            info.setText("Aktie \"" + stockAddModalModel.getSymbol() + "\" wurde nicht gefunden! \n"
-                    + "Bitte wähle eine andere Aktie aus und probiere es erneut.");
+           SnackBar snackBar = new SnackBar(pane);
+           snackBar.show("Es wurde keine passende Aktie gefunden!");
         }
-
     }
 }

@@ -1,6 +1,5 @@
 package sql;
 
-import entities.Client;
 import entities.User;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
