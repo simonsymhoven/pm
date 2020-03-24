@@ -13,7 +13,6 @@ import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +36,17 @@ public class EntityPortfolioImpl {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             clientStocks = session.createQuery("FROM Client_Stock WHERE client_id=:client_id", ClientStock.class)
                     .setParameter("client_id", client.getId()).getResultList();
+            session.close();
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return clientStocks;
+    }
+
+    public List<ClientStock> getAll() {
+        List<ClientStock> clientStocks = new ArrayList<>();
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            clientStocks = session.createQuery("FROM Client_Stock", ClientStock.class).getResultList();
             session.close();
         } catch (HibernateException e) {
             log.error(e);

@@ -102,7 +102,9 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userName.setText(jsonReader.read("user").toString());
+        if (entityUser.getAll().size() > 0) {
+            userName.setText(jsonReader.read("user").toString());
+        }
         checkBox.setSelected(true);
         close.setOnMouseClicked(e -> {
             System.exit(0);

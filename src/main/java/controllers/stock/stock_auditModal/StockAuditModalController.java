@@ -12,11 +12,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.hibernate.envers.RevisionType;
 import sql.EntityStockImpl;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 
 public class StockAuditModalController implements Initializable {
     @FXML
@@ -54,7 +56,8 @@ public class StockAuditModalController implements Initializable {
 
             Box box = new Box();
             stockAuditModalModel.getRevisions().forEach(revision -> {
-                HBox hbox = box.generateAuditHBox(revision.getRevisionType(), revision.getRevisionDate(), stockToString(revision.getStock()));
+                HBox hbox = box.generateAuditHBox(revision.getRevisionType(), revision.getRevisionDate(),
+                        stockToString(revision.getStock(), revision.getRevisionType()));
                 vBox.getChildren().add(hbox);
             });
 
@@ -67,14 +70,22 @@ public class StockAuditModalController implements Initializable {
         });
     }
 
-    private String stockToString(Stock stock) {
+    private String stockToString(Stock stock, RevisionType revisionType) {
         String signum = "";
-        if (stock.getChange().signum() != -1) {
+        if (stock.getChange() != null && stock.getChange().signum() != -1) {
             signum = "+ ";
         }
-        return stock.getName() + " [" + stock.getSymbol() + ", " + stock.getCurrency() + "]: Preis: "
-                + NumberFormat.getCurrencyInstance().format(stock.getPrice()).replace("EUR", "EUR ")
-                + " ["  + signum
-                + NumberFormat.getCurrencyInstance().format(stock.getChange()).replace("EUR", "EUR ")  + "]";
+
+        if (revisionType.equals(RevisionType.ADD)) {
+            return stock.getName() + " [" + stock.getSymbol() + ", " + stock.getCurrency() + "] wurde hinzugefügt: Preis = "
+                    + NumberFormat.getCurrencyInstance().format(stock.getPrice()).replace("EUR", "EUR ")
+                    + " ["  + signum
+                    + NumberFormat.getCurrencyInstance().format(stock.getChange()).replace("EUR", "EUR ")  + "]";
+        } else {
+            return "Aktie " + stock.getName() + " [" + stock.getSymbol() + "] wurde aktualisiert: Preis = "
+                    + NumberFormat.getCurrencyInstance().format(stock.getPrice()).replace("EUR", "EUR ")
+                    + " ["  + signum
+                    + NumberFormat.getCurrencyInstance().format(stock.getChange()).replace("EUR", "EUR ")  + "]";
+        }
     }
 }

@@ -49,12 +49,12 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="counterClients" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="44.0" layoutY="209.0" prefHeight="53.0" prefWidth="211.0" textAlignment="CENTER" textFill="#343f4a">
+                  <Label fx:id="counterClients" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="23.0" layoutY="209.0" prefHeight="53.0" prefWidth="211.0" textAlignment="CENTER" textFill="#343f4a">
                      <font>
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="updateStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="585.0" layoutY="82.0" style="-fx-border-radius: 20px; -fx-background-radius: 20px;">
+                  <JFXButton fx:id="updateStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="585.0" layoutY="82.0" ripplerFill="WHITE" style="-fx-border-radius: 20px; -fx-background-radius: 20px;">
                      <graphic>
                         <ImageView fitHeight="62.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -91,7 +91,7 @@
                   </StackPane>
                   <Label fx:id="labelMarkets" layoutX="22.0" layoutY="349.0" prefHeight="17.0" prefWidth="435.0" />
                   <Label fx:id="labelStocks" layoutX="486.0" layoutY="349.0" prefHeight="17.0" prefWidth="435.0" />
-                  <Label layoutX="26.0" layoutY="178.0" text="Clienten" textFill="#343f4a">
+                  <Label layoutX="22.0" layoutY="178.0" text="Clienten" textFill="#343f4a">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
@@ -101,7 +101,7 @@
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="counterValue" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="302.0" layoutY="209.0" prefHeight="53.0" prefWidth="612.0" textAlignment="CENTER" textFill="#343f4a">
+                  <Label fx:id="counterValue" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="282.0" layoutY="209.0" prefHeight="53.0" prefWidth="612.0" textAlignment="CENTER" textFill="#343f4a">
                      <font>
                         <Font size="36.0" />
                      </font>

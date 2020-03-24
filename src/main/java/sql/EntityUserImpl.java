@@ -6,6 +6,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Log4j2
 public class EntityUserImpl {
 
@@ -20,6 +23,19 @@ public class EntityUserImpl {
         }
         return null;
     }
+
+    public List<User> getAll() {
+        List<User> users = new ArrayList<>();
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            users = session.createQuery("FROM User", User.class).getResultList();
+            session.close();
+            return users;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return users;
+    }
+
 
     public boolean add(User user) {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {

@@ -89,19 +89,23 @@ public class DashController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         name.setText(LoginController.getLoggedUser().getVorname());
-
-
         drawCounters();
         drawCharts();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-
         try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
             String date = jsonReader.read("lastUpdateDate").toString();
-            dashModel.setLastUpdate(simpleDateFormat.parse(date));
-            dashModel.setStatus(jsonReader.read("lastUpdateStatus").toString());
+            if (!date.equals("")) {
+                dashModel.setLastUpdate(simpleDateFormat.parse(date));
+                dashModel.setStatus(jsonReader.read("lastUpdateStatus").toString());
+                lastUpdateDate.setText(simpleDateFormat.format(dashModel.getLastUpdate()));
+                lastUpdateStatus.setText("Status: " + dashModel.getStatus());
+            } else {
+                lastUpdateDate.setText("-");
+                lastUpdateStatus.setText("");
+            }
 
-            lastUpdateDate.setText(simpleDateFormat.format(dashModel.getLastUpdate()));
-            lastUpdateStatus.setText("Status: " + dashModel.getStatus());
+
+
         } catch (ParseException e) {
             log.error(e);
         }

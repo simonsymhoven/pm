@@ -29,8 +29,8 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="surname" labelFloat="true" layoutX="74.0" layoutY="243.0" prefHeight="27.0" prefWidth="190.0" promptText="Name" stylesheets="@../fullpackstyling.css" />
-      <JFXTextField fx:id="forename" labelFloat="true" layoutX="75.0" layoutY="300.0" prefHeight="27.0" prefWidth="190.0" promptText="Vorname" stylesheets="@../fullpackstyling.css" />
+      <JFXTextField fx:id="forename" labelFloat="true" layoutX="74.0" layoutY="249.0" prefHeight="27.0" prefWidth="190.0" promptText="Vorname" stylesheets="@../fullpackstyling.css" />
+      <JFXTextField fx:id="surname" labelFloat="true" layoutX="75.0" layoutY="304.0" prefHeight="27.0" prefWidth="190.0" promptText="Name" stylesheets="@../fullpackstyling.css" />
       <JFXTextField fx:id="username" labelFloat="true" layoutX="75.0" layoutY="356.0" prefHeight="27.0" prefWidth="190.0" promptText="Email" stylesheets="@../fullpackstyling.css" />
       <JFXPasswordField fx:id="password" layoutX="75.0" layoutY="413.0" prefHeight="27.0" prefWidth="190.0" promptText="Passwort" stylesheets="@../fullpackstyling.css" />
       <ImageView fx:id="profilePicture" fitHeight="106.0" fitWidth="106.0" layoutX="116.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">

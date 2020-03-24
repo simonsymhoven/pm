@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.validator.EmailValidator;
 import org.mindrot.jbcrypt.BCrypt;
 import sql.EntityUserImpl;
 import javax.imageio.ImageIO;
@@ -86,8 +85,6 @@ public class RegistrationController implements Initializable {
                 registrationModel.setPassword(newValue);
             }
         });
-
-
         forename.focusedProperty().addListener((observable, old, newValue) -> {
             if (!newValue) {
                 if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
@@ -95,7 +92,6 @@ public class RegistrationController implements Initializable {
                 }
             }
         });
-
         surname.focusedProperty().addListener((observable, old, newValue) -> {
             if (!newValue) {
                 if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
@@ -103,8 +99,6 @@ public class RegistrationController implements Initializable {
                 }
             }
         });
-
-
         registration.disableProperty().bind(forename.textProperty().isEmpty()
                 .or(surname.textProperty().isEmpty())
                 .or(username.textProperty().isEmpty())
@@ -145,7 +139,7 @@ public class RegistrationController implements Initializable {
 
     public void registrate() {
         Platform.runLater(() -> {
-            if (EmailValidator.getInstance().isValid(registrationModel.getUsername())) {
+            if (registrationModel.getUsername().contains("@")) {
                 username.setStyle("-jfx-focus-color: #343f4a;\n"
                         + " -jfx-unfocus-color: #4d4d4d;\n"
                         + " -jfx-background-color: -fx-text-box-border, -fx-background ;\n"

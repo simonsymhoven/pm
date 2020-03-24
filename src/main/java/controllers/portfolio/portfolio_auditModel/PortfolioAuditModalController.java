@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.hibernate.envers.RevisionType;
 import sql.EntityPortfolioImpl;
 import java.net.URL;
 import java.util.ArrayList;
@@ -52,7 +53,8 @@ public class PortfolioAuditModalController implements Initializable {
 
             Box box = new Box();
             portfolioAuditModalModel.getRevisions().forEach(revision -> {
-                HBox hbox = box.generateAuditHBox(revision.getRevisionType(), revision.getRevisionDate(), clientStockToString(revision.getClientStock()));
+                HBox hbox = box.generateAuditHBox(revision.getRevisionType(), revision.getRevisionDate(),
+                        clientStockToString(revision.getClientStock(), revision.getRevisionType()));
                 vBox.getChildren().add(hbox);
             });
 
@@ -63,8 +65,16 @@ public class PortfolioAuditModalController implements Initializable {
 
     }
 
-    private String clientStockToString(ClientStock clientStock) {
-        return clientStock.getStock().getName() + " [" + clientStock.getQuantity() + " Stk.]";
+    private String clientStockToString(ClientStock clientStock, RevisionType revisionType) {
+        if (revisionType.equals(RevisionType.ADD)) {
+            return clientStock.getStock().getName() + " wurde dem Portfolio hinzugefügt.";
+        } else if (revisionType.equals(RevisionType.DEL)) {
+            return clientStock.getStock().getName() + " wurde aus dem Portfolio entfernt.";
+        } else {
+            return "Die Anzahl für " + clientStock.getStock().getName() + " wurde bearbeitet: "
+                    + clientStock.getQuantity() + " Stk.";
+        }
+
     }
 
 }

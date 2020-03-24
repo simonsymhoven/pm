@@ -53,7 +53,7 @@ public class Client implements Serializable {
     @Column(name = "depoValue")
     private BigDecimal depoValue;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(name = "Client_Stock",
             joinColumns = {
                     @JoinColumn(

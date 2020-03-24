@@ -12,22 +12,6 @@
  -fx-background-color: #2e3842;
 }
 
-.button2 {
-    -fx-background-color: #0C39FF;
-    -fx-border-color: #FFF;
-    -fx-text-fill: #FFF;
-}
-
-.button2:hover {
-    -fx-background-color: #0C3988;
-    -fx-text-fill: #FFF;
-}
-
-.button2:pressed {
-    -fx-background-color: #0C3400;
-    -fx-text-fill: #FFF;
-}
-
 .chart {
     -fx-padding: 10px;
     -fx-background-color: transparent;

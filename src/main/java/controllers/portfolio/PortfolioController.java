@@ -30,7 +30,6 @@ import snackbar.SnackBar;
 import sql.EntityPortfolioImpl;
 import sql.EntityStockImpl;
 import sql.EntityClientImpl;
-
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
@@ -372,21 +371,18 @@ public class PortfolioController implements Initializable {
 
 
         if (listView.getId().equals("stockListClient")) {
-            log.info("[1/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. AUs listView entfernen.");
+            log.info("[1/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. Aus listView entfernen.");
             if (entityClient.removeStock(portfolioModel.getClient(), selectedStock)) {
-                for (ClientStock clientStock : portfolioModel.getClientStocks()) {
-                    if (clientStock.getClient().getId() == portfolioModel.getClient().getId() && clientStock.getStock().getId() == selectedStock.getId()) {
-                        log.info("[2/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. Aus Model entfernen.");
-                        portfolioModel.getClientStocks().remove(clientStock);
-                        SnackBar snackBar = new SnackBar(pane);
-                        snackBar.show("Aktie wurde dem Client entzogen!");
-                    }
-                }
+                portfolioModel.getClientStocks().removeIf(clientStock -> clientStock.getClient().getId() == portfolioModel.getClient().getId()
+                        && clientStock.getStock().getId() == selectedStock.getId());
+                log.info("[2/2] Aktie " + selectedStock + " wird dem Nutzer entzogen. Aus Model entfernen.");
+                SnackBar snackBar = new SnackBar(pane);
+                snackBar.show("Aktie wurde dem Client entzogen!");
             }
         } else if (listView.getId().equals("stockList")) {
             double shareValue =
                     (selectedStock.getShare() / 100.0) * (portfolioModel.getClient().getStrategy() / 100.0) * 100.0;
-            portfolioModel.getClientStocks().add(new ClientStock(
+            ClientStock clientStock = new ClientStock(
                     new ClientStockKey(portfolioModel.getClient().getId(), selectedStock.getId()),
                     portfolioModel.getClient(),
                     selectedStock,
@@ -395,7 +391,9 @@ public class PortfolioController implements Initializable {
                     0,
                     0,
                     0
-            ));
+            );
+            portfolioModel.getClientStocks().add(clientStock);
+            entityPortfolio.update(clientStock);
             SnackBar snackBar = new SnackBar(pane);
             snackBar.show("Aktie wurde dem Client hinzugefügt!");
         }

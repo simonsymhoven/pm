@@ -13,7 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.hibernate.envers.RevisionType;
 import sql.EntityClientImpl;
+import sql.EntityPortfolioImpl;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -29,11 +31,13 @@ public class ClientAuditModalController implements Initializable {
 
     private ClientAuditModalModel clientAuditModalModel;
     private EntityClientImpl entityClient;
+    private EntityPortfolioImpl entityPortfolio;
     private ClientController clientController;
     private Stage stage;
 
     public ClientAuditModalController() {
         this.entityClient = new EntityClientImpl();
+        this.entityPortfolio = new EntityPortfolioImpl();
         this.clientAuditModalModel = new ClientAuditModalModel();
     }
 
@@ -54,7 +58,8 @@ public class ClientAuditModalController implements Initializable {
 
             Box box = new Box();
             clientAuditModalModel.getRevisions().forEach(revision -> {
-                HBox hbox = box.generateAuditHBox(revision.getRevisionType(), revision.getRevisionDate(), clientToString(revision.getClient()));
+                HBox hbox = box.generateAuditHBox(revision.getRevisionType(), revision.getRevisionDate(),
+                        clientToString(revision.getClient(), revision.getRevisionType()));
                 vBox.getChildren().add(hbox);
             });
 
@@ -69,11 +74,12 @@ public class ClientAuditModalController implements Initializable {
 
     }
 
-    private String clientToString(Client client) {
-        return client.getName() + " [" + client.getSymbol() + "]:"
-                + " Strategie: " + client.getStrategy() + "%, Depowert: " + NumberFormat.getCurrencyInstance()
-                .format(client.getDepoValue()).replace("EUR", "EUR ");
-
-
+    private String clientToString(Client client, RevisionType revisionType) {
+        if (revisionType.equals(RevisionType.ADD)) {
+            return client.getName() + " [" + client.getSymbol() + ", " + client.getStrategy() + "%] wurde hinzugefügt.";
+        } else {
+            return "Depotwert = " + NumberFormat.getCurrencyInstance().format(client.getDepoValue())
+                    .replace("EUR", "EUR ") + ", Aktien: " + entityPortfolio.getAll(client).size() + " Stk.";
+        }
     }
 }

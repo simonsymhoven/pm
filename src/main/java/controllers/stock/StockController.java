@@ -213,7 +213,10 @@ public class StockController implements Initializable {
     private void plotStock() {
         Plot task = new Plot(stockModel);
 
-        task.setOnRunning(successesEvent -> progressIndicator.setVisible(true));
+        task.setOnRunning(successesEvent -> {
+                pane.setDisable(true);
+                progressIndicator.setVisible(true);
+        });
 
         task.setOnSucceeded(succeededEvent -> {
             try {
@@ -224,10 +227,12 @@ public class StockController implements Initializable {
                 log.error(e);
             }
             progressIndicator.setVisible(false);
+            pane.setDisable(false);
         });
 
         task.setOnFailed(failedEvent -> {
             progressIndicator.setVisible(false);
+            pane.setDisable(false);
             log.error(" TASK FAILED! ");
         });
 
