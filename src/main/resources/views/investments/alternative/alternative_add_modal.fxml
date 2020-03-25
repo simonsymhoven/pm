@@ -35,8 +35,5 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="share" labelFloat="true" layoutX="40.0" layoutY="310.0" prefHeight="25.0" prefWidth="110.0" promptText="Anteil" stylesheets="@../../../fullpackstyling.css" />
-      <Label fx:id="shareInfo" layoutX="41.0" layoutY="258.0" prefHeight="37.0" prefWidth="570.0" wrapText="true" />
-
    </children>
 </AnchorPane>

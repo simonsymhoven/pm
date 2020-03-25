@@ -58,7 +58,7 @@
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/unterstuetzung.png" />
+                             <Image url="@../icons/team.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -73,7 +73,7 @@
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/treasure.png" />
+                             <Image url="@../icons/clover.png" />
                          </image>
                      </ImageView>
                </graphic>

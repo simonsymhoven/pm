@@ -7,7 +7,6 @@ import entities.alternative.Alternative;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import snackbar.SnackBar;
@@ -33,10 +32,6 @@ public class AlternativeAddModalController implements Initializable {
     private JFXTextField exchange;
     @FXML
     private JFXTextField currency;
-    @FXML
-    private JFXTextField share;
-    @FXML
-    private Label shareInfo;
     @FXML
     private AnchorPane pane;
 
@@ -64,55 +59,18 @@ public class AlternativeAddModalController implements Initializable {
             alternativeController.getLabel().setText("Übersicht");
             stage.close();
         });
+        search.disableProperty().bind(symbol.textProperty().isEmpty());
 
-        entityAlternative.getAll().forEach(stock -> alternativeAddModalModel.setAmount(alternativeAddModalModel.getAmount() - stock.getShare()));
-
-        shareInfo.setText("Bitte wähle noch den Anteil der Aktie im Musterportfolio.\n"
-                + "Es stehen noch " + String.format("%.2f", alternativeAddModalModel.getAmount()) + "% zur Verfügung!");
-
-        shareInfo.visibleProperty().bind(name.textProperty().isNotEmpty()
-            .and(symbol2.textProperty().isNotEmpty()
-                .and(exchange.textProperty().isNotEmpty()
-                    .and(currency.textProperty().isNotEmpty())
-                )
-            )
-        );
-
-        share.visibleProperty().bind(name.textProperty().isNotEmpty()
-                .and(symbol2.textProperty().isNotEmpty()
-                        .and(exchange.textProperty().isNotEmpty()
-                                .and(currency.textProperty().isNotEmpty())
+        addStock.disableProperty().bind(name.textProperty().isEmpty()
+                .or(symbol2.textProperty().isEmpty()
+                        .or(exchange.textProperty().isEmpty()
+                                .or(currency.textProperty().isEmpty())
                         )
                 )
         );
 
-        search.disableProperty().bind(symbol.textProperty().isEmpty());
-
-        share.disableProperty().bind(symbol2.textProperty().isEmpty()
-                .or(name.textProperty().isEmpty()
-                .or(exchange.textProperty().isEmpty()
-                .or(currency.textProperty().isEmpty()))
-        ));
-
-        addStock.disableProperty().bind(share.textProperty().isEmpty());
-
         symbol.textProperty().addListener((observableValue, s, newValue) -> {
             alternativeAddModalModel.setSymbol(newValue);
-        });
-
-
-        share.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
-                if (!newValue.matches(regex)) {
-                    share.setText(oldValue);
-                } else {
-                    if (Double.parseDouble(newValue) > alternativeAddModalModel.getAmount()) {
-                        share.setText(oldValue);
-                    } else {
-                        alternativeAddModalModel.getAlternative().setShare(Double.parseDouble(newValue));
-                    }
-                }
-            }
         });
 
     }
@@ -153,7 +111,6 @@ public class AlternativeAddModalController implements Initializable {
     private void clear() {
         symbol.clear();
         symbol2.clear();
-        share.clear();
         currency.clear();
         exchange.clear();
         name.clear();

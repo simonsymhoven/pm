@@ -1,5 +1,6 @@
 package controllers.login.registration;
 
+import javafx.scene.image.Image;
 import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -128,6 +129,7 @@ public class RegistrationController implements Initializable {
         });
 
         task.setOnFailed(failedEvent -> {
+            profilePicture.setImage(new Image(getClass().getResourceAsStream("/icons/mann.png")));
             progressIndicator.setVisible(false);
             log.error(" TASK FAILED! ");
         });

@@ -26,8 +26,4 @@ public class PortfolioAlternativeModel {
     }
 
     private int quantity;
-    private double shareTarget;
-    private double shareActual;
-    private double diffRelative;
-    private int diffAbsolute;
 }

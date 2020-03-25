@@ -38,17 +38,5 @@ public class ClientAlternative {
 
         @Column(name = "quantity", nullable = false, columnDefinition = "int default 0")
         private int quantity;
-
-        @Column(name = "shareTarget", nullable = false, columnDefinition = "number default 0")
-        private double shareTarget;
-
-        @Column(name = "shareActual", nullable = false, columnDefinition = "number default 0")
-        private double shareActual;
-
-        @Column(name = "diffRelative", nullable = false, columnDefinition = "number default 0")
-        private double diffRelative;
-
-        @Column(name = "diffAbsolute", nullable = false, columnDefinition = "int default 0")
-        private int diffAbsolute;
 }
 

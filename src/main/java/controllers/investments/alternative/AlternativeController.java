@@ -57,8 +57,6 @@ public class AlternativeController implements Initializable {
     @FXML
     private JFXTextField currency;
     @FXML
-    private JFXTextField share;
-    @FXML
     private ImageView imgView;
     @FXML
     private ProgressIndicator progressIndicator;
@@ -112,7 +110,6 @@ public class AlternativeController implements Initializable {
                 change.setText(NumberFormat.getCurrencyInstance()
                         .format(alternativeModel.getAlternative().getChange()));
 
-                share.setText(String.format("%.2f", alternativeModel.getAlternative().getShare()) + " %");
 
                 plotAlternative();
 
@@ -125,7 +122,6 @@ public class AlternativeController implements Initializable {
                 price.clear();
                 change.clear();
                 imgView.setImage(null);
-                share.clear();
             }
 
         });

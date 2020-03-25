@@ -60,14 +60,6 @@ public class PortfolioAlternativeController implements Initializable {
     @FXML
     private JFXTextField quantity;
     @FXML
-    private JFXTextField shareTarget;
-    @FXML
-    private JFXTextField shareActual;
-    @FXML
-    private JFXTextField diffRelative;
-    @FXML
-    private JFXTextField diffAbsolute;
-    @FXML
     private JFXButton showAudit;
     @FXML
     private JFXButton update;
@@ -138,10 +130,6 @@ public class PortfolioAlternativeController implements Initializable {
         update.disableProperty().bind(alternativeListClient.getSelectionModel().selectedItemProperty().isNull()
                 .or(quantity.textProperty().isEqualTo("0")));
 
-        shareActual.disableProperty().bind(quantity.textProperty().isEmpty());
-        diffRelative.disableProperty().bind(shareActual.textProperty().isEmpty());
-        diffAbsolute.disableProperty().bind(shareActual.textProperty().isEmpty());
-
         alternativeListClient.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 portfolioAlternativeModel.setAlternative(newValue);
@@ -162,11 +150,6 @@ public class PortfolioAlternativeController implements Initializable {
                         .format(portfolioAlternativeModel.getAlternative().getPrice()));
                 change.setText(NumberFormat.getCurrencyInstance()
                         .format(portfolioAlternativeModel.getAlternative().getChange()));
-                shareActual.setText(String.format("%.2f", portfolioAlternativeModel.getClientAlternative().getShareActual()).replace(",", ".") + " %");
-                diffRelative.setText(String.format("%.2f", portfolioAlternativeModel.getClientAlternative().getDiffRelative()).replace(",", ".") + " %");
-                diffAbsolute.setText(String.valueOf(portfolioAlternativeModel.getClientAlternative().getDiffAbsolute()));
-                shareTarget.setText(String.format("%.2f", portfolioAlternativeModel.getClientAlternative().getShareTarget()).replace(",", ".") + " %");
-
                 quantity.setEditable(true);
             } else {
                 clearFields();
@@ -183,7 +166,6 @@ public class PortfolioAlternativeController implements Initializable {
                         int i = Integer.parseInt(newValue);
                         if (i > 0) {
                             portfolioAlternativeModel.setQuantity(i);
-                            calculateDepot();
                             replaceClientAlternative();
                         }
                     } catch (Exception e) {
@@ -240,44 +222,9 @@ public class PortfolioAlternativeController implements Initializable {
 
     }
 
-    private void calculateDepot() {
-        // SHARE SOLL
-        double shareValue = (portfolioAlternativeModel.getAlternative().getShare() / 100.0)
-                * (portfolioAlternativeModel.getClient().getStrategyStocksTargetValue() / 100.0) * 100.0;
-        portfolioAlternativeModel.setShareTarget(shareValue);
-
-        // SHARE IST
-        double valueNewStock = portfolioAlternativeModel.getAlternative().getPrice().doubleValue() * portfolioAlternativeModel.getQuantity();
-        double clientDepoValue = portfolioAlternativeModel.getClient().getDepoValue().doubleValue();
-
-        double shareValueIst = 100;
-        if (clientDepoValue != 0) {
-            shareValueIst = (valueNewStock / clientDepoValue) * 100.0;
-        }
-
-        portfolioAlternativeModel.setShareActual(shareValueIst);
-        shareActual.setText(String.format("%.2f", portfolioAlternativeModel.getShareActual()).replace(",", ".") + " %");
-
-        portfolioAlternativeModel.setDiffRelative(portfolioAlternativeModel.getShareTarget() - portfolioAlternativeModel.getShareActual());
-        diffRelative.setText(String.format("%.2f", portfolioAlternativeModel.getDiffRelative()).replace(",", ".") + " %");
-
-        portfolioAlternativeModel.setDiffAbsolute(
-                (int) ((portfolioAlternativeModel.getDiffRelative() * portfolioAlternativeModel.getClient().getDepoValue().doubleValue())
-                        / portfolioAlternativeModel.getAlternative().getPrice().doubleValue() / 100.0));
-
-        shareActual.setText(String.format("%.2f", portfolioAlternativeModel.getShareActual()).replace(",", ".") + " %");
-        diffRelative.setText(String.format("%.2f", portfolioAlternativeModel.getDiffRelative()).replace(",", ".") + " %");
-        diffAbsolute.setText(String.valueOf(portfolioAlternativeModel.getDiffAbsolute()));
-        shareTarget.setText(String.format("%.2f", portfolioAlternativeModel.getShareTarget()).replace(",", ".") + " %");
-    }
-
     private void replaceClientAlternative() {
         portfolioAlternativeModel.getClientAlternatives().remove(portfolioAlternativeModel.getClientAlternative());
         portfolioAlternativeModel.getClientAlternative().setQuantity(portfolioAlternativeModel.getQuantity());
-        portfolioAlternativeModel.getClientAlternative().setShareTarget(portfolioAlternativeModel.getShareTarget());
-        portfolioAlternativeModel.getClientAlternative().setShareActual(portfolioAlternativeModel.getShareActual());
-        portfolioAlternativeModel.getClientAlternative().setDiffRelative(portfolioAlternativeModel.getDiffRelative());
-        portfolioAlternativeModel.getClientAlternative().setDiffAbsolute(portfolioAlternativeModel.getDiffAbsolute());
         portfolioAlternativeModel.getClientAlternatives().add(portfolioAlternativeModel.getClientAlternative());
     }
 
@@ -290,10 +237,6 @@ public class PortfolioAlternativeController implements Initializable {
         change.clear();
         currency.clear();
         quantity.clear();
-        shareActual.clear();
-        shareTarget.clear();
-        diffAbsolute.clear();
-        diffRelative.clear();
     }
 
     private void updateStockLists(Client client) {
@@ -378,16 +321,10 @@ public class PortfolioAlternativeController implements Initializable {
                 snackBar.show("Alt. Investment wurde dem Client entzogen!");
             }
         } else if (listView.getId().equals("alternativeList")) {
-            double shareValue =
-                    (selectedAlternative.getShare() / 100.0) * (portfolioAlternativeModel.getClient().getStrategyStocksTargetValue() / 100.0) * 100.0;
             ClientAlternative clientAlternative = new ClientAlternative(
                     new ClientAlternativeKey(portfolioAlternativeModel.getClient().getId(), selectedAlternative.getId()),
                     portfolioAlternativeModel.getClient(),
                     selectedAlternative,
-                    0,
-                    shareValue,
-                    0,
-                    0,
                     0
             );
             portfolioAlternativeModel.getClientAlternatives().add(clientAlternative);

@@ -58,9 +58,6 @@ public class Alternative implements Serializable {
     @Column(name = "currency")
     private String currency;
 
-    @Column(name = "share")
-    private double share;
-
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "alternatives")
     private Set<Client> clients;
 
