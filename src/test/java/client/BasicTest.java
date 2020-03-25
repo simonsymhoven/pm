@@ -1,6 +1,6 @@
 package client;
 
-import entities.Client;
+import entities.client.Client;
 import org.junit.Test;
 import org.junit.Assert;
 

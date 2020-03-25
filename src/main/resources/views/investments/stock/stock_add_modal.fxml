@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" style="-fx-border-color: #343f4a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.investments.stocks.stock_addModal.StockAddModalController">
+   <children>
+      <Label layoutX="40.0" layoutY="42.0" text="Aktie hinzufügen" textFill="#343f4a">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <JFXButton id="button" fx:id="search" buttonType="RAISED" layoutX="209.0" layoutY="120.0" onAction="#searchAktie" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../../fullpackstyling.css" text="Suchen">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXButton>
+      <JFXButton id="button" fx:id="addStock" buttonType="RAISED" layoutX="477.0" layoutY="392.0" onAction="#add" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../../fullpackstyling.css" text="Hinzufügen">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="symbol" labelFloat="true" layoutX="43.0" layoutY="141.0" prefHeight="25.0" prefWidth="149.0" promptText="Symbol" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="name" editable="false" labelFloat="true" layoutX="43.0" layoutY="213.0" prefHeight="25.0" prefWidth="149.0" promptText="Name" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="symbol2" editable="false" labelFloat="true" layoutX="207.0" layoutY="213.0" prefHeight="25.0" prefWidth="110.0" promptText="Symbol" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="exchange" editable="false" labelFloat="true" layoutX="333.0" layoutY="213.0" prefHeight="25.0" prefWidth="149.0" promptText="Exchange" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="495.0" layoutY="213.0" prefHeight="25.0" prefWidth="110.0" promptText="Währung" stylesheets="@../../../fullpackstyling.css" />
+      <Separator layoutX="41.0" layoutY="69.0" prefHeight="0.0" prefWidth="570.0" />
+      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="595.0" layoutY="14.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" style="-fx-background-color: #ff4646; -fx-background-radius: 30px; -fx-border-radius: 30px;" text="x" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXTextField fx:id="share" labelFloat="true" layoutX="40.0" layoutY="310.0" prefHeight="25.0" prefWidth="110.0" promptText="Anteil" stylesheets="@../../../fullpackstyling.css" />
+      <Label fx:id="shareInfo" layoutX="41.0" layoutY="258.0" prefHeight="37.0" prefWidth="570.0" wrapText="true" />
+
+   </children>
+</AnchorPane>

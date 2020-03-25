@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<JFXTabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="708.0" prefWidth="993.0" stylesheets="@../../fullpackstyling.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab text="Aktien">
+         <fx:include source="stock/stock.fxml"/>
+      </Tab>
+      <Tab text="Alternative Investements">
+         <fx:include source="alternative/alternative.fxml"/>
+      </Tab>
+      <Tab text="Anleihen">
+         <fx:include source="ioan/ioan.fxml"/>
+      </Tab>
+   </tabs>
+</JFXTabPane>

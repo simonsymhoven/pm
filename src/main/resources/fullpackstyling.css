@@ -1,16 +1,3 @@
-.button {
-    -fx-background-color: #343f4a;
-    -fx-text-fill: #FFF;
-    -fx-text-alignment: left;
-}
-
-.button:hover {
-    -fx-background-color: #2e3842;
-}
-
-.button:focus {
- -fx-background-color: #2e3842;
-}
 
 .chart {
     -fx-padding: 10px;
@@ -33,6 +20,7 @@
     -jfx-background-insets: 0, 0 0 1 0 ;
     -jfx-background-radius: 0 ;
 }
+
 .jfx-password-field {
     -jfx-focus-color: #343f4a;
     -jfx-unfocus-color: #4d4d4d;
@@ -96,4 +84,33 @@
     -fx-text-fill: #fff;
 }
 
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #343f4a;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-text-fill: #343f4a;
+    -fx-background-color: #343f4a;
+}
+-jfx-tab-pane .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #343f4a;
+}
 
+-jfx-tab-pane .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #343f4a;
+}
+
+#button {
+    -fx-background-color: #343f4a;
+    -fx-text-fill: #FFF;
+    -fx-text-alignment: left;
+}
+
+#button:hover {
+    -fx-background-color: #2e3842;
+}
+
+#button:focus {
+ -fx-background-color: #2e3842;
+}

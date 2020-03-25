@@ -1,8 +1,9 @@
 package sql;
 
-import entities.Client;
-import entities.ClientRevision;
-import entities.Stock;
+import entities.alternative.Alternative;
+import entities.client.Client;
+import entities.client.ClientRevision;
+import entities.stock.Stock;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -86,23 +87,6 @@ public class EntityClientImpl {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             log.info("Client to Update: " + client.getId());
-            /*
-            Client clientToUpdate = session.load(Client.class, client.getId());
-            clientToUpdate.setDepoValue(client.getDepoValue());
-            clientToUpdate.setComment(client.getComment());
-            clientToUpdate.setStrategyAlternativeLowerLimit(client.getStrategyAlternativeLowerLimit());
-            clientToUpdate.setStrategyAlternativeTargetValue(client.getStrategyAlternativeTargetValue());
-            clientToUpdate.setStrategyAlternativeUpperLimit(client.getStrategyAlternativeUpperLimit());
-            clientToUpdate.setStrategyIoanLowerLimit(client.getStrategyIoanLowerLimit());
-            clientToUpdate.setStrategyIoanTargetValue(client.getStrategyIoanTargetValue());
-            clientToUpdate.setStrategyIoanUpperLimit(client.getStrategyIoanUpperLimit());
-            clientToUpdate.setStrategyLiquidityLowerLimit(client.getStrategyLiquidityLowerLimit());
-            clientToUpdate.setStrategyLiquidityTargetValue(client.getStrategyLiquidityTargetValue());
-            clientToUpdate.setStrategyLiquidityUpperLimit(client.getStrategyLiquidityUpperLimit());
-            clientToUpdate.setStrategyStocksLowerLimit(client.getStrategyStocksLowerLimit());
-            clientToUpdate.setStrategyStocksTargetValue(client.getStrategyStocksTargetValue());
-            clientToUpdate.setStrategyStocksUpperLimit(client.getStrategyStocksUpperLimit());
-             */
             session.update(client);
             transaction.commit();
             session.close();
@@ -118,6 +102,21 @@ public class EntityClientImpl {
             Transaction transaction = session.beginTransaction();
             Client clientToUpdate = session.load(Client.class, client.getId());
             clientToUpdate.getStocks().remove(stock);
+            session.save(clientToUpdate);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return false;
+    }
+
+    public boolean removeAlternative(Client client, Alternative alternative) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            Client clientToUpdate = session.load(Client.class, client.getId());
+            clientToUpdate.getAlternatives().remove(alternative);
             session.save(clientToUpdate);
             transaction.commit();
             session.close();

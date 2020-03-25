@@ -1,6 +1,6 @@
 package controllers.client.client_auditModal;
 
-import entities.ClientRevision;
+import entities.client.ClientRevision;
 import lombok.Data;
 
 import java.util.List;

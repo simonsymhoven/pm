@@ -50,7 +50,7 @@
             <Image url="@../icons/identitaet.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="login" buttonType="RAISED" layoutX="476.0" layoutY="390.0" onAction="#validate" prefHeight="50.0" prefWidth="125.0" ripplerFill="BLACK" stylesheets="@../fullpackstyling.css" text="Login">
+      <JFXButton id="button" fx:id="login" buttonType="RAISED" layoutX="476.0" layoutY="390.0" onAction="#validate" prefHeight="50.0" prefWidth="125.0" ripplerFill="BLACK" stylesheets="@../fullpackstyling.css" text="Login">
          <font>
             <Font size="17.0" />
          </font></JFXButton>

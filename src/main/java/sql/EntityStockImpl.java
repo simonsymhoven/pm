@@ -1,8 +1,8 @@
 package sql;
 
+import entities.stock.Stock;
+import entities.stock.StockRevision;
 import yahooapi.YahooStockAPI;
-import entities.Stock;
-import entities.StockRevision;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

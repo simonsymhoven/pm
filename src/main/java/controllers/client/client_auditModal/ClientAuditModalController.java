@@ -3,7 +3,7 @@ package controllers.client.client_auditModal;
 import com.jfoenix.controls.JFXButton;
 import controllers.client.Box;
 import controllers.client.ClientController;
-import entities.Client;
+import entities.client.Client;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.hibernate.envers.RevisionType;
 import sql.EntityClientImpl;
-import sql.EntityPortfolioImpl;
+import sql.EntityPortfolioStockImpl;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -30,13 +30,13 @@ public class ClientAuditModalController implements Initializable {
 
     private ClientAuditModalModel clientAuditModalModel;
     private EntityClientImpl entityClient;
-    private EntityPortfolioImpl entityPortfolio;
+    private EntityPortfolioStockImpl entityPortfolio;
     private ClientController clientController;
     private Stage stage;
 
     public ClientAuditModalController() {
         this.entityClient = new EntityClientImpl();
-        this.entityPortfolio = new EntityPortfolioImpl();
+        this.entityPortfolio = new EntityPortfolioStockImpl();
         this.clientAuditModalModel = new ClientAuditModalModel();
     }
 

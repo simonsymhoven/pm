@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="708.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.investments.alternative.AlternativeController">
+   <children>
+      <Label fx:id="label" layoutX="89.0" layoutY="74.0" text="Übersicht">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="imgView" fitHeight="404.0" fitWidth="818.0" layoutX="57.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true" />
+      <ProgressIndicator fx:id="progressIndicator" layoutX="464.0" layoutY="479.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-progress-color: #343f4a#343f4a;" visible="false" />
+      <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="360.0" layoutY="73.0" prefHeight="25.0" prefWidth="251.0" promptText="Alternatives Investment auswählen" />
+      <JFXTextField fx:id="name" editable="false" labelFloat="true" layoutX="87.0" layoutY="176.0" prefHeight="25.0" prefWidth="170.0" promptText="Name" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="symbol" editable="false" labelFloat="true" layoutX="288.0" layoutY="176.0" prefHeight="25.0" prefWidth="170.0" promptText="Symbol" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="exchange" editable="false" labelFloat="true" layoutX="485.0" layoutY="176.0" prefHeight="25.0" prefWidth="170.0" promptText="Exchange" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="price" editable="false" labelFloat="true" layoutX="89.0" layoutY="235.0" prefHeight="25.0" prefWidth="170.0" promptText="Preis" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="291.0" layoutY="235.0" prefHeight="27.0" prefWidth="170.0" promptText="Veränderung zum Vortag" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="685.0" layoutY="176.0" prefHeight="25.0" prefWidth="170.0" promptText="Währung" stylesheets="@../../../fullpackstyling.css" />
+      <JFXButton fx:id="updateAlternative" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="841.0" layoutY="56.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
+         <graphic>
+            <ImageView fitHeight="49.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/cloud-sync.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="showAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="783.0" layoutY="61.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/light-bulb.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="deleteAlternative" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="725.0" layoutY="61.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/error.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="addAlternative" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="667.0" layoutY="60.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../icons/plus(1).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXTextField fx:id="share" editable="false" labelFloat="true" layoutX="485.0" layoutY="235.0" prefHeight="27.0" prefWidth="170.0" promptText="Anteil" stylesheets="@../../../fullpackstyling.css" />
+   </children>
+</AnchorPane>

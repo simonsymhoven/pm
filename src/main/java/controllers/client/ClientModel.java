@@ -1,6 +1,6 @@
 package controllers.client;
 
-import entities.Client;
+import entities.client.Client;
 import lombok.Data;
 import java.util.List;
 

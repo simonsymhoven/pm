@@ -17,9 +17,11 @@
         <property name="hibernate.dbcp.minIdle">5</property>
         <property name="hibernate.dbcp.maxWaitMillis">-1</property>
 
-        <mapping class="entities.User"/>
-        <mapping class="entities.Client"/>
-        <mapping class="entities.Stock"/>
-        <mapping class="entities.ClientStock"/>
+        <mapping class="entities.user.User"/>
+        <mapping class="entities.client.Client"/>
+        <mapping class="entities.stock.Stock"/>
+        <mapping class="entities.alternative.Alternative"/>
+        <mapping class="entities.client.ClientAlternative"/>
+        <mapping class="entities.client.ClientStock"/>
     </session-factory>
 </hibernate-configuration>

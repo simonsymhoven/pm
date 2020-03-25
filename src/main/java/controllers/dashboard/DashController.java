@@ -1,10 +1,10 @@
 package controllers.dashboard;
 
+import entities.stock.Stock;
 import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;
 import controllers.login.LoginController;
-import entities.Client;
-import entities.Stock;
+import entities.client.Client;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
