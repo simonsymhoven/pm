@@ -1,4 +1,4 @@
-package controllers.client.client_addModal;
+package controllers.client.client_editModal;
 
 import entities.Client;
 import entities.Investment;
@@ -8,7 +8,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-class ClientAddModalModel {
+class ClientEditModalModel {
     private Client client = new Client();
     private String name;
     private String symbol;

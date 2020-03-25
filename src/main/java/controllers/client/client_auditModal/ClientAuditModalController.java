@@ -1,6 +1,5 @@
 package controllers.client.client_auditModal;
 
-
 import com.jfoenix.controls.JFXButton;
 import controllers.client.Box;
 import controllers.client.ClientController;
@@ -76,7 +75,7 @@ public class ClientAuditModalController implements Initializable {
 
     private String clientToString(Client client, RevisionType revisionType) {
         if (revisionType.equals(RevisionType.ADD)) {
-            return client.getName() + " [" + client.getSymbol() + ", " + client.getStrategy() + "%] wurde hinzugefügt.";
+            return client.getName() + " [" + client.getSymbol() + "] wurde hinzugefügt.";
         } else {
             return "Depotwert = " + NumberFormat.getCurrencyInstance().format(client.getDepoValue())
                     .replace("EUR", "EUR ") + ", Aktien: " + entityPortfolio.getAll(client).size() + " Stk.";

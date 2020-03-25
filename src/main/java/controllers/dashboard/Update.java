@@ -21,7 +21,7 @@ public class Update extends Task<Boolean> {
             if (entityStock.updateAll()) {
                 entityPortfolio.getAll().forEach(clientStock -> {
                     double shareValue = (clientStock.getStock().getShare() / 100.0)
-                            * (clientStock.getClient().getStrategy() / 100.0) * 100.0;
+                            * (clientStock.getClient().getStrategyStocksTargetValue() / 100.0) * 100.0;
                     clientStock.setShareTarget(shareValue);
                     double valueNewStock = clientStock.getStock().getPrice().doubleValue() * clientStock.getQuantity();
                     double clientDepoValue = clientStock.getClient().getDepoValue().doubleValue();

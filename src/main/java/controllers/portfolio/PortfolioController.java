@@ -244,7 +244,7 @@ public class PortfolioController implements Initializable {
     private void calculateDepot() {
         // SHARE SOLL
         double shareValue = (portfolioModel.getStock().getShare() / 100.0)
-                * (portfolioModel.getClient().getStrategy() / 100.0) * 100.0;
+                * (portfolioModel.getClient().getStrategyStocksTargetValue() / 100.0) * 100.0;
         portfolioModel.setShareTarget(shareValue);
 
         // SHARE IST
@@ -381,7 +381,7 @@ public class PortfolioController implements Initializable {
             }
         } else if (listView.getId().equals("stockList")) {
             double shareValue =
-                    (selectedStock.getShare() / 100.0) * (portfolioModel.getClient().getStrategy() / 100.0) * 100.0;
+                    (selectedStock.getShare() / 100.0) * (portfolioModel.getClient().getStrategyStocksTargetValue() / 100.0) * 100.0;
             ClientStock clientStock = new ClientStock(
                     new ClientStockKey(portfolioModel.getClient().getId(), selectedStock.getId()),
                     portfolioModel.getClient(),

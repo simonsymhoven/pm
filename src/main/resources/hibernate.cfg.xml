@@ -6,12 +6,8 @@
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">org.sqlite.JDBC</property>
         <property name="connection.url">jdbc:sqlite:./db/database.db</property>
-        <property name="connection.username"/>
-        <property name="connection.password"/>
         <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <!-- Echo the SQL to stdout -->
-        <property name="show_sql">false</property>
         <!-- Set the current session context -->
         <property name="current_session_context_class">thread</property>
         <!-- dbcp connection pool configuration -->

@@ -18,9 +18,7 @@ import java.util.ResourceBundle;
 
 public class StockAddModalController implements Initializable {
     @FXML
-    private Label info;
-    @FXML
-    private JFXButton addAktie;
+    private JFXButton addStock;
     @FXML
     private JFXButton close;
     @FXML
@@ -44,20 +42,21 @@ public class StockAddModalController implements Initializable {
 
     private StockAddModalModel stockAddModalModel;
     private YahooStockAPI yahooStockAPI;
-    private EntityStockImpl entityAktien;
+    private EntityStockImpl entityStock;
     private StockController stockController;
     private Stage stage;
+    private String regex = "^(([1-9][0-9]*)|0)?(\\.[0-9]*)?";
 
     public StockAddModalController() {
         this.stockAddModalModel = new StockAddModalModel();
         this.yahooStockAPI = new YahooStockAPI();
-        this.entityAktien = new EntityStockImpl();
+        this.entityStock = new EntityStockImpl();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
-            stage = (Stage) addAktie.getScene().getWindow();
+            stage = (Stage) addStock.getScene().getWindow();
             stockController = (StockController) stage.getUserData();
         });
 
@@ -66,20 +65,36 @@ public class StockAddModalController implements Initializable {
             stage.close();
         });
 
-        entityAktien.getAll().forEach(stock -> stockAddModalModel.setAmount(stockAddModalModel.getAmount() - stock.getShare()));
+        entityStock.getAll().forEach(stock -> stockAddModalModel.setAmount(stockAddModalModel.getAmount() - stock.getShare()));
 
-        shareInfo.setText("Bitte wähle noch den Anteil der Aktie (Es sind noch " + stockAddModalModel.getAmount() + "% übrig):");
+        shareInfo.setText("Bitte wähle noch den Anteil der Aktie im Musterportfolio.\n"
+                + "Es stehen noch " + String.format("%.2f", stockAddModalModel.getAmount()) + "% zur Verfügung!");
+
+        shareInfo.visibleProperty().bind(name.textProperty().isNotEmpty()
+            .and(symbol2.textProperty().isNotEmpty()
+                .and(exchange.textProperty().isNotEmpty()
+                    .and(currency.textProperty().isNotEmpty())
+                )
+            )
+        );
+
+        share.visibleProperty().bind(name.textProperty().isNotEmpty()
+                .and(symbol2.textProperty().isNotEmpty()
+                        .and(exchange.textProperty().isNotEmpty()
+                                .and(currency.textProperty().isNotEmpty())
+                        )
+                )
+        );
 
         search.disableProperty().bind(symbol.textProperty().isEmpty());
 
         share.disableProperty().bind(symbol2.textProperty().isEmpty()
-                .or(name.textProperty().isEmpty().or(
-                        exchange.textProperty().isEmpty().or(
-                                currency.textProperty().isEmpty())
-                )
+                .or(name.textProperty().isEmpty()
+                .or(exchange.textProperty().isEmpty()
+                .or(currency.textProperty().isEmpty()))
         ));
 
-        addAktie.disableProperty().bind(share.textProperty().isEmpty());
+        addStock.disableProperty().bind(share.textProperty().isEmpty());
 
         symbol.textProperty().addListener((observableValue, s, newValue) -> {
             if (newValue.matches("[0-9]")) {
@@ -91,27 +106,33 @@ public class StockAddModalController implements Initializable {
 
 
         share.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!newValue.matches("^(?=.*[0-9])\\d{0,2}(?:\\.\\d{0,2})?$") || Double.parseDouble(newValue) > stockAddModalModel.getAmount()) {
-                share.setText(oldValue);
+            if (!newValue.equals("")) {
+                if (!newValue.matches(regex)) {
+                    share.setText(oldValue);
+                } else {
+                    if (Double.parseDouble(newValue) > stockAddModalModel.getAmount()) {
+                        share.setText(oldValue);
+                    } else {
+                        stockAddModalModel.getStock().setShare(Double.parseDouble(newValue));
+                    }
+                }
             }
-            stockAddModalModel.getStock().setShare(Double.parseDouble(newValue));
-
         });
 
     }
 
     @FXML
     public void add() {
-        info.setText("");
-        if (entityAktien.add(stockAddModalModel.getStock())) {
+        if (entityStock.add(stockAddModalModel.getStock())) {
             stockController.getStocks();
             stockController.getComboBox().getSelectionModel().select(stockAddModalModel.getStock());
             SnackBar snackBar = new SnackBar(stockController.getPane());
             stage.close();
             snackBar.show("Aktie wurde erfolgreich hinzugefügt!");
         } else {
+            clear();
             SnackBar snackBar = new SnackBar(pane);
-            snackBar.show("Aktie konnte nicht hinzugefügt werden!");
+            snackBar.show("Aktie konnte nicht hinzugefügt werden,\nvermutlich existiert diese bereits!");
         }
 
     }
@@ -122,14 +143,23 @@ public class StockAddModalController implements Initializable {
         stockAddModalModel.setStock(stock);
 
         if (stock != null && !stock.getCurrency().equals("")) {
-            symbol.clear();
             name.setText(stockAddModalModel.getStock().getName());
             symbol2.setText(stockAddModalModel.getStock().getSymbol());
             exchange.setText(stockAddModalModel.getStock().getExchange());
             currency.setText(stockAddModalModel.getStock().getCurrency());
         } else {
+            clear();
            SnackBar snackBar = new SnackBar(pane);
            snackBar.show("Es wurde keine passende Aktie gefunden!");
         }
+    }
+
+    private void clear() {
+        symbol.clear();
+        symbol2.clear();
+        share.clear();
+        currency.clear();
+        exchange.clear();
+        name.clear();
     }
 }

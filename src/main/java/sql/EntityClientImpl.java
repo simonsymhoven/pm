@@ -12,6 +12,7 @@ import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,13 +62,15 @@ public class EntityClientImpl {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
-                    .forRevisionsOfEntity(Client.class, false, true)
+                    .forRevisionsOfEntity(Client.class, false, false)
                     .add(AuditEntity.id().eq(client.getId()));
+            query.add(AuditEntity.property("symbol").eq(client.getSymbol()));
 
             ArrayList<Object[]> list = (ArrayList) query.getResultList();
 
             list.forEach(object -> {
                 Client entity = (Client) object[0];
+                log.info("Client Audit: " + entity.getDepoValue());
                 DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) object[1];
                 RevisionType revisionType = (RevisionType) object[2];
                 revisions.add(new ClientRevision(entity, revisionEntity.getRevisionDate(), revisionType));
@@ -77,6 +80,37 @@ public class EntityClientImpl {
         }
 
         return revisions;
+    }
+
+    public boolean update(Client client) {
+        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            log.info("Client to Update: " + client.getId());
+            /*
+            Client clientToUpdate = session.load(Client.class, client.getId());
+            clientToUpdate.setDepoValue(client.getDepoValue());
+            clientToUpdate.setComment(client.getComment());
+            clientToUpdate.setStrategyAlternativeLowerLimit(client.getStrategyAlternativeLowerLimit());
+            clientToUpdate.setStrategyAlternativeTargetValue(client.getStrategyAlternativeTargetValue());
+            clientToUpdate.setStrategyAlternativeUpperLimit(client.getStrategyAlternativeUpperLimit());
+            clientToUpdate.setStrategyIoanLowerLimit(client.getStrategyIoanLowerLimit());
+            clientToUpdate.setStrategyIoanTargetValue(client.getStrategyIoanTargetValue());
+            clientToUpdate.setStrategyIoanUpperLimit(client.getStrategyIoanUpperLimit());
+            clientToUpdate.setStrategyLiquidityLowerLimit(client.getStrategyLiquidityLowerLimit());
+            clientToUpdate.setStrategyLiquidityTargetValue(client.getStrategyLiquidityTargetValue());
+            clientToUpdate.setStrategyLiquidityUpperLimit(client.getStrategyLiquidityUpperLimit());
+            clientToUpdate.setStrategyStocksLowerLimit(client.getStrategyStocksLowerLimit());
+            clientToUpdate.setStrategyStocksTargetValue(client.getStrategyStocksTargetValue());
+            clientToUpdate.setStrategyStocksUpperLimit(client.getStrategyStocksUpperLimit());
+             */
+            session.update(client);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            log.error(e);
+        }
+        return false;
     }
 
     public boolean removeStock(Client client, Stock stock) {

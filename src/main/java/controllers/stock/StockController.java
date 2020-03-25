@@ -109,7 +109,7 @@ public class StockController implements Initializable {
                 change.setText(NumberFormat.getCurrencyInstance()
                         .format(stockModel.getStock().getChange()));
 
-                share.setText((stockModel.getStock().getShare() + " %").replace(".", ","));
+                share.setText(String.format("%.2f", stockModel.getStock().getShare()) + " %");
 
                 plotStock();
 

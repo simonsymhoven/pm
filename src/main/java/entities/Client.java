@@ -27,33 +27,88 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Client implements Serializable {
-
-    public Client(String name, String symbol, double strategy, BigDecimal depoValue) {
+    public Client(
+            String name,
+            String symbol,
+            InvestmentStrategy investmentStrategy,
+            BigDecimal depoValue,
+            String comment) {
         this.name = name;
         this.symbol = symbol;
-        this.strategy = strategy;
+        // STOCK DIRECTIVE
+        this.strategyStocksLowerLimit = investmentStrategy.getStockInvestment().getLowerLimit();
+        this.strategyStocksTargetValue = investmentStrategy.getStockInvestment().getTarget();
+        this.strategyStocksUpperLimit = investmentStrategy.getStockInvestment().getUpperLimit();
+        // ALTERNATIVE DIRECTIVE
+        this.strategyAlternativeLowerLimit = investmentStrategy.getAltInvestment().getLowerLimit();
+        this.strategyAlternativeTargetValue = investmentStrategy.getAltInvestment().getTarget();
+        this.strategyAlternativeUpperLimit = investmentStrategy.getAltInvestment().getUpperLimit();
+        // IOAN DIRECTIVE
+        this.strategyIoanLowerLimit = investmentStrategy.getIoanInvestment().getLowerLimit();
+        this.strategyIoanTargetValue = investmentStrategy.getIoanInvestment().getTarget();
+        this.strategyIoanUpperLimit = investmentStrategy.getIoanInvestment().getUpperLimit();
+        // LIQUIDITY DIRECTIVE
+        this.strategyLiquidityLowerLimit = investmentStrategy.getLiquidityInvestment().getLowerLimit();
+        this.strategyLiquidityTargetValue = investmentStrategy.getLiquidityInvestment().getTarget();
+        this.strategyLiquidityUpperLimit = investmentStrategy.getLiquidityInvestment().getUpperLimit();
         this.depoValue = depoValue;
+        this.comment = comment;
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
     @Column(name = "name")
     private String name;
 
-
     @Column(name = "symbol", unique = true)
     private String symbol;
 
-    @Column(name = "strategy")
-    private double strategy;
+    @Column(name = "strategyStocksLowerLimit")
+    private double strategyStocksLowerLimit;
+
+    @Column(name = "strategyStocksTargetValue")
+    private double strategyStocksTargetValue;
+
+    @Column(name = "strategyStocksUpperLimit")
+    private double strategyStocksUpperLimit;
+
+    @Column(name = "strategyAlternativeLowerLimit")
+    private double strategyAlternativeLowerLimit;
+
+    @Column(name = "strategyAlternativeTargetValue")
+    private double strategyAlternativeTargetValue;
+
+    @Column(name = "strategyAlternativeUpperLimit")
+    private double strategyAlternativeUpperLimit;
+
+    @Column(name = "strategyIoanLowerLimit")
+    private double strategyIoanLowerLimit;
+
+    @Column(name = "strategyIoanTargetValue")
+    private double strategyIoanTargetValue;
+
+    @Column(name = "strategyIoanUpperLimit")
+    private double strategyIoanUpperLimit;
+
+    @Column(name = "strategyLiquidityLowerLimit")
+    private double strategyLiquidityLowerLimit;
+
+    @Column(name = "strategyLiquidityTargetValue")
+    private double strategyLiquidityTargetValue;
+
+    @Column(name = "strategyLiquidityUpperLimit")
+    private double strategyLiquidityUpperLimit;
 
     @Column(name = "depoValue")
     private BigDecimal depoValue;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @Column(name = "comment")
+    private String comment;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "Client_Stock",
             joinColumns = {
                     @JoinColumn(

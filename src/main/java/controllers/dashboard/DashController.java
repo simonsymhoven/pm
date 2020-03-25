@@ -263,7 +263,7 @@ public class DashController implements Initializable {
 
     private void createCounter(double value, Label label) {
         AtomicReference<Double> count = new AtomicReference<>((double) 0);
-        Timeline animation = new Timeline(new KeyFrame(Duration.millis(5), e -> {
+        Timeline animation = new Timeline(new KeyFrame(Duration.millis(1), e -> {
             if (count.get() <= value) {
                 count.getAndSet((count.get() + 1000));
                 String text = NumberFormat.getCurrencyInstance()
