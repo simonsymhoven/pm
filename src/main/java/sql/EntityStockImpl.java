@@ -47,28 +47,6 @@ public class EntityStockImpl {
         return false;
     }
 
-    public boolean update(Stock stock) {
-        log.info("STOCK TO UPDATE ; "  + stock.getId());
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-
-            YahooStockAPI yahooStockAPI = new YahooStockAPI();
-            Transaction transaction = session.beginTransaction();
-
-            Stock s = yahooStockAPI.getStock(stock.getSymbol());
-            Stock stockToUpdate = session.load(Stock.class, stock.getId());
-            stockToUpdate.setChange(s.getChange());
-            stockToUpdate.setPrice(s.getPrice());
-            session.save(stockToUpdate);
-
-            transaction.commit();
-            session.close();
-            return true;
-        } catch (HibernateException e) {
-            log.error(e);
-        }
-        return false;
-    }
-
     public boolean updateAll() {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
 

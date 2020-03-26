@@ -1,7 +1,7 @@
 package controllers.portfolio.stock;
 
 import entities.client.Client;
-import entities.client.ClientStock;
+import entities.client.clientStock.ClientStock;
 import entities.stock.Stock;
 import javafx.scene.input.DataFormat;
 import lombok.Data;

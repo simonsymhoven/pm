@@ -1,6 +1,7 @@
 package controllers.dashboard;
 
 import entities.stock.Stock;
+import json.JSONReader;
 import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;
 import controllers.login.LoginController;
@@ -20,9 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import json.JSONReaderImpl;
 import lombok.extern.log4j.Log4j2;
-import org.json.simple.parser.JSONParser;
 import sql.EntityClientImpl;
 import sql.EntityStockImpl;
 import java.math.BigDecimal;
@@ -74,13 +73,13 @@ public class DashController implements Initializable {
     private ObservableList<PieChart.Data> stockData;
 
     private DashModel dashModel;
-    private JSONReaderImpl jsonReader;
+    private JSONReader jsonReader;
     private EntityStockImpl entityStock;
     private EntityClientImpl entityClient;
 
     public DashController() {
         this.dashModel = new DashModel();
-        this.jsonReader = new JSONReaderImpl(new JSONParser());
+        this.jsonReader = new JSONReader();
         this.entityStock = new EntityStockImpl();
         this.entityClient = new EntityClientImpl();
 
@@ -126,6 +125,13 @@ public class DashController implements Initializable {
     }
 
     private void setupAnimation(ObservableList<PieChart.Data> data, Label label) {
+        if (data.size() == 0) {
+            if (label.getId().equals("labelMarkets")) {
+                label.setText("Es sind noch keine Märkte zur Auswertung vorhanden!");
+            } else {
+                label.setText("Es sind noch keine Aktien im Musterportfolio zur Auswertung vorhanden!");
+            }
+        }
         data.forEach(pieData -> pieData.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (label.getId().equals("labelMarkets")) {
                 label.setText(pieData.getName() + ": " +  pieData.getPieValue() + " Stk.");
@@ -222,7 +228,6 @@ public class DashController implements Initializable {
         List<Stock> stocks = entityStock.getAll();
         List<PieChart.Data> list = new ArrayList<>();
         if (!stocks.isEmpty()) {
-            createCounter(stocks.size(), counterMarkets);
             Map<String, Integer> map = new HashMap<>();
             stocks.forEach(stock -> {
                 if (map.containsKey(stock.getExchange())) {
@@ -232,8 +237,8 @@ public class DashController implements Initializable {
                     map.put(stock.getExchange(), 1);
                 }
             });
-
             map.forEach((key, value) -> list.add(new PieChart.Data(key, value)));
+            createCounter(list.size(), counterMarkets);
         }
         return FXCollections.observableArrayList(list);
     }

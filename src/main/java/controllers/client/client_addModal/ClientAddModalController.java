@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
 import entities.client.Client;
-import entities.client.investement.InvestmentStrategy;
+import entities.investment.InvestmentStrategy;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

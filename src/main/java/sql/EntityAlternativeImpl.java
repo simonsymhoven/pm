@@ -47,27 +47,6 @@ public class EntityAlternativeImpl {
         return false;
     }
 
-    public boolean update(Alternative alternative) {
-        log.info("STOCK TO UPDATE ; "  + alternative.getId());
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-
-            YahooStockAPI yahooStockAPI = new YahooStockAPI();
-            Transaction transaction = session.beginTransaction();
-
-            Alternative s = yahooStockAPI.getAlternative(alternative.getSymbol());
-            Alternative alternativeToUpdate = session.load(Alternative.class, alternative.getId());
-            alternativeToUpdate.setChange(s.getChange());
-            alternativeToUpdate.setPrice(s.getPrice());
-            session.save(alternativeToUpdate);
-
-            transaction.commit();
-            session.close();
-            return true;
-        } catch (HibernateException e) {
-            log.error(e);
-        }
-        return false;
-    }
 
     public boolean updateAll() {
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {

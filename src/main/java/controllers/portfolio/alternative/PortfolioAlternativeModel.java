@@ -2,7 +2,7 @@ package controllers.portfolio.alternative;
 
 import entities.alternative.Alternative;
 import entities.client.Client;
-import entities.client.ClientAlternative;
+import entities.client.clientAlternative.ClientAlternative;
 import javafx.scene.input.DataFormat;
 import lombok.Data;
 

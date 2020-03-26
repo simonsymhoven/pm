@@ -1,7 +1,7 @@
 package entities.client;
 
 import entities.alternative.Alternative;
-import entities.client.investement.InvestmentStrategy;
+import entities.investment.InvestmentStrategy;
 import entities.stock.Stock;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import javax.persistence.Column;
+import javax.persistence.OneToOne;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
@@ -38,22 +39,7 @@ public class Client implements Serializable {
             String comment) {
         this.name = name;
         this.symbol = symbol;
-        // STOCK DIRECTIVE
-        this.strategyStocksLowerLimit = investmentStrategy.getStockInvestment().getLowerLimit();
-        this.strategyStocksTargetValue = investmentStrategy.getStockInvestment().getTarget();
-        this.strategyStocksUpperLimit = investmentStrategy.getStockInvestment().getUpperLimit();
-        // ALTERNATIVE DIRECTIVE
-        this.strategyAlternativeLowerLimit = investmentStrategy.getAltInvestment().getLowerLimit();
-        this.strategyAlternativeTargetValue = investmentStrategy.getAltInvestment().getTarget();
-        this.strategyAlternativeUpperLimit = investmentStrategy.getAltInvestment().getUpperLimit();
-        // IOAN DIRECTIVE
-        this.strategyIoanLowerLimit = investmentStrategy.getIoanInvestment().getLowerLimit();
-        this.strategyIoanTargetValue = investmentStrategy.getIoanInvestment().getTarget();
-        this.strategyIoanUpperLimit = investmentStrategy.getIoanInvestment().getUpperLimit();
-        // LIQUIDITY DIRECTIVE
-        this.strategyLiquidityLowerLimit = investmentStrategy.getLiquidityInvestment().getLowerLimit();
-        this.strategyLiquidityTargetValue = investmentStrategy.getLiquidityInvestment().getTarget();
-        this.strategyLiquidityUpperLimit = investmentStrategy.getLiquidityInvestment().getUpperLimit();
+        this.investmentStrategy = investmentStrategy;
         this.depoValue = depoValue;
         this.comment = comment;
     }
@@ -69,47 +55,16 @@ public class Client implements Serializable {
     @Column(name = "symbol", unique = true)
     private String symbol;
 
-    @Column(name = "strategyStocksLowerLimit")
-    private double strategyStocksLowerLimit;
-
-    @Column(name = "strategyStocksTargetValue")
-    private double strategyStocksTargetValue;
-
-    @Column(name = "strategyStocksUpperLimit")
-    private double strategyStocksUpperLimit;
-
-    @Column(name = "strategyAlternativeLowerLimit")
-    private double strategyAlternativeLowerLimit;
-
-    @Column(name = "strategyAlternativeTargetValue")
-    private double strategyAlternativeTargetValue;
-
-    @Column(name = "strategyAlternativeUpperLimit")
-    private double strategyAlternativeUpperLimit;
-
-    @Column(name = "strategyIoanLowerLimit")
-    private double strategyIoanLowerLimit;
-
-    @Column(name = "strategyIoanTargetValue")
-    private double strategyIoanTargetValue;
-
-    @Column(name = "strategyIoanUpperLimit")
-    private double strategyIoanUpperLimit;
-
-    @Column(name = "strategyLiquidityLowerLimit")
-    private double strategyLiquidityLowerLimit;
-
-    @Column(name = "strategyLiquidityTargetValue")
-    private double strategyLiquidityTargetValue;
-
-    @Column(name = "strategyLiquidityUpperLimit")
-    private double strategyLiquidityUpperLimit;
-
     @Column(name = "depoValue")
     private BigDecimal depoValue;
 
     @Column(name = "comment")
     private String comment;
+
+    @NotAudited
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "strategy_id")
+    private InvestmentStrategy investmentStrategy;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "Client_Stock",

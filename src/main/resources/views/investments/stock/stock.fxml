@@ -26,16 +26,7 @@
       <JFXTextField fx:id="price" editable="false" labelFloat="true" layoutX="89.0" layoutY="235.0" prefHeight="25.0" prefWidth="170.0" promptText="Preis" stylesheets="@../../../fullpackstyling.css" />
       <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="291.0" layoutY="235.0" prefHeight="27.0" prefWidth="170.0" promptText="Veränderung zum Vortag" stylesheets="@../../../fullpackstyling.css" />
       <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="685.0" layoutY="176.0" prefHeight="25.0" prefWidth="170.0" promptText="Währung" stylesheets="@../../../fullpackstyling.css" />
-      <JFXButton fx:id="updateStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="841.0" layoutY="56.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
-         <graphic>
-            <ImageView fitHeight="49.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../icons/cloud-sync.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="showAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="783.0" layoutY="61.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
+      <JFXButton fx:id="showAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="61.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -44,7 +35,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="deleteStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="725.0" layoutY="61.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
+      <JFXButton fx:id="deleteStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="755.0" layoutY="61.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -53,7 +44,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="addStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="667.0" layoutY="60.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
+      <JFXButton fx:id="addStock" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="697.0" layoutY="61.0" ripplerFill="#ffffff00" style="-fx-border-radius: 40px;; -fx-background-radius: 40px;;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>

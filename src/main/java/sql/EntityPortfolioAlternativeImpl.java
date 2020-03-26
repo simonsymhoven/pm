@@ -2,7 +2,7 @@ package sql;
 
 import entities.alternative.Alternative;
 import entities.client.Client;
-import entities.client.ClientAlternative;
+import entities.client.clientAlternative.ClientAlternative;
 import entities.portfolio.PortfolioAlternativeRevision;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.HibernateException;

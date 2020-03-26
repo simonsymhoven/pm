@@ -1,7 +1,7 @@
 package controllers.investments.stocks;
 
 import com.jfoenix.controls.JFXButton;
-import entities.client.ClientStock;
+import entities.client.clientStock.ClientStock;
 import entities.stock.Stock;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
@@ -64,8 +64,6 @@ public class StockController implements Initializable {
     @FXML
     private JFXButton addStock;
     @FXML
-    private JFXButton updateStock;
-    @FXML
     private JFXButton deleteStock;
     @FXML
     private JFXButton showAudit;
@@ -86,7 +84,6 @@ public class StockController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateStock.disableProperty().bind(comboBox.valueProperty().isNull());
         showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
         deleteStock.setDisable(true);
         getStocks();
@@ -191,21 +188,6 @@ public class StockController implements Initializable {
             } else {
                 SnackBar snackBar = new SnackBar(pane);
                 snackBar.show("Aktie konnte nicht gelöscht werden!");
-            }
-        });
-
-        updateStock.setOnMouseClicked(e -> {
-            // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
-
-            log.info("BUGGY2?: " + stockModel.getStock().getId());
-
-            Stock selectedStock = comboBox.getSelectionModel().getSelectedItem();
-            if (entityStock.update(selectedStock)) {
-                comboBox.getItems().remove(selectedStock);
-                getStocks();
-                comboBox.getSelectionModel().select(selectedStock);
-                SnackBar snackBar = new SnackBar(pane);
-                snackBar.show("Aktie " + stockModel.getStock().getName() + " wurde erfolgreich aktualisiert.");
             }
         });
     }

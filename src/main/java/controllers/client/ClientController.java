@@ -114,18 +114,18 @@ public class ClientController implements Initializable {
                 label.setText(clientModel.getClient().getName());
                 name.setText(clientModel.getClient().getName());
                 symbol.setText(clientModel.getClient().getSymbol());
-                strategyAlternativeLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategyAlternativeLowerLimit()) + " %");
-                strategyAlternativeTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategyAlternativeTargetValue()) + " %");
-                strategyAlternativeUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategyAlternativeUpperLimit()) + " %");
-                strategyIoanLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategyIoanLowerLimit()) + " %");
-                strategyIoanTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategyIoanTargetValue()) + " %");
-                strategyIoanUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategyIoanUpperLimit()) + " %");
-                strategyStocksLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategyStocksLowerLimit()) + " %");
-                strategyStocksTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategyStocksTargetValue()) + " %");
-                strategyStocksUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategyStocksUpperLimit()) + " %");
-                strategyLiquidityLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategyLiquidityLowerLimit()) + " %");
-                strategyLiquidityTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategyLiquidityTargetValue()) + " %");
-                strategyLiquidityUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategyLiquidityUpperLimit()) + " %");
+                strategyAlternativeLowerLimit.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getAltInvestment().getLowerLimit()) + " %");
+                strategyAlternativeTargetValue.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getAltInvestment().getTarget()) + " %");
+                strategyAlternativeUpperLimit.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getAltInvestment().getUpperLimit()) + " %");
+                strategyIoanLowerLimit.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getIoanInvestment().getLowerLimit()) + " %");
+                strategyIoanTargetValue.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getIoanInvestment().getTarget()) + " %");
+                strategyIoanUpperLimit.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getIoanInvestment().getUpperLimit()) + " %");
+                strategyStocksLowerLimit.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getStockInvestment().getLowerLimit()) + " %");
+                strategyStocksTargetValue.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getStockInvestment().getTarget()) + " %");
+                strategyStocksUpperLimit.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getStockInvestment().getUpperLimit()) + " %");
+                strategyLiquidityLowerLimit.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getLiquidityInvestment().getLowerLimit()) + " %");
+                strategyLiquidityTargetValue.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getLiquidityInvestment().getTarget()) + " %");
+                strategyLiquidityUpperLimit.setText(String.format("%.2f", clientModel.getClient().getInvestmentStrategy().getLiquidityInvestment().getUpperLimit()) + " %");
 
                 depoValue.setText(NumberFormat.getCurrencyInstance()
                         .format(clientModel.getClient().getDepoValue())
@@ -250,17 +250,17 @@ public class ClientController implements Initializable {
 
     private ObservableList<PieChart.Data> loadClientStrategyData() {
         List<PieChart.Data> list = new ArrayList<>();
-        if (clientModel.getClient().getStrategyStocksTargetValue() != 0) {
-            list.add(new PieChart.Data("Aktien", clientModel.getClient().getStrategyStocksTargetValue()));
+        if (clientModel.getClient().getInvestmentStrategy().getStockInvestment().getTarget() != 0) {
+            list.add(new PieChart.Data("Aktien", clientModel.getClient().getInvestmentStrategy().getStockInvestment().getTarget()));
         }
-        if (clientModel.getClient().getStrategyAlternativeTargetValue() != 0) {
-            list.add(new PieChart.Data("alt. Investments", clientModel.getClient().getStrategyAlternativeTargetValue()));
+        if (clientModel.getClient().getInvestmentStrategy().getAltInvestment().getTarget() != 0) {
+            list.add(new PieChart.Data("alt. Investments", clientModel.getClient().getInvestmentStrategy().getAltInvestment().getTarget()));
         }
-        if (clientModel.getClient().getStrategyIoanTargetValue() != 0) {
-            list.add(new PieChart.Data("Anleihen", clientModel.getClient().getStrategyIoanTargetValue()));
+        if (clientModel.getClient().getInvestmentStrategy().getIoanInvestment().getTarget() != 0) {
+            list.add(new PieChart.Data("Anleihen", clientModel.getClient().getInvestmentStrategy().getIoanInvestment().getTarget()));
         }
-        if (clientModel.getClient().getStrategyLiquidityTargetValue() != 0) {
-            list.add(new PieChart.Data("Liquidität", clientModel.getClient().getStrategyLiquidityTargetValue()));
+        if (clientModel.getClient().getInvestmentStrategy().getLiquidityInvestment().getTarget() != 0) {
+            list.add(new PieChart.Data("Liquidität", clientModel.getClient().getInvestmentStrategy().getLiquidityInvestment().getTarget()));
         }
 
         return FXCollections.observableArrayList(list);

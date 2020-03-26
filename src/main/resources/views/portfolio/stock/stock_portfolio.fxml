@@ -12,27 +12,27 @@
 
 <AnchorPane fx:id="pane" prefHeight="708.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.portfolio.stock.PortfolioStockController">
    <children>
-      <Label layoutX="58.0" layoutY="119.0" text="Aktien" textFill="#383839">
+      <Label layoutX="58.0" layoutY="153.0" text="Aktien" textFill="#383839">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="674.0" layoutY="119.0" text="Client" textFill="#383839">
+      <Label layoutX="674.0" layoutY="153.0" text="Client" textFill="#383839">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="name" editable="false" labelFloat="true" layoutX="353.0" layoutY="164.0" prefHeight="25.0" prefWidth="284.0" promptText="Name" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="symbol" editable="false" labelFloat="true" layoutX="353.0" layoutY="220.0" prefHeight="25.0" prefWidth="284.0" promptText="Symbol" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="exchange" editable="false" labelFloat="true" layoutX="353.0" layoutY="273.0" prefHeight="25.0" prefWidth="284.0" promptText="Exchange" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="price" editable="false" labelFloat="true" layoutX="353.0" layoutY="326.0" prefHeight="25.0" prefWidth="284.0" promptText="Preis" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="353.0" layoutY="380.0" prefHeight="25.0" prefWidth="284.0" promptText="Änderung zum Vortag" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="353.0" layoutY="437.0" prefHeight="25.0" prefWidth="284.0" promptText="Währung" stylesheets="@../../../fullpackstyling.css" />
-      <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="392.0" layoutY="78.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" />
-      <JFXListView fx:id="stockList" layoutX="58.0" layoutY="150.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../../fullpackstyling.css" />
-      <JFXListView fx:id="stockListClient" layoutX="674.0" layoutY="150.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="quantity" editable="false" labelFloat="true" layoutX="350.0" layoutY="503.0" prefHeight="27.0" prefWidth="284.0" promptText="Anzahl" stylesheets="@../../../fullpackstyling.css" />
-      <JFXButton fx:id="showAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="878.0" layoutY="67.0" ripplerFill="WHITE" style="-fx-background-radius: 40px;; -fx-border-radius: 40px;;">
+      <JFXTextField fx:id="name" editable="false" labelFloat="true" layoutX="353.0" layoutY="198.0" prefHeight="25.0" prefWidth="284.0" promptText="Name" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="symbol" editable="false" labelFloat="true" layoutX="353.0" layoutY="254.0" prefHeight="25.0" prefWidth="284.0" promptText="Symbol" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="exchange" editable="false" labelFloat="true" layoutX="353.0" layoutY="307.0" prefHeight="25.0" prefWidth="284.0" promptText="Exchange" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="price" editable="false" labelFloat="true" layoutX="353.0" layoutY="360.0" prefHeight="25.0" prefWidth="284.0" promptText="Preis" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="353.0" layoutY="414.0" prefHeight="25.0" prefWidth="284.0" promptText="Änderung zum Vortag" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="353.0" layoutY="471.0" prefHeight="25.0" prefWidth="284.0" promptText="Währung" stylesheets="@../../../fullpackstyling.css" />
+      <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="360.0" layoutY="73.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" />
+      <JFXListView fx:id="stockList" layoutX="58.0" layoutY="184.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../../fullpackstyling.css" />
+      <JFXListView fx:id="stockListClient" layoutX="674.0" layoutY="184.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="quantity" editable="false" labelFloat="true" layoutX="350.0" layoutY="537.0" prefHeight="27.0" prefWidth="284.0" promptText="Anzahl" stylesheets="@../../../fullpackstyling.css" />
+      <JFXButton fx:id="showAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="61.0" ripplerFill="WHITE" style="-fx-background-radius: 40px;; -fx-border-radius: 40px;;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -41,16 +41,16 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <ImageView fitHeight="38.0" fitWidth="39.0" layoutX="341.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="312.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../icons/mann.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="shareTarget" editable="false" labelFloat="true" layoutX="58.0" layoutY="610.0" prefHeight="27.0" prefWidth="138.0" promptText="Anteil Soll (%)" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="shareActual" editable="false" labelFloat="true" layoutX="209.0" layoutY="610.0" prefHeight="27.0" prefWidth="138.0" promptText="Anteil Ist (%)" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="diffRelative" editable="false" labelFloat="true" layoutX="358.0" layoutY="610.0" prefHeight="27.0" prefWidth="138.0" promptText="Relativ (%)" stylesheets="@../../../fullpackstyling.css" />
-      <JFXTextField fx:id="diffAbsolute" editable="false" labelFloat="true" layoutX="515.0" layoutY="610.0" prefHeight="27.0" prefWidth="138.0" promptText="Absolut (Stk.)" stylesheets="@../../../fullpackstyling.css" />
-      <JFXButton id="button" fx:id="update" buttonType="RAISED" layoutX="809.0" layoutY="591.0" onAction="#refresh" prefHeight="50.0" prefWidth="125.0" ripplerFill="BLACK" stylesheets="@../../../fullpackstyling.css" text="Speichern">
+      <JFXTextField fx:id="shareTarget" editable="false" labelFloat="true" layoutX="58.0" layoutY="644.0" prefHeight="27.0" prefWidth="138.0" promptText="Anteil Soll (%)" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="shareActual" editable="false" labelFloat="true" layoutX="209.0" layoutY="644.0" prefHeight="27.0" prefWidth="138.0" promptText="Anteil Ist (%)" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="diffRelative" editable="false" labelFloat="true" layoutX="358.0" layoutY="644.0" prefHeight="27.0" prefWidth="138.0" promptText="Relativ (%)" stylesheets="@../../../fullpackstyling.css" />
+      <JFXTextField fx:id="diffAbsolute" editable="false" labelFloat="true" layoutX="515.0" layoutY="644.0" prefHeight="27.0" prefWidth="138.0" promptText="Absolut (Stk.)" stylesheets="@../../../fullpackstyling.css" />
+      <JFXButton id="button" fx:id="update" buttonType="RAISED" layoutX="809.0" layoutY="625.0" onAction="#refresh" prefHeight="50.0" prefWidth="125.0" ripplerFill="BLACK" stylesheets="@../../../fullpackstyling.css" text="Speichern">
          <font>
             <Font size="17.0" />
          </font></JFXButton>

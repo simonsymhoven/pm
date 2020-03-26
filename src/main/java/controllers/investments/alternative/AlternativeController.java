@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import entities.alternative.Alternative;
-import entities.client.ClientAlternative;
+import entities.client.clientAlternative.ClientAlternative;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -63,8 +63,6 @@ public class AlternativeController implements Initializable {
     @FXML
     private JFXButton addAlternative;
     @FXML
-    private JFXButton updateAlternative;
-    @FXML
     private JFXButton deleteAlternative;
     @FXML
     private JFXButton showAudit;
@@ -85,7 +83,6 @@ public class AlternativeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        updateAlternative.disableProperty().bind(comboBox.valueProperty().isNull());
         showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
         deleteAlternative.setDisable(true);
         getAlternatives();
@@ -187,17 +184,6 @@ public class AlternativeController implements Initializable {
             } else {
                 SnackBar snackBar = new SnackBar(pane);
                 snackBar.show("Alternatives Investment  nicht gelöscht werden!");
-            }
-        });
-
-        updateAlternative.setOnMouseClicked(e -> {
-            Alternative selectedStock = comboBox.getSelectionModel().getSelectedItem();
-            if (entityAlternative.update(selectedStock)) {
-                comboBox.getItems().remove(selectedStock);
-                getAlternatives();
-                comboBox.getSelectionModel().select(selectedStock);
-                SnackBar snackBar = new SnackBar(pane);
-                snackBar.show("Alternatives Investment " + alternativeModel.getAlternative().getName() + " wurde erfolgreich aktualisiert.");
             }
         });
     }

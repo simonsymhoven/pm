@@ -8,13 +8,12 @@ import entities.user.User;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
+import json.JSONReader;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import org.json.simple.parser.JSONParser;
 import org.mindrot.jbcrypt.BCrypt;
 import sql.EntityUserImpl;
 import sql.DatabaseFactory;
-import json.JSONReaderImpl;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,7 +51,7 @@ public class LoginController implements Initializable {
     private double x = 0;
     private double y = 0;
     private EntityUserImpl entityUser = new EntityUserImpl();
-    private JSONReaderImpl jsonReader = new JSONReaderImpl(new JSONParser());
+    private JSONReader jsonReader = new JSONReader();
 
     @FXML
     public void validate() throws IOException {
@@ -67,8 +66,6 @@ public class LoginController implements Initializable {
                 loggedUser = user;
                 if (checkBox.isSelected()) {
                     jsonReader.write("user", username);
-                } else {
-                    jsonReader.write("user", "");
                 }
 
                 loadNewStage();
@@ -102,7 +99,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (entityUser.getAll().size() > 0) {
+        if (!entityUser.getAll().isEmpty()) {
             userName.setText(jsonReader.read("user").toString());
         }
         checkBox.setSelected(true);

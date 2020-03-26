@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" style="-fx-border-color: #343f4a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.portfolio.stock.portfolio_stock_auditModal.PortfolioAuditModalController">
+<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" style="-fx-border-color: #343f4a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.portfolio.stock.portfolio_stock_auditModal.PortfolioStockAuditModalController">
    <children>
       <Label layoutX="40.0" layoutY="42.0" text="Portfolio Audit" textFill="#343f4a">
          <font>

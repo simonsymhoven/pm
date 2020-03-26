@@ -1,6 +1,6 @@
 package entities.portfolio;
 
-import entities.client.ClientAlternative;
+import entities.client.clientAlternative.ClientAlternative;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.hibernate.envers.RevisionType;

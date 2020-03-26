@@ -1,8 +1,8 @@
 package controllers.client.client_editModal;
 
 import entities.client.Client;
-import entities.client.investement.Investment;
-import entities.client.investement.InvestmentDirective;
+import entities.investment.Investment;
+import entities.investment.InvestmentDirective;
 import lombok.Data;
 
 import java.math.BigDecimal;

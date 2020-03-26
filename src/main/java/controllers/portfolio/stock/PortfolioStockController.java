@@ -5,8 +5,8 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import entities.client.Client;
-import entities.client.ClientStock;
-import entities.client.ClientStockKey;
+import entities.client.clientStock.ClientStock;
+import entities.client.clientStock.ClientStockKey;
 import entities.stock.Stock;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -184,7 +184,7 @@ public class PortfolioStockController implements Initializable {
                         int i = Integer.parseInt(newValue);
                         if (i > 0) {
                             portfolioStockModel.setQuantity(i);
-                            calculateDepot();
+                            calculate();
                             replaceClientStock();
                         }
                     } catch (Exception e) {
@@ -241,10 +241,10 @@ public class PortfolioStockController implements Initializable {
 
     }
 
-    private void calculateDepot() {
+    private void calculate() {
         // SHARE SOLL
         double shareValue = (portfolioStockModel.getStock().getShare() / 100.0)
-                * (portfolioStockModel.getClient().getStrategyStocksTargetValue() / 100.0) * 100.0;
+                * (portfolioStockModel.getClient().getInvestmentStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
         portfolioStockModel.setShareTarget(shareValue);
 
         // SHARE IST
@@ -381,7 +381,7 @@ public class PortfolioStockController implements Initializable {
             }
         } else if (listView.getId().equals("stockList")) {
             double shareValue =
-                    (selectedStock.getShare() / 100.0) * (portfolioStockModel.getClient().getStrategyStocksTargetValue() / 100.0) * 100.0;
+                    (selectedStock.getShare() / 100.0) * (portfolioStockModel.getClient().getInvestmentStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
             ClientStock clientStock = new ClientStock(
                     new ClientStockKey(portfolioStockModel.getClient().getId(), selectedStock.getId()),
                     portfolioStockModel.getClient(),

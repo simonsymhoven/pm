@@ -33,11 +33,11 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Dashboard" textFill="WHITE" userData="/views/dash.fxml">
+            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Dashboard" textFill="WHITE" userData="/views/dashboard/dash_tabpane.fxml">
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/instrumententafel.png" />
+                             <Image url="@../icons/dashboard.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -54,7 +54,7 @@
                   <Insets right="50.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Kunden" textFill="WHITE" userData="/views/client/clients.fxml">
+            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Clienten" textFill="WHITE" userData="/views/client/client_tabpane.fxml">
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
@@ -73,7 +73,7 @@
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/clover.png" />
+                             <Image url="@../icons/money-bag.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -88,7 +88,7 @@
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/diamant.png" />
+                             <Image url="@../icons/launch.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -103,7 +103,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/ausloggen.png" />
+                        <Image url="@../icons/house.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -137,7 +137,7 @@
    </left>
 
    <center>
-       <fx:include source="dash.fxml" />
+       <fx:include source="dashboard/dash_tabpane.fxml" />
    </center>
    <top>
       <AnchorPane prefHeight="40.0" prefWidth="1241.0" style="-fx-background-color: #343f4a #343f4a;" BorderPane.alignment="CENTER">
