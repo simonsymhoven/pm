@@ -1,9 +1,9 @@
-package controllers.portfolio.stock.portfolio_stock_auditModal;
+package controllers.portfolio.alternative.portfolio_alternative_auditModal;
 
 import com.jfoenix.controls.JFXButton;
 import controllers.client.Box;
 import controllers.portfolio.alternative.PortfolioAlternativeController;
-import entities.client.ClientAlternative;
+import entities.client.clientAlternative.ClientAlternative;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class PortfolioAuditModalController implements Initializable {
+public class PortfolioAlternativeAuditModalController implements Initializable {
     @FXML
     private JFXButton close;
     @FXML
@@ -26,14 +26,14 @@ public class PortfolioAuditModalController implements Initializable {
     @FXML
     private ScrollPane scrollPane;
 
-    private PortfolioAuditModalModel portfolioAuditModalModel;
+    private PortfolioAlternativeAuditModalModel portfolioAlternativeAuditModalModel;
     private PortfolioAlternativeController portfolioAlternativeController;
     private EntityPortfolioAlternativeImpl entityPortfolioAlternative;
     private Stage stage;
 
-    public PortfolioAuditModalController() {
+    public PortfolioAlternativeAuditModalController() {
         this.entityPortfolioAlternative = new EntityPortfolioAlternativeImpl();
-        this.portfolioAuditModalModel = new PortfolioAuditModalModel();
+        this.portfolioAlternativeAuditModalModel = new PortfolioAlternativeAuditModalModel();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class PortfolioAuditModalController implements Initializable {
             stage = (Stage) pane.getScene().getWindow();
             portfolioAlternativeController = (PortfolioAlternativeController) stage.getUserData();
 
-                portfolioAuditModalModel.setRevisions(
+                portfolioAlternativeAuditModalModel.setRevisions(
                     new ArrayList<>(entityPortfolioAlternative.getAudit(portfolioAlternativeController.getPortfolioAlternativeModel().getClient()))
             );
 
@@ -51,7 +51,7 @@ public class PortfolioAuditModalController implements Initializable {
             vBox.setPrefWidth(550);
 
             Box box = new Box();
-            portfolioAuditModalModel.getRevisions().forEach(revision -> {
+            portfolioAlternativeAuditModalModel.getRevisions().forEach(revision -> {
                 HBox hbox = box.generateAuditHBox(revision.getRevisionType(), revision.getRevisionDate(),
                         clientAlternativeToString(revision.getClientAlternative(), revision.getRevisionType()));
                 vBox.getChildren().add(hbox);
