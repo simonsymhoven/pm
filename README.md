@@ -7,7 +7,7 @@
 ## Todo
 * check license of icons
 * rework of audit log for clients, stocks and join tables (client_stock & alternative_stock)
--> maybe show as json? 
+ --> maybe show as json? 
 * setup codecov for jenkins pipeline
 * release MVP 
 
