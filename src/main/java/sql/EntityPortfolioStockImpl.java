@@ -84,7 +84,7 @@ public class EntityPortfolioStockImpl {
 
                 revisions.add(new PortfolioStockRevision(clientStock, revisionEntity.getRevisionDate(), revisionType));
             });
-
+            session.close();
         } catch (HibernateException e) {
             log.error(e);
         }

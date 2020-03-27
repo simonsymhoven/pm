@@ -91,11 +91,13 @@ public class StockController implements Initializable {
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             deleteStock.setDisable(false);
             if (newValue != null) {
+                stockModel.setStock(newValue);
+
                 List<ClientStock> list =  entityPortfolio.getAllForStock(newValue);
                 if (list.size() > 0) {
                     deleteStock.setDisable(true);
                 }
-                stockModel.setStock(newValue);
+
                 currency.setText(stockModel.getStock().getCurrency());
                 label.setText(stockModel.getStock().getName());
                 name.setText(stockModel.getStock().getName());
@@ -111,15 +113,7 @@ public class StockController implements Initializable {
                 plotStock();
 
             } else {
-                currency.clear();
-                label.setText("");
-                name.clear();
-                symbol.clear();
-                exchange.clear();
-                price.clear();
-                change.clear();
-                imgView.setImage(null);
-                share.clear();
+                clear();
             }
 
         });
@@ -230,6 +224,12 @@ public class StockController implements Initializable {
                 comboBox.getItems().add(c);
             }
         });
+    }
+
+    private void clear() {
+        pane.getChildren()
+                .filtered(node -> node instanceof JFXTextField)
+                .forEach(node -> ((JFXTextField) node).clear());
     }
 
 }

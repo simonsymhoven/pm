@@ -130,32 +130,21 @@ public class StockAddModalController implements Initializable {
             SnackBar snackBar = new SnackBar(pane);
             snackBar.show("Aktie konnte nicht hinzugefügt werden,\nvermutlich existiert diese bereits!");
         }
-
     }
 
     @FXML
     public void searchAktie() {
         Stock stock = yahooStockAPI.getStock(stockAddModalModel.getSymbol());
         stockAddModalModel.setStock(stock);
-
-        if (stock != null && !stock.getCurrency().equals("")) {
-            name.setText(stockAddModalModel.getStock().getName());
-            symbol2.setText(stockAddModalModel.getStock().getSymbol());
-            exchange.setText(stockAddModalModel.getStock().getExchange());
-            currency.setText(stockAddModalModel.getStock().getCurrency());
-        } else {
-            clear();
-           SnackBar snackBar = new SnackBar(pane);
-           snackBar.show("Es wurde keine passende Aktie gefunden!");
-        }
+        name.setText(stockAddModalModel.getStock().getName());
+        symbol2.setText(stockAddModalModel.getStock().getSymbol());
+        exchange.setText(stockAddModalModel.getStock().getExchange());
+        currency.setText(stockAddModalModel.getStock().getCurrency());
     }
 
     private void clear() {
-        symbol.clear();
-        symbol2.clear();
-        share.clear();
-        currency.clear();
-        exchange.clear();
-        name.clear();
+        pane.getChildren()
+                .filtered(node -> node instanceof JFXTextField)
+                .forEach(node -> ((JFXTextField) node).clear());
     }
 }

@@ -97,6 +97,7 @@ public class EntityStockImpl {
                     RevisionType revisionType = (RevisionType) triplet[2];
                     revisions.add(new StockRevision(entity, revisionEntity.getRevisionDate(), revisionType));
             });
+            session.close();
         } catch (HibernateException e) {
             log.error(e);
         }

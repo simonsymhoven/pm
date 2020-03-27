@@ -84,6 +84,7 @@ public class EntityPortfolioAlternativeImpl {
                 revisions.add(new PortfolioAlternativeRevision(clientAlternative, revisionEntity.getRevisionDate(), revisionType));
             });
 
+            session.close();
         } catch (HibernateException e) {
             log.error(e);
         }

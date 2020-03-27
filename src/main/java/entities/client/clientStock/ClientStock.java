@@ -56,7 +56,7 @@ public class ClientStock {
         @NotAudited
         public void calculate() {
                 double shareValue = (getStock().getShare() / 100.0)
-                        * (getClient().getStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
+                        * (getClient().getStrategy().getStockTarget() / 100.0) * 100.0;
                 this.setShareTarget(shareValue);
 
                 double valueNewStock = getStock().getPrice().doubleValue() * getQuantity();

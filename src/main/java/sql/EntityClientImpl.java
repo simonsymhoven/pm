@@ -24,7 +24,7 @@ public class EntityClientImpl {
     public List<Client> getAll() {
         List<Client> clients = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-             clients = session.createQuery("FROM Client", Client.class).getResultList();
+            clients = session.createQuery("FROM Client", Client.class).getResultList();
             session.close();
         } catch (HibernateException e) {
             log.error(e);
@@ -76,6 +76,7 @@ public class EntityClientImpl {
                 RevisionType revisionType = (RevisionType) object[2];
                 revisions.add(new ClientRevision(entity, revisionEntity.getRevisionDate(), revisionType));
             });
+            session.close();
         } catch (HibernateException e) {
             log.error(e);
         }
@@ -84,14 +85,17 @@ public class EntityClientImpl {
     }
 
     public boolean update(Client client) {
+        Transaction transaction = null;
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-            Transaction transaction = session.beginTransaction();
-            log.info("Client to Update: " + client.getId());
-            session.update(client);
+            transaction = session.beginTransaction();
+            session.saveOrUpdate(client);
             transaction.commit();
             session.close();
             return true;
         } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             log.error(e);
         }
         return false;

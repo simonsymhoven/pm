@@ -40,8 +40,6 @@ public class AlternativeAddModalController implements Initializable {
     private EntityAlternativeImpl entityAlternative;
     private AlternativeController alternativeController;
     private Stage stage;
-    private String regex = "^(([1-9][0-9]*)|0)?(\\.[0-9]*)?";
-
     public AlternativeAddModalController() {
         this.alternativeAddModalModel = new AlternativeAddModalModel();
         this.yahooStockAPI = new YahooStockAPI();

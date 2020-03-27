@@ -98,6 +98,7 @@ public class EntityAlternativeImpl {
                     RevisionType revisionType = (RevisionType) triplet[2];
                     revisions.add(new AlternativeRevision(entity, revisionEntity.getRevisionDate(), revisionType));
             });
+            session.close();
         } catch (HibernateException e) {
             log.error(e);
         }

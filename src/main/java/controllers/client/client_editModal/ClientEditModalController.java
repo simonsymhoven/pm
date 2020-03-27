@@ -4,25 +4,22 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
-import entities.client.Client;
-import entities.investment.Strategy;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
 import snackbar.SnackBar;
 import sql.EntityClientImpl;
+import sql.EntityPortfolioStockImpl;
+
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Log4j2
 public class ClientEditModalController implements Initializable {
-    @FXML
-    private AnchorPane directivePane;
     @FXML
     private JFXButton editClient;
     @FXML
@@ -61,18 +58,18 @@ public class ClientEditModalController implements Initializable {
     private JFXTextArea comment;
     @FXML
     private AnchorPane pane;
-    @FXML
-    private Label info;
 
     private Stage stage;
     private ClientController clientController;
     private ClientEditModalModel clientEditModalModel;
+    private EntityPortfolioStockImpl entityPortfolioStock;
     private EntityClientImpl entityClient;
     private String regex = "^(([1-9][0-9]*)|0)?(\\.[0-9]*)?";
 
     public ClientEditModalController() {
         this.clientEditModalModel = new ClientEditModalModel();
         this.entityClient = new EntityClientImpl();
+        this.entityPortfolioStock = new EntityPortfolioStockImpl();
     }
 
 
@@ -84,18 +81,18 @@ public class ClientEditModalController implements Initializable {
             clientEditModalModel.setClient(clientController.getClientModel().getClient());
             name.setText(clientEditModalModel.getClient().getName());
             symbol.setText(clientEditModalModel.getClient().getSymbol());
-            strategyAlternativeLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltInvestment().getLowerLimit()));
-            strategyAlternativeTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltInvestment().getTarget()));
-            strategyAlternativeUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltInvestment().getUpperLimit()));
-            strategyIoanLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanInvestment().getLowerLimit()));
-            strategyIoanTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanInvestment().getTarget()));
-            strategyIoanUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanInvestment().getUpperLimit()));
-            strategyStocksLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockInvestment().getLowerLimit()));
-            strategyStocksTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockInvestment().getTarget()));
-            strategyStocksUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockInvestment().getUpperLimit()));
-            strategyLiquidityLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityInvestment().getLowerLimit()));
-            strategyLiquidityTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityInvestment().getTarget()));
-            strategyLiquidityUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityInvestment().getUpperLimit()));
+            strategyAlternativeLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltLower()));
+            strategyAlternativeTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltTarget()));
+            strategyAlternativeUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltUpper()));
+            strategyIoanLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanLower()));
+            strategyIoanTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanTarget()));
+            strategyIoanUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanUpper()));
+            strategyStocksLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockLower()));
+            strategyStocksTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockTarget()));
+            strategyStocksUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockUpper()));
+            strategyLiquidityLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityLower()));
+            strategyLiquidityTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityTarget()));
+            strategyLiquidityUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityUpper()));
             capital.setText(String.valueOf(clientEditModalModel.getClient().getCapital()));
             comment.setText(clientEditModalModel.getClient().getComment());
         });
@@ -105,16 +102,7 @@ public class ClientEditModalController implements Initializable {
             stage.close();
         });
 
-        comment.textProperty().addListener((observable, old, newValue) -> clientEditModalModel.setComment(newValue));
-
-        name.textProperty().addListener((observable, old, newValue) -> {
-            clientEditModalModel.setName(newValue);
-            info.setText("Welche Strategie soll für " + newValue + " angewendet werden?");
-        });
-
-        symbol.textProperty().addListener((observable, old, newValue) -> {
-            clientEditModalModel.setSymbol(newValue);
-        });
+        comment.textProperty().addListener((observable, old, newValue) -> clientEditModalModel.getClient().setComment(newValue));
 
         editClient.disableProperty().bind(name.textProperty().isEmpty()
                 .or(symbol.textProperty().isEmpty()
@@ -138,7 +126,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     capital.setText(oldValue);
                 } else {
-                    clientEditModalModel.setCapital(BigDecimal.valueOf(Double.parseDouble(newValue)));
+                    clientEditModalModel.getClient().setCapital(BigDecimal.valueOf(Double.parseDouble(newValue)));
                 }
             }
         });
@@ -157,7 +145,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyLiquidityLowerLimit.setText(oldValue);
                 } else {
-                    clientEditModalModel.getLiquidityInvestment().setLowerLimit(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setLiquidityLower(Double.parseDouble(newValue));
                 }
             }
         });
@@ -167,7 +155,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyLiquidityTargetValue.setText(oldValue);
                 } else {
-                    clientEditModalModel.getLiquidityInvestment().setTarget(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setLiquidityTarget(Double.parseDouble(newValue));
                 }
             }
         });
@@ -177,7 +165,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyLiquidityUpperLimit.setText(oldValue);
                 } else {
-                    clientEditModalModel.getLiquidityInvestment().setUpperLimit(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setLiquidityUpper(Double.parseDouble(newValue));
                 }
             }
         });
@@ -189,7 +177,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyStocksLowerLimit.setText(oldValue);
                 } else {
-                    clientEditModalModel.getStockInvestment().setLowerLimit(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setStockLower(Double.parseDouble(newValue));
                 }
             }
         });
@@ -199,7 +187,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyStocksTargetValue.setText(oldValue);
                 } else {
-                    clientEditModalModel.getStockInvestment().setTarget(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setStockTarget(Double.parseDouble(newValue));
                 }
             }
         });
@@ -209,7 +197,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyStocksUpperLimit.setText(oldValue);
                 } else {
-                    clientEditModalModel.getStockInvestment().setUpperLimit(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setStockUpper(Double.parseDouble(newValue));
                 }
             }
         });
@@ -221,7 +209,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyAlternativeLowerLimit.setText(oldValue);
                 } else {
-                    clientEditModalModel.getAlternativeInvestment().setLowerLimit(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setAltLower(Double.parseDouble(newValue));
                 }
             }
         });
@@ -231,7 +219,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyAlternativeTargetValue.setText(oldValue);
                 } else {
-                    clientEditModalModel.getAlternativeInvestment().setTarget(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setAltTarget(Double.parseDouble(newValue));
                 }
             }
         });
@@ -241,7 +229,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyAlternativeUpperLimit.setText(oldValue);
                 } else {
-                    clientEditModalModel.getAlternativeInvestment().setUpperLimit(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setAltUpper(Double.parseDouble(newValue));
                 }
             }
         });
@@ -253,7 +241,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyIoanLowerLimit.setText(oldValue);
                 } else {
-                    clientEditModalModel.getIoanInvestment().setLowerLimit(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setIoanLower(Double.parseDouble(newValue));
                 }
             }
         });
@@ -263,7 +251,7 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyIoanTargetValue.setText(oldValue);
                 } else {
-                    clientEditModalModel.getIoanInvestment().setTarget(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setIoanTarget(Double.parseDouble(newValue));
                 }
             }
         });
@@ -273,34 +261,21 @@ public class ClientEditModalController implements Initializable {
                 if (!newValue.matches(regex)) {
                     strategyIoanUpperLimit.setText(oldValue);
                 } else {
-                    clientEditModalModel.getIoanInvestment().setUpperLimit(Double.parseDouble(newValue));
+                    clientEditModalModel.getClient().getStrategy().setIoanUpper(Double.parseDouble(newValue));
                 }
             }
         });
     }
 
     public void edit() {
-        Strategy strategy = new Strategy(
-                clientEditModalModel.getStockInvestment(),
-                clientEditModalModel.getAlternativeInvestment(),
-                clientEditModalModel.getIoanInvestment(),
-                clientEditModalModel.getLiquidityInvestment()
-        );
-
-        Client client = new Client(
-            name.getText(),
-            symbol.getText(),
-                strategy,
-            clientEditModalModel.getCapital(),
-            clientEditModalModel.getComment()
-        );
-
-        client.setId(clientEditModalModel.getClient().getId());
-
-        if (entityClient.update(client)) {
+        if (entityClient.update(clientEditModalModel.getClient())) {
             clientController.getComboBox().getItems().remove(clientEditModalModel.getClient());
             clientController.getClients();
-            clientController.getComboBox().getSelectionModel().select(client);
+            clientController.getComboBox().getSelectionModel().select(clientEditModalModel.getClient());
+            entityPortfolioStock.getAll(clientEditModalModel.getClient()).forEach(clientStock -> {
+                clientStock.calculate();
+                entityPortfolioStock.update(clientStock);
+            });
             SnackBar snackBar = new SnackBar(clientController.getPane());
             snackBar.show("Client wurde erfolgreich bearbeitet!");
             stage.close();

@@ -7,5 +7,4 @@ import lombok.Data;
 class AlternativeAddModalModel {
     private String symbol;
     private Alternative alternative;
-    private double amount = 100.0;
 }

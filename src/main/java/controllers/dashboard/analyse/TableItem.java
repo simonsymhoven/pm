@@ -39,10 +39,10 @@ public class TableItem extends RecursiveTreeObject<TableItem> {
         this.clientName = new SimpleStringProperty(name);
         this.depoValue = new SimpleStringProperty(NumberFormat.getCurrencyInstance()
                 .format(depoValue));
-        this.stockStrategy = new SimpleStringProperty(String.format("%.2f", strategy.getStockInvestment().getTarget()) + " %");
-        this.alternativeStrategy = new SimpleStringProperty(String.format("%.2f", strategy.getAltInvestment().getTarget()) + " %");
-        this.ioanStrategy = new SimpleStringProperty(String.format("%.2f", strategy.getIoanInvestment().getTarget()) + " %");
-        this.liquidityStrategy = new SimpleStringProperty(String.format("%.2f", strategy.getLiquidityInvestment().getTarget()) + " %");
+        this.stockStrategy = new SimpleStringProperty(String.format("%.2f", strategy.getStockTarget()) + " %");
+        this.alternativeStrategy = new SimpleStringProperty(String.format("%.2f", strategy.getAltTarget()) + " %");
+        this.ioanStrategy = new SimpleStringProperty(String.format("%.2f", strategy.getIoanTarget()) + " %");
+        this.liquidityStrategy = new SimpleStringProperty(String.format("%.2f", strategy.getLiquidityTarget()) + " %");
         this.stockValue = new SimpleStringProperty(NumberFormat.getCurrencyInstance().format(stockValue));
         this.stockShare = new SimpleStringProperty(String.format("%.2f", ((stockValue / depoValue.doubleValue()) * 100)) + " %");
         this.alternativeValue = new SimpleStringProperty(NumberFormat.getCurrencyInstance().format(alternativeValue));

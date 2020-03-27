@@ -12,7 +12,7 @@
         <!-- Set the current session context -->
         <property name="current_session_context_class">thread</property>
         <!-- dbcp connection pool configuration -->
-        <property name="hibernate.dbcp.initialSize">5</property>
+        <property name="hibernate.dbcp.initialSize">1</property>
         <property name="hibernate.dbcp.maxTotal">20</property>
         <property name="hibernate.dbcp.maxIdle">10</property>
         <property name="hibernate.dbcp.minIdle">5</property>
@@ -24,7 +24,6 @@
         <mapping class="entities.alternative.Alternative"/>
         <mapping class="entities.client.clientAlternative.ClientAlternative"/>
         <mapping class="entities.investment.Strategy"/>
-        <mapping class="entities.investment.InvestmentDirective"/>
         <mapping class="entities.client.clientStock.ClientStock"/>
     </session-factory>
 </hibernate-configuration>

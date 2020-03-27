@@ -114,18 +114,18 @@ public class ClientController implements Initializable {
                 label.setText(clientModel.getClient().getName());
                 name.setText(clientModel.getClient().getName());
                 symbol.setText(clientModel.getClient().getSymbol());
-                strategyAlternativeLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltInvestment().getLowerLimit()) + " %");
-                strategyAlternativeTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltInvestment().getTarget()) + " %");
-                strategyAlternativeUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltInvestment().getUpperLimit()) + " %");
-                strategyIoanLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanInvestment().getLowerLimit()) + " %");
-                strategyIoanTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanInvestment().getTarget()) + " %");
-                strategyIoanUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanInvestment().getUpperLimit()) + " %");
-                strategyStocksLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockInvestment().getLowerLimit()) + " %");
-                strategyStocksTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockInvestment().getTarget()) + " %");
-                strategyStocksUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockInvestment().getUpperLimit()) + " %");
-                strategyLiquidityLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityInvestment().getLowerLimit()) + " %");
-                strategyLiquidityTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityInvestment().getTarget()) + " %");
-                strategyLiquidityUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityInvestment().getUpperLimit()) + " %");
+                strategyAlternativeLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltLower()) + " %");
+                strategyAlternativeTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltTarget()) + " %");
+                strategyAlternativeUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltUpper()) + " %");
+                strategyIoanLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanLower()) + " %");
+                strategyIoanTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanTarget()) + " %");
+                strategyIoanUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanUpper()) + " %");
+                strategyStocksLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockLower()) + " %");
+                strategyStocksTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockTarget()) + " %");
+                strategyStocksUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockUpper()) + " %");
+                strategyLiquidityLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityLower()) + " %");
+                strategyLiquidityTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityTarget()) + " %");
+                strategyLiquidityUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityUpper()) + " %");
 
                 capital.setText(NumberFormat.getCurrencyInstance()
                         .format(clientModel.getClient().getCapital())
@@ -250,39 +250,27 @@ public class ClientController implements Initializable {
 
     private ObservableList<PieChart.Data> loadClientStrategyData() {
         List<PieChart.Data> list = new ArrayList<>();
-        if (clientModel.getClient().getStrategy().getStockInvestment().getTarget() != 0) {
-            list.add(new PieChart.Data("Aktien", clientModel.getClient().getStrategy().getStockInvestment().getTarget()));
+        if (clientModel.getClient().getStrategy().getStockTarget() != 0) {
+            list.add(new PieChart.Data("Aktien", clientModel.getClient().getStrategy().getStockTarget()));
         }
-        if (clientModel.getClient().getStrategy().getAltInvestment().getTarget() != 0) {
-            list.add(new PieChart.Data("alt. Investments", clientModel.getClient().getStrategy().getAltInvestment().getTarget()));
+        if (clientModel.getClient().getStrategy().getAltTarget() != 0) {
+            list.add(new PieChart.Data("alt. Investments", clientModel.getClient().getStrategy().getAltTarget()));
         }
-        if (clientModel.getClient().getStrategy().getIoanInvestment().getTarget() != 0) {
-            list.add(new PieChart.Data("Anleihen", clientModel.getClient().getStrategy().getIoanInvestment().getTarget()));
+        if (clientModel.getClient().getStrategy().getIoanTarget() != 0) {
+            list.add(new PieChart.Data("Anleihen", clientModel.getClient().getStrategy().getIoanTarget()));
         }
-        if (clientModel.getClient().getStrategy().getLiquidityInvestment().getTarget() != 0) {
-            list.add(new PieChart.Data("Liquidität", clientModel.getClient().getStrategy().getLiquidityInvestment().getTarget()));
+        if (clientModel.getClient().getStrategy().getLiquidityTarget() != 0) {
+            list.add(new PieChart.Data("Liquidität", clientModel.getClient().getStrategy().getLiquidityTarget()));
         }
 
         return FXCollections.observableArrayList(list);
     }
 
     private void clear() {
-        name.clear();
-        symbol.clear();
-        strategyAlternativeLowerLimit.clear();
-        strategyAlternativeTargetValue.clear();
-        strategyAlternativeUpperLimit.clear();
-        strategyIoanLowerLimit.clear();
-        strategyIoanTargetValue.clear();
-        strategyIoanUpperLimit.clear();
-        strategyStocksLowerLimit.clear();
-        strategyStocksTargetValue.clear();
-        strategyStocksUpperLimit.clear();
-        strategyLiquidityLowerLimit.clear();
-        strategyLiquidityTargetValue.clear();
-        strategyLiquidityUpperLimit.clear();
+        pane.getChildren()
+                .filtered(node -> node instanceof JFXTextField)
+                .forEach(node -> ((JFXTextField) node).clear());
         comment.clear();
-        capital.clear();
         pieChart.setVisible(false);
     }
 }
