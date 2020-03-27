@@ -5,12 +5,11 @@ import org.junit.Test;
 import org.junit.Assert;
 
 public class BasicTest {
-
-    private Client client = new Client();
-
     @Test
-    public void clientNotNull(){
-        Assert.assertNotNull(client);
+    public void clientNotNull() {
+        Client client = new Client();
+        client.setName("Captain Blaubär");
+        Assert.assertEquals("Captain Blaubär", client.getName());
     }
 
 

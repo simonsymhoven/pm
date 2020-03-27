@@ -33,7 +33,9 @@ pipeline {
   post {
       always {
           junit 'target/surefire-reports/*.xml'
-          cobertura coberturaReportFile: 'target/site/jacoco/*.xml'
+      }
+      success {
+          curl -s https://codecov.io/bash | bash 
       }
   }
 }
