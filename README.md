@@ -6,12 +6,15 @@
 
 ## Todo
 * check license of icons
+
 * rework of audit log for clients, stocks and join tables (client_stock & alternative_stock)
  --> maybe show as json? 
+ 
 * setup codecov for jenkins pipeline
+
 * release MVP 
 
-# Testing 
+## Testing 
 [![codecov](https://codecov.io/gh/simonsymhoven/pm/branch/master/graph/badge.svg?token=C0WFTF0tHU)](https://codecov.io/gh/simonsymhoven/pm)
 
 JUnit tests aren't implemented yet. 
