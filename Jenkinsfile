@@ -27,14 +27,13 @@ pipeline {
       steps {
         echo 'Testing..'
         sh 'mvn test jacoco:report'
-        sh <(curl -s https://codecov.io/bash)
       }
     }
   }
   post {
       always {
           junit 'target/surefire-reports/*.xml'
-
+          cobertura coberturaReportFile: 'target/site/jacoco/*.xml'
       }
   }
 }
