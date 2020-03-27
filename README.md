@@ -11,3 +11,4 @@ All source code is licensed under the MIT license.
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/simonsymhoven/pm.svg)](https://github.com/simonsymhoven/pm/pulls)
 
 <img src="https://codecov.io/gh/simonsymhoven/pm/master/graphs/sunburst.svg">
+<img src="https://codecov.io/gh/simonsymhoven/pm/commit/f38bcaa809edb8cc881a5484cd6d28e368c9d7bc/graphs/sunburst.svg?token=C0WFTF0tHU">
