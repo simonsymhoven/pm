@@ -35,7 +35,7 @@ pipeline {
           junit 'target/surefire-reports/*.xml'
       }
       success {
-          curl -s https://codecov.io/bash | bash 
+          publishCoverage adapters: [jacocoAdapter('target/site/jacoco/jacoco.xml')]
       }
   }
 }
