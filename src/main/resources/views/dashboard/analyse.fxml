@@ -10,8 +10,6 @@
     <JFXTreeTableView fx:id="treeView" layoutX="25.0" layoutY="86.0" prefHeight="555.0" prefWidth="943.0" />
    <JFXTextField fx:id="input" layoutX="407.0" layoutY="32.0" prefHeight="27.0" prefWidth="229.0" promptText="Client suchen" />
    <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="357.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../../icons/mann.png" />
-      </image>
+      <Image url="@../../icons/mann.png"/>
    </ImageView>
 </AnchorPane>
