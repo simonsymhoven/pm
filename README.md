@@ -5,7 +5,7 @@
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/simonsymhoven/pm.svg)](https://github.com/simonsymhoven/pm/pulls)
 
 ## Database schema
-<img src="https://github.com/simonsymhoven/pm/img/schema.png"> 
+![Image description](https://github.com/simonsymhoven/pm/blob/master/img/schema.png)
 
 ## Todo
 * check license of icons
