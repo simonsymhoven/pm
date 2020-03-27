@@ -1,4 +1,4 @@
-package controllers.client.client_addModal;
+package controllers.client.client_add_modal;
 
 import entities.client.Client;
 import lombok.Data;

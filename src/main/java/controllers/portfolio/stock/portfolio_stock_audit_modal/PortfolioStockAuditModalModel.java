@@ -1,4 +1,4 @@
-package controllers.portfolio.stock.portfolio_stock_auditModal;
+package controllers.portfolio.stock.portfolio_stock_audit_modal;
 
 import entities.portfolio.PortfolioStockRevision;
 import lombok.Data;

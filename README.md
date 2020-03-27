@@ -4,6 +4,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a4ea8a78a3d0461a8493cd52f96e09e8)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=simonsymhoven/pm&amp;utm_campaign=Badge_Grade)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/simonsymhoven/pm.svg)](https://github.com/simonsymhoven/pm/pulls)
 
+## Database schema
+<img src="https://github.com/simonsymhoven/pm/img/schema.svg"> 
+
 ## Todo
 * check license of icons
 

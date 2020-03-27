@@ -1,4 +1,4 @@
-package controllers.investments.alternative.alternative_addModal;
+package controllers.investments.alternative.alternative_add_modal;
 
 import entities.alternative.Alternative;
 import lombok.Data;

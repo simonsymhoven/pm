@@ -1,4 +1,4 @@
-package controllers.client.client_auditModal;
+package controllers.client.client_audit_modal;
 
 import entities.client.ClientRevision;
 import lombok.Data;

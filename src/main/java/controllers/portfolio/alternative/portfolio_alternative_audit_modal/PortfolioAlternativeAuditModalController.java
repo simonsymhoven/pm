@@ -1,4 +1,4 @@
-package controllers.portfolio.alternative.portfolio_alternative_auditModal;
+package controllers.portfolio.alternative.portfolio_alternative_audit_modal;
 
 import com.jfoenix.controls.JFXButton;
 import controllers.client.Box;

@@ -1,4 +1,4 @@
-package controllers.client.client_auditModal;
+package controllers.client.client_audit_modal;
 
 import com.jfoenix.controls.JFXButton;
 import controllers.client.Box;

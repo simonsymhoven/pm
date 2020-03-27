@@ -1,4 +1,4 @@
-package controllers.investments.alternative.alternative_addModal;
+package controllers.investments.alternative.alternative_add_modal;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
