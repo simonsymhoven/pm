@@ -6,7 +6,6 @@ Portfolio Management
 
 All source code is licensed under the MIT license. 
 
-![CI on all platforms](https://github.com/jenkinsci/analysis-model/workflows/CI%20on%20all%20platforms/badge.svg)
-[![Codacy](https://api.codacy.com/project/badge/Grade/1b96405c72db49eeb0d67486f77f8f75)](https://app.codacy.com/app/uhafner/analysis-model?utm_source=github.com&utm_medium=referral&utm_content=jenkinsci/analysis-model&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a4ea8a78a3d0461a8493cd52f96e09e8)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=simonsymhoven/pm&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/simonsymhoven/pm/branch/master/graph/badge.svg)](https://codecov.io/gh/simonsymhoven/pm)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/simonsymhoven/pm.svg)](https://github.com/simonsymhoven/pm/pulls)
