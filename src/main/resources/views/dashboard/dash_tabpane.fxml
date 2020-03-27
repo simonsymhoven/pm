@@ -4,12 +4,13 @@
 <?import javafx.scene.control.Tab?>
 
 
-<JFXTabPane fx:id="tabPane" stylesheets="@../../fullpackstyling.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="708.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <tabs>
-      <Tab text="Dashboard">
-        <content>
-            <fx:include source="dash.fxml"/>
-        </content>
-      </Tab>
-   </tabs>
+<JFXTabPane fx:id="tabPane" stylesheets="@../../fullpackstyling.css" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="708.0" prefWidth="993.0"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Tab text="Dashboard">
+        <fx:include source="dash.fxml"/>
+    </Tab>
+    <Tab text="Analyse">
+        <fx:include source="analyse.fxml"/>
+    </Tab>
 </JFXTabPane>

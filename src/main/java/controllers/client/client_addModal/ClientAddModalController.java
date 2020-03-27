@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
 import entities.client.Client;
-import entities.investment.InvestmentStrategy;
+import entities.investment.Strategy;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,7 +56,7 @@ public class ClientAddModalController implements Initializable {
     @FXML
     private JFXTextField strategyLiquidityUpperLimit;
     @FXML
-    private JFXTextField depoValue;
+    private JFXTextField capital;
     @FXML
     private JFXTextArea comment;
     @FXML
@@ -89,7 +89,7 @@ public class ClientAddModalController implements Initializable {
 
         directivePane.visibleProperty().bind(name.textProperty().isNotEmpty()
                 .and(symbol.textProperty().isNotEmpty())
-                .and(depoValue.textProperty().isNotEmpty())
+                .and(capital.textProperty().isNotEmpty())
         );
 
         comment.textProperty().addListener((observable, old, newValue) -> {
@@ -119,15 +119,15 @@ public class ClientAddModalController implements Initializable {
                 .or(strategyLiquidityLowerLimit.textProperty().isEmpty())
                 .or(strategyLiquidityTargetValue.textProperty().isEmpty())
                 .or(strategyLiquidityUpperLimit.textProperty().isEmpty())
-                .or(depoValue.textProperty().isEmpty())
+                .or(capital.textProperty().isEmpty())
         ));
 
-        depoValue.textProperty().addListener((observable, oldValue, newValue) -> {
+        capital.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals("")) {
                 if (!newValue.matches(regex)) {
-                    depoValue.setText(oldValue);
+                    capital.setText(oldValue);
                 } else {
-                    clientAddModalModel.setDepoValue(BigDecimal.valueOf(Double.parseDouble(newValue)));
+                    clientAddModalModel.setCapital(BigDecimal.valueOf(Double.parseDouble(newValue)));
                 }
             }
         });
@@ -270,7 +270,7 @@ public class ClientAddModalController implements Initializable {
 
     public void add() {
 
-        InvestmentStrategy investmentStrategy = new InvestmentStrategy(
+        Strategy strategy = new Strategy(
                 clientAddModalModel.getStockInvestment(),
                 clientAddModalModel.getAlternativeInvestment(),
                 clientAddModalModel.getIoanInvestment(),
@@ -280,8 +280,8 @@ public class ClientAddModalController implements Initializable {
         Client client = new Client(
             name.getText(),
             symbol.getText(),
-            investmentStrategy,
-            clientAddModalModel.getDepoValue(),
+                strategy,
+            clientAddModalModel.getCapital(),
             clientAddModalModel.getComment()
         );
 

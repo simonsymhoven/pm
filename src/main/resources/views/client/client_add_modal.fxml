@@ -17,7 +17,7 @@
       </Label>
       <JFXTextField fx:id="name" focusColor="#343f4a" labelFloat="true" layoutX="61.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
       <JFXTextField fx:id="symbol" focusColor="#343f4a" labelFloat="true" layoutX="244.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Kürzel" stylesheets="@../../fullpackstyling.css" />
-      <JFXTextField fx:id="depoValue" focusColor="#343f4a" labelFloat="true" layoutX="423.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Gesamtvermögen" stylesheets="@../../fullpackstyling.css" />
+      <JFXTextField fx:id="capital" focusColor="#343f4a" labelFloat="true" layoutX="423.0" layoutY="121.0" prefHeight="25.0" prefWidth="149.0" promptText="Gesamtvermögen" stylesheets="@../../fullpackstyling.css" />
       <JFXButton id="button" fx:id="addClient" buttonType="RAISED" layoutX="477.0" layoutY="394.0" onAction="#add" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../fullpackstyling.css" text="Hinzufügen">
          <font>
             <Font size="17.0" />

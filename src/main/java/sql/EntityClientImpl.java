@@ -24,7 +24,7 @@ public class EntityClientImpl {
     public List<Client> getAll() {
         List<Client> clients = new ArrayList<>();
         try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
-             clients = session.createQuery("FROM Clients", Client.class).getResultList();
+             clients = session.createQuery("FROM Client", Client.class).getResultList();
             session.close();
         } catch (HibernateException e) {
             log.error(e);
@@ -71,7 +71,7 @@ public class EntityClientImpl {
 
             list.forEach(object -> {
                 Client entity = (Client) object[0];
-                log.info("Client Audit: " + entity.getDepoValue());
+                log.info("Client Audit: " + entity.getCapital());
                 DefaultRevisionEntity revisionEntity = (DefaultRevisionEntity) object[1];
                 RevisionType revisionType = (RevisionType) object[2];
                 revisions.add(new ClientRevision(entity, revisionEntity.getRevisionDate(), revisionType));

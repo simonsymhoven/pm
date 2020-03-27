@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,6 +25,7 @@ public class InvestmentDirective implements Serializable {
     @Column(name = "id")
     private int id;
 
+    @Enumerated
     @Column(name = "name")
     private Investment investment;
 

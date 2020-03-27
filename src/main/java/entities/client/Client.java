@@ -1,7 +1,7 @@
 package entities.client;
 
 import entities.alternative.Alternative;
-import entities.investment.InvestmentStrategy;
+import entities.investment.Strategy;
 import entities.stock.Stock;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.JoinTable;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
@@ -24,8 +25,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
-@Entity(name = "Clients")
-@Table(name = "clients")
+@Entity(name = "Client")
+@Table(name = "client", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "id"),
+        @UniqueConstraint(columnNames = "symbol") })
 @Audited
 @Data
 @AllArgsConstructor
@@ -34,19 +37,19 @@ public class Client implements Serializable {
     public Client(
             String name,
             String symbol,
-            InvestmentStrategy investmentStrategy,
-            BigDecimal depoValue,
+            Strategy strategy,
+            BigDecimal capital,
             String comment) {
         this.name = name;
         this.symbol = symbol;
-        this.investmentStrategy = investmentStrategy;
-        this.depoValue = depoValue;
+        this.strategy = strategy;
+        this.capital = capital;
         this.comment = comment;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", unique = true, updatable = false, nullable = false)
     private int id;
 
     @Column(name = "name")
@@ -55,35 +58,29 @@ public class Client implements Serializable {
     @Column(name = "symbol", unique = true)
     private String symbol;
 
-    @Column(name = "depoValue")
-    private BigDecimal depoValue;
+    @Column(name = "capital")
+    private BigDecimal capital;
 
     @Column(name = "comment")
     private String comment;
 
     @NotAudited
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "strategy_id")
-    private InvestmentStrategy investmentStrategy;
+    @JoinColumn(name = "strategy_id", referencedColumnName = "id")
+    private Strategy strategy;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "Client_Stock",
             joinColumns = {
-                    @JoinColumn(
-                            name = "client_id",
-                            referencedColumnName = "id"
-                    )
+                    @JoinColumn(name = "client_id", referencedColumnName = "id")
             },
             inverseJoinColumns = {
-                    @JoinColumn(
-                            name = "stock_id",
-                            referencedColumnName = "id"
-                    )
+                    @JoinColumn(name = "stock_id", referencedColumnName = "id")
             }
     )
     private Set<Stock> stocks;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade =  {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "Client_Alternative",
             joinColumns = {
                     @JoinColumn(

@@ -117,7 +117,7 @@ public class DashController implements Initializable {
 
         double value = 0;
         for (Client client : clients) {
-            value += client.getDepoValue().doubleValue();
+            value += client.getCapital().doubleValue();
         }
 
         createCounter(clients.size(), counterClients);

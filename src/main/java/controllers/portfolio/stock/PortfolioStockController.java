@@ -244,12 +244,12 @@ public class PortfolioStockController implements Initializable {
     private void calculate() {
         // SHARE SOLL
         double shareValue = (portfolioStockModel.getStock().getShare() / 100.0)
-                * (portfolioStockModel.getClient().getInvestmentStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
+                * (portfolioStockModel.getClient().getStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
         portfolioStockModel.setShareTarget(shareValue);
 
         // SHARE IST
         double valueNewStock = portfolioStockModel.getStock().getPrice().doubleValue() * portfolioStockModel.getQuantity();
-        double clientDepoValue = portfolioStockModel.getClient().getDepoValue().doubleValue();
+        double clientDepoValue = portfolioStockModel.getClient().getCapital().doubleValue();
 
         double shareValueIst = 100;
         if (clientDepoValue != 0) {
@@ -263,7 +263,7 @@ public class PortfolioStockController implements Initializable {
         diffRelative.setText(String.format("%.2f", portfolioStockModel.getDiffRelative()).replace(",", ".") + " %");
 
         portfolioStockModel.setDiffAbsolute(
-                (int) ((portfolioStockModel.getDiffRelative() * portfolioStockModel.getClient().getDepoValue().doubleValue())
+                (int) ((portfolioStockModel.getDiffRelative() * portfolioStockModel.getClient().getCapital().doubleValue())
                         / portfolioStockModel.getStock().getPrice().doubleValue() / 100.0));
 
         shareActual.setText(String.format("%.2f", portfolioStockModel.getShareActual()).replace(",", ".") + " %");
@@ -381,7 +381,7 @@ public class PortfolioStockController implements Initializable {
             }
         } else if (listView.getId().equals("stockList")) {
             double shareValue =
-                    (selectedStock.getShare() / 100.0) * (portfolioStockModel.getClient().getInvestmentStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
+                    (selectedStock.getShare() / 100.0) * (portfolioStockModel.getClient().getStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
             ClientStock clientStock = new ClientStock(
                     new ClientStockKey(portfolioStockModel.getClient().getId(), selectedStock.getId()),
                     portfolioStockModel.getClient(),

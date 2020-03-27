@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import controllers.client.ClientController;
 import entities.client.Client;
-import entities.investment.InvestmentStrategy;
+import entities.investment.Strategy;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,7 +56,7 @@ public class ClientEditModalController implements Initializable {
     @FXML
     private JFXTextField strategyLiquidityUpperLimit;
     @FXML
-    private JFXTextField depoValue;
+    private JFXTextField capital;
     @FXML
     private JFXTextArea comment;
     @FXML
@@ -84,19 +84,19 @@ public class ClientEditModalController implements Initializable {
             clientEditModalModel.setClient(clientController.getClientModel().getClient());
             name.setText(clientEditModalModel.getClient().getName());
             symbol.setText(clientEditModalModel.getClient().getSymbol());
-            strategyAlternativeLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getAltInvestment().getLowerLimit()));
-            strategyAlternativeTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getAltInvestment().getTarget()));
-            strategyAlternativeUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getAltInvestment().getUpperLimit()));
-            strategyIoanLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getIoanInvestment().getLowerLimit()));
-            strategyIoanTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getIoanInvestment().getTarget()));
-            strategyIoanUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getIoanInvestment().getUpperLimit()));
-            strategyStocksLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getStockInvestment().getLowerLimit()));
-            strategyStocksTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getStockInvestment().getTarget()));
-            strategyStocksUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getStockInvestment().getUpperLimit()));
-            strategyLiquidityLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getLiquidityInvestment().getLowerLimit()));
-            strategyLiquidityTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getLiquidityInvestment().getTarget()));
-            strategyLiquidityUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getInvestmentStrategy().getLiquidityInvestment().getUpperLimit()));
-            depoValue.setText(String.valueOf(clientEditModalModel.getClient().getDepoValue()));
+            strategyAlternativeLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltInvestment().getLowerLimit()));
+            strategyAlternativeTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltInvestment().getTarget()));
+            strategyAlternativeUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getAltInvestment().getUpperLimit()));
+            strategyIoanLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanInvestment().getLowerLimit()));
+            strategyIoanTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanInvestment().getTarget()));
+            strategyIoanUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getIoanInvestment().getUpperLimit()));
+            strategyStocksLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockInvestment().getLowerLimit()));
+            strategyStocksTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockInvestment().getTarget()));
+            strategyStocksUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getStockInvestment().getUpperLimit()));
+            strategyLiquidityLowerLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityInvestment().getLowerLimit()));
+            strategyLiquidityTargetValue.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityInvestment().getTarget()));
+            strategyLiquidityUpperLimit.setText(String.valueOf(clientEditModalModel.getClient().getStrategy().getLiquidityInvestment().getUpperLimit()));
+            capital.setText(String.valueOf(clientEditModalModel.getClient().getCapital()));
             comment.setText(clientEditModalModel.getClient().getComment());
         });
 
@@ -130,15 +130,15 @@ public class ClientEditModalController implements Initializable {
                 .or(strategyLiquidityLowerLimit.textProperty().isEmpty())
                 .or(strategyLiquidityTargetValue.textProperty().isEmpty())
                 .or(strategyLiquidityUpperLimit.textProperty().isEmpty())
-                .or(depoValue.textProperty().isEmpty())
+                .or(capital.textProperty().isEmpty())
         ));
 
-        depoValue.textProperty().addListener((observable, oldValue, newValue) -> {
+        capital.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals("")) {
                 if (!newValue.matches(regex)) {
-                    depoValue.setText(oldValue);
+                    capital.setText(oldValue);
                 } else {
-                    clientEditModalModel.setDepoValue(BigDecimal.valueOf(Double.parseDouble(newValue)));
+                    clientEditModalModel.setCapital(BigDecimal.valueOf(Double.parseDouble(newValue)));
                 }
             }
         });
@@ -280,7 +280,7 @@ public class ClientEditModalController implements Initializable {
     }
 
     public void edit() {
-        InvestmentStrategy investmentStrategy = new InvestmentStrategy(
+        Strategy strategy = new Strategy(
                 clientEditModalModel.getStockInvestment(),
                 clientEditModalModel.getAlternativeInvestment(),
                 clientEditModalModel.getIoanInvestment(),
@@ -290,8 +290,8 @@ public class ClientEditModalController implements Initializable {
         Client client = new Client(
             name.getText(),
             symbol.getText(),
-            investmentStrategy,
-            clientEditModalModel.getDepoValue(),
+                strategy,
+            clientEditModalModel.getCapital(),
             clientEditModalModel.getComment()
         );
 

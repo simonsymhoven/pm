@@ -77,7 +77,7 @@ public class ClientAuditModalController implements Initializable {
         if (revisionType.equals(RevisionType.ADD)) {
             return client.getName() + " [" + client.getSymbol() + "] wurde hinzugefügt.";
         } else {
-            return "Depotwert = " + NumberFormat.getCurrencyInstance().format(client.getDepoValue())
+            return "Depotwert = " + NumberFormat.getCurrencyInstance().format(client.getCapital())
                     .replace("EUR", "EUR ") + ", Aktien: " + entityPortfolio.getAll(client).size() + " Stk.";
         }
     }

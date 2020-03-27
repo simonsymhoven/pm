@@ -56,11 +56,11 @@ public class ClientStock {
         @NotAudited
         public void calculate() {
                 double shareValue = (getStock().getShare() / 100.0)
-                        * (getClient().getInvestmentStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
+                        * (getClient().getStrategy().getStockInvestment().getTarget() / 100.0) * 100.0;
                 this.setShareTarget(shareValue);
 
                 double valueNewStock = getStock().getPrice().doubleValue() * getQuantity();
-                double clientDepoValue = getClient().getDepoValue().doubleValue();
+                double clientDepoValue = getClient().getCapital().doubleValue();
                 double shareValueIst = 100;
                 if (clientDepoValue != 0) {
                         shareValueIst = (valueNewStock / clientDepoValue) * 100.0;
@@ -68,7 +68,7 @@ public class ClientStock {
                 this.setShareActual(shareValueIst);
                 this.setDiffRelative(getShareTarget() - getShareActual());
                 this.setDiffAbsolute(
-                        (int) ((getDiffRelative() * getClient().getDepoValue().doubleValue())
+                        (int) ((getDiffRelative() * getClient().getCapital().doubleValue())
                                 / getStock().getPrice().doubleValue() / 100.0));
         }
 }

@@ -8,6 +8,7 @@ import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.GenerationType;
@@ -19,7 +20,9 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity(name = "Stock")
-@Table(name = "stock")
+@Table(name = "stock", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "id"),
+        @UniqueConstraint(columnNames = "symbol")})
 @Audited
 @Data
 @NoArgsConstructor
@@ -37,7 +40,7 @@ public class Stock implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "id", unique = true, nullable = false, updatable = false)
     private int id;
 
     @Column(name = "name")

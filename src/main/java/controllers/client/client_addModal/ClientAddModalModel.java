@@ -17,5 +17,5 @@ class ClientAddModalModel {
     private InvestmentDirective alternativeInvestment = new InvestmentDirective(Investment.ALTERNATIVE);
     private InvestmentDirective ioanInvestment = new InvestmentDirective(Investment.IOAN);
     private InvestmentDirective liquidityInvestment = new InvestmentDirective(Investment.LIQUIDITY);
-    private BigDecimal depoValue;
+    private BigDecimal capital;
 }

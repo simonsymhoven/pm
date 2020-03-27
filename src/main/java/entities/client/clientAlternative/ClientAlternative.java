@@ -18,7 +18,6 @@ import javax.persistence.MapsId;
 
 @Entity(name = "Client_Alternative")
 @Table(name = "client_alternative")
-
 @Audited
 @Data
 @AllArgsConstructor
