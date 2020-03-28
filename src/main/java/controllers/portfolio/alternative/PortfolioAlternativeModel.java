@@ -17,6 +17,8 @@ public class PortfolioAlternativeModel {
     private Alternative alternative;
     private ClientAlternative clientAlternative;
     private DataFormat dataFormat;
+    private int quantity;
+
     DataFormat getFormat() {
         String dateFormat = "AlternativeList";
         if (DataFormat.lookupMimeType(dateFormat) == null) {
@@ -24,6 +26,4 @@ public class PortfolioAlternativeModel {
         }
         return DataFormat.lookupMimeType(dateFormat);
     }
-
-    private int quantity;
 }

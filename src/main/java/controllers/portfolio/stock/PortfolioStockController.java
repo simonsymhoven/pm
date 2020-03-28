@@ -92,91 +92,31 @@ public class PortfolioStockController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
-
-        showAudit.setOnMouseClicked(e -> {
-            Stage dialog = new Stage();
-            Parent root;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/portfolio/stock/stock_portfolio_audit_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.initOwner(showAudit.getScene().getWindow());
-                dialog.setUserData(this);
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.show();
-            } catch (IOException ex) {
-                log.error(ex);
-            }
-
-
-        });
+        shareActual.disableProperty().bind(quantity.textProperty().isEmpty());
+        diffRelative.disableProperty().bind(shareActual.textProperty().isEmpty());
+        diffAbsolute.disableProperty().bind(shareActual.textProperty().isEmpty());
+        update.disableProperty().bind(stockListClient.getSelectionModel().selectedItemProperty().isNull()
+                .or(quantity.textProperty().isEqualTo("0")));
 
         stockList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         stockListClient.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         portfolioStockModel.setStockList(entityStock.getAll());
         portfolioStockModel.setClients(entityClient.getAll());
-
+        portfolioStockModel.setClientStocks(new ArrayList<>());
         portfolioStockModel.getClients().forEach(c -> comboBox.getItems().add(c));
 
-        comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                portfolioStockModel.setClient(newValue);
-                portfolioStockModel.getClientStocks().addAll(entityPortfolio.getAll(portfolioStockModel.getClient()));
-                updateStockLists(portfolioStockModel.getClient());
-            }
-        });
+        addEventHandlerStockListClient();
+        addEventHandlerStockList();
 
-        portfolioStockModel.setClientStocks(new ArrayList<>());
+        addListenerCombobox();
+        addListenerStockList();
+        addListenerQuantity();
+    }
 
-        update.disableProperty().bind(stockListClient.getSelectionModel().selectedItemProperty().isNull()
-                .or(quantity.textProperty().isEqualTo("0")));
-
-        shareActual.disableProperty().bind(quantity.textProperty().isEmpty());
-        diffRelative.disableProperty().bind(shareActual.textProperty().isEmpty());
-        diffAbsolute.disableProperty().bind(shareActual.textProperty().isEmpty());
-
-        stockListClient.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                portfolioStockModel.setStock(newValue);
-
-                portfolioStockModel.getClientStocks().forEach(c -> {
-                    if (c.getClient().getId() == portfolioStockModel.getClient().getId() && c.getStock().getId() == portfolioStockModel.getStock().getId()) {
-                        portfolioStockModel.setClientStock(c);
-                    }
-                });
-
-                quantity.setText(String.valueOf(portfolioStockModel.getClientStock().getQuantity()));
-                currency.setText(portfolioStockModel.getStock().getCurrency());
-                name.setText(portfolioStockModel.getStock().getName());
-                symbol.setText(portfolioStockModel.getStock().getSymbol());
-                exchange.setText(portfolioStockModel.getStock().getExchange());
-                price.setText(NumberFormat.getCurrencyInstance()
-                        .format(portfolioStockModel.getStock().getPrice()));
-                change.setText(NumberFormat.getCurrencyInstance()
-                        .format(portfolioStockModel.getStock().getChange()));
-                shareActual.setText(String.format("%.2f", portfolioStockModel.getClientStock().getShareActual()).replace(",", ".") + " %");
-                diffRelative.setText(String.format("%.2f", portfolioStockModel.getClientStock().getDiffRelative()).replace(",", ".") + " %");
-                diffAbsolute.setText(String.valueOf(portfolioStockModel.getClientStock().getDiffAbsolute()));
-                shareTarget.setText(String.format("%.2f", portfolioStockModel.getClientStock().getShareTarget()).replace(",", ".") + " %");
-
-                quantity.setEditable(true);
-            } else {
-                clearFields();
-                quantity.setEditable(false);
-            }
-        });
-
+    private void addListenerQuantity() {
         quantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches("\\d*")) {
                     quantity.setText(newValue.replaceAll("\\D", ""));
                 } else {
@@ -194,7 +134,62 @@ public class PortfolioStockController implements Initializable {
                 }
             }
         });
+    }
 
+    private void addListenerStockList() {
+        stockListClient.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                portfolioStockModel.setStock(newValue);
+
+                portfolioStockModel.getClientStocks().forEach(c -> {
+                    if (c.getClient().getId() == portfolioStockModel.getClient().getId() && c.getStock().getId() == portfolioStockModel.getStock().getId()) {
+                        portfolioStockModel.setClientStock(c);
+                    }
+                });
+
+                fillFields();
+                quantity.setEditable(true);
+            } else {
+                clearFields();
+                quantity.setEditable(false);
+            }
+        });
+    }
+
+    private void addListenerCombobox() {
+        comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                portfolioStockModel.setClient(newValue);
+                portfolioStockModel.getClientStocks().addAll(entityPortfolio.getAll(portfolioStockModel.getClient()));
+                updateStockLists(portfolioStockModel.getClient());
+            }
+        });
+    }
+
+    public void viewAudit() {
+        try {
+            Stage dialog = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/views/portfolio/stock/stock_portfolio_audit_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+    }
+
+    private void addEventHandlerStockList() {
         // Add mouse event handlers for the source
         stockList.setOnDragDetected(event -> {
             log.info("Event on Source: drag detected");
@@ -215,7 +210,9 @@ public class PortfolioStockController implements Initializable {
             log.info("Event on Source: drag done");
             dragDone(event, stockList);
         });
+    }
 
+    private void addEventHandlerStockListClient() {
         // Add mouse event handlers for the target
         stockListClient.setOnDragDetected(event -> {
             log.info("Event on Target: drag detected");
@@ -236,8 +233,22 @@ public class PortfolioStockController implements Initializable {
             log.info("Event on Target: drag done");
             dragDone(event, stockListClient);
         });
+    }
 
-
+    private void fillFields() {
+        quantity.setText(String.valueOf(portfolioStockModel.getClientStock().getQuantity()));
+        currency.setText(portfolioStockModel.getStock().getCurrency());
+        name.setText(portfolioStockModel.getStock().getName());
+        symbol.setText(portfolioStockModel.getStock().getSymbol());
+        exchange.setText(portfolioStockModel.getStock().getExchange());
+        price.setText(NumberFormat.getCurrencyInstance()
+                .format(portfolioStockModel.getStock().getPrice()));
+        change.setText(NumberFormat.getCurrencyInstance()
+                .format(portfolioStockModel.getStock().getChange()));
+        shareActual.setText(String.format("%.2f", portfolioStockModel.getClientStock().getShareActual()).replace(",", ".") + " %");
+        diffRelative.setText(String.format("%.2f", portfolioStockModel.getClientStock().getDiffRelative()).replace(",", ".") + " %");
+        diffAbsolute.setText(String.valueOf(portfolioStockModel.getClientStock().getDiffAbsolute()));
+        shareTarget.setText(String.format("%.2f", portfolioStockModel.getClientStock().getShareTarget()).replace(",", ".") + " %");
 
     }
 

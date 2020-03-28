@@ -14,7 +14,7 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <JFXButton id="button" fx:id="search" buttonType="RAISED" layoutX="209.0" layoutY="120.0" onAction="#searchAktie" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../../fullpackstyling.css" text="Suchen">
+      <JFXButton id="button" fx:id="search" buttonType="RAISED" layoutX="209.0" layoutY="120.0" onAction="#searchStock" prefHeight="50.0" prefWidth="125.0" stylesheets="@../../../fullpackstyling.css" text="Suchen">
          <font>
             <Font size="17.0" />
          </font>

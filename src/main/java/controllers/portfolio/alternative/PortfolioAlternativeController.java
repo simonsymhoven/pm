@@ -325,8 +325,7 @@ public class PortfolioAlternativeController implements Initializable {
         snackBar.show("Alt. Investment wurde aktualisiert!");
     }
 
-    @FXML
-    private void viewAudit() {
+    public void viewAudit() {
         Stage dialog = new Stage();
         Parent root;
         try {

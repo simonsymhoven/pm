@@ -102,7 +102,7 @@ public class StockAddModalController implements Initializable {
 
 
         share.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     share.setText(oldValue);
                 } else {
@@ -117,7 +117,6 @@ public class StockAddModalController implements Initializable {
 
     }
 
-    @FXML
     public void add() {
         if (entityStock.add(stockAddModalModel.getStock())) {
             stockController.getStocks();
@@ -132,8 +131,7 @@ public class StockAddModalController implements Initializable {
         }
     }
 
-    @FXML
-    public void searchAktie() {
+    public void searchStock() {
         Stock stock = yahooStockAPI.getStock(stockAddModalModel.getSymbol());
         stockAddModalModel.setStock(stock);
         name.setText(stockAddModalModel.getStock().getName());

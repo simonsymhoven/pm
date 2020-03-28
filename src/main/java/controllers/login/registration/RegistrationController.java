@@ -62,8 +62,35 @@ public class RegistrationController implements Initializable {
             stage = (Stage) registration.getScene().getWindow();
             this.loginController = (LoginController) stage.getUserData();
         });
-
         close.setOnMouseClicked(e -> stage.close());
+
+        addTextProperty();
+        addFocusProperty();
+
+        registration.disableProperty().bind(forename.textProperty().isEmpty()
+                .or(surname.textProperty().isEmpty())
+                .or(username.textProperty().isEmpty())
+                .or(password.textProperty().isEmpty()));
+    }
+
+    private void addFocusProperty() {
+        forename.focusedProperty().addListener((observable, old, newValue) -> {
+            if (!newValue) {
+                if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
+                    searchForProfilePicture();
+                }
+            }
+        });
+        surname.focusedProperty().addListener((observable, old, newValue) -> {
+            if (!newValue) {
+                if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
+                    searchForProfilePicture();
+                }
+            }
+        });
+    }
+
+    private void addTextProperty() {
         surname.textProperty().addListener((observable, old, newValue) -> {
             if (!"".equals(newValue)) {
                 registrationModel.setSurname(newValue);
@@ -86,24 +113,6 @@ public class RegistrationController implements Initializable {
                 registrationModel.setPassword(newValue);
             }
         });
-        forename.focusedProperty().addListener((observable, old, newValue) -> {
-            if (!newValue) {
-                if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
-                    searchForProfilePicture();
-                }
-            }
-        });
-        surname.focusedProperty().addListener((observable, old, newValue) -> {
-            if (!newValue) {
-                if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
-                    searchForProfilePicture();
-                }
-            }
-        });
-        registration.disableProperty().bind(forename.textProperty().isEmpty()
-                .or(surname.textProperty().isEmpty())
-                .or(username.textProperty().isEmpty())
-                .or(password.textProperty().isEmpty()));
     }
 
     private void searchForProfilePicture() {

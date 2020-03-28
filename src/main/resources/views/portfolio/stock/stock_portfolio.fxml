@@ -32,7 +32,7 @@
       <JFXListView fx:id="stockList" layoutX="58.0" layoutY="184.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../../fullpackstyling.css" />
       <JFXListView fx:id="stockListClient" layoutX="674.0" layoutY="184.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../../fullpackstyling.css" />
       <JFXTextField fx:id="quantity" editable="false" labelFloat="true" layoutX="350.0" layoutY="537.0" prefHeight="27.0" prefWidth="284.0" promptText="Anzahl" stylesheets="@../../../fullpackstyling.css" />
-      <JFXButton fx:id="showAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="61.0" ripplerFill="WHITE" style="-fx-background-radius: 40px;; -fx-border-radius: 40px;;">
+      <JFXButton fx:id="showAudit" onAction="#viewAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="61.0" ripplerFill="WHITE" style="-fx-background-radius: 40px;; -fx-border-radius: 40px;;">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
