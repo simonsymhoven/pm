@@ -67,11 +67,8 @@ Not yet available
 ## Built With
 
 *   [Maven](https://maven.apache.org/) - Dependency Management
-
 *   [Jenkins](https://jenkins.io) - CI
-
 *   [Codacy](https://app.codacy.com) - Code Review
-
 *   [Codecov](https://codecov.io) - Code Coverage
 
 ## Authors
