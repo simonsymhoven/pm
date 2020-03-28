@@ -21,12 +21,11 @@ public class PortfolioStockModel {
     private double shareActual;
     private double diffRelative;
     private int diffAbsolute;
-    private DataFormat dataFormat;
 
-    DataFormat getFormat() {
+    public DataFormat getFormat() {
         String dateFormat = "StockList";
         if (DataFormat.lookupMimeType(dateFormat) == null) {
-            this.dataFormat = new DataFormat(dateFormat);
+            return new DataFormat(dateFormat);
         }
         return DataFormat.lookupMimeType(dateFormat);
     }

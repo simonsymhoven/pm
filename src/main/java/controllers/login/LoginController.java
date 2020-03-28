@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import entities.user.User;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -104,8 +105,8 @@ public class LoginController implements Initializable {
         }
         checkBox.setSelected(true);
         close.setOnMouseClicked(e -> {
-            System.exit(0);
             DatabaseFactoryUtils.shutdown();
+            Platform.exit();
         });
     }
 

@@ -12,7 +12,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 If you want to have a look to the generated database, you need to install DBBrowser for SQLite (or something similar).
 
-
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
@@ -67,13 +66,13 @@ Not yet available
 
 ## Built With
 
-* [Maven](https://maven.apache.org/) - Dependency Management
+*   [Maven](https://maven.apache.org/) - Dependency Management
 
-* [Jenkins](https://jenkins.io) - CI
+*   [Jenkins](https://jenkins.io) - CI
 
-* [Codacy](https://app.codacy.com) - Code Review
+*   [Codacy](https://app.codacy.com) - Code Review
 
-* [Codecov](https://codecov.io) - Code Coverage
+*   [Codecov](https://codecov.io) - Code Coverage
 
 ## Authors
 

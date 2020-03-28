@@ -13,5 +13,4 @@ public class BasicTest {
         Assert.assertEquals("Test of Coverage", client.getComment());
         Assert.assertEquals("Captain Blaubär", client.getName());
     }
-
 }

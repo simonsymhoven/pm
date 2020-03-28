@@ -16,13 +16,12 @@ public class PortfolioAlternativeModel {
     private Client client;
     private Alternative alternative;
     private ClientAlternative clientAlternative;
-    private DataFormat dataFormat;
     private int quantity;
 
-    DataFormat getFormat() {
+    public DataFormat getFormat() {
         String dateFormat = "AlternativeList";
         if (DataFormat.lookupMimeType(dateFormat) == null) {
-            this.dataFormat = new DataFormat(dateFormat);
+            return new DataFormat(dateFormat);
         }
         return DataFormat.lookupMimeType(dateFormat);
     }

@@ -75,17 +75,13 @@ public class RegistrationController implements Initializable {
 
     private void addFocusProperty() {
         forename.focusedProperty().addListener((observable, old, newValue) -> {
-            if (!newValue) {
-                if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
-                    searchForProfilePicture();
-                }
+            if (!newValue && registrationModel.getForename() != null && registrationModel.getSurname() != null) {
+                searchForProfilePicture();
             }
         });
         surname.focusedProperty().addListener((observable, old, newValue) -> {
-            if (!newValue) {
-                if (registrationModel.getForename() != null && registrationModel.getSurname() != null) {
-                    searchForProfilePicture();
-                }
+            if (!newValue && registrationModel.getForename() != null && registrationModel.getSurname() != null) {
+                searchForProfilePicture();
             }
         });
     }
