@@ -98,92 +98,89 @@ public class StockController implements Initializable {
                     deleteStock.setDisable(true);
                 }
 
-                currency.setText(stockModel.getStock().getCurrency());
-                label.setText(stockModel.getStock().getName());
-                name.setText(stockModel.getStock().getName());
-                symbol.setText(stockModel.getStock().getSymbol());
-                exchange.setText(stockModel.getStock().getExchange());
-                price.setText(NumberFormat.getCurrencyInstance()
-                        .format(stockModel.getStock().getPrice()));
-                change.setText(NumberFormat.getCurrencyInstance()
-                        .format(stockModel.getStock().getChange()));
-
-                share.setText(String.format("%.2f", stockModel.getStock().getShare()) + " %");
-
+                fillFields();
                 plotStock();
-
             } else {
-                clear();
+                clearFields();
             }
-
         });
+    }
 
-        showAudit.setOnMouseClicked(e -> {
+    private void fillFields() {
+        currency.setText(stockModel.getStock().getCurrency());
+        label.setText(stockModel.getStock().getName());
+        name.setText(stockModel.getStock().getName());
+        symbol.setText(stockModel.getStock().getSymbol());
+        exchange.setText(stockModel.getStock().getExchange());
+        price.setText(NumberFormat.getCurrencyInstance()
+                .format(stockModel.getStock().getPrice()));
+        change.setText(NumberFormat.getCurrencyInstance()
+                .format(stockModel.getStock().getChange()));
+
+        share.setText(String.format("%.2f", stockModel.getStock().getShare()) + " %");
+    }
+
+    public void viewAudit() {
+        try {
             Stage dialog = new Stage();
-            Parent root;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/investments/stock/stock_audit_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.initOwner(showAudit.getScene().getWindow());
-                dialog.setUserData(this);
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.show();
-            } catch (IOException ex) {
-               log.error(ex);
-            }
+            Parent root = FXMLLoader.load(getClass().getResource("/views/investments/stock/stock_audit_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+    }
 
-        });
-
-        addStock.setOnMouseClicked(e -> {
+    public void add() {
+        try {
             Stage dialog = new Stage();
-            Parent root;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/investments/stock/stock_add_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.setUserData(this);
-                dialog.initOwner(addStock.getScene().getWindow());
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.showAndWait();
-            } catch (IOException ex) {
-               log.error(ex);
-            }
+            Parent root = FXMLLoader.load(getClass().getResource("/views/investments/stock/stock_add_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.setUserData(this);
+            dialog.initOwner(addStock.getScene().getWindow());
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.showAndWait();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+    }
 
-        });
+    public void delete() {
+        // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
+        log.info("BUGGY1?: " + stockModel.getStock().getId());
 
-        deleteStock.setOnMouseClicked(e -> {
-            // TODO: BUG?! stokcModel.getStock leifert immer 0 für die ID
-            log.info("BUGGY1?: " + stockModel.getStock().getId());
-
-            if (entityStock.delete(comboBox.getSelectionModel().getSelectedItem())) {
-                comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
-                comboBox.getSelectionModel().clearSelection();
-                imgView.setImage(null);
-                getStocks();
-                SnackBar snackBar = new SnackBar(pane);
-                snackBar.show("Aktie wurde erfolgreich gelöscht!");
-            } else {
-                SnackBar snackBar = new SnackBar(pane);
-                snackBar.show("Aktie konnte nicht gelöscht werden!");
-            }
-        });
+        if (entityStock.delete(comboBox.getSelectionModel().getSelectedItem())) {
+            comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
+            comboBox.getSelectionModel().clearSelection();
+            imgView.setImage(null);
+            getStocks();
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Aktie wurde erfolgreich gelöscht!");
+        } else {
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Aktie konnte nicht gelöscht werden!");
+        }
     }
 
     private void plotStock() {
@@ -226,7 +223,7 @@ public class StockController implements Initializable {
         });
     }
 
-    private void clear() {
+    private void clearFields() {
         pane.getChildren()
                 .filtered(node -> node instanceof JFXTextField)
                 .forEach(node -> ((JFXTextField) node).clear());

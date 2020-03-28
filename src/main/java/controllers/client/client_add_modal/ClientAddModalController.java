@@ -94,8 +94,8 @@ public class ClientAddModalController implements Initializable {
                 .and(capital.textProperty().isNotEmpty())
         );
 
-        comment.textProperty().addListener((observable, old, newValue) -> 
-            clientAddModalModel.getClient().setComment(newValue)
+        comment.textProperty().addListener((observable, old, newValue)
+                -> clientAddModalModel.getClient().setComment(newValue)
         );
 
         name.textProperty().addListener((observable, old, newValue) -> {
@@ -103,8 +103,8 @@ public class ClientAddModalController implements Initializable {
             info.setText("Welche Strategie soll für " + newValue + " angewendet werden?");
         });
 
-        symbol.textProperty().addListener((observable, old, newValue) -> 
-            clientAddModalModel.getClient().setSymbol(newValue)
+        symbol.textProperty().addListener((observable, old, newValue)
+                -> clientAddModalModel.getClient().setSymbol(newValue)
         );
 
         addClient.disableProperty().bind(name.textProperty().isEmpty()

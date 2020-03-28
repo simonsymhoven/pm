@@ -23,7 +23,7 @@ public class EntityClientImpl {
 
     public List<Client> getAll() {
         List<Client> clients = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             clients = session.createQuery("FROM Client", Client.class).getResultList();
             session.close();
         } catch (HibernateException e) {
@@ -33,7 +33,7 @@ public class EntityClientImpl {
     }
 
     public boolean add(Client client) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(client);
             transaction.commit();
@@ -46,7 +46,7 @@ public class EntityClientImpl {
     }
 
     public boolean delete(Client client) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(client);
             transaction.commit();
@@ -60,7 +60,7 @@ public class EntityClientImpl {
 
     public List<ClientRevision> getAudit(Client client) {
         List<ClientRevision> revisions = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
                     .forRevisionsOfEntity(Client.class, false, false)
@@ -86,7 +86,7 @@ public class EntityClientImpl {
 
     public boolean update(Client client) {
         Transaction transaction = null;
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.saveOrUpdate(client);
             transaction.commit();
@@ -102,7 +102,7 @@ public class EntityClientImpl {
     }
 
     public boolean removeStock(Client client, Stock stock) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             Client clientToUpdate = session.load(Client.class, client.getId());
             clientToUpdate.getStocks().remove(stock);
@@ -117,7 +117,7 @@ public class EntityClientImpl {
     }
 
     public boolean removeAlternative(Client client, Alternative alternative) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             Client clientToUpdate = session.load(Client.class, client.getId());
             clientToUpdate.getAlternatives().remove(alternative);

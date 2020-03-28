@@ -1,10 +1,7 @@
 package snackbar;
 
 import com.jfoenix.controls.JFXSnackbar;
-import javafx.event.EventHandler;
 import javafx.scene.layout.AnchorPane;
-
-
 
 public class SnackBar {
 

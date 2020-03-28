@@ -122,7 +122,7 @@ public class ClientEditModalController implements Initializable {
         ));
 
         capital.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     capital.setText(oldValue);
                 } else {
@@ -141,7 +141,7 @@ public class ClientEditModalController implements Initializable {
 
     private void textPropertyLiquidityInvestments() {
         strategyLiquidityLowerLimit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyLiquidityLowerLimit.setText(oldValue);
                 } else {
@@ -151,7 +151,7 @@ public class ClientEditModalController implements Initializable {
         });
 
         strategyLiquidityTargetValue.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyLiquidityTargetValue.setText(oldValue);
                 } else {
@@ -161,7 +161,7 @@ public class ClientEditModalController implements Initializable {
         });
 
         strategyLiquidityUpperLimit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyLiquidityUpperLimit.setText(oldValue);
                 } else {
@@ -173,7 +173,7 @@ public class ClientEditModalController implements Initializable {
 
     private void textPropertyStockInvestments() {
         strategyStocksLowerLimit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyStocksLowerLimit.setText(oldValue);
                 } else {
@@ -183,7 +183,7 @@ public class ClientEditModalController implements Initializable {
         });
 
         strategyStocksTargetValue.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyStocksTargetValue.setText(oldValue);
                 } else {
@@ -193,7 +193,7 @@ public class ClientEditModalController implements Initializable {
         });
 
         strategyStocksUpperLimit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyStocksUpperLimit.setText(oldValue);
                 } else {
@@ -205,7 +205,7 @@ public class ClientEditModalController implements Initializable {
 
     private void textPropertyAlternativeInvestments() {
         strategyAlternativeLowerLimit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyAlternativeLowerLimit.setText(oldValue);
                 } else {
@@ -215,7 +215,7 @@ public class ClientEditModalController implements Initializable {
         });
 
         strategyAlternativeTargetValue.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyAlternativeTargetValue.setText(oldValue);
                 } else {
@@ -225,7 +225,7 @@ public class ClientEditModalController implements Initializable {
         });
 
         strategyAlternativeUpperLimit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyAlternativeUpperLimit.setText(oldValue);
                 } else {
@@ -237,7 +237,7 @@ public class ClientEditModalController implements Initializable {
 
     private void textPropertyIoanInvestments() {
         strategyIoanLowerLimit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyIoanLowerLimit.setText(oldValue);
                 } else {
@@ -247,7 +247,7 @@ public class ClientEditModalController implements Initializable {
         });
 
         strategyIoanTargetValue.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyIoanTargetValue.setText(oldValue);
                 } else {
@@ -257,7 +257,7 @@ public class ClientEditModalController implements Initializable {
         });
 
         strategyIoanUpperLimit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches(regex)) {
                     strategyIoanUpperLimit.setText(oldValue);
                 } else {

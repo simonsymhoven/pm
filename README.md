@@ -8,13 +8,14 @@
 ![Image description](https://github.com/simonsymhoven/pm/blob/master/img/schema.png)
 
 ## Todo
-* check license of icons
 
-* rework of audit log for clients, stocks and join tables (client_stock & alternative_stock)
+    *   check license of icons
 
-* setup codecov for jenkins pipeline
+    *   rework of audit log for clients, stocks and join tables (client_stock & alternative_stock)
 
-* release MVP 
+    *   setup codecov for jenkins pipeline
+
+    *   release MVP 
 
 ## Testing 
 [![codecov](https://codecov.io/gh/simonsymhoven/pm/branch/master/graph/badge.svg?token=C0WFTF0tHU)](https://codecov.io/gh/simonsymhoven/pm)

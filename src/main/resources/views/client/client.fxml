@@ -25,7 +25,7 @@
          <JFXTextField fx:id="strategyStocksTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="257.0" layoutY="294.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
          <JFXTextField fx:id="strategyAlternativeTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="258.0" layoutY="353.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
          <JFXTextField fx:id="strategyIoanTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="258.0" layoutY="420.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
-         <JFXButton fx:id="addClient" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="639.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
+         <JFXButton fx:id="addClient" onAction="#add" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="639.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
             <graphic>
                <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -34,7 +34,7 @@
                </ImageView>
             </graphic>
          </JFXButton>
-         <JFXButton fx:id="deleteClient" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="755.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
+         <JFXButton fx:id="deleteClient" onAction="#delete" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="755.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
             <graphic>
                <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -43,7 +43,7 @@
                </ImageView>
             </graphic>
          </JFXButton>
-         <JFXButton fx:id="showAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
+         <JFXButton fx:id="showAudit" onAction="#viewAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
             <graphic>
                <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -77,7 +77,7 @@
          <JFXTextField fx:id="strategyIoanUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="338.0" layoutY="420.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
          <JFXTextField fx:id="strategyLiquidityUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="338.0" layoutY="483.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
          <JFXTextArea fx:id="comment" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="89.0" layoutY="549.0" prefHeight="90.0" prefWidth="321.0" promptText="Kommentar" stylesheets="@../../fullpackstyling.css" wrapText="true" />
-         <JFXButton fx:id="editClient" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="697.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
+         <JFXButton fx:id="editClient" buttonType="RAISED" onAction="#edit" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="697.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
             <graphic>
                <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                   <image>

@@ -22,7 +22,7 @@ public class EntityPortfolioAlternativeImpl {
 
     public List<ClientAlternative> getAllForStock(Alternative alternative) {
         List<ClientAlternative> clientAlternatives = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             clientAlternatives = session.createQuery("FROM Client_Alternative WHERE alternative_id=:alternative_id", ClientAlternative.class)
                     .setParameter("alternative_id", alternative.getId()).getResultList();
             session.close();
@@ -34,7 +34,7 @@ public class EntityPortfolioAlternativeImpl {
 
     public List<ClientAlternative> getAll(Client client) {
         List<ClientAlternative> clientAlternatives = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             clientAlternatives = session.createQuery("FROM Client_Alternative WHERE client_id=:client_id", ClientAlternative.class)
                     .setParameter("client_id", client.getId()).getResultList();
             session.close();
@@ -46,7 +46,7 @@ public class EntityPortfolioAlternativeImpl {
 
     public List<ClientAlternative> getAll() {
         List<ClientAlternative> clientAlternatives = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             clientAlternatives = session.createQuery("FROM Client_Alternative", ClientAlternative.class).getResultList();
             session.close();
         } catch (HibernateException e) {
@@ -56,7 +56,7 @@ public class EntityPortfolioAlternativeImpl {
     }
 
     public void update(ClientAlternative clientAlternative) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.saveOrUpdate(clientAlternative);
             transaction.commit();
@@ -68,7 +68,7 @@ public class EntityPortfolioAlternativeImpl {
 
     public List<PortfolioAlternativeRevision> getAudit(Client client) {
         List<PortfolioAlternativeRevision> revisions = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
                     .forRevisionsOfEntity(ClientAlternative.class, false, true)

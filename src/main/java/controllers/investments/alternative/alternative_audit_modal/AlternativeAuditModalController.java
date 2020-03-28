@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j2;
 import org.hibernate.envers.RevisionType;
 import sql.EntityAlternativeImpl;
 import java.net.URL;
@@ -19,7 +20,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
+@Log4j2
 public class AlternativeAuditModalController implements Initializable {
     @FXML
     private JFXButton close;
@@ -44,6 +45,7 @@ public class AlternativeAuditModalController implements Initializable {
         Platform.runLater(() -> {
             stage = (Stage) pane.getScene().getWindow();
             alternativeController = (AlternativeController) stage.getUserData();
+            log.info("Alternative aus alternativeController: " + alternativeController.getAlternativeModel().getAlternative());
             alternativeAuditModalModel.setRevisions(
                     new ArrayList<>(
                             // TODO : alternativeController.getModel.getStock liefert null

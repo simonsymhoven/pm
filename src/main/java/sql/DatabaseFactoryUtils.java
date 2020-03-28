@@ -8,11 +8,11 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 @Log4j2
-public final class DatabaseFactory {
+public final class DatabaseFactoryUtils {
     private static StandardServiceRegistry registry;
     private static SessionFactory sessionFactory;
 
-    private DatabaseFactory() {
+    private DatabaseFactoryUtils() {
 
     }
 

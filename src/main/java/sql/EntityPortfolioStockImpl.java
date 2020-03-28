@@ -21,7 +21,7 @@ public class EntityPortfolioStockImpl {
 
     public List<ClientStock> getAllForStock(Stock stock) {
         List<ClientStock> clientStocks = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             clientStocks = session.createQuery("FROM Client_Stock WHERE stock_id=:stock_id", ClientStock.class)
                     .setParameter("stock_id", stock.getId()).getResultList();
             session.close();
@@ -33,7 +33,7 @@ public class EntityPortfolioStockImpl {
 
     public List<ClientStock> getAll(Client client) {
         List<ClientStock> clientStocks = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             clientStocks = session.createQuery("FROM Client_Stock WHERE client_id=:client_id", ClientStock.class)
                     .setParameter("client_id", client.getId()).getResultList();
             session.close();
@@ -45,7 +45,7 @@ public class EntityPortfolioStockImpl {
 
     public List<ClientStock> getAll() {
         List<ClientStock> clientStocks = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             clientStocks = session.createQuery("FROM Client_Stock", ClientStock.class).getResultList();
             session.close();
         } catch (HibernateException e) {
@@ -55,7 +55,7 @@ public class EntityPortfolioStockImpl {
     }
 
     public void update(ClientStock clientStock) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 
             log.info("ClientStock ID to update: " + clientStock.getId());
@@ -69,7 +69,7 @@ public class EntityPortfolioStockImpl {
 
     public List<PortfolioStockRevision> getAudit(Client client) {
         List<PortfolioStockRevision> revisions = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
                     .forRevisionsOfEntity(ClientStock.class, false, true)

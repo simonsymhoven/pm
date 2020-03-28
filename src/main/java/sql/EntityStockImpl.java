@@ -21,7 +21,7 @@ public class EntityStockImpl {
 
     public List<Stock> getAll() {
         List<Stock> stock = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             stock = session.createQuery("FROM Stock", Stock.class).getResultList();
             session.close();
         } catch (HibernateException e) {
@@ -31,7 +31,7 @@ public class EntityStockImpl {
     }
 
     public boolean add(Stock stock) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Stock s = session.createQuery("FROM Stock WHERE symbol=:symbol", Stock.class)
                     .setParameter("symbol", stock.getSymbol()).uniqueResult();
             if (s == null) {
@@ -48,7 +48,7 @@ public class EntityStockImpl {
     }
 
     public boolean updateAll() {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
 
             YahooStockAPI yahooStockAPI = new YahooStockAPI();
             Transaction transaction = session.beginTransaction();
@@ -70,7 +70,7 @@ public class EntityStockImpl {
     }
 
     public boolean delete(Stock stock) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(stock);
             transaction.commit();
@@ -84,7 +84,7 @@ public class EntityStockImpl {
 
     public List<StockRevision> getAudit(Stock stock) {
         List<StockRevision> revisions = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
                     .forRevisionsOfEntity(Stock.class, false, true)

@@ -21,7 +21,7 @@ public class EntityAlternativeImpl {
 
     public List<Alternative> getAll() {
         List<Alternative> alternative = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             alternative = session.createQuery("FROM Alternative", Alternative.class).getResultList();
             session.close();
         } catch (HibernateException e) {
@@ -31,7 +31,7 @@ public class EntityAlternativeImpl {
     }
 
     public boolean add(Alternative alternative) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Alternative s = session.createQuery("FROM Alternative WHERE symbol=:symbol", Alternative.class)
                     .setParameter("symbol", alternative.getSymbol()).uniqueResult();
             if (s == null) {
@@ -49,7 +49,7 @@ public class EntityAlternativeImpl {
 
 
     public boolean updateAll() {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
 
             YahooStockAPI yahooStockAPI = new YahooStockAPI();
             Transaction transaction = session.beginTransaction();
@@ -71,7 +71,7 @@ public class EntityAlternativeImpl {
     }
 
     public boolean delete(Alternative alternative) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(alternative);
             transaction.commit();
@@ -85,7 +85,7 @@ public class EntityAlternativeImpl {
 
     public List<AlternativeRevision> getAudit(Alternative alternative) {
         List<AlternativeRevision> revisions = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             AuditQuery query = AuditReaderFactory.get(session)
                     .createQuery()
                     .forRevisionsOfEntity(Alternative.class, false, true)

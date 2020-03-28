@@ -105,8 +105,8 @@ public class AlternativeController implements Initializable {
         });
     }
 
-    @FXML
-    private void viewAudit() {
+
+    public void viewAudit() {
         try {
             Stage dialog = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/views/investments/alternative/alternative_audit_modal.fxml"));
@@ -129,8 +129,7 @@ public class AlternativeController implements Initializable {
         }
     }
 
-    @FXML
-    private void deleteAlternative() {
+    public void delete() {
         if (entityAlternative.delete(comboBox.getSelectionModel().getSelectedItem())) {
             comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
             comboBox.getSelectionModel().clearSelection();
@@ -144,8 +143,7 @@ public class AlternativeController implements Initializable {
         }
     }
 
-    @FXML
-    private void addAlternative() {
+    public void add() {
         try {
             Stage dialog = new Stage();
             Parent root = FXMLLoader.load(getClass()

@@ -13,7 +13,7 @@ import java.util.List;
 public class EntityUserImpl {
 
     public User get(String userName) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             User user = session.createQuery("FROM User WHERE userName=:userName", User.class)
                     .setParameter("userName", userName).uniqueResult();
             session.close();
@@ -26,7 +26,7 @@ public class EntityUserImpl {
 
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             users = session.createQuery("FROM User", User.class).getResultList();
             session.close();
             return users;
@@ -38,7 +38,7 @@ public class EntityUserImpl {
 
 
     public boolean add(User user) {
-        try (Session session = DatabaseFactory.getSessionFactory().openSession()) {
+        try (Session session = DatabaseFactoryUtils.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();

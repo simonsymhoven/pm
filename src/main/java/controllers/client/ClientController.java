@@ -111,119 +111,118 @@ public class ClientController implements Initializable {
             if (newValue != null) {
                 clientModel.setClient(newValue);
                 drawChart();
-                label.setText(clientModel.getClient().getName());
-                name.setText(clientModel.getClient().getName());
-                symbol.setText(clientModel.getClient().getSymbol());
-                strategyAlternativeLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltLower()) + " %");
-                strategyAlternativeTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltTarget()) + " %");
-                strategyAlternativeUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltUpper()) + " %");
-                strategyIoanLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanLower()) + " %");
-                strategyIoanTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanTarget()) + " %");
-                strategyIoanUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanUpper()) + " %");
-                strategyStocksLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockLower()) + " %");
-                strategyStocksTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockTarget()) + " %");
-                strategyStocksUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockUpper()) + " %");
-                strategyLiquidityLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityLower()) + " %");
-                strategyLiquidityTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityTarget()) + " %");
-                strategyLiquidityUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityUpper()) + " %");
-
-                capital.setText(NumberFormat.getCurrencyInstance()
-                        .format(clientModel.getClient().getCapital())
-                        .replace("EUR", "EUR ")
-                );
-
-                comment.setText(clientModel.getClient().getComment());
+                fillFields();
             }
         });
+    }
 
-        addClient.setOnMouseClicked(e -> {
+    private void fillFields() {
+        label.setText(clientModel.getClient().getName());
+        name.setText(clientModel.getClient().getName());
+        symbol.setText(clientModel.getClient().getSymbol());
+        strategyAlternativeLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltLower()) + " %");
+        strategyAlternativeTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltTarget()) + " %");
+        strategyAlternativeUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getAltUpper()) + " %");
+        strategyIoanLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanLower()) + " %");
+        strategyIoanTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanTarget()) + " %");
+        strategyIoanUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getIoanUpper()) + " %");
+        strategyStocksLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockLower()) + " %");
+        strategyStocksTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockTarget()) + " %");
+        strategyStocksUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getStockUpper()) + " %");
+        strategyLiquidityLowerLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityLower()) + " %");
+        strategyLiquidityTargetValue.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityTarget()) + " %");
+        strategyLiquidityUpperLimit.setText(String.format("%.2f", clientModel.getClient().getStrategy().getLiquidityUpper()) + " %");
+
+        capital.setText(NumberFormat.getCurrencyInstance()
+                .format(clientModel.getClient().getCapital())
+                .replace("EUR", "EUR ")
+        );
+
+        comment.setText(clientModel.getClient().getComment());
+    }
+
+    public void add() {
+        try {
             Stage dialog = new Stage();
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/client/client_add_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.initOwner(addClient.getScene().getWindow());
-                dialog.setUserData(this);
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.show();
-            } catch (IOException ex) {
-                log.error(ex);
-            }
+            Parent root = FXMLLoader.load(getClass().getResource("/views/client/client_add_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(addClient.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+    }
 
-        });
+    public void delete() {
+        if (entityClient.delete(clientModel.getClient())) {
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Client wurde erfolgreich gelöscht!");
+            comboBox.getItems().remove(clientModel.getClient());
+            label.setText("Übersicht");
+            getClients();
+            comboBox.getSelectionModel().clearSelection();
+            clear();
+        } else {
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Client konnte nicht gelöscht werden!");
+        }
+    }
 
-        deleteClient.setOnMouseClicked(e -> {
-            if (entityClient.delete(clientModel.getClient())) {
-                SnackBar snackBar = new SnackBar(pane);
-                snackBar.show("Client wurde erfolgreich gelöscht!");
-                comboBox.getItems().remove(clientModel.getClient());
-                label.setText("Übersicht");
-                getClients();
-                comboBox.getSelectionModel().clearSelection();
-                clear();
-            } else {
-                SnackBar snackBar = new SnackBar(pane);
-                snackBar.show("Client konnte nicht gelöscht werden!");
-            }
-        });
-
-        showAudit.setOnMouseClicked(e ->  {
+    public void edit() {
+        try {
             Stage dialog = new Stage();
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/client/client_audit_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.initOwner(showAudit.getScene().getWindow());
-                dialog.setUserData(this);
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.show();
-            } catch (IOException ex) {
-               log.error(ex);
-            }
-        });
+            Parent root = FXMLLoader.load(getClass().getResource("/views/client/client_edit_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+    }
 
-
-        editClient.setOnMouseClicked(e ->  {
+    public void viewAudit() {
+        try {
             Stage dialog = new Stage();
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/client/client_edit_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.initOwner(showAudit.getScene().getWindow());
-                dialog.setUserData(this);
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.show();
-            } catch (IOException ex) {
-                log.error(ex);
-            }
-        });
+            Parent root = FXMLLoader.load(getClass().getResource("/views/client/client_audit_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
     }
 
     public void getClients() {

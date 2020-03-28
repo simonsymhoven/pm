@@ -16,14 +16,6 @@ import javax.persistence.GenerationType;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    public User(String name, String vorname, String userName, String hash, byte[] image) {
-        this.name = name;
-        this.vorname = vorname;
-        this.userName = userName;
-        this.hash = hash;
-        this.image = image;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -43,4 +35,12 @@ public class User {
 
     @Column(name = "profilePicture")
     private byte[] image;
+
+    public User(String name, String vorname, String userName, String hash, byte[] image) {
+        this.name = name;
+        this.vorname = vorname;
+        this.userName = userName;
+        this.hash = hash;
+        this.image = image;
+    }
 }

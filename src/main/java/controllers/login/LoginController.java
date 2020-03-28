@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.mindrot.jbcrypt.BCrypt;
 import sql.EntityUserImpl;
-import sql.DatabaseFactory;
+import sql.DatabaseFactoryUtils;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -105,7 +105,7 @@ public class LoginController implements Initializable {
         checkBox.setSelected(true);
         close.setOnMouseClicked(e -> {
             System.exit(0);
-            DatabaseFactory.shutdown();
+            DatabaseFactoryUtils.shutdown();
         });
     }
 

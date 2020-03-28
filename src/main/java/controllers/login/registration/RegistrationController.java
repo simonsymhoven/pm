@@ -65,22 +65,22 @@ public class RegistrationController implements Initializable {
 
         close.setOnMouseClicked(e -> stage.close());
         surname.textProperty().addListener((observable, old, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 registrationModel.setSurname(newValue);
             }
         });
         forename.textProperty().addListener((observable, old, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 registrationModel.setForename(newValue);
             }
         });
         username.textProperty().addListener((observable, old, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 registrationModel.setUsername(newValue);
             }
         });
         password.textProperty().addListener((observable, old, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 passwordStrength = calculatePasswordStrength(newValue);
                 log.info("Stärke: " + passwordStrength);
                 registrationModel.setPassword(newValue);
