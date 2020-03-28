@@ -1,7 +1,7 @@
 package controllers.investments.stocks;
 
 import com.jfoenix.controls.JFXButton;
-import entities.client.clientStock.ClientStock;
+import entities.client.client_stock.ClientStock;
 import entities.stock.Stock;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;

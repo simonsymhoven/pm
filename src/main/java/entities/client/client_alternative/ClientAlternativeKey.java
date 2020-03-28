@@ -1,4 +1,4 @@
-package entities.client.clientStock;
+package entities.client.client_alternative;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,12 +12,12 @@ import java.io.Serializable;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientStockKey implements Serializable {
+public class ClientAlternativeKey implements Serializable {
     @Column(name = "client_id")
     private int clientID;
 
-    @Column(name = "stock_id")
-    private int stockID;
+    @Column(name = "alternative_id")
+    private int alternativeID;
 
 
 }

@@ -28,16 +28,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Stock implements Serializable {
-
-    public Stock(String name, String symbol, String exchange, BigDecimal price, BigDecimal change, String currency) {
-        this.name = name;
-        this.symbol = symbol;
-        this.exchange = exchange;
-        this.price = price;
-        this.change = change;
-        this.currency = currency;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, nullable = false, updatable = false)
@@ -66,6 +56,15 @@ public class Stock implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "stocks")
     private Set<Client> clients;
+
+    public Stock(String name, String symbol, String exchange, BigDecimal price, BigDecimal change, String currency) {
+        this.name = name;
+        this.symbol = symbol;
+        this.exchange = exchange;
+        this.price = price;
+        this.change = change;
+        this.currency = currency;
+    }
 
     @NotAudited
     @Override

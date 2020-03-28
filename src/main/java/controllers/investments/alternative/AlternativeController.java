@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import entities.alternative.Alternative;
-import entities.client.clientAlternative.ClientAlternative;
+import entities.client.client_alternative.ClientAlternative;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -95,97 +95,90 @@ public class AlternativeController implements Initializable {
                 if (list.size() > 0) {
                     deleteAlternative.setDisable(true);
                 }
-
                 alternativeModel.setAlternative(newValue);
-                currency.setText(alternativeModel.getAlternative().getCurrency());
-                label.setText(alternativeModel.getAlternative().getName());
-                name.setText(alternativeModel.getAlternative().getName());
-                symbol.setText(alternativeModel.getAlternative().getSymbol());
-                exchange.setText(alternativeModel.getAlternative().getExchange());
-                price.setText(NumberFormat.getCurrencyInstance()
-                        .format(alternativeModel.getAlternative().getPrice()));
-                change.setText(NumberFormat.getCurrencyInstance()
-                        .format(alternativeModel.getAlternative().getChange()));
-
-
+                fillFields();
                 plotAlternative();
-
             } else {
-                currency.clear();
-                label.setText("");
-                name.clear();
-                symbol.clear();
-                exchange.clear();
-                price.clear();
-                change.clear();
+                clearFields();
                 imgView.setImage(null);
             }
-
         });
+    }
 
-        showAudit.setOnMouseClicked(e -> {
+    @FXML
+    private void viewAudit() {
+        try {
             Stage dialog = new Stage();
-            Parent root;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/investments/alternative/alternative_audit_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.initOwner(showAudit.getScene().getWindow());
-                dialog.setUserData(this);
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.show();
-            } catch (IOException ex) {
-               log.error(ex);
-            }
+            Parent root = FXMLLoader.load(getClass().getResource("/views/investments/alternative/alternative_audit_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+    }
 
-        });
+    @FXML
+    private void deleteAlternative() {
+        if (entityAlternative.delete(comboBox.getSelectionModel().getSelectedItem())) {
+            comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
+            comboBox.getSelectionModel().clearSelection();
+            imgView.setImage(null);
+            getAlternatives();
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Alternatives Investment wurde erfolgreich gelöscht!");
+        } else {
+            SnackBar snackBar = new SnackBar(pane);
+            snackBar.show("Alternatives Investment  nicht gelöscht werden!");
+        }
+    }
 
-        addAlternative.setOnMouseClicked(e -> {
+    @FXML
+    private void addAlternative() {
+        try {
             Stage dialog = new Stage();
-            Parent root;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/investments/alternative/alternative_add_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.setUserData(this);
-                dialog.initOwner(addAlternative.getScene().getWindow());
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.showAndWait();
-            } catch (IOException ex) {
-               log.error(ex);
-            }
+            Parent root = FXMLLoader.load(getClass()
+                    .getResource("/views/investments/alternative/alternative_add_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.setUserData(this);
+            dialog.initOwner(addAlternative.getScene().getWindow());
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.showAndWait();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
+    }
 
-        });
-
-        deleteAlternative.setOnMouseClicked(e -> {
-            if (entityAlternative.delete(comboBox.getSelectionModel().getSelectedItem())) {
-                comboBox.getItems().remove(comboBox.getSelectionModel().getSelectedItem());
-                comboBox.getSelectionModel().clearSelection();
-                imgView.setImage(null);
-                getAlternatives();
-                SnackBar snackBar = new SnackBar(pane);
-                snackBar.show("Alternatives Investment wurde erfolgreich gelöscht!");
-            } else {
-                SnackBar snackBar = new SnackBar(pane);
-                snackBar.show("Alternatives Investment  nicht gelöscht werden!");
-            }
-        });
+    private void fillFields() {
+        currency.setText(alternativeModel.getAlternative().getCurrency());
+        label.setText(alternativeModel.getAlternative().getName());
+        name.setText(alternativeModel.getAlternative().getName());
+        symbol.setText(alternativeModel.getAlternative().getSymbol());
+        exchange.setText(alternativeModel.getAlternative().getExchange());
+        price.setText(NumberFormat.getCurrencyInstance()
+                .format(alternativeModel.getAlternative().getPrice()));
+        change.setText(NumberFormat.getCurrencyInstance()
+                .format(alternativeModel.getAlternative().getChange()));
     }
 
     private void plotAlternative() {
@@ -226,6 +219,12 @@ public class AlternativeController implements Initializable {
                 comboBox.getItems().add(c);
             }
         });
+    }
+
+    private void clearFields() {
+        pane.getChildren()
+                .filtered(node -> node instanceof JFXTextField)
+                .forEach(node -> ((JFXTextField) node).clear());
     }
 
 }

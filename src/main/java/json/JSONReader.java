@@ -19,8 +19,8 @@ public class JSONReader {
     public JSONReader() {
         if (!new File(pathToJSON).exists()) {
             try {
-                new File(pathToJSON).createNewFile();
-                try (FileWriter file = new FileWriter(pathToJSON)) {
+                if (new File(pathToJSON).createNewFile()) {
+                    FileWriter file = new FileWriter(pathToJSON);
                     JSONObject user = new JSONObject();
                     user.put("user", "");
                     user.put("lastUpdateDate", "");
@@ -28,21 +28,17 @@ public class JSONReader {
 
                     file.write(user.toJSONString());
                     file.flush();
-                } catch (IOException e) {
-                    log.error("Could not initialize");
                 }
             } catch (IOException e) {
-                log.error("Could not creat json File.");
+                log.error("Could not initialize");
             }
         }
         Object obj = null;
         try (FileReader reader = new FileReader(pathToJSON)) {
             obj = new JSONParser().parse(reader);
             this.jsonObject = (JSONObject) obj;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (IOException | ParseException e) {
+            log.error(e);
         }
     }
 

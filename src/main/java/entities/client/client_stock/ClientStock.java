@@ -1,4 +1,4 @@
-package entities.client.clientStock;
+package entities.client.client_stock;
 
 import entities.client.Client;
 import entities.stock.Stock;

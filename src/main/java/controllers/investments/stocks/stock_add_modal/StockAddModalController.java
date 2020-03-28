@@ -96,9 +96,9 @@ public class StockAddModalController implements Initializable {
 
         addStock.disableProperty().bind(share.textProperty().isEmpty());
 
-        symbol.textProperty().addListener((observableValue, s, newValue) -> {
-            stockAddModalModel.setSymbol(newValue);
-        });
+        symbol.textProperty().addListener((observableValue, s, newValue) ->
+            stockAddModalModel.setSymbol(newValue)
+        );
 
 
         share.textProperty().addListener((observableValue, oldValue, newValue) -> {

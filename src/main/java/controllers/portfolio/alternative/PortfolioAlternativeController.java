@@ -6,8 +6,8 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import entities.alternative.Alternative;
 import entities.client.Client;
-import entities.client.clientAlternative.ClientAlternative;
-import entities.client.clientAlternative.ClientAlternativeKey;
+import entities.client.client_alternative.ClientAlternative;
+import entities.client.client_alternative.ClientAlternativeKey;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -85,30 +85,6 @@ public class PortfolioAlternativeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         showAudit.disableProperty().bind(comboBox.valueProperty().isNull());
 
-        showAudit.setOnMouseClicked(e -> {
-            Stage dialog = new Stage();
-            Parent root;
-            try {
-                root = FXMLLoader.load(getClass().getResource("/views/portfolio/alternative/alternative_portfolio_audit_modal.fxml"));
-                root.setOnMousePressed(event -> {
-                    x = event.getSceneX();
-                    y = event.getSceneY();
-                });
-                root.setOnMouseDragged(event -> {
-                    dialog.setX(event.getScreenX() - x);
-                    dialog.setY(event.getScreenY() - y);
-                });
-                dialog.setScene(new Scene(root));
-                dialog.initOwner(showAudit.getScene().getWindow());
-                dialog.setUserData(this);
-                dialog.initStyle(StageStyle.UNDECORATED);
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.show();
-            } catch (IOException ex) {
-                log.error(ex);
-            }
-        });
-
         alternativeList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         alternativeListClient.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
@@ -141,15 +117,7 @@ public class PortfolioAlternativeController implements Initializable {
                     }
                 });
 
-                quantity.setText(String.valueOf(portfolioAlternativeModel.getClientAlternative().getQuantity()));
-                currency.setText(portfolioAlternativeModel.getAlternative().getCurrency());
-                name.setText(portfolioAlternativeModel.getAlternative().getName());
-                symbol.setText(portfolioAlternativeModel.getAlternative().getSymbol());
-                exchange.setText(portfolioAlternativeModel.getAlternative().getExchange());
-                price.setText(NumberFormat.getCurrencyInstance()
-                        .format(portfolioAlternativeModel.getAlternative().getPrice()));
-                change.setText(NumberFormat.getCurrencyInstance()
-                        .format(portfolioAlternativeModel.getAlternative().getChange()));
+                fillFields();
                 quantity.setEditable(true);
             } else {
                 clearFields();
@@ -158,7 +126,7 @@ public class PortfolioAlternativeController implements Initializable {
         });
 
         quantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.equals("")) {
+            if (!"".equals(newValue)) {
                 if (!newValue.matches("\\d*")) {
                     quantity.setText(newValue.replaceAll("\\D", ""));
                 } else {
@@ -176,6 +144,23 @@ public class PortfolioAlternativeController implements Initializable {
             }
         });
 
+        eventHandlersAlternativeClientList();
+        eventHandlersAlternativeList();
+    }
+
+    private void fillFields() {
+        quantity.setText(String.valueOf(portfolioAlternativeModel.getClientAlternative().getQuantity()));
+        currency.setText(portfolioAlternativeModel.getAlternative().getCurrency());
+        name.setText(portfolioAlternativeModel.getAlternative().getName());
+        symbol.setText(portfolioAlternativeModel.getAlternative().getSymbol());
+        exchange.setText(portfolioAlternativeModel.getAlternative().getExchange());
+        price.setText(NumberFormat.getCurrencyInstance()
+                .format(portfolioAlternativeModel.getAlternative().getPrice()));
+        change.setText(NumberFormat.getCurrencyInstance()
+                .format(portfolioAlternativeModel.getAlternative().getChange()));
+    }
+
+    private void eventHandlersAlternativeList() {
         // Add mouse event handlers for the source
         alternativeList.setOnDragDetected(event -> {
             log.info("Event on Source: drag detected");
@@ -197,6 +182,9 @@ public class PortfolioAlternativeController implements Initializable {
             dragDone(event, alternativeList);
         });
 
+    }
+
+    private void eventHandlersAlternativeClientList() {
         // Add mouse event handlers for the target
         alternativeListClient.setOnDragDetected(event -> {
             log.info("Event on Target: drag detected");
@@ -217,9 +205,6 @@ public class PortfolioAlternativeController implements Initializable {
             log.info("Event on Target: drag done");
             dragDone(event, alternativeListClient);
         });
-
-
-
     }
 
     private void replaceClientAlternative() {
@@ -338,5 +323,30 @@ public class PortfolioAlternativeController implements Initializable {
         portfolioAlternativeModel.getClientAlternatives().forEach(clientAlternative -> entityPortfolioAlternative.update(clientAlternative));
         SnackBar snackBar = new SnackBar(pane);
         snackBar.show("Alt. Investment wurde aktualisiert!");
+    }
+
+    @FXML
+    private void viewAudit() {
+        Stage dialog = new Stage();
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/views/portfolio/alternative/alternative_portfolio_audit_modal.fxml"));
+            root.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+            root.setOnMouseDragged(event -> {
+                dialog.setX(event.getScreenX() - x);
+                dialog.setY(event.getScreenY() - y);
+            });
+            dialog.setScene(new Scene(root));
+            dialog.initOwner(showAudit.getScene().getWindow());
+            dialog.setUserData(this);
+            dialog.initStyle(StageStyle.UNDECORATED);
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.show();
+        } catch (IOException ex) {
+            log.error(ex);
+        }
     }
 }

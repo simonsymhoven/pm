@@ -1,7 +1,7 @@
 package controllers.portfolio.stock;
 
 import entities.client.Client;
-import entities.client.clientStock.ClientStock;
+import entities.client.client_stock.ClientStock;
 import entities.stock.Stock;
 import javafx.scene.input.DataFormat;
 import lombok.Data;
@@ -16,7 +16,13 @@ public class PortfolioStockModel {
     private Client client;
     private Stock stock;
     private ClientStock clientStock;
+    private int quantity;
+    private double shareTarget;
+    private double shareActual;
+    private double diffRelative;
+    private int diffAbsolute;
     private DataFormat dataFormat;
+
     DataFormat getFormat() {
         String dateFormat = "StockList";
         if (DataFormat.lookupMimeType(dateFormat) == null) {
@@ -25,9 +31,5 @@ public class PortfolioStockModel {
         return DataFormat.lookupMimeType(dateFormat);
     }
 
-    private int quantity;
-    private double shareTarget;
-    private double shareActual;
-    private double diffRelative;
-    private int diffAbsolute;
+
 }

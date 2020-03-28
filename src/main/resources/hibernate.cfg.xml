@@ -22,8 +22,8 @@
         <mapping class="entities.client.Client"/>
         <mapping class="entities.stock.Stock"/>
         <mapping class="entities.alternative.Alternative"/>
-        <mapping class="entities.client.clientAlternative.ClientAlternative"/>
+        <mapping class="entities.client.client_alternative.ClientAlternative"/>
         <mapping class="entities.investment.Strategy"/>
-        <mapping class="entities.client.clientStock.ClientStock"/>
+        <mapping class="entities.client.client_stock.ClientStock"/>
     </session-factory>
 </hibernate-configuration>

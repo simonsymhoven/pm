@@ -17,17 +17,14 @@ public class Main extends Application {
         DatabaseFactory.getSessionFactory().openSession();
 
         Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-        //root.getStylesheets().add(getClass().getResource("/fullpackstyling.css").toExternalForm());
         stage.setTitle("Portfolio Management");
         stage.initStyle(StageStyle.UNDECORATED);
 
-        //grab your root here
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
             y = event.getSceneY();
         });
 
-        //move around here
         root.setOnMouseDragged(event -> {
             stage.setX(event.getScreenX() - x);
             stage.setY(event.getScreenY() - y);

@@ -3,7 +3,6 @@ package entities.client;
 import entities.alternative.Alternative;
 import entities.investment.Strategy;
 import entities.stock.Stock;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
@@ -31,22 +30,8 @@ import java.util.Set;
         @UniqueConstraint(columnNames = "symbol") })
 @Audited
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Client implements Serializable {
-    public Client(
-            String name,
-            String symbol,
-            Strategy strategy,
-            BigDecimal capital,
-            String comment) {
-        this.name = name;
-        this.symbol = symbol;
-        this.strategy = strategy;
-        this.capital = capital;
-        this.comment = comment;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true, updatable = false, nullable = false)

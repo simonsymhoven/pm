@@ -1,6 +1,6 @@
 package sql;
 
-import entities.client.clientStock.ClientStock;
+import entities.client.client_stock.ClientStock;
 import entities.client.Client;
 import entities.portfolio.PortfolioStockRevision;
 import entities.stock.Stock;

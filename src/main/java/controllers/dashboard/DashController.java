@@ -93,7 +93,7 @@ public class DashController implements Initializable {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
             String date = jsonReader.read("lastUpdateDate").toString();
-            if (!date.equals("")) {
+            if (!"".equals(date)) {
                 dashModel.setLastUpdate(simpleDateFormat.parse(date));
                 dashModel.setStatus(jsonReader.read("lastUpdateStatus").toString());
                 lastUpdateDate.setText(simpleDateFormat.format(dashModel.getLastUpdate()));
@@ -102,8 +102,6 @@ public class DashController implements Initializable {
                 lastUpdateDate.setText("-");
                 lastUpdateStatus.setText("");
             }
-
-
 
         } catch (ParseException e) {
             log.error(e);

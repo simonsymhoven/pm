@@ -16,7 +16,6 @@ public class SnackBar {
 
     public void show(String text) {
         JFXSnackbar snackbar = new JFXSnackbar(pane);
-        EventHandler handler = event -> snackbar.unregisterSnackbarContainer(pane);
         snackbar.getStylesheets().add(SnackBar.class.getResource("/fullpackstyling.css").toExternalForm());
         snackbar.show(text,  5000);
     }

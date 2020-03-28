@@ -26,9 +26,29 @@ public class AnalyseController implements Initializable {
     @FXML
     private JFXTextField input;
 
+    private JFXTreeTableColumn<TableItem, String> nameCol = new JFXTreeTableColumn<>("Name");
+    private JFXTreeTableColumn<TableItem, String> depoValueCol = new JFXTreeTableColumn<>("Gesamtvermögen");
+    private JFXTreeTableColumn<TableItem, String> headerStockCol = new JFXTreeTableColumn<>("Aktien");
+    private JFXTreeTableColumn<TableItem, String> stockValueCol = new JFXTreeTableColumn<>("Summe");
+    private JFXTreeTableColumn<TableItem, String> stockShareCol = new JFXTreeTableColumn<>("Ist");
+    private JFXTreeTableColumn<TableItem, String> stockStrategyCol = new JFXTreeTableColumn<>("Soll");
+    private JFXTreeTableColumn<TableItem, String> headerAlternativeCol = new JFXTreeTableColumn<>("Alt. Investments");
+    private JFXTreeTableColumn<TableItem, String> alternativeValueCol = new JFXTreeTableColumn<>("Summe");
+    private JFXTreeTableColumn<TableItem, String> alternativeShareCol = new JFXTreeTableColumn<>("Ist");
+    private JFXTreeTableColumn<TableItem, String> alternativeStrategyCol = new JFXTreeTableColumn<>("Soll");
+    private JFXTreeTableColumn<TableItem, String> headerIoanCol = new JFXTreeTableColumn<>("Anleihen");
+    private JFXTreeTableColumn<TableItem, String> ioanValueCol = new JFXTreeTableColumn<>("Summe");
+    private JFXTreeTableColumn<TableItem, String> ioanShareCol = new JFXTreeTableColumn<>("Ist");
+    private JFXTreeTableColumn<TableItem, String> ioanStrategyCol = new JFXTreeTableColumn<>("Soll");
+    private JFXTreeTableColumn<TableItem, String> headerLiquidityCol = new JFXTreeTableColumn<>("Liquidität");
+    private JFXTreeTableColumn<TableItem, String> liquidityValueCol = new JFXTreeTableColumn<>("Summe");
+    private JFXTreeTableColumn<TableItem, String> liquidityShareCol = new JFXTreeTableColumn<>("Ist");
+    private JFXTreeTableColumn<TableItem, String> liquidityStrategyCol = new JFXTreeTableColumn<>("Soll");
     private EntityClientImpl entityClient;
     private EntityPortfolioStockImpl entityPortfolioStock;
     private EntityPortfolioAlternativeImpl entityPortfolioAlternative;
+    private String errorColor = "-fx-background-color: #BFFF00";
+    private String successColor = "-fx-background-color: #FF4646";
 
     public AnalyseController() {
         this.entityClient = new EntityClientImpl();
@@ -42,63 +62,85 @@ public class AnalyseController implements Initializable {
                 treeView.setPredicate(tableItemTreeItem ->
                         tableItemTreeItem.getValue().getClientName().getValue().contains(newValue)));
 
-        JFXTreeTableColumn<TableItem, String> nameCol = new JFXTreeTableColumn<>("Name");
-        nameCol.setCellValueFactory(tableItemStringCellDataFeatures
-                -> tableItemStringCellDataFeatures.getValue().getValue().getClientName());
+        addBasicCellValueFactory();
+        addStockCellValueFactory();
+        addIonaCellValueFactory();
+        addAlternativeCellValueFactory();
+        addLiquidityCellValueFactory();
+        createTable();
+        createCellFactoryStock(stockShareCol);
+        createCellFactoryAlternative(alternativeShareCol);
+        crateCellFactoryIoan(ioanShareCol);
+        createCellFactoryLiquidity(liquidityShareCol);
+    }
 
-        JFXTreeTableColumn<TableItem, String> depoValueCol = new JFXTreeTableColumn<>("Gesamtvermögen");
-        depoValueCol.setCellValueFactory(tableItemStringCellDataFeatures
-                -> tableItemStringCellDataFeatures.getValue().getValue().getDepoValue());
+    private void createTable() {
+        final TreeItem<TableItem> root = new RecursiveTreeItem<>(getItems(), RecursiveTreeObject::getChildren);
+        treeView.getColumns().setAll(
+                nameCol,
+                depoValueCol,
+                headerStockCol,
+                headerAlternativeCol,
+                headerIoanCol,
+                headerLiquidityCol
+        );
+        treeView.setRoot(root);
+        treeView.setShowRoot(false);
+    }
 
-
-        JFXTreeTableColumn<TableItem, String> headerStockCol = new JFXTreeTableColumn<>("Aktien");
-        JFXTreeTableColumn<TableItem, String> stockValueCol = new JFXTreeTableColumn<>("Summe");
-        stockValueCol.setCellValueFactory(tableItemStringCellDataFeatures
-                -> tableItemStringCellDataFeatures.getValue().getValue().getStockValue());
-        JFXTreeTableColumn<TableItem, String> stockShareCol = new JFXTreeTableColumn<>("Ist");
-        stockShareCol.setCellValueFactory(tableItemStringCellDataFeatures
-                -> tableItemStringCellDataFeatures.getValue().getValue().getStockShare());
-        JFXTreeTableColumn<TableItem, String> stockStrategyCol = new JFXTreeTableColumn<>("Soll");
-        stockStrategyCol.setCellValueFactory(tableItemStringCellDataFeatures
-                -> tableItemStringCellDataFeatures.getValue().getValue().getStockStrategy());
-        headerStockCol.getColumns().addAll(stockValueCol, stockShareCol, stockStrategyCol);
-
-        JFXTreeTableColumn<TableItem, String> headerAlternativeCol = new JFXTreeTableColumn<>("Alt. Investments");
-        JFXTreeTableColumn<TableItem, String> alternativeValueCol = new JFXTreeTableColumn<>("Summe");
+    private void addAlternativeCellValueFactory() {
         alternativeValueCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getAlternativeValue());
-        JFXTreeTableColumn<TableItem, String> alternativeShareCol = new JFXTreeTableColumn<>("Ist");
         alternativeShareCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getAlternativeShare());
-        JFXTreeTableColumn<TableItem, String> alternativeStrategyCol = new JFXTreeTableColumn<>("Soll");
+
         alternativeStrategyCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getAlternativeStrategy());
         headerAlternativeCol.getColumns().addAll(alternativeValueCol, alternativeShareCol, alternativeStrategyCol);
+    }
 
-        JFXTreeTableColumn<TableItem, String> headerIoanCol = new JFXTreeTableColumn<>("Anleihen");
-        JFXTreeTableColumn<TableItem, String> ioanValueCol = new JFXTreeTableColumn<>("Summe");
+    private void addIonaCellValueFactory() {
         ioanValueCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getIoanValue());
-        JFXTreeTableColumn<TableItem, String> ioanShareCol = new JFXTreeTableColumn<>("Ist");
+
         ioanShareCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getIoanShare());
-        JFXTreeTableColumn<TableItem, String> ioanStrategyCol = new JFXTreeTableColumn<>("Soll");
+
         ioanStrategyCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getIoanStrategy());
         headerIoanCol.getColumns().addAll(ioanValueCol, ioanShareCol, ioanStrategyCol);
+    }
 
-        JFXTreeTableColumn<TableItem, String> headerLiquidityCol = new JFXTreeTableColumn<>("Liquidität");
-        JFXTreeTableColumn<TableItem, String> liquidityValueCol = new JFXTreeTableColumn<>("Summe");
+    private void addLiquidityCellValueFactory() {
         liquidityValueCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getLiquidityValue());
-        JFXTreeTableColumn<TableItem, String> liquidityShareCol = new JFXTreeTableColumn<>("Ist");
+
         liquidityShareCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getLiquidityShare());
-        JFXTreeTableColumn<TableItem, String> liquidityStrategyCol = new JFXTreeTableColumn<>("Soll");
+
         liquidityStrategyCol.setCellValueFactory(tableItemStringCellDataFeatures
                 -> tableItemStringCellDataFeatures.getValue().getValue().getLiquidityStrategy());
         headerLiquidityCol.getColumns().addAll(liquidityValueCol, liquidityShareCol, liquidityStrategyCol);
+    }
 
+    private void addStockCellValueFactory() {
+        stockValueCol.setCellValueFactory(tableItemStringCellDataFeatures
+                -> tableItemStringCellDataFeatures.getValue().getValue().getStockValue());
+        stockShareCol.setCellValueFactory(tableItemStringCellDataFeatures
+                -> tableItemStringCellDataFeatures.getValue().getValue().getStockShare());
+        stockStrategyCol.setCellValueFactory(tableItemStringCellDataFeatures
+                -> tableItemStringCellDataFeatures.getValue().getValue().getStockStrategy());
+        headerStockCol.getColumns().addAll(stockValueCol, stockShareCol, stockStrategyCol);
+    }
+
+    private void addBasicCellValueFactory() {
+        nameCol.setCellValueFactory(tableItemStringCellDataFeatures
+                -> tableItemStringCellDataFeatures.getValue().getValue().getClientName());
+        depoValueCol.setCellValueFactory(tableItemStringCellDataFeatures
+                -> tableItemStringCellDataFeatures.getValue().getValue().getDepoValue());
+    }
+
+    private ObservableList<TableItem> getItems() {
         ObservableList<TableItem> tableItems = FXCollections.observableArrayList();
 
         entityClient.getAll().forEach(client -> {
@@ -111,8 +153,8 @@ public class AnalyseController implements Initializable {
                     .stream()
                     .mapToDouble(clientAlternative -> clientAlternative.getQuantity() * clientAlternative.getAlternative().getPrice().doubleValue())
                     .sum();
-           double ioanValue = 0;
-           double liquidityValue = client.getCapital().doubleValue() - stockValue - alternativeValue - ioanValue;
+            double ioanValue = 0;
+            double liquidityValue = client.getCapital().doubleValue() - stockValue - alternativeValue - ioanValue;
 
             tableItems.add(
                     new TableItem(
@@ -127,42 +169,21 @@ public class AnalyseController implements Initializable {
             );
         });
 
-        final TreeItem<TableItem> root = new RecursiveTreeItem<>(tableItems, RecursiveTreeObject::getChildren);
-        treeView.getColumns().setAll(
-                nameCol,
-                depoValueCol,
-                headerStockCol,
-                headerAlternativeCol,
-                headerIoanCol,
-                headerLiquidityCol
-        );
-        treeView.setRoot(root);
-        treeView.setShowRoot(false);
-
-        createCellFacotryStock(stockShareCol);
-        createCellFactoryAlternative(alternativeShareCol);
-        crateCellFactoryIoan(ioanShareCol);
-        creatCellFacotryLiquidity(liquidityShareCol);
+        return tableItems;
     }
 
-    private void creatCellFacotryLiquidity(JFXTreeTableColumn<TableItem, String> col) {
+    private void createCellFactoryLiquidity(JFXTreeTableColumn<TableItem, String> col) {
         col.setCellFactory(column -> new TreeTableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty); //This is mandatory
-
-                if (item == null || empty) { //If the cell is empty
-                    setText(null);
-                    setStyle("");
-                } else { //If the cell is not empty
-                    setText(item); //Put the String data in the cell
-                    //We get here all the info of the Person of this row
+                super.updateItem(item, empty);
+                if (item != null || !empty) {
+                    setText(item);
                     TreeItem<TableItem> tableItem = getTreeTableView().getTreeItem(getIndex());
-
                     if (tableItem.getValue().getLiquidityShare().getValue().equals(tableItem.getValue().getLiquidityStrategy().getValue())) {
-                        setStyle("-fx-background-color: #BFFF00");
-                    } else { //The text in red
-                        setStyle("-fx-background-color: #ff4646"); //The background of the cell in yellow
+                        setStyle(successColor);
+                    } else {
+                        setStyle(errorColor);
                     }
                 }
             }
@@ -173,20 +194,14 @@ public class AnalyseController implements Initializable {
         col.setCellFactory(column -> new TreeTableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty); //This is mandatory
-
-                if (item == null || empty) { //If the cell is empty
-                    setText(null);
-                    setStyle("");
-                } else { //If the cell is not empty
-                    setText(item); //Put the String data in the cell
-                    //We get here all the info of the Person of this row
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    setText(item);
                     TreeItem<TableItem> tableItem = getTreeTableView().getTreeItem(getIndex());
-
                     if (tableItem.getValue().getIoanShare().getValue().equals(tableItem.getValue().getIoanStrategy().getValue())) {
-                        setStyle("-fx-background-color: #BFFF00");
-                    } else { //The text in red
-                        setStyle("-fx-background-color: #ff4646");
+                        setStyle(successColor);
+                    } else {
+                        setStyle(errorColor);
                     }
                 }
             }
@@ -197,44 +212,33 @@ public class AnalyseController implements Initializable {
         col.setCellFactory(column -> new TreeTableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty); //This is mandatory
-
-                if (item == null || empty) { //If the cell is empty
-                    setText(null);
-                    setStyle("");
-                } else { //If the cell is not empty
-                    setText(item); //Put the String data in the cell
-                    //We get here all the info of the Person of this row
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    setText(item);
                     TreeItem<TableItem> tableItem = getTreeTableView().getTreeItem(getIndex());
-
                     if (tableItem.getValue().getAlternativeShare().getValue().equals(tableItem.getValue().getAlternativeStrategy().getValue())) {
-                        setStyle("-fx-background-color: #BFFF00");
-                    } else { //The text in red
-                        setStyle("-fx-background-color: #ff4646"); //The background of the cell in yellow
+                        setStyle(successColor);
+                    } else {
+                        setStyle(errorColor);
                     }
                 }
             }
         });
     }
 
-    private void createCellFacotryStock(JFXTreeTableColumn<TableItem, String> col) {
+    private void createCellFactoryStock(JFXTreeTableColumn<TableItem, String> col) {
         col.setCellFactory(column -> new TreeTableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty); //This is mandatory
-
-                if (item == null || empty) { //If the cell is empty
-                    setText(null);
-                    setStyle("");
-                } else { //If the cell is not empty
-                    setText(item); //Put the String data in the cell
-                    //We get here all the info of the Person of this row
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    setText(item);
                     TreeItem<TableItem> tableItem = getTreeTableView().getTreeItem(getIndex());
-
-                    if (tableItem.getValue().getStockShare().getValue().equals(tableItem.getValue().getStockStrategy().getValue())) {
-                        setStyle("-fx-background-color: #BFFF00");
-                    } else { //The text in red
-                        setStyle("-fx-background-color: #ff4646"); //The background of the cell in yellow
+                    if (tableItem.getValue().getStockShare().getValue().equals(
+                            tableItem.getValue().getStockStrategy().getValue())) {
+                        setStyle(successColor);
+                    } else {
+                        setStyle(errorColor);
                     }
                 }
             }

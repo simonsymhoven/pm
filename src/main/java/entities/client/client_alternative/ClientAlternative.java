@@ -1,4 +1,4 @@
-package entities.client.clientAlternative;
+package entities.client.client_alternative;
 
 import entities.alternative.Alternative;
 

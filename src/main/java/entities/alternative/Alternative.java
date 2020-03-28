@@ -25,16 +25,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Alternative implements Serializable {
-
-    public Alternative(String name, String symbol, String exchange, BigDecimal price, BigDecimal change, String currency) {
-        this.name = name;
-        this.symbol = symbol;
-        this.exchange = exchange;
-        this.price = price;
-        this.change = change;
-        this.currency = currency;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -60,6 +50,15 @@ public class Alternative implements Serializable {
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "alternatives")
     private Set<Client> clients;
+
+    public Alternative(String name, String symbol, String exchange, BigDecimal price, BigDecimal change, String currency) {
+        this.name = name;
+        this.symbol = symbol;
+        this.exchange = exchange;
+        this.price = price;
+        this.change = change;
+        this.currency = currency;
+    }
 
     @NotAudited
     @Override

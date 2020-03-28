@@ -67,9 +67,9 @@ public class AlternativeAddModalController implements Initializable {
                 )
         );
 
-        symbol.textProperty().addListener((observableValue, s, newValue) -> {
-            alternativeAddModalModel.setSymbol(newValue);
-        });
+        symbol.textProperty().addListener((observableValue, s, newValue) ->
+                alternativeAddModalModel.setSymbol(newValue)
+        );
 
     }
 
