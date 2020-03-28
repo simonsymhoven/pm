@@ -10,36 +10,33 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-If you want to have a look to the generated database, you need to install following tool (or something similar).
+If you want to have a look to the generated database, you need to install DBBrowser for SQLite (or something similar).
 
-```
-DBBrowser for SQLite
-```
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-```
-git clone https://github.com/simonsymhoven/pm.git
-mvn clean install
-```
+`git clone https://github.com/simonsymhoven/pm.git`
+
+`mvn clean install`
 
 ### Running
 
-```
-mvn javafx:run
-```
+All the run configurations are checked in and are available on runnning this project on IntelliJ IDEA.
+Preferred artifact for development:
+ 
+`mvn javafx:run`
 
 ## Todo
 
-    *   check license of icons
+*   check license of icons
 
-    *   rework of audit log for clients, stocks and join tables (client_stock & alternative_stock)
+*   rework of audit log for clients, stocks and join tables (client_stock & alternative_stock)
 
-    *   setup codecov for jenkins pipeline
+*   setup codecov for jenkins pipeline
 
-    *   release MVP 
+*   release MVP 
 
 ## Testing
 
@@ -50,9 +47,7 @@ Small description
 
 Explain what these tests test and why
 
-```
-mvn test jacoco:report
-```
+`mvn test jacoco:report`
 
 JUnit tests aren't implemented yet. 
 <img src="https://codecov.io/gh/simonsymhoven/pm/commit/f38bcaa809edb8cc881a5484cd6d28e368c9d7bc/graphs/sunburst.svg?token=C0WFTF0tHU">
@@ -61,9 +56,7 @@ JUnit tests aren't implemented yet.
 
 Explain what these tests test and why
 
-```
-mvn checkstyle:check
-```
+`mvn checkstyle:check`
 
 ## Database schema
 ![Image description](https://github.com/simonsymhoven/pm/blob/master/img/schema.png)
@@ -75,8 +68,11 @@ Not yet available
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
+
 * [Jenkins](https://jenkins.io) - CI
+
 * [Codacy](https://app.codacy.com) - Code Review
+
 * [Codecov](https://codecov.io) - Code Coverage
 
 ## Authors
