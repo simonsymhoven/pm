@@ -1,7 +1,7 @@
 package controllers.portfolio.stock.portfolio_stock_audit_modal;
 
 import com.jfoenix.controls.JFXButton;
-import controllers.client.Box;
+import controllers.Box;
 import controllers.portfolio.stock.PortfolioStockController;
 import entities.client.client_stock.ClientStock;
 import javafx.application.Platform;

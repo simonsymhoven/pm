@@ -40,7 +40,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../icons2/round_save_white_48dp.png" />
+                        <Image url="@../../../icons/round_save_white_48dp.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -52,7 +52,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../icons2/round_more_vert_white_48dp.png" />
+                        <Image url="@../../../icons/round_more_vert_white_48dp.png" />
                      </image>
                   </ImageView>
                </graphic>

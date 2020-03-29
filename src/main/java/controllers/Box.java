@@ -1,4 +1,4 @@
-package controllers.client;
+package controllers;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -15,28 +15,34 @@ public class Box {
     public HBox generateAuditHBox(RevisionType revisionType, Date revisionDate, String text) {
         HBox hbox = new HBox();
         hbox.setPrefSize(550, 70);
-        hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+        hbox.setStyle("-fx-border-style: solid inside;"
                 + "-fx-border-width: 0.5;" + "-fx-border-insets: 5;"
-                + "-fx-border-radius: 5;" + "-fx-border-color: #343f4a;");
+                + "-fx-border-radius: 5;" + "-fx-border-color: #344955;");
         Image img = null;
 
         switch (revisionType) {
             case ADD:
-                img = new Image(getClass().getResourceAsStream("/icons/plus(1).png"));
+                img = new Image(getClass().getResourceAsStream("/icons/round_add_white_48dp.png"));
                 break;
             case DEL:
-                img = new Image(getClass().getResourceAsStream("/icons/error.png"));
+                img = new Image(getClass().getResourceAsStream("/icons/round_delete_white_48dp.png"));
                 break;
             case MOD:
-                img = new Image(getClass().getResourceAsStream("/icons/pen.png"));
+                img = new Image(getClass().getResourceAsStream("/icons/round_edit_white_48dp.png"));
                 break;
             default:
                 break;
         }
 
+
         ImageView imageView = new ImageView(img);
         imageView.setFitWidth(70);
         imageView.setFitHeight(70);
+
+        VBox imgBox = new VBox();
+        imgBox.setStyle("-fx-background-color: #344955");
+        imgBox.setPrefSize(70, 70);
+        imgBox.getChildren().add(imageView);
 
         VBox dateChangeBox = new VBox();
         dateChangeBox.setPadding(new Insets(20, 5, 5, 20));
@@ -59,7 +65,7 @@ public class Box {
 
         dateChangeBox.getChildren().addAll(date, change);
 
-        hbox.getChildren().addAll(imageView, dateChangeBox);
+        hbox.getChildren().addAll(imgBox, dateChangeBox);
         return hbox;
     }
 }

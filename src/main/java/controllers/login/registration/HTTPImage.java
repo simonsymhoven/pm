@@ -6,13 +6,11 @@ import org.apache.pdfbox.io.IOUtils;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Random;
 
 @Log4j2
 public class HTTPImage extends Task<byte[]> {
 
     private RegistrationModel registrationModel;
-    private Random obj = new Random();
 
     HTTPImage(RegistrationModel registrationModel) {
         this.registrationModel = registrationModel;

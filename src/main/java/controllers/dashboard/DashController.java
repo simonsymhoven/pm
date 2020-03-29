@@ -1,7 +1,6 @@
 package controllers.dashboard;
 
 import entities.stock.Stock;
-import javafx.application.Platform;
 import json.JSONReader;
 import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;

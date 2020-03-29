@@ -88,17 +88,17 @@
             <Font size="36.0" />
          </font>
       </Label>
-           <Label layoutX="213.0" layoutY="50.0" prefHeight="26.0" prefWidth="246.0" text="Herzlich Willkommen," textFill="#343f4a">
+           <Label layoutX="353.0" layoutY="60.0" prefHeight="26.0" prefWidth="246.0" text="Herzlich Willkommen," textFill="#343f4a">
                <font>
                    <Font name="System Bold" size="24.0" />
                </font>
            </Label>
-           <ImageView fitHeight="72.0" fitWidth="64.0" layoutX="129.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+           <ImageView fitHeight="169.0" fitWidth="312.0" layoutX="116.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                   <Image url="@../../icons/diamant.png" />
+                   <Image url="@../../icons/marketshare.png" />
                </image>
            </ImageView>
-      <Label fx:id="name" layoutX="213.0" layoutY="79.0" prefHeight="29.0" prefWidth="246.0" textFill="#343f4a">
+      <Label fx:id="name" layoutX="353.0" layoutY="98.0" prefHeight="29.0" prefWidth="246.0" textFill="#343f4a">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -109,7 +109,7 @@
                      <graphic>
                          <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                              <image>
-                                 <Image url="@../../icons2/baseline_refresh_white_48dp.png" />
+                                 <Image url="@../../icons/baseline_refresh_white_48dp.png" />
                              </image>
                          </ImageView>
                      </graphic>

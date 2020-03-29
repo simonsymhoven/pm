@@ -40,7 +40,7 @@
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons2/baseline_pie_chart_white_48dp.png" />
+                             <Image url="@../icons/baseline_pie_chart_white_48dp.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -61,7 +61,7 @@
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons2/baseline_supervisor_account_white_48dp.png" />
+                             <Image url="@../icons/baseline_supervisor_account_white_48dp.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -79,7 +79,7 @@
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons2/baseline_bar_chart_white_48dp.png" />
+                             <Image url="@../icons/baseline_bar_chart_white_48dp.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -97,7 +97,7 @@
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons2/baseline_attach_money_white_48dp.png" />
+                             <Image url="@../icons/baseline_attach_money_white_48dp.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -115,7 +115,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons2/baseline_clear_white_48dp.png" />
+                        <Image url="@../icons/baseline_clear_white_48dp.png" />
                      </image>
                   </ImageView>
                </graphic>

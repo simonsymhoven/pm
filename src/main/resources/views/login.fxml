@@ -43,12 +43,12 @@
       </Label>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="329.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icons2/output-onlinepngtools-2.png" />
+            <Image url="@../icons/output-onlinepngtools-2.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="329.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icons2/output-onlinepngtools.png" />
+            <Image url="@../icons/output-onlinepngtools.png" />
          </image>
       </ImageView>
       <JFXCheckBox fx:id="checkBox" layoutX="329.0" layoutY="283.0" stylesheets="@../fullpackstyling.css" text="Benutzername speichern" />
@@ -65,7 +65,7 @@
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons2/round_person_add_white_48dp.png" />
+                        <Image url="@../icons/round_person_add_white_48dp.png" />
                      </image>
                   </ImageView>
                </graphic>

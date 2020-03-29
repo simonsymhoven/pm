@@ -18,7 +18,7 @@
                 <graphic>
                     <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
                         <image>
-                            <Image url="@../../icons2/round_import_export_white_48dp.png" />
+                            <Image url="@../../icons/round_import_export_white_48dp.png" />
                         </image>
                     </ImageView>
                 </graphic>

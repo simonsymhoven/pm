@@ -5,7 +5,6 @@ import entities.client.client_stock.ClientStock;
 import entities.stock.Stock;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import snackbar.SnackBar;
 import sql.EntityPortfolioStockImpl;
