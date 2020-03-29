@@ -29,10 +29,8 @@ Preferred artifact for development:
 
 ## Todo
 
-*   check license of icons
 *   rework of audit log for clients, stocks and join tables (client_stock & alternative_stock)
-*   setup codecov for jenkins pipeline
-*   release MVP 
+*   Loading screen or something else while application setup (login and main setup)
 
 ## Testing
 

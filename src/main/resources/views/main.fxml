@@ -75,7 +75,7 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" stylesheets="@../fullpackstyling.css" text="INVESTMENTS" textFill="#F9AA33" userData="/views/investments/investments_tabpane.fxml">
+            <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="INVESTMENTS" textFill="#F9AA33" userData="/views/investments/investments_tabpane.fxml">
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>

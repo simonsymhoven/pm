@@ -59,17 +59,22 @@ public class Plot extends Task<Image> {
                             .build();
 
             chart.getStyler().setMarkerSize(1);
+            Color color = new Color(51, 73, 85);
             chart.getStyler().setChartBackgroundColor(new Color(244, 244, 244));
-            chart.getStyler().setLegendBackgroundColor(new Color(244, 244, 244));
             chart.getStyler().setPlotBackgroundColor(new Color(244, 244, 244));
             chart.getStyler().setChartTitleVisible(false);
             chart.getStyler().setLegendVisible(false);
-            chart.getStyler().setXAxisLabelRotation(30);
-            chart.getStyler().setChartFontColor(new Color(20, 25, 29));
-            chart.getStyler().setPlotBorderColor(new Color(20, 25, 29));
-            chart.getStyler().setAxisTickMarksColor(new Color(20, 25, 29));
-            chart.getStyler().setAxisTickLabelsColor(new Color(20, 25, 29));
-            chart.getStyler().setDatePattern("MM/yyyy");
+            chart.getStyler().setXAxisLabelRotation(0);
+            chart.getStyler().setChartFontColor(color);
+            chart.getStyler().setPlotBorderColor(color);
+            chart.getStyler().setAxisTickMarksColor(color);
+            chart.getStyler().setAxisTickLabelsColor(color);
+            chart.getStyler().setDatePattern("dd.MM");
+            Color[] colors = new Color[xList.size()];
+            for (int i = 0; i < xList.size(); i++) {
+                colors[i] = new Color(249, 170, 51);
+            }
+            chart.getStyler().setSeriesColors(colors);
             // Series
             chart.addSeries(alternativeModel.getAlternative().getName(), xList, yList);
 
