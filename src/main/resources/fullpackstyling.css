@@ -1,3 +1,43 @@
+.jfx-button:hover, .jfx-button:active, .jfx-button:pressed, .jfx-button:visited{
+    -fx-text-fill: #F9AA33;
+}
+
+.jfx-button {
+    -fx-background-color: #344955;
+    -fx-text-fill: #FFFFFF;
+}
+
+
+#secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #33333D;
+    -fx-border-radius: 3px;
+    -fx-text-fill: #33333D;
+}
+#secondary:hover {
+    -fx-background-color: #33333D;
+    -fx-border-color: #33333D;
+    -fx-text-fill: white;
+}
+
+#crudButton {
+    -fx-background-color: #4A6572;
+}
+
+
+.jfx-check-box .box {
+    -fx-background-color: transparent;
+    -fx-border-color:  #344955;
+    -fx-border-radius:3px;
+}
+
+.jfx-check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color:  #344955;
+}
 
 .chart {
     -fx-padding: 10px;
@@ -14,16 +54,16 @@
 }
 
 .jfx-text-field {
-    -jfx-focus-color: #343f4a;
-    -jfx-unfocus-color: #4d4d4d;
+    -jfx-focus-color: #F9AA33;
+    -jfx-unfocus-color: #344955;
     -jfx-background-color: -fx-text-box-border, -fx-background ;
     -jfx-background-insets: 0, 0 0 1 0 ;
     -jfx-background-radius: 0 ;
 }
 
 .jfx-password-field {
-    -jfx-focus-color: #343f4a;
-    -jfx-unfocus-color: #4d4d4d;
+    -jfx-focus-color:  #F9AA33;
+    -jfx-unfocus-color:  #344955;
     -jfx-background-color: -fx-text-box-border, -fx-background ;
     -jfx-background-insets: 0, 0 0 1 0 ;
     -jfx-background-radius: 0 ;
@@ -31,44 +71,9 @@
 
 
 .jfx-password-field.error, .jfx-text-field.error {
-  -jfx-text-box-border: #ff4646 ;
-  -jfx-unfocus-color: #ff4646;
-  -jfx-focus-color: #ff4646;
-}
-
-#list1, #list2 {
-    -fx-padding: 3px;
-    -fx-background-color: transparent;
-}
-
-#list1 .list-cell {
-    -fx-padding: 5px;
-    -fx-control-inner-background: #DCEDC2, -fx-background;
-    -fx-background-radius: 5px;
-    -fx-background-insets: 2px, 5px ;
-}
-
-#list1 .list-cell:hover {
-     -fx-control-inner-background: #A8E6CE, -fx-background;
-}
-
-
-#list2 .list-cell {
-    -fx-padding: 5px;
-    -fx-control-inner-background: #F8B195, -fx-background;
-    -fx-background-radius: 5px;
-    -fx-background-insets: 2px, 5px ;
-}
-
-#list2 .list-cell:hover {
-    -fx-control-inner-background: #F67280, -fx-background;
-}
-
-
-#list1 .list-cell:empty, #list2 .list-cell:empty {
-     -fx-padding: 5px ;
-     -fx-control-inner-background: transparent ;
-     -fx-background-insets: 0 ;
+  -jfx-text-box-border: #FF6859; ;
+  -jfx-unfocus-color: #FF6859;;
+  -jfx-focus-color: #FF6859;
 }
 
 .jfx-snackbar-action {
@@ -85,32 +90,23 @@
 }
 
 .jfx-tab-pane .headers-region {
-    -fx-background-color: #343f4a;
+    -fx-background-color:  #344955;
 }
 .jfx-tab-pane .tab-header-background {
-    -fx-text-fill: #343f4a;
-    -fx-background-color: #343f4a;
+    -fx-text-fill:  #344955;
+    -fx-background-color:  #344955;
 }
 -jfx-tab-pane .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: #343f4a;
+    -fx-text-fill:  #344955;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: #F9AA33;
+    -fx-pref-height: 2;
 }
 
 -jfx-tab-pane .tab-label {
     -fx-alignment: CENTER;
-    -fx-text-fill: #343f4a;
-}
-
-#button {
-    -fx-background-color: #343f4a;
-    -fx-text-fill: #FFF;
-    -fx-text-alignment: left;
-}
-
-#button:hover {
-    -fx-background-color: #2e3842;
-}
-
-#button:focus {
- -fx-background-color: #2e3842;
+    -fx-text-fill:  #344955;
 }

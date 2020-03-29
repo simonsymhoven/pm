@@ -1,15 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="708.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashboard.analyse.AnalyseController">
-    <JFXTreeTableView fx:id="treeView" layoutX="25.0" layoutY="86.0" prefHeight="555.0" prefWidth="943.0" />
-   <JFXTextField fx:id="input" layoutX="407.0" layoutY="32.0" prefHeight="27.0" prefWidth="229.0" promptText="Client suchen" />
-   <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="357.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../icons/mann.png"/>
-   </ImageView>
+    <JFXTreeTableView fx:id="treeView" layoutX="115.0" layoutY="115.0" prefHeight="547.0" prefWidth="856.0" />
+   <JFXTextField fx:id="input" labelFloat="true" layoutX="399.0" layoutY="71.0" prefHeight="27.0" prefWidth="229.0" promptText="Client suchen" />
+    <VBox alignment="TOP_CENTER" prefHeight="708.0" prefWidth="90.0" style="-fx-background-color: #4A6572;">
+        <children>
+            <JFXButton id="crudButton" contentDisplay="GRAPHIC_ONLY" disable="true" graphicTextGap="0.0" prefHeight="40.0" prefWidth="50.0" ripplerFill="WHITE" stylesheets="@../../fullpackstyling.css">
+                <graphic>
+                    <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../icons2/round_import_export_white_48dp.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+                <VBox.margin>
+                    <Insets top="20.0" />
+                </VBox.margin>
+            </JFXButton>
+        </children>
+        <padding>
+            <Insets top="40.0" />
+        </padding>
+    </VBox>
 </AnchorPane>

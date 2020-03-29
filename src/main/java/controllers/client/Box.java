@@ -18,7 +18,7 @@ public class Box {
         hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
                 + "-fx-border-width: 0.5;" + "-fx-border-insets: 5;"
                 + "-fx-border-radius: 5;" + "-fx-border-color: #343f4a;");
-        Image img;
+        Image img = null;
 
         switch (revisionType) {
             case ADD:
@@ -28,10 +28,9 @@ public class Box {
                 img = new Image(getClass().getResourceAsStream("/icons/error.png"));
                 break;
             case MOD:
-                img = new Image(getClass().getResourceAsStream("/icons/shuffle.png"));
+                img = new Image(getClass().getResourceAsStream("/icons/pen.png"));
                 break;
             default:
-                img = new Image(getClass().getResourceAsStream("/icons/question.png"));
                 break;
         }
 

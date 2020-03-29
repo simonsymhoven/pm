@@ -5,6 +5,7 @@ import entities.client.client_stock.ClientStock;
 import entities.stock.Stock;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import snackbar.SnackBar;
 import sql.EntityPortfolioStockImpl;
@@ -67,6 +68,8 @@ public class StockController implements Initializable {
     private JFXButton deleteStock;
     @FXML
     private JFXButton showAudit;
+    @FXML
+    private Label errorLabel;
     @FXML
     @Getter
     private AnchorPane pane;
@@ -185,6 +188,7 @@ public class StockController implements Initializable {
 
     private void plotStock() {
         Plot task = new Plot(stockModel);
+        errorLabel.setVisible(false);
 
         task.setOnRunning(successesEvent -> {
                 pane.setDisable(true);
@@ -207,6 +211,7 @@ public class StockController implements Initializable {
             progressIndicator.setVisible(false);
             pane.setDisable(false);
             log.error(" TASK FAILED! ");
+            errorLabel.setVisible(true);
         });
 
         ExecutorService executorService = Executors.newFixedThreadPool(1);

@@ -1,15 +1,14 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
 import controllers.login.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
@@ -25,16 +24,26 @@ import java.util.ResourceBundle;
 @Log4j2
 public class NavBarController implements Initializable {
     @FXML
-    private BorderPane navBarPane;
+    private JFXButton dashboardButton;
     @FXML
-    private Label userName;
+    private BorderPane navBarPane;
     @FXML
     private Circle profile;
     private double x = 0;
     private double y = 0;
 
+    private JFXButton oldButton;
+
     public void handleShowView(ActionEvent e) {
-        String view = (String) ((Node) e.getSource()).getUserData();
+        if (oldButton != null) {
+            oldButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        } else {
+            dashboardButton.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+        }
+        JFXButton button = (JFXButton) e.getSource();
+        button.setContentDisplay(ContentDisplay.TOP);
+        oldButton = button;
+        String view = (String) button.getUserData();
         loadFXML(getClass().getResource(view));
     }
 
@@ -49,9 +58,6 @@ public class NavBarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userName.setText(LoginController.getLoggedUser().getVorname() + ", " + LoginController.getLoggedUser().getName());
-        userName.setAlignment(Pos.BASELINE_RIGHT);
-
         byte[] bytes = LoginController.getLoggedUser().getImage();
         Image img = new Image(new ByteArrayInputStream(bytes));
         ImagePattern pattern = new ImagePattern(img);

@@ -51,8 +51,8 @@ public class Plot extends Task<Image> {
 
             XYChart chart =
                     new XYChartBuilder()
-                            .width(900)
-                            .height(330)
+                            .width(800)
+                            .height(400)
                             .title(alternativeModel.getAlternative().getName())
                             .xAxisTitle("Zeit")
                             .yAxisTitle("Wert in €")

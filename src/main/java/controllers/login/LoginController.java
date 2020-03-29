@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import entities.user.User;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import json.JSONReader;
@@ -40,8 +41,6 @@ public class LoginController implements Initializable {
     @FXML
     private JFXPasswordField password;
     @FXML
-    private JFXButton login;
-    @FXML
     private JFXButton close;
     @FXML
     private Label messageLabel;
@@ -54,8 +53,7 @@ public class LoginController implements Initializable {
     private EntityUserImpl entityUser = new EntityUserImpl();
     private JSONReader jsonReader = new JSONReader();
 
-    @FXML
-    public void validate() throws IOException {
+    private void validate() {
         ObservableList<String> styleClassUserName = userName.getStyleClass();
         ObservableList<String> styleClassPassword = password.getStyleClass();
         String username = userName.getText();
@@ -66,7 +64,11 @@ public class LoginController implements Initializable {
             if (BCrypt.checkpw(pass, user.getHash())) {
                 loggedUser = user;
                 if (checkBox.isSelected()) {
-                    jsonReader.write("user", username);
+                    try {
+                        jsonReader.write("user", username);
+                    } catch (IOException e) {
+                        log.error(e);
+                    }
                 }
 
                 loadNewStage();
@@ -108,10 +110,16 @@ public class LoginController implements Initializable {
             DatabaseFactoryUtils.shutdown();
             Platform.exit();
         });
+
+        password.setOnKeyPressed(ke -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                validate();
+            }
+        });
     }
 
     private void loadNewStage() {
-        Stage oldStage = (Stage) login.getScene().getWindow();
+        Stage oldStage = (Stage) registration.getScene().getWindow();
         oldStage.hide();
 
         Parent root = null;

@@ -2,42 +2,45 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.CubicCurve?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="navBarPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="748.0" prefWidth="1241.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NavBarController">
    <left>
-      <VBox prefHeight="748.0" prefWidth="231.0" style="-fx-background-color: #343f4a;">
+      <VBox prefHeight="708.0" prefWidth="249.0" style="-fx-background-color: #344955;">
          <children>
-             <ImageView fitHeight="137.0" fitWidth="276.0" pickOnBounds="true" preserveRatio="true">
-                 <image>
-                     <Image url="@../img/logo.png" />
-                 </image>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="102.0" prefWidth="229.0" text="Dr. Thorsten Schmitz Vermögensverwaltung GmbH &amp; Co. KG" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-               <VBox.margin>
-                  <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Dashboard" textFill="WHITE" userData="/views/dashboard/dash_tabpane.fxml">
+            <HBox alignment="CENTER" prefHeight="183.0" prefWidth="249.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="253.0" prefWidth="249.0">
+                     <children>
+                        <AnchorPane prefHeight="190.0" prefWidth="350.0">
+                           <children>
+                              <CubicCurve controlX1="-63.5" controlX2="42.5" controlY1="42.0" controlY2="42.0" endX="60.0" endY="-34.0" fill="#344955" layoutX="136.0" layoutY="128.0" startX="-85.0" startY="-34.0" stroke="#f9aa33" strokeWidth="2.0" />
+                              <Circle fx:id="profile" fill="WHITE" layoutX="125.0" layoutY="70.0" radius="56.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                              <Line endX="109.0" endY="-0.159423828125" layoutX="140.0" layoutY="93.0" startX="57.085906982421875" startY="-0.159423828125" stroke="#f9aa33" strokeWidth="2.0" />
+                              <Line endX="100.0" layoutX="-49.0" layoutY="94.0" startX="43.0" stroke="#f9aa33" strokeWidth="2.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="50.0" />
+               </padding>
+            </HBox>
+            <JFXButton fx:id="dashboardButton" alignment="CENTER" buttonType="FLAT" contentDisplay="TOP" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="DASHBOARD" textFill="#F9AA33" userData="/views/dashboard/dash_tabpane.fxml">
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/dashboard.png" />
+                             <Image url="@../icons2/baseline_pie_chart_white_48dp.png" />
                          </image>
                      </ImageView>
                </graphic>
@@ -51,87 +54,81 @@
                   <Insets />
                </VBox.margin>
                <padding>
-                  <Insets right="50.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Clienten" textFill="WHITE" userData="/views/client/client_tabpane.fxml">
+            <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="CLIENTEN" textFill="#F9AA33" userData="/views/client/client_tabpane.fxml">
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/team.png" />
+                             <Image url="@../icons2/baseline_supervisor_account_white_48dp.png" />
                          </image>
                      </ImageView>
                </graphic>
                <font>
                   <Font size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
-                  <Insets right="70.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Investments" textFill="WHITE" userData="/views/investments/investments_tabpane.fxml">
+            <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" stylesheets="@../fullpackstyling.css" text="INVESTMENTS" textFill="#F9AA33" userData="/views/investments/investments_tabpane.fxml">
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/money-bag.png" />
+                             <Image url="@../icons2/baseline_bar_chart_white_48dp.png" />
                          </image>
                      </ImageView>
                </graphic>
                <font>
                   <Font size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
-                  <Insets right="44.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Portfolio" textFill="WHITE" userData="/views/portfolio/portfolio_tabpane.fxml">
+            <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="PORTFOLIO" textFill="#F9AA33" userData="/views/portfolio/portfolio_tabpane.fxml">
                <graphic>
                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@../icons/launch.png" />
+                             <Image url="@../icons2/baseline_attach_money_white_48dp.png" />
                          </image>
                      </ImageView>
                </graphic>
                <font>
                   <Font size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
-                  <Insets right="65.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" graphicTextGap="10.0" onAction="#logout" prefHeight="60.0" prefWidth="260.0" stylesheets="@../fullpackstyling.css" text="Logout" textFill="WHITE">
+            <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#logout" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="LOGOUT" textFill="#F9AA33">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icons/house.png" />
+                        <Image url="@../icons2/baseline_clear_white_48dp.png" />
                      </image>
                   </ImageView>
                </graphic>
                <font>
                   <Font size="14.0" />
                </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                <padding>
-                  <Insets right="70.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </padding>
             </JFXButton>
-             <Pane prefHeight="172.0" prefWidth="249.0">
-                 <children>
-                  <VBox layoutY="125.0" prefHeight="48.0" prefWidth="250.0">
-                     <children>
-                        <Line endX="-4.0" endY="-8.0" startX="199.5" startY="-8.0" stroke="#ddd1d1">
-                           <VBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </VBox.margin>
-                        </Line>
-                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="250.0" text="® TS VV 2020" textFill="WHITE">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                 </children>
-             </Pane>
          </children>
       </VBox>
    </left>
@@ -140,15 +137,6 @@
        <fx:include source="dashboard/dash_tabpane.fxml" />
    </center>
    <top>
-      <AnchorPane prefHeight="40.0" prefWidth="1241.0" style="-fx-background-color: #343f4a #343f4a;" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="userName" layoutX="940.0" layoutY="3.0" prefHeight="34.0" prefWidth="250.0" textAlignment="RIGHT" textFill="WHITE" AnchorPane.rightAnchor="51.0">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Circle fx:id="profile" fill="WHITE" layoutX="1215.0" layoutY="20.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
-         </children>
-      </AnchorPane>
+      <AnchorPane prefHeight="40.0" prefWidth="1241.0" style="-fx-background-color: #344955;" BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>

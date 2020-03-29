@@ -47,8 +47,8 @@ public class AnalyseController implements Initializable {
     private EntityClientImpl entityClient;
     private EntityPortfolioStockImpl entityPortfolioStock;
     private EntityPortfolioAlternativeImpl entityPortfolioAlternative;
-    private String errorColor = "-fx-background-color: #BFFF00";
-    private String successColor = "-fx-background-color: #FF4646";
+    private String successColor = "-fx-background-color: #BFFF00";
+    private String  errorColor = "-fx-background-color: #FF4646";
 
     public AnalyseController() {
         this.entityClient = new EntityClientImpl();

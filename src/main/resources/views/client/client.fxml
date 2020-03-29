@@ -4,87 +4,100 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="pane" prefHeight="708.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.client.ClientController">
    <children>
-         <Label fx:id="label" layoutX="89.0" layoutY="74.0" text="Übersicht">
+         <Label fx:id="label" layoutX="127.0" layoutY="73.0" text="Übersicht">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
          </Label>
-         <JFXComboBox fx:id="comboBox" focusColor="#343f4a" labelFloat="true" layoutX="360.0" layoutY="73.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" />
-         <JFXTextField fx:id="name" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="90.0" layoutY="175.0" prefHeight="27.0" prefWidth="170.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="symbol" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="291.0" layoutY="175.0" prefHeight="27.0" prefWidth="170.0" promptText="Kürzel" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="capital" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="486.0" layoutY="175.0" prefHeight="27.0" prefWidth="170.0" promptText="Gesamtvermögen" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyStocksTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="257.0" layoutY="294.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyAlternativeTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="258.0" layoutY="353.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyIoanTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="258.0" layoutY="420.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
-         <JFXButton fx:id="addClient" onAction="#add" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="639.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
-            <graphic>
-               <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../icons/plus(1).png" />
-                  </image>
-               </ImageView>
-            </graphic>
-         </JFXButton>
-         <JFXButton fx:id="deleteClient" onAction="#delete" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="755.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
-            <graphic>
-               <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../icons/error.png" />
-                  </image>
-               </ImageView>
-            </graphic>
-         </JFXButton>
-         <JFXButton fx:id="showAudit" onAction="#viewAudit" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
-            <graphic>
-               <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../icons/light-bulb.png" />
-                  </image>
-               </ImageView>
-            </graphic>
-         </JFXButton>
-         <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="312.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../../icons/mann.png" />
-            </image>
-         </ImageView>
-         <PieChart fx:id="pieChart" layoutX="425.0" layoutY="254.0" prefHeight="385.0" prefWidth="485.0" />
-         <Label fx:id="label1" layoutX="90.0" layoutY="239.0" text="Strategie">
+         <JFXComboBox fx:id="comboBox" focusColor="#343f4a" labelFloat="true" layoutX="399.0" layoutY="71.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" />
+         <JFXTextField fx:id="name" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="128.0" layoutY="174.0" prefHeight="27.0" prefWidth="170.0" promptText="Name" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="symbol" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="329.0" layoutY="174.0" prefHeight="27.0" prefWidth="170.0" promptText="Kürzel" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="capital" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="524.0" layoutY="174.0" prefHeight="27.0" prefWidth="170.0" promptText="Gesamtvermögen" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyStocksTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="295.0" layoutY="293.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyAlternativeTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="296.0" layoutY="352.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyIoanTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="296.0" layoutY="419.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
+         <PieChart fx:id="pieChart" layoutX="463.0" layoutY="253.0" prefHeight="385.0" prefWidth="485.0" />
+         <Label fx:id="label1" layoutX="128.0" layoutY="238.0" text="Strategie">
             <font>
                <Font name="System Bold" size="18.0" />
             </font>
          </Label>
-         <JFXTextField fx:id="strategyLiquidityTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="258.0" layoutY="483.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
-         <Label layoutX="92.0" layoutY="299.0" text="Aktien" />
-         <Label layoutX="92.0" layoutY="348.0" prefHeight="38.0" prefWidth="69.0" text="alt. Investments" wrapText="true" />
-         <Label layoutX="92.0" layoutY="425.0" text="Anleihen" />
-         <Label layoutX="92.0" layoutY="488.0" text="Liquidität" />
-         <JFXTextField fx:id="strategyStocksLowerLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="175.0" layoutY="294.0" prefHeight="27.0" prefWidth="68.0" promptText="&gt;" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyAlternativeLowerLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="176.0" layoutY="353.0" prefHeight="27.0" prefWidth="68.0" promptText="&gt;" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyIoanLowerLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="176.0" layoutY="420.0" prefHeight="27.0" prefWidth="68.0" promptText="&gt;" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyLiquidityLowerLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="176.0" layoutY="483.0" prefHeight="27.0" prefWidth="68.0" promptText="&gt;" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyStocksUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="337.0" layoutY="294.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyAlternativeUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="338.0" layoutY="353.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyIoanUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="338.0" layoutY="420.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextField fx:id="strategyLiquidityUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="338.0" layoutY="483.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
-         <JFXTextArea fx:id="comment" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="89.0" layoutY="549.0" prefHeight="90.0" prefWidth="321.0" promptText="Kommentar" stylesheets="@../../fullpackstyling.css" wrapText="true" />
-         <JFXButton fx:id="editClient" buttonType="RAISED" onAction="#edit" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="697.0" layoutY="61.0" prefHeight="50.0" prefWidth="58.0" ripplerFill="WHITE" style="-fx-background-radius: 40px; -fx-border-radius: 40px;">
-            <graphic>
-               <ImageView fitHeight="40.0" fitWidth="40.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../../icons/pen.png" />
-                  </image>
-               </ImageView>
-            </graphic>
-         </JFXButton>
+         <JFXTextField fx:id="strategyLiquidityTargetValue" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="296.0" layoutY="482.0" prefHeight="27.0" prefWidth="68.0" promptText="Zielwert" stylesheets="@../../fullpackstyling.css" />
+         <Label layoutX="130.0" layoutY="298.0" text="Aktien" />
+         <Label layoutX="130.0" layoutY="347.0" prefHeight="38.0" prefWidth="69.0" text="alt. Investments" wrapText="true" />
+         <Label layoutX="130.0" layoutY="424.0" text="Anleihen" />
+         <Label layoutX="130.0" layoutY="487.0" text="Liquidität" />
+         <JFXTextField fx:id="strategyStocksLowerLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="213.0" layoutY="293.0" prefHeight="27.0" prefWidth="68.0" promptText="&gt;" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyAlternativeLowerLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="214.0" layoutY="352.0" prefHeight="27.0" prefWidth="68.0" promptText="&gt;" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyIoanLowerLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="214.0" layoutY="419.0" prefHeight="27.0" prefWidth="68.0" promptText="&gt;" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyLiquidityLowerLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="214.0" layoutY="482.0" prefHeight="27.0" prefWidth="68.0" promptText="&gt;" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyStocksUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="375.0" layoutY="293.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyAlternativeUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="376.0" layoutY="352.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyIoanUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="376.0" layoutY="419.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextField fx:id="strategyLiquidityUpperLimit" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="376.0" layoutY="482.0" prefHeight="27.0" prefWidth="68.0" promptText="&lt;" stylesheets="@../../fullpackstyling.css" />
+         <JFXTextArea fx:id="comment" editable="false" focusColor="#343f4a" labelFloat="true" layoutX="127.0" layoutY="548.0" prefHeight="90.0" prefWidth="321.0" promptText="Kommentar" stylesheets="@../../fullpackstyling.css" wrapText="true" />
+      <VBox alignment="TOP_CENTER" prefHeight="708.0" prefWidth="90.0" style="-fx-background-color: #4A6572;">
+         <children>
+               <JFXButton id="crudButton" fx:id="addClient" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#add" prefHeight="40.0" prefWidth="50.0" ripplerFill="WHITE" stylesheets="@../../fullpackstyling.css">
+                  <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../icons2/round_add_white_48dp.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </JFXButton>
+               <JFXButton id="crudButton" fx:id="editClient" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#edit" prefHeight="40.0" prefWidth="50.0" ripplerFill="WHITE" stylesheets="@../../fullpackstyling.css">
+                  <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../icons2/round_edit_white_48dp.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               </JFXButton>
+               <JFXButton id="crudButton" fx:id="showAudit" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#viewAudit" prefHeight="40.0" prefWidth="50.0" ripplerFill="WHITE" stylesheets="@../../fullpackstyling.css">
+                  <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../icons2/round_more_vert_white_48dp.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               </JFXButton>
+               <JFXButton id="crudButton" fx:id="deleteClient" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#delete" prefHeight="40.0" prefWidth="50.0" ripplerFill="WHITE" stylesheets="@../../fullpackstyling.css">
+                  <graphic>
+                     <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../icons2/round_delete_white_48dp.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               </JFXButton>
+         </children>
+         <padding>
+            <Insets top="40.0" />
+         </padding>
+      </VBox>
       </children>
 </AnchorPane>

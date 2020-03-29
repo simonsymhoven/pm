@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -66,6 +67,8 @@ public class AlternativeController implements Initializable {
     private JFXButton deleteAlternative;
     @FXML
     private JFXButton showAudit;
+    @FXML
+    private Label errorLabel;
     @FXML
     @Getter
     private AnchorPane pane;
@@ -181,6 +184,7 @@ public class AlternativeController implements Initializable {
 
     private void plotAlternative() {
         Plot task = new Plot(alternativeModel);
+        errorLabel.setVisible(false);
 
         task.setOnRunning(successesEvent -> {
                 pane.setDisable(true);
@@ -202,6 +206,7 @@ public class AlternativeController implements Initializable {
         task.setOnFailed(failedEvent -> {
             progressIndicator.setVisible(false);
             pane.setDisable(false);
+            errorLabel.setVisible(true);
             log.error(" TASK FAILED! ");
         });
 
