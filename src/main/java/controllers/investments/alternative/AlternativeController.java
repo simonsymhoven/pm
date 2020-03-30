@@ -102,7 +102,6 @@ public class AlternativeController implements Initializable {
                 plotAlternative();
             } else {
                 clearFields();
-                imgView.setImage(null);
             }
         });
     }
@@ -227,6 +226,7 @@ public class AlternativeController implements Initializable {
         pane.getChildren()
                 .filtered(node -> node instanceof JFXTextField)
                 .forEach(node -> ((JFXTextField) node).clear());
+        imgView.setImage(null);
     }
 
 }

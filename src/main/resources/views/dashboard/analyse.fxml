@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="708.0" prefWidth="993.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.dashboard.analyse.AnalyseController">
     <JFXTreeTableView fx:id="treeView" layoutX="115.0" layoutY="115.0" prefHeight="547.0" prefWidth="856.0" />
-   <JFXTextField fx:id="input" labelFloat="true" layoutX="399.0" layoutY="71.0" prefHeight="27.0" prefWidth="229.0" promptText="Client suchen" />
+   <JFXTextField fx:id="input" labelFloat="true" layoutX="399.0" layoutY="71.0" prefHeight="27.0" prefWidth="229.0" promptText="Client suchen" stylesheets="@../../fullpackstyling.css" />
     <VBox alignment="TOP_CENTER" prefHeight="708.0" prefWidth="90.0" style="-fx-background-color: #4A6572;">
         <children>
             <JFXButton id="crudButton" contentDisplay="GRAPHIC_ONLY" disable="true" graphicTextGap="0.0" prefHeight="40.0" prefWidth="50.0" ripplerFill="WHITE" stylesheets="@../../fullpackstyling.css">

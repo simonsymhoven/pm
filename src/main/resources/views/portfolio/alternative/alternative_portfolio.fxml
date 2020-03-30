@@ -30,7 +30,7 @@
       <JFXTextField fx:id="price" editable="false" labelFloat="true" layoutX="428.0" layoutY="362.0" prefHeight="27.0" prefWidth="200.0" promptText="Preis" stylesheets="@../../../fullpackstyling.css" />
       <JFXTextField fx:id="change" editable="false" labelFloat="true" layoutX="428.0" layoutY="420.0" prefHeight="27.0" prefWidth="200.0" promptText="Änderung zum Vortag" stylesheets="@../../../fullpackstyling.css" />
       <JFXTextField fx:id="currency" editable="false" labelFloat="true" layoutX="428.0" layoutY="473.0" prefHeight="27.0" prefWidth="200.0" promptText="Währung" stylesheets="@../../../fullpackstyling.css" />
-      <JFXComboBox fx:id="comboBox" focusColor="#343f4a" layoutX="399.0" layoutY="71.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" />
+      <JFXComboBox fx:id="comboBox" focusColor="#f9aa33" labelFloat="true" layoutX="399.0" layoutY="71.0" prefHeight="25.0" prefWidth="251.0" promptText="Client auswählen" stylesheets="@../../../fullpackstyling.css" />
       <JFXListView fx:id="alternativeList" layoutX="123.0" layoutY="171.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../../fullpackstyling.css" />
       <JFXListView fx:id="alternativeListClient" layoutX="664.0" layoutY="171.0" prefHeight="423.0" prefWidth="262.0" showTooltip="true" stylesheets="@../../../fullpackstyling.css" />
       <JFXTextField fx:id="quantity" editable="false" labelFloat="true" layoutX="428.0" layoutY="539.0" prefHeight="27.0" prefWidth="200.0" promptText="Anzahl" stylesheets="@../../../fullpackstyling.css" />

@@ -8,18 +8,6 @@
 }
 
 
-#secondary {
-    -fx-background-color: transparent;
-    -fx-border-color: #33333D;
-    -fx-border-radius: 3px;
-    -fx-text-fill: #33333D;
-}
-#secondary:hover {
-    -fx-background-color: #33333D;
-    -fx-border-color: #33333D;
-    -fx-text-fill: white;
-}
-
 #crudButton {
     -fx-background-color: #4A6572;
 }
@@ -110,3 +98,12 @@
     -fx-alignment: CENTER;
     -fx-text-fill:  #344955;
 }
+
+-jfx-combo-box .list-cell:filled:selected {
+    -fx-background-color: #F9AA33;
+}
+
+-jfx-combo-box .list-cell:hover {
+    -fx-background-color: #F9AA33;
+}
+

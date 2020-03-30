@@ -88,10 +88,10 @@ public class DashController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         name.setText(LoginController.getLoggedUser().getVorname());
+        updateStock.setOnMouseClicked(mouseEvent -> update());
 
         drawCounters();
         drawCharts();
-
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
             String date = jsonReader.read("lastUpdateDate").toString();
@@ -108,8 +108,6 @@ public class DashController implements Initializable {
         } catch (ParseException e) {
             log.error(e);
         }
-
-        updateStock.setOnMouseClicked(mouseEvent -> update());
     }
 
     private void drawCounters() {

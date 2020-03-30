@@ -23,13 +23,14 @@ public class YahooStockAPI {
         try {
             yahoofinance.Stock stock = YahooFinance.get(stockName);
             BigDecimal price = convertToEUR(stock.getCurrency(), stock.getQuote().getPrice());
+            BigDecimal change = convertToEUR(stock.getCurrency(), stock.getQuote().getChange());
             if (stock.isValid()) {
                 s = new Stock(
                         stock.getName(),
                         stock.getSymbol(),
                         stock.getStockExchange(),
                         price,
-                        stock.getQuote().getChange(),
+                        change,
                         stock.getCurrency()
                 );
             }

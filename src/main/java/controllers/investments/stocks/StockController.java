@@ -231,6 +231,7 @@ public class StockController implements Initializable {
         pane.getChildren()
                 .filtered(node -> node instanceof JFXTextField)
                 .forEach(node -> ((JFXTextField) node).clear());
+        imgView.setImage(null);
     }
 
 }

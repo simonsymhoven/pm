@@ -6,7 +6,7 @@
     <url>https://github.com/simonsymhoven/pm</url>
     <groupId>schmitz</groupId>
     <artifactId>pm</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>2.2.6-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>
@@ -38,6 +38,10 @@
                         <option>javafx.base/com.sun.javafx.event=ALL-UNNAMED</option>
                         <option>--add-opens</option>
                         <option>javafx.graphics/com.sun.javafx.stage=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</option>
+                        <option>--add-opens</option>
+                        <option>javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED</option>
                         <option>--add-exports</option>
                         <option>javafx.controls/com.sun.javafx.scene.control.behavior=com.jfoenix</option>
                         <option>--add-exports</option>
@@ -48,8 +52,12 @@
                         <option>javafx.graphics/com.sun.javafx.stage=com.jfoenix</option>
                         <option>--add-exports</option>
                         <option>javafx.base/com.sun.javafx.event=com.jfoenix</option>
+                        <option>--add-exports</option>
+                        <option>javafx.graphics/com.sun.javafx.application=com.jfoenix</option>
+                        <option>--add-exports</option>
+                        <option>javafx.graphics/com.sun.javafx.scene=com.jfoenix</option>
                     </options>
-                    <mainClass>main.Main</mainClass>
+                    <mainClass>main.StartPoint</mainClass>
                 </configuration>
             </plugin>
             <plugin>

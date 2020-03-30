@@ -8,14 +8,18 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sql.DatabaseFactoryUtils;
 
+
 public class Main extends Application {
     private double x = 0;
     private double y = 0;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void init() {
         DatabaseFactoryUtils.getSessionFactory().openSession();
+    }
 
+    @Override
+    public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
         stage.setTitle("Portfolio Management");
         stage.initStyle(StageStyle.UNDECORATED);
@@ -32,11 +36,7 @@ public class Main extends Application {
 
         stage.setScene(new Scene(root));
         stage.show();
-
-
-
     }
-
 
     public static void main(String[] args) {
         launch(args);
