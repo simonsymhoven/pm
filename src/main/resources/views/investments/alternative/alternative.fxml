@@ -2,10 +2,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,7 +20,6 @@
          </font>
       </Label>
       <ImageView fx:id="imgView" fitHeight="400.0" fitWidth="800.0" layoutX="129.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true" />
-      <ProgressIndicator fx:id="progressIndicator" layoutX="460.0" layoutY="460.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0" style="-fx-progress-color: #343f4a#343f4a;" visible="false" />
       <JFXComboBox fx:id="comboBox" focusColor="#f9aa33" labelFloat="true" layoutX="399.0" layoutY="71.0" prefHeight="25.0" prefWidth="251.0" promptText="Alternatives Investment auswählen" stylesheets="@../../../fullpackstyling.css" />
       <JFXTextField fx:id="name" editable="false" labelFloat="true" layoutX="127.0" layoutY="157.0" prefHeight="25.0" prefWidth="170.0" promptText="Name" stylesheets="@../../../fullpackstyling.css" />
       <JFXTextField fx:id="symbol" editable="false" labelFloat="true" layoutX="328.0" layoutY="157.0" prefHeight="25.0" prefWidth="170.0" promptText="Symbol" stylesheets="@../../../fullpackstyling.css" />
@@ -73,5 +72,6 @@
             <Insets top="40.0" />
          </padding>
       </VBox>
+      <JFXProgressBar fx:id="progressBar" layoutX="419.0" layoutY="452.0" visible="false" />
    </children>
 </AnchorPane>

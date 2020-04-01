@@ -27,7 +27,7 @@
       </Label>
       <JFXProgressBar layoutX="219.0" layoutY="307.0" />
       <Separator layoutX="132.0" layoutY="435.0" prefHeight="3.0" prefWidth="373.0" />
-      <Label layoutX="304.0" layoutY="445.0" text="v  2.2.6" textFill="WHITE" />
+      <Label layoutX="304.0" layoutY="445.0" text="v  2.2.7" textFill="WHITE" />
 
    </children>
 </AnchorPane>

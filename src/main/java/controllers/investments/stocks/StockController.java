@@ -1,10 +1,10 @@
 package controllers.investments.stocks;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXProgressBar;
 import entities.client.client_stock.ClientStock;
 import entities.stock.Stock;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
 import snackbar.SnackBar;
 import sql.EntityPortfolioStockImpl;
@@ -44,6 +44,8 @@ public class StockController implements Initializable {
     @Getter
     private Label label;
     @FXML
+    private JFXProgressBar progressBar;
+    @FXML
     private JFXTextField name;
     @FXML
     private JFXTextField symbol;
@@ -59,8 +61,6 @@ public class StockController implements Initializable {
     private JFXTextField share;
     @FXML
     private ImageView imgView;
-    @FXML
-    private ProgressIndicator progressIndicator;
     @FXML
     private JFXButton addStock;
     @FXML
@@ -191,7 +191,7 @@ public class StockController implements Initializable {
 
         task.setOnRunning(successesEvent -> {
                 pane.setDisable(true);
-                progressIndicator.setVisible(true);
+                progressBar.setVisible(true);
         });
 
         task.setOnSucceeded(succeededEvent -> {
@@ -202,12 +202,12 @@ public class StockController implements Initializable {
             } catch (Exception e) {
                 log.error(e);
             }
-            progressIndicator.setVisible(false);
+            progressBar.setVisible(false);
             pane.setDisable(false);
         });
 
         task.setOnFailed(failedEvent -> {
-            progressIndicator.setVisible(false);
+            progressBar.setVisible(false);
             pane.setDisable(false);
             log.error(" TASK FAILED! ");
             errorLabel.setVisible(true);

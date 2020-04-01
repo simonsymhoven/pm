@@ -2,6 +2,7 @@ package controllers.investments.alternative;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXTextField;
 import entities.alternative.Alternative;
 import entities.client.client_alternative.ClientAlternative;
@@ -11,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -45,6 +45,8 @@ public class AlternativeController implements Initializable {
     @Getter
     private Label label;
     @FXML
+    private JFXProgressBar progressBar;
+    @FXML
     private JFXTextField name;
     @FXML
     private JFXTextField symbol;
@@ -58,8 +60,6 @@ public class AlternativeController implements Initializable {
     private JFXTextField currency;
     @FXML
     private ImageView imgView;
-    @FXML
-    private ProgressIndicator progressIndicator;
     @FXML
     private JFXButton addAlternative;
     @FXML
@@ -186,7 +186,7 @@ public class AlternativeController implements Initializable {
 
         task.setOnRunning(successesEvent -> {
                 pane.setDisable(true);
-                progressIndicator.setVisible(true);
+                progressBar.setVisible(true);
         });
 
         task.setOnSucceeded(succeededEvent -> {
@@ -197,12 +197,12 @@ public class AlternativeController implements Initializable {
             } catch (Exception e) {
                 log.error(e);
             }
-            progressIndicator.setVisible(false);
+            progressBar.setVisible(false);
             pane.setDisable(false);
         });
 
         task.setOnFailed(failedEvent -> {
-            progressIndicator.setVisible(false);
+            progressBar.setVisible(false);
             pane.setDisable(false);
             errorLabel.setVisible(true);
             log.error(" TASK FAILED! ");

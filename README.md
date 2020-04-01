@@ -30,7 +30,8 @@ Preferred artifact for development:
 ## Todo
 
 *   rework of audit log for clients, stocks and join tables (client_stock & alternative_stock)
-*   Loading screen or something else while application setup (login and main setup)
+*   ProgressBar -> JFXProgressBar
+*   Comboboxes, list and tbale viewstyling in secondary color for hover etc.
 
 ## Testing
 

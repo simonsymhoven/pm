@@ -7,11 +7,14 @@
     -fx-text-fill: #FFFFFF;
 }
 
-
 #crudButton {
     -fx-background-color: #4A6572;
 }
 
+.jfx-text-area {
+    -jfx-focus-color: #F9AA33;
+    -jfx-unfocus-color: #344955;
+}
 
 .jfx-check-box .box {
     -fx-background-color: transparent;
@@ -57,7 +60,6 @@
     -jfx-background-radius: 0 ;
 }
 
-
 .jfx-password-field.error, .jfx-text-field.error {
   -jfx-text-box-border: #FF6859; ;
   -jfx-unfocus-color: #FF6859;;
@@ -99,11 +101,30 @@
     -fx-text-fill:  #344955;
 }
 
--jfx-combo-box .list-cell:filled:selected {
+.jfx-combo-box{
+    -jfx-focus-color: #F9AA33;
+}
+
+.jfx-combo-box .list-view .list-cell:filled:selected, .jfx-combo-box .list-view .list-cell:filled:selected {
     -fx-background-color: #F9AA33;
 }
 
--jfx-combo-box .list-cell:hover {
+.jfx-combo-box .list-view .list-cell:filled:selected, .jfx-combo-box .list-view .list-cell:filled:selected:hover {
     -fx-background-color: #F9AA33;
 }
 
+.jfx-combo-box .list-view .list-cell:filled:hover{
+    -fx-background-color: #fbc26c;
+}
+
+.jfx-list-view {
+     -jfx-focus-color: #F9AA33;
+}
+
+.jfx-list-view .list-cell:filled:selected, .jfx-list-view .list-cell:filled:selected:hover {
+    -fx-background-color: #F9AA33;
+}
+
+.jfx-list-view .list-cell:filled:hover{
+    -fx-background-color: #fbc26c;
+}

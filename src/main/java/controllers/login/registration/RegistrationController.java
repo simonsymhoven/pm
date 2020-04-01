@@ -11,7 +11,6 @@ import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -30,8 +29,6 @@ import java.util.concurrent.Executors;
 public class RegistrationController implements Initializable {
     @FXML
     private AnchorPane pane;
-    @FXML
-    private ProgressIndicator progressIndicator;
     @FXML
     private JFXTextField username;
     @FXML
@@ -116,7 +113,6 @@ public class RegistrationController implements Initializable {
 
         task.setOnRunning(successesEvent -> {
             profilePicture.setImage(null);
-            progressIndicator.setVisible(true);
         });
 
         task.setOnSucceeded(succeededEvent -> {
@@ -130,12 +126,10 @@ public class RegistrationController implements Initializable {
             } catch (Exception e) {
                 log.error(e);
             }
-            progressIndicator.setVisible(false);
         });
 
         task.setOnFailed(failedEvent -> {
             profilePicture.setImage(new Image(getClass().getResourceAsStream("/icons/mann.png")));
-            progressIndicator.setVisible(false);
             log.error(" TASK FAILED! ");
         });
 
