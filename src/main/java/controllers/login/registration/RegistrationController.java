@@ -111,10 +111,6 @@ public class RegistrationController implements Initializable {
     private void searchForProfilePicture() {
         HTTPImage task = new HTTPImage(registrationModel);
 
-        task.setOnRunning(successesEvent -> {
-            profilePicture.setImage(null);
-        });
-
         task.setOnSucceeded(succeededEvent -> {
             try {
                 if (task.get() != null) {
