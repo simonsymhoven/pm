@@ -94,7 +94,7 @@
             <!--Create jar file including all dependencies for external usage-->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <phase>install</phase>
@@ -114,6 +114,7 @@
                     </descriptorRefs>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
     <reporting>
