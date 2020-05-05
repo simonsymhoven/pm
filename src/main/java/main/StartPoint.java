@@ -2,7 +2,6 @@ package main;
 
 import javafx.application.Application;
 
-
 final class StartPoint {
     private StartPoint() {
 

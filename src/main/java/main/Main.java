@@ -4,9 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sql.DatabaseFactoryUtils;
+
+import java.awt.*;
+import java.net.URL;
 
 
 public class Main extends Application {
@@ -23,7 +27,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
         stage.setTitle("Portfolio Management");
         stage.initStyle(StageStyle.UNDECORATED);
-
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/app/app-icon.png")));
         root.setOnMousePressed(event -> {
             x = event.getSceneX();
             y = event.getSceneY();

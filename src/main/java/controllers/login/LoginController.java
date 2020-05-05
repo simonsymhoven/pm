@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTextField;
 import entities.user.User;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -134,7 +135,7 @@ public class LoginController implements Initializable {
                 stage.setX(event.getScreenX() - x);
                 stage.setY(event.getScreenY() - y);
             });
-
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/app/app-icon.png")));
             stage.setTitle("Portfolio Management");
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setScene(new Scene(root));
