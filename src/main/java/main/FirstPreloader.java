@@ -4,6 +4,7 @@ import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -21,6 +22,7 @@ public class FirstPreloader extends Preloader {
         this.stage = stage;
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(createPreloaderScene());
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/app/app-icon.png")));
         stage.show();
     }
 

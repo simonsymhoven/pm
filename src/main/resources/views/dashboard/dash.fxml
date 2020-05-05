@@ -24,7 +24,7 @@
                    <Font name="System Bold" size="24.0" />
                </font>
            </Label>
-      <Label fx:id="name" layoutX="340.0" layoutY="42.0" prefHeight="29.0" prefWidth="246.0" textFill="#343f4a">
+      <Label fx:id="name" layoutX="373.0" layoutY="42.0" prefHeight="29.0" prefWidth="246.0" textFill="#343f4a">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -50,7 +50,7 @@
          </VBox>
       <Pane layoutX="705.0" layoutY="94.0" prefHeight="155.0" prefWidth="246.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4) dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4);">
          <children>
-               <Label layoutX="22.0" layoutY="71.0" prefHeight="18.0" prefWidth="129.0" text="Letzte Aktualisierung:" textFill="#4a4747">
+               <Label layoutX="22.0" layoutY="71.0" prefHeight="20.0" prefWidth="206.0" text="Letzte Aktualisierung:" textFill="#4a4747">
                    <font>
                        <Font size="14.0" />
                    </font>
@@ -102,7 +102,10 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="labelMarkets" layoutX="22.0" layoutY="64.0" prefHeight="17.0" prefWidth="356.0" />
+            <Label fx:id="labelMarkets" layoutX="22.0" layoutY="64.0" prefHeight="17.0" prefWidth="356.0">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
             <StackPane fx:id="paneMarkets" layoutX="22.0" layoutY="105.0" prefHeight="281.0" prefWidth="356.0">
                <children>
                   <Label fx:id="counterMarkets" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" prefHeight="196.0" prefWidth="440.0" textAlignment="CENTER" textFill="#343f4a">
@@ -122,7 +125,10 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label fx:id="labelStocks" layoutX="22.0" layoutY="64.0" prefHeight="17.0" prefWidth="356.0" />
+            <Label fx:id="labelStocks" layoutX="22.0" layoutY="64.0" prefHeight="17.0" prefWidth="356.0">
+               <font>
+                  <Font size="11.0" />
+               </font></Label>
             <StackPane fx:id="paneStocks" layoutX="22.0" layoutY="105.0" prefHeight="281.0" prefWidth="356.0">
                <children>
                   <Label fx:id="counterStocks" alignment="TOP_LEFT" prefHeight="196.0" prefWidth="426.0" textFill="#343f4a">
