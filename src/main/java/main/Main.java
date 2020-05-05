@@ -9,10 +9,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sql.DatabaseFactoryUtils;
 
-import java.awt.*;
-import java.net.URL;
-
-
 public class Main extends Application {
     private double x = 0;
     private double y = 0;
