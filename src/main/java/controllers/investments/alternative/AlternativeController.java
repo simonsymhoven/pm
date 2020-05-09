@@ -187,6 +187,7 @@ public class AlternativeController implements Initializable {
         task.setOnRunning(successesEvent -> {
                 pane.setDisable(true);
                 progressBar.setVisible(true);
+                imgView.setImage(null);
         });
 
         task.setOnSucceeded(succeededEvent -> {

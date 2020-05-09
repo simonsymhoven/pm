@@ -4,17 +4,21 @@ import entities.alternative.Alternative;
 import entities.stock.Stock;
 import lombok.extern.log4j.Log4j2;
 import org.javamoney.moneta.Money;
+import sql.EntityStockImpl;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.Interval;
 import javax.money.MonetaryAmount;
 import javax.money.convert.CurrencyConversion;
 import javax.money.convert.MonetaryConversions;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Scanner;
 
 @Log4j2
 public class YahooStockAPI {
@@ -105,9 +109,31 @@ public class YahooStockAPI {
     private BigDecimal convertToEUR(String currencyCode, BigDecimal price) {
         CurrencyConversion euroConversion = MonetaryConversions.getConversion("EUR");
 
-        MonetaryAmount moneyToConvert = Money.of(price, currencyCode);
+        MonetaryAmount moneyToConvert = Money.of(price, currencyCode.toUpperCase());
         MonetaryAmount moneyInEur = moneyToConvert.with(euroConversion);
 
         return BigDecimal.valueOf(moneyInEur.getNumber().doubleValue());
+    }
+
+    public static void main(String[] args) {
+        try {
+            File myObj = new File("/Users/simonsymhoven/Documents/Selbstaendigkeit/projekte/schmitz/pm/db/stocks.txt");
+            Scanner myReader = new Scanner(myObj);
+            EntityStockImpl entityStock = new EntityStockImpl();
+            YahooStockAPI yahooStockAPI = new YahooStockAPI();
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+                Stock stock = yahooStockAPI.getStock(data.split(";")[0]);
+                stock.setShare(Double.valueOf(data.split(";")[1].replace(",", ".")));
+                entityStock.add(stock);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
     }
 }

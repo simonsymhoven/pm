@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
 
 @Log4j2
 public class NavBarController implements Initializable {
+    @FXML
+    private Label titleuser;
     @FXML
     private JFXButton dashboardButton;
     @FXML
@@ -62,7 +65,7 @@ public class NavBarController implements Initializable {
         Image img = new Image(new ByteArrayInputStream(bytes));
         ImagePattern pattern = new ImagePattern(img);
         profile.setFill(pattern);
-
+        titleuser.setText(LoginController.getLoggedUser().getVorname() + ", " + LoginController.getLoggedUser().getName());
     }
 
     public void logout() throws IOException {

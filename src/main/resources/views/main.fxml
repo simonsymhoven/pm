@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,40 +10,39 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.CubicCurve?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="navBarPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="748.0" prefWidth="1241.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NavBarController">
    <left>
       <VBox prefHeight="708.0" prefWidth="249.0" style="-fx-background-color: #344955;">
          <children>
-            <HBox alignment="CENTER" prefHeight="183.0" prefWidth="249.0">
+            <HBox alignment="CENTER" prefHeight="243.0" prefWidth="251.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="253.0" prefWidth="249.0">
                      <children>
                         <AnchorPane prefHeight="190.0" prefWidth="350.0">
                            <children>
-                              <CubicCurve controlX1="-63.5" controlX2="42.5" controlY1="42.0" controlY2="42.0" endX="60.0" endY="-34.0" fill="#344955" layoutX="136.0" layoutY="128.0" startX="-85.0" startY="-34.0" stroke="#f9aa33" strokeWidth="2.0" />
-                              <Circle fx:id="profile" fill="WHITE" layoutX="125.0" layoutY="70.0" radius="56.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                              <Line endX="109.0" endY="-0.159423828125" layoutX="140.0" layoutY="93.0" startX="57.085906982421875" startY="-0.159423828125" stroke="#f9aa33" strokeWidth="2.0" />
-                              <Line endX="100.0" layoutX="-49.0" layoutY="94.0" startX="43.0" stroke="#f9aa33" strokeWidth="2.0" />
+                              <ImageView fitHeight="250.0" fitWidth="311.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/13360-NOWT5X.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </AnchorPane>
                      </children>
                   </VBox>
                </children>
                <padding>
-                  <Insets bottom="50.0" />
+                  <Insets bottom="10.0" />
                </padding>
             </HBox>
             <JFXButton fx:id="dashboardButton" alignment="CENTER" buttonType="FLAT" contentDisplay="TOP" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="DASHBOARD" textFill="#F9AA33" userData="/views/dashboard/dash_tabpane.fxml">
                <graphic>
-                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                         <image>
-                             <Image url="@../icons/baseline_pie_chart_white_48dp.png" />
-                         </image>
-                     </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/baseline_pie_chart_white_48dp.png" />
+                     </image>
+                  </ImageView>
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -59,11 +59,11 @@
             </JFXButton>
             <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="CLIENTEN" textFill="#F9AA33" userData="/views/client/client_tabpane.fxml">
                <graphic>
-                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                         <image>
-                             <Image url="@../icons/baseline_supervisor_account_white_48dp.png" />
-                         </image>
-                     </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/baseline_supervisor_account_white_48dp.png" />
+                     </image>
+                  </ImageView>
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -77,11 +77,11 @@
             </JFXButton>
             <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="INVESTMENTS" textFill="#F9AA33" userData="/views/investments/investments_tabpane.fxml">
                <graphic>
-                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                         <image>
-                             <Image url="@../icons/baseline_bar_chart_white_48dp.png" />
-                         </image>
-                     </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/baseline_bar_chart_white_48dp.png" />
+                     </image>
+                  </ImageView>
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -95,11 +95,11 @@
             </JFXButton>
             <JFXButton alignment="CENTER" buttonType="FLAT" contentDisplay="GRAPHIC_ONLY" graphicTextGap="10.0" onAction="#handleShowView" prefHeight="80.0" prefWidth="260.0" ripplerFill="#f9aa33" style="-fx-text-fill: #F9AA33" stylesheets="@../fullpackstyling.css" text="PORTFOLIO" textFill="#F9AA33" userData="/views/portfolio/portfolio_tabpane.fxml">
                <graphic>
-                     <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                         <image>
-                             <Image url="@../icons/baseline_attach_money_white_48dp.png" />
-                         </image>
-                     </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/baseline_attach_money_white_48dp.png" />
+                     </image>
+                  </ImageView>
                </graphic>
                <font>
                   <Font size="14.0" />
@@ -134,9 +134,17 @@
    </left>
 
    <center>
-       <fx:include source="dashboard/dash_tabpane.fxml" />
+      <fx:include source="dashboard/dash_tabpane.fxml" />
    </center>
    <top>
-      <AnchorPane prefHeight="40.0" prefWidth="1241.0" style="-fx-background-color: #344955;" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="40.0" prefWidth="1241.0" style="-fx-background-color: #344955;" BorderPane.alignment="CENTER">
+         <children>
+            <Circle fx:id="profile" fill="WHITE" layoutX="1214.0" layoutY="21.0" radius="16.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Label fx:id="titleuser" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="913.0" layoutY="10.0" prefHeight="17.0" prefWidth="273.0" textAlignment="RIGHT" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
    </top>
 </BorderPane>

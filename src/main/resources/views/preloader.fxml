@@ -20,14 +20,14 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="219.0" layoutY="351.0" prefHeight="44.0" prefWidth="200.0" text="Die Anwendung wird vorbereitet. Bitte warten .." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+      <Label layoutX="180.0" layoutY="351.0" prefHeight="44.0" prefWidth="278.0" text="Die Anwendung wird vorbereitet. Bitte warten .." textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <JFXProgressBar layoutX="219.0" layoutY="307.0" />
       <Separator layoutX="132.0" layoutY="435.0" prefHeight="3.0" prefWidth="373.0" />
-      <Label layoutX="304.0" layoutY="445.0" text="v  2.2.8" textFill="WHITE" />
+      <Label layoutX="304.0" layoutY="445.0" text="2.2.8" textFill="WHITE" />
 
    </children>
 </AnchorPane>

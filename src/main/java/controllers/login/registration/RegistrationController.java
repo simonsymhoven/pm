@@ -1,6 +1,7 @@
 package controllers.login.registration;
 
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -34,20 +35,15 @@ public class RegistrationController implements Initializable {
     @FXML
     private JFXPasswordField password;
     @FXML
-    private ImageView profilePicture;
-    @FXML
     private JFXTextField forename;
     @FXML
     private JFXButton close;
-    @FXML
-    private JFXButton registration;
     @FXML
     private JFXTextField surname;
     private Stage stage;
     private RegistrationModel registrationModel;
     private LoginController loginController;
     private EntityUserImpl entityUser;
-    private int passwordStrength;
 
     public RegistrationController() {
         this.registrationModel = new RegistrationModel();
@@ -56,7 +52,7 @@ public class RegistrationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(() -> {
-            stage = (Stage) registration.getScene().getWindow();
+            stage = (Stage) password.getScene().getWindow();
             this.loginController = (LoginController) stage.getUserData();
         });
         close.setOnMouseClicked(e -> stage.close());
@@ -64,10 +60,11 @@ public class RegistrationController implements Initializable {
         addTextProperty();
         addFocusProperty();
 
-        registration.disableProperty().bind(forename.textProperty().isEmpty()
-                .or(surname.textProperty().isEmpty())
-                .or(username.textProperty().isEmpty())
-                .or(password.textProperty().isEmpty()));
+        password.setOnKeyPressed(ke -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                registrate();
+            }
+        });
     }
 
     private void addFocusProperty() {
@@ -101,8 +98,6 @@ public class RegistrationController implements Initializable {
         });
         password.textProperty().addListener((observable, old, newValue) -> {
             if (!"".equals(newValue)) {
-                passwordStrength = calculatePasswordStrength(newValue);
-                log.info("Stärke: " + passwordStrength);
                 registrationModel.setPassword(newValue);
             }
         });
@@ -112,20 +107,10 @@ public class RegistrationController implements Initializable {
         HTTPImage task = new HTTPImage(registrationModel);
 
         task.setOnSucceeded(succeededEvent -> {
-            try {
-                if (task.get() != null) {
-                    byte[] data = task.get();
-                    ByteArrayInputStream bis = new ByteArrayInputStream(data);
-                    BufferedImage bImage = ImageIO.read(bis);
-                    profilePicture.setImage(SwingFXUtils.toFXImage(bImage, null));
-                }
-            } catch (Exception e) {
-                log.error(e);
-            }
+
         });
 
         task.setOnFailed(failedEvent -> {
-            profilePicture.setImage(new Image(getClass().getResourceAsStream("/icons/mann.png")));
             log.error(" TASK FAILED! ");
         });
 
@@ -136,70 +121,37 @@ public class RegistrationController implements Initializable {
 
     public void registrate() {
         Platform.runLater(() -> {
-            if (registrationModel.getUsername().contains("@")) {
-                username.setStyle("-jfx-focus-color: #343f4a;\n"
-                        + " -jfx-unfocus-color: #4d4d4d;\n"
-                        + " -jfx-background-color: -fx-text-box-border, -fx-background ;\n"
-                        + " -jfx-background-insets: 0, 0 0 1 0 ;\n"
-                        + " -jfx-background-radius: 0 ;");
-                registrationModel.setHash(BCrypt.hashpw(registrationModel.getPassword(), BCrypt.gensalt()));
-                if (entityUser.get(registrationModel.getUsername()) == null) {
-                    User user = new User(
-                            registrationModel.getSurname(),
-                            registrationModel.getForename(),
-                            registrationModel.getUsername(),
-                            registrationModel.getHash(),
-                            registrationModel.getImage()
-                    );
+            username.setStyle("-jfx-focus-color: #343f4a;\n"
+                    + " -jfx-unfocus-color: #4d4d4d;\n"
+                    + " -jfx-background-color: -fx-text-box-border, -fx-background ;\n"
+                    + " -jfx-background-insets: 0, 0 0 1 0 ;\n"
+                    + " -jfx-background-radius: 0 ;");
+            registrationModel.setHash(BCrypt.hashpw(registrationModel.getPassword(), BCrypt.gensalt()));
+            if (entityUser.get(registrationModel.getUsername()) == null) {
+                User user = new User(
+                        registrationModel.getSurname(),
+                        registrationModel.getForename(),
+                        registrationModel.getUsername(),
+                        registrationModel.getHash(),
+                        registrationModel.getImage()
+                );
 
-                    if (entityUser.add(user)) {
-                        loginController.getUserName().setText(user.getUserName());
-                        SnackBar snackbar = new SnackBar(loginController.getPane());
-                        stage.close();
-                        snackbar.show("Nutzer wurde erfolgreich hinzugefügt!");
-                    }
-                } else {
-                    username.clear();
-                    password.clear();
-                    SnackBar snackbar = new SnackBar(pane);
-                    snackbar.show("Nutzername bereits vorhanden!");
+                if (entityUser.add(user)) {
+                    loginController.getUserName().setText(user.getUserName());
+                    SnackBar snackbar = new SnackBar(loginController.getPane());
+                    stage.close();
+                    snackbar.show("Nutzer wurde erfolgreich hinzugefügt!");
                 }
             } else {
-                username.setStyle("-jfx-text-box-border: #ff4646 ;\n"
-                        + " -jfx-unfocus-color: #ff4646;\n"
-                        + " -jfx-focus-color: #ff4646;");
-                log.error("Not a valid email addess: " + registrationModel.getUsername());
+                username.clear();
+                password.clear();
+                SnackBar snackbar = new SnackBar(pane);
+                snackbar.show("Nutzername bereits vorhanden!");
             }
         });
     }
 
-    private int calculatePasswordStrength(String password) {
-        //total score of password
-        int iPasswordScore = 0;
-
-        if (password.length() < 8) {
-            return 0;
-        } else if (password.length() >= 10) {
-            iPasswordScore += 2;
-        } else {
-            iPasswordScore += 1;
-        }
-        //if it contains one digit, add 2 to total score
-        if (password.matches("(?=.*[0-9]).*")) {
-            iPasswordScore += 2;
-        }
-        //if it contains one lower case letter, add 2 to total score
-        if (password.matches("(?=.*[a-z]).*")) {
-            iPasswordScore += 2;
-        }
-        //if it contains one upper case letter, add 2 to total score
-        if (password.matches("(?=.*[A-Z]).*")) {
-            iPasswordScore += 2;
-        }
-        //if it contains one special character, add 2 to total score
-        if (password.matches("(?=.*[~!@#$%^&*()_-]).*")) {
-            iPasswordScore += 2;
-        }
-        return iPasswordScore;
+    public void backtologin() {
+        stage.close();
     }
 }

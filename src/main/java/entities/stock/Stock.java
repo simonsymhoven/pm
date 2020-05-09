@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.jetbrains.annotations.NotNull;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.UniqueConstraint;
@@ -90,4 +92,5 @@ public class Stock implements Serializable {
     public int hashCode() {
         return getId();
     }
+
 }

@@ -1,6 +1,7 @@
 package controllers.dashboard;
 
 import entities.stock.Stock;
+import javafx.event.ActionEvent;
 import json.JSONReader;
 import snackbar.SnackBar;
 import com.jfoenix.controls.JFXButton;
@@ -43,6 +44,8 @@ import java.util.concurrent.atomic.AtomicReference;
 @Log4j2
 public class DashController implements Initializable {
     @FXML
+    private JFXButton importData;
+    @FXML
     private Label lastUpdateStatus;
     @FXML
     private Label lastUpdateDate;
@@ -56,10 +59,6 @@ public class DashController implements Initializable {
     private Label labelMarkets;
     @FXML
     private Label labelStocks;
-    @FXML
-    private Label counterMarkets;
-    @FXML
-    private Label counterStocks;
     @FXML
     private Label counterClients;
     @FXML
@@ -87,7 +86,7 @@ public class DashController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        name.setText(LoginController.getLoggedUser().getVorname());
+        name.setText("Herzlich Willkommen " + LoginController.getLoggedUser().getVorname());
         updateStock.setOnMouseClicked(mouseEvent -> update());
 
         drawCounters();
@@ -236,7 +235,6 @@ public class DashController implements Initializable {
                 }
             });
             map.forEach((key, value) -> list.add(new PieChart.Data(key, value)));
-            createCounter(list.size(), counterMarkets);
         }
         return FXCollections.observableArrayList(list);
     }
@@ -246,7 +244,6 @@ public class DashController implements Initializable {
         List<PieChart.Data> list = new ArrayList<>();
 
         if (!stocks.isEmpty()) {
-            createCounter(stocks.size(), counterStocks);
             stocks.forEach(stock -> list.add(new PieChart.Data(stock.getSymbol(), stock.getShare())));
         }
 
@@ -282,5 +279,8 @@ public class DashController implements Initializable {
         }));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
+    }
+
+    public void importData() {
     }
 }

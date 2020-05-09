@@ -19,16 +19,11 @@
             <Font size="14.0" />
          </font>
       </Label>
-           <Label layoutX="119.0" layoutY="42.0" prefHeight="26.0" prefWidth="246.0" text="Herzlich Willkommen" textFill="#343f4a">
+           <Label fx:id="name" layoutX="119.0" layoutY="42.0" prefHeight="29.0" prefWidth="514.0" text="Herzlich Willkommen" textFill="#343f4a">
                <font>
                    <Font name="System Bold" size="24.0" />
                </font>
            </Label>
-      <Label fx:id="name" layoutX="373.0" layoutY="42.0" prefHeight="29.0" prefWidth="246.0" textFill="#343f4a">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
          <VBox alignment="TOP_CENTER" prefHeight="708.0" prefWidth="90.0" style="-fx-background-color: #4A6572;">
              <children>
                  <JFXButton id="crudButton" fx:id="updateStock" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" prefHeight="40.0" prefWidth="50.0" ripplerFill="WHITE" stylesheets="@../../fullpackstyling.css">
@@ -48,7 +43,7 @@
                  <Insets top="40.0" />
              </padding>
          </VBox>
-      <Pane layoutX="705.0" layoutY="94.0" prefHeight="155.0" prefWidth="246.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4) dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4);">
+      <Pane layoutX="705.0" layoutY="94.0" prefHeight="155.0" prefWidth="246.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0); -fx-background-radius: 3;">
          <children>
                <Label layoutX="22.0" layoutY="71.0" prefHeight="20.0" prefWidth="206.0" text="Letzte Aktualisierung:" textFill="#4a4747">
                    <font>
@@ -67,7 +62,7 @@
                </Label>
          </children>
       </Pane>
-      <Pane layoutX="119.0" layoutY="94.0" prefHeight="155.0" prefWidth="161.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4);">
+      <Pane layoutX="119.0" layoutY="94.0" prefHeight="155.0" prefWidth="161.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0) dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0); -fx-background-radius: 3;">
          <children>
             <Label layoutX="22.0" layoutY="32.0" text="Clienten" textFill="#383839">
                <font>
@@ -81,7 +76,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="305.0" layoutY="94.0" prefHeight="155.0" prefWidth="373.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4) dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4);">
+      <Pane layoutX="305.0" layoutY="94.0" prefHeight="155.0" prefWidth="373.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0) dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0); -fx-background-radius: 3;">
          <children>
             <Label layoutX="22.0" layoutY="32.0" text="Vermögen" textFill="#383839">
                <font>
@@ -95,7 +90,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="119.0" layoutY="276.0" prefHeight="400.0" prefWidth="399.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4) dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4);">
+      <Pane layoutX="119.0" layoutY="276.0" prefHeight="400.0" prefWidth="399.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0) dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0); -fx-background-radius: 3;">
          <children>
             <Label layoutX="22.0" layoutY="32.0" text="Marktanalyse" textFill="#383839">
                <font>
@@ -108,17 +103,12 @@
                </font></Label>
             <StackPane fx:id="paneMarkets" layoutX="22.0" layoutY="105.0" prefHeight="281.0" prefWidth="356.0">
                <children>
-                  <Label fx:id="counterMarkets" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" prefHeight="196.0" prefWidth="440.0" textAlignment="CENTER" textFill="#343f4a">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
                   <PieChart fx:id="chartMarket" prefHeight="206.0" prefWidth="314.0" />
                </children>
             </StackPane>
          </children>
       </Pane>
-      <Pane layoutX="552.0" layoutY="276.0" prefHeight="400.0" prefWidth="399.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4) dropshadow(three-pass-box, derive( #4A6572, -5%), 10, 0, 4, 4);">
+      <Pane layoutX="552.0" layoutY="276.0" prefHeight="400.0" prefWidth="399.0" style="-fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0) dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0)dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0.0, 0.0); -fx-background-radius: 3;">
          <children>
             <Label layoutX="22.0" layoutY="32.0" text="Musterportfolio" textFill="#383839">
                <font>
@@ -131,11 +121,6 @@
                </font></Label>
             <StackPane fx:id="paneStocks" layoutX="22.0" layoutY="105.0" prefHeight="281.0" prefWidth="356.0">
                <children>
-                  <Label fx:id="counterStocks" alignment="TOP_LEFT" prefHeight="196.0" prefWidth="426.0" textFill="#343f4a">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
                   <PieChart fx:id="chartStocks" prefHeight="214.0" prefWidth="435.0" />
                </children>
             </StackPane>

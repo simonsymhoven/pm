@@ -25,6 +25,7 @@ import sql.EntityStockImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -192,6 +193,7 @@ public class StockController implements Initializable {
         task.setOnRunning(successesEvent -> {
                 pane.setDisable(true);
                 progressBar.setVisible(true);
+                imgView.setImage(null);
         });
 
         task.setOnSucceeded(succeededEvent -> {

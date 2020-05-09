@@ -14,6 +14,8 @@
 
 <AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.login.LoginController">
    <children>
+      <JFXTextField fx:id="userName" labelFloat="true" layoutX="369.0" layoutY="178.0" prefHeight="27.0" prefWidth="222.0" promptText="Benutzername" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
+      <JFXPasswordField fx:id="password" labelFloat="true" layoutX="369.0" layoutY="234.0" prefHeight="27.0" prefWidth="222.0" promptText="Passwort" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
       <VBox prefHeight="476.0" prefWidth="242.0" style="-fx-background-color: #344955;">
          <children>
             <ImageView fitHeight="163.0" fitWidth="243.0" pickOnBounds="true" preserveRatio="true">
@@ -52,8 +54,6 @@
          </image>
       </ImageView>
       <JFXCheckBox fx:id="checkBox" checkedColor="#f9aa33" layoutX="329.0" layoutY="283.0" stylesheets="@../fullpackstyling.css" text="Benutzername speichern" />
-      <JFXPasswordField fx:id="password" labelFloat="true" layoutX="369.0" layoutY="234.0" prefHeight="27.0" prefWidth="222.0" promptText="Passwort" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
-      <JFXTextField fx:id="userName" labelFloat="true" layoutX="369.0" layoutY="178.0" prefHeight="27.0" prefWidth="222.0" promptText="Email" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
       <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="595.0" layoutY="14.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" style="-fx-background-color: #FF6859; -fx-background-radius: 30px; -fx-border-radius: 30px;" text="x" textFill="WHITE">
          <font>
             <Font size="14.0" />

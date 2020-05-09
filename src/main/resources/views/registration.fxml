@@ -3,38 +3,91 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="552.0" prefWidth="332.0" style="-fx-border-color: #343f4a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.login.registration.RegistrationController">
+<AnchorPane fx:id="pane" prefHeight="476.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.login.registration.RegistrationController">
    <children>
-      <Label layoutX="40.0" layoutY="42.0" text="Registrieren" textFill="#343f4a">
+      <JFXTextField fx:id="forename" labelFloat="true" layoutX="369.0" layoutY="178.0" prefHeight="27.0" prefWidth="222.0" promptText="Vorname" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
+      <JFXTextField fx:id="surname" labelFloat="true" layoutX="369.0" layoutY="234.0" prefHeight="27.0" prefWidth="222.0" promptText="Name" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
+      <JFXTextField fx:id="username" labelFloat="true" layoutX="369.0" layoutY="288.0" prefHeight="27.0" prefWidth="222.0" promptText="Benutzername" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
+      <JFXPasswordField fx:id="password" labelFloat="true" layoutX="369.0" layoutY="344.0" prefHeight="27.0" prefWidth="222.0" promptText="Passwort" stylesheets="@../fullpackstyling.css" unFocusColor="#4d4d4d" />
+      <VBox prefHeight="476.0" prefWidth="242.0" style="-fx-background-color: #344955;">
+         <children>
+            <ImageView fitHeight="163.0" fitWidth="243.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo.png" />
+               </image>
+               <VBox.margin>
+                  <Insets top="120.0" />
+               </VBox.margin>
+            </ImageView>
+            <Label prefHeight="44.0" prefWidth="243.0" text="Dr. Thorsten Schmitz Vermögensverwaltung GmbH Co. KG" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Label layoutX="329.0" layoutY="44.0" text="Registrierung" textFill="#33333d">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <JFXButton id="button" fx:id="registration" buttonType="RAISED" layoutX="101.0" layoutY="481.0" onAction="#registrate" prefHeight="27.0" prefWidth="139.0" stylesheets="@../fullpackstyling.css" text="Registrieren">
+      <Label fx:id="messageLabel" layoutX="369.0" layoutY="268.0" prefHeight="18.0" prefWidth="237.0" textFill="#ff4646">
          <font>
-            <Font size="14.0" />
+            <Font size="11.0" />
          </font>
-      </JFXButton>
-      <Separator layoutX="40.0" layoutY="69.0" prefHeight="0.0" prefWidth="257.0" />
-      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="267.0" layoutY="24.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" style="-fx-background-color: #FF6859; -fx-background-radius: 30px; -fx-border-radius: 30px;" text="x" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
-      <JFXTextField fx:id="forename" labelFloat="true" layoutX="74.0" layoutY="249.0" prefHeight="27.0" prefWidth="190.0" promptText="Vorname" stylesheets="@../fullpackstyling.css" />
-      <JFXTextField fx:id="surname" labelFloat="true" layoutX="75.0" layoutY="304.0" prefHeight="27.0" prefWidth="190.0" promptText="Name" stylesheets="@../fullpackstyling.css" />
-      <JFXTextField fx:id="username" labelFloat="true" layoutX="75.0" layoutY="356.0" prefHeight="27.0" prefWidth="190.0" promptText="Email" stylesheets="@../fullpackstyling.css" />
-      <JFXPasswordField fx:id="password" layoutX="75.0" layoutY="413.0" prefHeight="27.0" prefWidth="190.0" promptText="Passwort" stylesheets="@../fullpackstyling.css" />
-      <ImageView fx:id="profilePicture" fitHeight="106.0" fitWidth="106.0" layoutX="116.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+      </Label>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="329.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/profile.png" />
-         </image></ImageView>
+            <Image url="@../icons/vorname.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="344.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/nachname.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="close" buttonType="RAISED" cancelButton="true" layoutX="595.0" layoutY="14.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" style="-fx-background-color: #FF6859; -fx-background-radius: 30px; -fx-border-radius: 30px;" text="x" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <VBox alignment="TOP_CENTER" layoutX="243.0" prefHeight="476.0" prefWidth="70.0" style="-fx-background-color: #4A6572;">
+         <children>
+            <JFXButton id="crudButton" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#backtologin" prefHeight="40.0" prefWidth="50.0" ripplerFill="WHITE" stylesheets="@../fullpackstyling.css">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/baseline_exit_to_app_white_48dp.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </JFXButton>
+         </children>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
+      </VBox>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="329.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/output-onlinepngtools-2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="329.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/output-onlinepngtools.png" />
+         </image>
+      </ImageView>
+
    </children>
 </AnchorPane>
