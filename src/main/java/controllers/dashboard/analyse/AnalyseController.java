@@ -49,6 +49,7 @@ public class AnalyseController implements Initializable {
     private EntityPortfolioAlternativeImpl entityPortfolioAlternative;
     private String successColor = "-fx-background-color: #BFFF00";
     private String  errorColor = "-fx-background-color: #FF4646";
+    private double toleranz = 2.0;
 
     public AnalyseController() {
         this.entityClient = new EntityClientImpl();
@@ -180,7 +181,10 @@ public class AnalyseController implements Initializable {
                 if (item != null || !empty) {
                     setText(item);
                     TreeItem<TableItem> tableItem = getTreeTableView().getTreeItem(getIndex());
-                    if (tableItem.getValue().getLiquidityShare().getValue().equals(tableItem.getValue().getLiquidityStrategy().getValue())) {
+                    double soll = Double.parseDouble(tableItem.getValue().getLiquidityStrategy().getValue().replace(",", ".").replace(" %", ""));
+                    double ist = Double.parseDouble(tableItem.getValue().getLiquidityShare().getValue().replace(",", ".").replace(" %", ""));
+
+                    if (ist >= soll - toleranz && ist <= soll + toleranz) {
                         setStyle(successColor);
                     } else {
                         setStyle(errorColor);
@@ -198,7 +202,10 @@ public class AnalyseController implements Initializable {
                 if (item != null && !empty) {
                     setText(item);
                     TreeItem<TableItem> tableItem = getTreeTableView().getTreeItem(getIndex());
-                    if (tableItem.getValue().getIoanShare().getValue().equals(tableItem.getValue().getIoanStrategy().getValue())) {
+                    double soll = Double.parseDouble(tableItem.getValue().getIoanStrategy().getValue().replace(",", ".").replace(" %", ""));
+                    double ist = Double.parseDouble(tableItem.getValue().getIoanShare().getValue().replace(",", ".").replace(" %", ""));
+
+                    if (ist >= soll - toleranz && ist <= soll + toleranz) {
                         setStyle(successColor);
                     } else {
                         setStyle(errorColor);
@@ -216,7 +223,11 @@ public class AnalyseController implements Initializable {
                 if (item != null && !empty) {
                     setText(item);
                     TreeItem<TableItem> tableItem = getTreeTableView().getTreeItem(getIndex());
-                    if (tableItem.getValue().getAlternativeShare().getValue().equals(tableItem.getValue().getAlternativeStrategy().getValue())) {
+
+                    double soll = Double.parseDouble(tableItem.getValue().getAlternativeStrategy().getValue().replace(",", ".").replace(" %", ""));
+                    double ist = Double.parseDouble(tableItem.getValue().getAlternativeShare().getValue().replace(",", ".").replace(" %", ""));
+
+                    if (ist >= soll - toleranz && ist <= soll + toleranz) {
                         setStyle(successColor);
                     } else {
                         setStyle(errorColor);
@@ -234,8 +245,10 @@ public class AnalyseController implements Initializable {
                 if (item != null && !empty) {
                     setText(item);
                     TreeItem<TableItem> tableItem = getTreeTableView().getTreeItem(getIndex());
-                    if (tableItem.getValue().getStockShare().getValue().equals(
-                            tableItem.getValue().getStockStrategy().getValue())) {
+                    double soll = Double.parseDouble(tableItem.getValue().getStockStrategy().getValue().replace(",", ".").replace(" %", ""));
+                    double ist = Double.parseDouble(tableItem.getValue().getStockShare().getValue().replace(",", ".").replace(" %", ""));
+
+                    if (ist >= soll - toleranz && ist <= soll + toleranz) {
                         setStyle(successColor);
                     } else {
                         setStyle(errorColor);
